@@ -1,5 +1,5 @@
 import { Component, OnInit, Injector, ViewChild, OnDestroy } from '@angular/core';
-import { FormGroup, NgModel } from '@angular/forms';
+import { FormGroup, NgModel, FormControl } from '@angular/forms';
 import { BaseReactiveComponent } from 'my-component-library';
 
 @Component({
@@ -9,7 +9,7 @@ import { BaseReactiveComponent } from 'my-component-library';
 })
 export class DashboardComponent extends BaseReactiveComponent implements OnInit, OnDestroy {
 
-  dashboardForm;
+  dashboardForm: FormGroup;
 
   validationRules;
   @ViewChild('formDir') formObj: NgModel;
@@ -19,6 +19,10 @@ export class DashboardComponent extends BaseReactiveComponent implements OnInit,
   }
 
   ngOnInit() {
+    this.dashboardForm = new FormGroup({
+      name: new FormControl(),
+      description: new FormControl()
+    });
   }
 
   ngOnDestroy(): void {

@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "^5.2.3",
     "@angular/router": "^5.2.3",
     "core-js": "^2.4.1",
-    "my-component-library": "file:///home/bkane/svn/code/angular/my-component-library/my-component-library-0.0.0.tgz",
+    "my-component-library": "0.0.0",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
