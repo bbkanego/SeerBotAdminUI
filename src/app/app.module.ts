@@ -1,18 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
-
+import { CommonUtilsModule, NotificationService, AuthenticationService, CommonService} from 'my-component-library';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule, CommonUtilsModule, DashboardModule, HttpModule
   ],
-  providers: [],
+  providers: [NotificationService, AuthenticationService, CommonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
