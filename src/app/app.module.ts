@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { CommonUtilsModule, NotificationService, AuthenticationService, CommonService} from 'my-component-library';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { HttpModule } from '@angular/http';
+import * as $ from 'jquery';
 
 @NgModule({
   declarations: [

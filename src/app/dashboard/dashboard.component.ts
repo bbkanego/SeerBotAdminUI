@@ -1,6 +1,6 @@
 import { Component, OnInit, Injector, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, NgModel, FormControl } from '@angular/forms';
-import { BaseReactiveComponent } from 'my-component-library';
+import { BaseReactiveComponent, CustomFormControl } from 'my-component-library';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,8 +20,8 @@ export class DashboardComponent extends BaseReactiveComponent implements OnInit,
 
   ngOnInit() {
     this.dashboardForm = new FormGroup({
-      name: new FormControl(),
-      description: new FormControl()
+      name: new CustomFormControl(),
+      description: new CustomFormControl()
     });
   }
 

@@ -1,14 +1,51 @@
 <!doctype html>
-<html lang="en">
+<html>
+
 <head>
   <meta charset="utf-8">
-  <title>ChatAdmin</title>
+  <title>EventGenie!</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    .loadingContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .loadingItem {
+      border: 1px solid #555555;
+      background-color: transparent;
+      border-radius: 5px;
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.2em;
+      line-height: 4em;
+      white-space: nowrap;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      width: 250px;
+      height: 80px;
+    }
+
+    .fast-spin {
+      -webkit-animation: fa-spin 2s infinite linear;
+      animation: fa-spin 2s infinite linear;
+    }
+  </style>
 </head>
+
 <body>
-  <app-root></app-root>
+    <app-root></app-root>
 </body>
+<script>
+  function myFunction() {
+    return "Write something clever here...";
+  }
+</script>
+
 </html>
