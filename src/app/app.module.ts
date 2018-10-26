@@ -4,15 +4,15 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CommonUtilsModule, NotificationService, AuthenticationService, CommonService} from 'my-component-library';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { HttpModule } from '@angular/http';
-import * as $ from 'jquery';
+import { AppRoutingModule } from './app-routing.module';
+import { CommonComponentModule } from './common/commonComp.module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule, CommonUtilsModule, DashboardModule, HttpModule
+    BrowserModule, CommonComponentModule, CommonUtilsModule, DashboardModule, AppRoutingModule
   ],
   providers: [NotificationService, AuthenticationService, CommonService],
   bootstrap: [AppComponent]
