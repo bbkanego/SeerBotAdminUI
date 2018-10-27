@@ -6,6 +6,7 @@ import { CommonUtilsModule, NotificationService, AuthenticationService, CommonSe
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonComponentModule } from './common/commonComp.module';
+import { IntentService } from './admin/service/intent.service';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { CommonComponentModule } from './common/commonComp.module';
   imports: [
     BrowserModule, CommonComponentModule, CommonUtilsModule, DashboardModule, AppRoutingModule
   ],
-  providers: [NotificationService, AuthenticationService, CommonService],
+  providers: [NotificationService, AuthenticationService, CommonService, IntentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,28 @@
+<div class='container-fluid'>
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="page-header">Maintain Bot</h1>
+    </div>
+  </div>
+  <form [formGroup]='dashboardForm' (ngSubmit)='onSubmit($event)' #formDir="ngForm" novalidate>
+    <div class='row'>
+      <div class='col-sm-12'>
+        <div class="table-box tp-10margin">
+          <div class="header">
+            Maintain Event
+          </div>
+          <div class="content padded">
+            <div class='row'>
+              <div class="col-lg-6 col-sm-12">
+                <bk-input [currentForm]='formDir' label='Name' currentFormControlName='name'></bk-input>
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <bk-input [currentForm]='formDir' label='Enter Details' currentFormControlName='description'></bk-input>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

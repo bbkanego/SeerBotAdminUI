@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  onActivate(eventObj) {
+
+  }
+
+  onDeactivate(eventObj) {
+
+  }
 }

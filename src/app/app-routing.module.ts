@@ -22,7 +22,7 @@ const ROUTES: Routes = [
   {
     path: '**',
     loadChildren:
-      'app/component/page-not-found/pageNotFound.module#PageNotFoundModule'
+      './common/commonComp.module#CommonComponentModule'
   }
 ];
 

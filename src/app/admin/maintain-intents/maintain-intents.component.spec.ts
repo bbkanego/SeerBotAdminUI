@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminComponent } from './admin.component';
+import { MaintainIntentsComponent } from './maintain-intents.component';
 
-describe('AdminComponent', () => {
-  let component: AdminComponent;
-  let fixture: ComponentFixture<AdminComponent>;
+describe('MaintainIntentsComponent', () => {
+  let component: MaintainIntentsComponent;
+  let fixture: ComponentFixture<MaintainIntentsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminComponent ]
+      declarations: [ MaintainIntentsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminComponent);
+    fixture = TestBed.createComponent(MaintainIntentsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
