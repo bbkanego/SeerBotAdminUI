@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from 'my-component-library';
+import { IntentService } from '../../service/intent.service';
 
 @Component({
   selector: 'app-maintain-intents',
@@ -8,7 +9,7 @@ import {HttpClient} from 'my-component-library';
 })
 export class MaintainIntentsComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private intentService: IntentService) { }
 
   ngOnInit() {
     // this.httpClient.get()

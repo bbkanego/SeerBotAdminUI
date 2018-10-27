@@ -15,6 +15,7 @@ export class MaintainBotComponent extends BaseReactiveComponent implements OnIni
 
   validationRules;
   @ViewChild('formDir') formObj: NgModel;
+  createButtonLabel = 'Create Bot';
 
   constructor(injector: Injector, private activatedRoute: ActivatedRoute, private router: Router) {
     super(injector);

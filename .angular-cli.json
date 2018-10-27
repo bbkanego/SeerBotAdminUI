@@ -28,11 +28,11 @@
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js"
       ],
-
-      "environmentSource": "environments/environment.ts",
+      "environmentSource": "app/environments/environment.ts",
       "environments": {
-        "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
+        "dev": "app/environments/environment.ts",
+        "prod": "app/environments/environment.prod.ts",
+        "qa": "app/environments/environment.qa.ts"
       }
     }
   ],
