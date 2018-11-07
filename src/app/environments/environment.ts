@@ -9,5 +9,5 @@
 export const environment = {
   production: false,
   envName: 'dev',
-  ALL_INTENTS : 'http://localhost:8080/webflow/api/heroes',
+  ALL_INTENTS : 'http://localhost:8084/chatnlp/api/intents',
 };

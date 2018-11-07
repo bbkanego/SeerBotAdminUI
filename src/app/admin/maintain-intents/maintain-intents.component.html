@@ -1,5 +1,29 @@
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Maintain Intents</h1>
+        <!-- {{allIntents['intentsToUtterance'] | json}} -->
+        {{intentsForm}}
+
+
+        <form [formGroup]='intentsForm' (ngSubmit)='onSubmit($event)' #formDir="ngForm" novalidate>
+            <div class="row" *ngIf="createNewEvent" [formGroup]="intentsForm.get('intentsToUtterance')">
+                <div class="form-group col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <bk-input [currentForm]='formDir' [currentFormGroup]="bookingForm.get('intentsToUtterance')" label='{{commonService.messages["label.name"]}}'
+                                currentFormControlName='name' validationRule='booking_rule'></bk-input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='row'>
+                <div style='margin-bottom: 1em' class='col-sm-12'>
+                    <bk-button intent='success' [currentForm]='formDir' type='submit' [label]='createButtonLabel'></bk-button>
+                    <bk-button intent='warning' label='Revert'></bk-button>&nbsp;
+                    <bk-button intent='danger' label='Cancel'></bk-button>
+                </div>
+            </div>
+        </form>
+
+
     </div>
 </div>
