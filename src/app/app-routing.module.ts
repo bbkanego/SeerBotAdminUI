@@ -1,17 +1,25 @@
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthenticationComponent } from './component/authentication/authentication.component';
+import { LogoutGuard } from './guard/logout.guard';
+import { AuthGuard } from './guard/auth.guard';
 
 const ROUTES: Routes = [
   {
+    path: 'login',
+    component: AuthenticationComponent,
+    canActivate: [LogoutGuard]
+  },
+  {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: []
+    canActivate: [AuthGuard]
   },
   {
     path: 'admin',
-    loadChildren: './admin/admin.module#AdminModule',
-    canActivate: []
+    loadChildren: './component/admin/admin.module#AdminModule',
+    canActivate: [AuthGuard]
   },
   {
     // This is default route. this will automatically redirect the user to dashboard if the context path is "/"
@@ -21,8 +29,7 @@ const ROUTES: Routes = [
   },
   {
     path: '**',
-    loadChildren:
-      './common/commonComp.module#CommonComponentModule'
+    loadChildren: './component/common/commonComp.module#CommonComponentModule'
   }
 ];
 

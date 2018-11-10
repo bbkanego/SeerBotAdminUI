@@ -1,5 +1,5 @@
 import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
-import { IntentService } from '../../service/intent.service';
+import { IntentService } from '../../../service/intent.service';
 import { BaseReactiveComponent } from 'my-component-library';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
