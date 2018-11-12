@@ -4,7 +4,7 @@
       <h1 class="page-header">Maintain Bot</h1>
     </div>
   </div>
-  <form [formGroup]='dashboardForm' (ngSubmit)='onSubmit($event)' #formDir="ngForm" novalidate>
+  <form *ngIf='botForm' [formGroup]='botForm' (ngSubmit)='onSubmit($event)' #formDir="ngForm" novalidate>
     <div class='row'>
       <div class='col-sm-12'>
         <div class="table-box tp-10margin">
@@ -31,5 +31,6 @@
         <bk-button intent='danger' label='Cancel'></bk-button>
       </div>
     </div>
+    {{botForm.value | json}}
   </form>
 </div>

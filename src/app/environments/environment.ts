@@ -10,8 +10,9 @@ export const environment = {
   production: false,
   envName: 'dev',
   ALL_INTENTS : 'http://localhost:8084/chatnlp/api/intents',
-  INIT_BOT: 'http://localhost:8091/api/v1/chatbot/init',
+  INIT_BOT: 'http://localhost:8091/api/v1/chatbot/init/',
   SAVE_BOT: 'http://localhost:8091/api/v1/chatbot',
   ALL_MESSAGES_URL: '',
-  LOGIN_URL: 'http://localhost:8091/api/v1/auth/generate-token'
+  LOGIN_URL: 'http://localhost:8091/api/v1/auth/generate-token',
+  VALIDATION_METADATA_URL: ''
 };

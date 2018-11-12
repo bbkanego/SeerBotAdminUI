@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewChild, Injector, OnDestroy } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, NgModel } from '@angular/forms';
-import { CustomFormControl } from 'my-component-library';
+import { ActivatedRoute, UrlSegment } from '@angular/router';
 import { BaseReactiveComponent } from 'my-component-library';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+
+import { BotService } from '../../../service/bot.service';
+import { BotCommonService } from '../../../service/common.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-maintain-bot',
@@ -11,35 +14,61 @@ import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 })
 export class MaintainBotComponent extends BaseReactiveComponent implements OnInit, OnDestroy {
 
-  dashboardForm: FormGroup;
+  botForm: FormGroup;
+  private botModel;
+  private validationRules;
 
-  validationRules;
   @ViewChild('formDir') formObj: NgModel;
   createButtonLabel = 'Create Bot';
+  validationRuleSubscription: Subscription;
 
-  constructor(injector: Injector, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(injector: Injector, private activatedRoute: ActivatedRoute,
+    private botService: BotService, private botCommonService: BotCommonService) {
     super(injector);
   }
 
-  ngOnInit() {
-    this.dashboardForm = new FormGroup({
-      name: new CustomFormControl(),
-      description: new CustomFormControl()
-    });
+  private createForm(): void {
+    this.botForm = this.autoGenFormGroup(
+      this.botModel,
+      this.validationRules
+    );
+  }
 
+  ngOnInit() {
     this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
       const path = urlSegment.join('/');
-      this.initComponent(path);
-      if (path.indexOf('detail') > -1) {
+      if (path.indexOf('add-bot') > -1) {
+
+        this.validationRuleSubscription = this.validationService
+        .getValidationRuleMetadata('validateBotRule').subscribe(rules => {
+
+        });
+
+
+
+        this.botService.initModelByType('chat_bot').subscribe((model) => {
+          this.botModel = model;
+          this.initComponent(path);
+        });
         this.enableBackButton();
       }
     });
   }
 
   private initComponent(path: string): void {
-    console.log('EventComponent path is = ' + path);
+    this.createForm();
   }
 
   ngOnDestroy(): void {
+  }
+
+  onSubmit(eventObj) {
+
+  }
+
+  revert() {
+    if (this.botModel) {
+      this.createForm();
+    }
   }
 }
