@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService, NotificationService, SUBSCRIBER_TYPES } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
@@ -6,12 +6,12 @@ import { Subscription } from 'rxjs/Subscription';
 import { BotAuthenticationService } from './service/authentication.service';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  title = "app";
+export class AppComponent implements OnInit, OnDestroy {
+  title = 'app';
   showAuthenticatedItems: boolean;
   loginSubscription: Subscription;
 
@@ -28,6 +28,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.showAuthenticatedItems = false;
+
+    // this will be called when the user refreshes the page.
+    if (this.isLoggedIn()) {
+      this.showAuthenticatedItems = true;
+      this.commonService.getMessages();
+    }
+
     this.loginSubscription = this.notificationService
       .onNotification()
       .subscribe((data: any) => {
@@ -39,6 +46,8 @@ export class AppComponent implements OnInit {
             }
           } else if (SUBSCRIBER_TYPES.NETWORK_ERROR === data.subscriberType) {
             this.showNetworkErrorDialog(data);
+          } else if (SUBSCRIBER_TYPES.FORCE_LOGOUT === data.subscriberType) {
+            this.logout();
           }
         },
         error => console.log(error)
@@ -55,6 +64,12 @@ export class AppComponent implements OnInit {
 
   logout(): void {
     this.authenticationService.logout();
-    this.router.navigate(["/login"]);
+    this.router.navigate(['/login']);
+  }
+
+  ngOnDestroy() {
+    if (this.loginSubscription) {
+      this.loginSubscription.unsubscribe();
+    }
   }
 }

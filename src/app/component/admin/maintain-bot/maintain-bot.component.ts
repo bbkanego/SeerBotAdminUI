@@ -1,7 +1,7 @@
 import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, NgModel } from '@angular/forms';
 import { ActivatedRoute, UrlSegment } from '@angular/router';
-import { BaseReactiveComponent } from 'my-component-library';
+import { BaseReactiveComponent, SUBSCRIBER_TYPES } from 'my-component-library';
 
 import { BotService } from '../../../service/bot.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -64,6 +64,8 @@ export class MaintainBotComponent extends BaseReactiveComponent implements OnIni
   revert() {
     if (this.botModel) {
       this.createForm();
+      this.notificationService.notifyAny(this.botForm, SUBSCRIBER_TYPES.FORM_GROUP_RESET, 
+                SUBSCRIBER_TYPES.FORM_GROUP_RESET);
     }
   }
 }

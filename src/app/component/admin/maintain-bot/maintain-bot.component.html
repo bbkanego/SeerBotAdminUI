@@ -14,10 +14,11 @@
           <div class="content padded">
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
-                <bk-input [currentForm]='formDir' label='Name' currentFormControlName='name'></bk-input>
+                <app-bk-input [currentForm]='formDir' label='Name' currentFormControlName='name'></app-bk-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <bk-input [currentForm]='formDir' label='Enter Details' currentFormControlName='description'></bk-input>
+                <app-bk-textarea [currentForm]='formDir' label='Enter Details' 
+                      currentFormControlName='description'></app-bk-textarea>
               </div>
             </div>
           </div>
@@ -27,7 +28,7 @@
     <div class='row'>
       <div style='margin-bottom: 1em' class='col-sm-12'>
         <bk-button intent='success' [currentForm]='formDir' type='submit' [label]='createButtonLabel'></bk-button>
-        <bk-button intent='warning' label='Revert'></bk-button>&nbsp;
+        <bk-button intent='warning' (click)="revert()" label='Revert'></bk-button>&nbsp;
         <bk-button intent='danger' label='Cancel'></bk-button>
       </div>
     </div>
