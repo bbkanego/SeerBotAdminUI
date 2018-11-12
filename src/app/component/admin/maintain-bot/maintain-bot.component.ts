@@ -4,7 +4,6 @@ import { ActivatedRoute, UrlSegment } from '@angular/router';
 import { BaseReactiveComponent } from 'my-component-library';
 
 import { BotService } from '../../../service/bot.service';
-import { BotCommonService } from '../../../service/common.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -23,7 +22,7 @@ export class MaintainBotComponent extends BaseReactiveComponent implements OnIni
   validationRuleSubscription: Subscription;
 
   constructor(injector: Injector, private activatedRoute: ActivatedRoute,
-    private botService: BotService, private botCommonService: BotCommonService) {
+    private botService: BotService) {
     super(injector);
   }
 
@@ -38,17 +37,13 @@ export class MaintainBotComponent extends BaseReactiveComponent implements OnIni
     this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
       const path = urlSegment.join('/');
       if (path.indexOf('add-bot') > -1) {
-
         this.validationRuleSubscription = this.validationService
         .getValidationRuleMetadata('validateBotRule').subscribe(rules => {
-
-        });
-
-
-
-        this.botService.initModelByType('chat_bot').subscribe((model) => {
-          this.botModel = model;
-          this.initComponent(path);
+          this.validationRules = rules;
+          this.botService.initModelByType('chat_bot').subscribe((model) => {
+            this.botModel = model;
+            this.initComponent(path);
+          });
         });
         this.enableBackButton();
       }

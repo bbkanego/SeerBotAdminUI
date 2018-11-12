@@ -9,9 +9,9 @@ import { CommonComponentModule } from './component/common/commonComp.module';
 import { IntentService } from './service/intent.service';
 import { AuthenticationModule } from './component/authentication/authentication.module';
 import { BotAuthenticationService } from './service/authentication.service';
-import { BotCommonService } from './service/common.service';
 import { AuthGuard } from './guard/auth.guard';
 import { LogoutGuard } from './guard/logout.guard';
+import { environment } from './environments/environment';
 
 @NgModule({
   declarations: [
@@ -21,8 +21,9 @@ import { LogoutGuard } from './guard/logout.guard';
     BrowserModule, CommonComponentModule, CommonUtilsModule, DashboardModule,
     AppRoutingModule, AuthenticationModule
   ],
-  providers: [NotificationService, BotAuthenticationService, AuthenticationService, BotCommonService,
-    CommonService, IntentService, ValidationService, AuthGuard, LogoutGuard],
+  providers: [NotificationService, BotAuthenticationService, AuthenticationService,
+    CommonService, IntentService, ValidationService, AuthGuard, LogoutGuard,
+    {provide: 'environment', useValue: environment}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

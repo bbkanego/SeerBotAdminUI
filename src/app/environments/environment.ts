@@ -12,7 +12,7 @@ export const environment = {
   ALL_INTENTS : 'http://localhost:8084/chatnlp/api/intents',
   INIT_BOT: 'http://localhost:8091/api/v1/chatbot/init/',
   SAVE_BOT: 'http://localhost:8091/api/v1/chatbot',
-  ALL_MESSAGES_URL: '',
+  ALL_MESSAGES_URL: 'http://localhost:8091/metadata/messages',
   LOGIN_URL: 'http://localhost:8091/api/v1/auth/generate-token',
-  VALIDATION_METADATA_URL: ''
+  VALIDATION_METADATA_URL: 'http://localhost:8091/metadata/validation'
 };
