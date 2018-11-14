@@ -1,7 +1,7 @@
 import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, NgModel } from '@angular/forms';
 import { ActivatedRoute, UrlSegment } from '@angular/router';
-import { BaseReactiveComponent, SUBSCRIBER_TYPES } from 'my-component-library';
+import { BaseReactiveComponent, SUBSCRIBER_TYPES, Option } from 'my-component-library';
 
 import { BotService } from '../../../service/bot.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -21,6 +21,9 @@ export class MaintainBotComponent extends BaseReactiveComponent implements OnIni
   createButtonLabel = 'Create Bot';
   validationRuleSubscription: Subscription;
 
+  language: Option[] = [];
+  category: Option[] = [];
+
   constructor(injector: Injector, private activatedRoute: ActivatedRoute,
     private botService: BotService) {
     super(injector);
@@ -31,6 +34,14 @@ export class MaintainBotComponent extends BaseReactiveComponent implements OnIni
       this.botModel,
       this.validationRules
     );
+    this.language.push(new Option('', 'None'));
+    for (const entry of this.botModel.referenceData.languages) {
+      this.language.push(new Option(entry.code, entry.name));
+    }
+    this.category.push(new Option('', 'None'));
+    for (const entry of this.botModel.referenceData.categories) {
+      this.category.push(new Option(entry.code, entry.name));
+    }
   }
 
   ngOnInit() {
@@ -58,7 +69,11 @@ export class MaintainBotComponent extends BaseReactiveComponent implements OnIni
   }
 
   onSubmit(eventObj) {
+    if (this.botForm.invalid) {
 
+    } else {
+      this.botService.save(this.botForm.value).subscribe();
+    }
   }
 
   revert() {

@@ -21,6 +21,16 @@
                       currentFormControlName='description'></app-bk-textarea>
               </div>
             </div>
+            <div class='row'>
+              <div class="col-lg-6 col-sm-12">
+                <app-bk-select [currentForm]='formDir' label='Supported Languages' 
+                    currentFormControlName='supportedLanguages' [options]='language'></app-bk-select>
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <app-bk-select [currentForm]='formDir' label='Category' 
+                    currentFormControlName='category' [options]='category'></app-bk-select>
+              </div>
+            </div>
           </div>
         </div>
       </div>

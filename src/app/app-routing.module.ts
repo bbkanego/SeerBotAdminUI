@@ -29,7 +29,8 @@ const ROUTES: Routes = [
   },
   {
     path: '**',
-    loadChildren: './component/common/commonComp.module#CommonComponentModule'
+    redirectTo: '/dashboard',
+    pathMatch: 'full'
   }
 ];
 

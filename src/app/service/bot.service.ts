@@ -20,7 +20,7 @@ export class BotService extends CrudService<any> {
     }
 
     public save(model: any): Observable<any> {
-        return this.postRequest(environment.ALL_INTENTS, model);
+        return this.postRequest(environment.SAVE_BOT, model);
     }
 
     public delete(id: string): Observable<any> {
