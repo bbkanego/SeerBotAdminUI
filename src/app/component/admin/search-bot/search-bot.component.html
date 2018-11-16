@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12"><h1 class="page-header">Search Bots</h1></div>
+  </div>
+  <div class="row">
+      <div class="col-sm-12">
+        <bk-datatable [records]="botResults" #bkTop5Heroes smallDeviceHeader="Top 5 Heroes" pageSize="6">
+            <bk-column header="Name" sort="true" field="name"></bk-column>
+            <bk-column header="Display Name" sort="true" field="displayName"></bk-column>
+            <bk-column header="Description" sort="true" field="description"></bk-column>
+            <bk-column header="Type" sort="true" field="category">
+                <ng-template let-col="column" let-cat="rowData" let-index="rowIndex" bkTemplate="body">
+                    {{cat.name}}
+                  </ng-template>
+            </bk-column>
+        </bk-datatable>
+      </div>
+    </div>
+</div>

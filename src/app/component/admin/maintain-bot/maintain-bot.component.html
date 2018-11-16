@@ -17,18 +17,18 @@
                 <app-bk-input [currentForm]='formDir' label='Name' currentFormControlName='name'></app-bk-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-textarea [currentForm]='formDir' label='Enter Details' 
-                      currentFormControlName='description'></app-bk-textarea>
+                <app-bk-input [currentForm]='formDir' label='Display Name' 
+                      currentFormControlName='displayName'></app-bk-input>
               </div>
             </div>
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-select [currentForm]='formDir' label='Supported Languages' 
-                    currentFormControlName='supportedLanguages' [options]='language'></app-bk-select>
-              </div>
-              <div class="col-lg-6 col-sm-12">
                 <app-bk-select [currentForm]='formDir' label='Category' 
                     currentFormControlName='category' [options]='category'></app-bk-select>
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                  <app-bk-textarea [currentForm]='formDir' label='Enter Details' 
+                    currentFormControlName='description'></app-bk-textarea>
               </div>
             </div>
           </div>
@@ -39,9 +39,10 @@
       <div style='margin-bottom: 1em' class='col-sm-12'>
         <bk-button intent='success' [currentForm]='formDir' type='submit' [label]='createButtonLabel'></bk-button>
         <bk-button intent='warning' (click)="revert()" label='Revert'></bk-button>&nbsp;
-        <bk-button intent='danger' label='Cancel'></bk-button>
+        <bk-button intent='danger' (click)="cancel()" label='Cancel'></bk-button>
       </div>
     </div>
+    {{botForm.valid}}
     {{botForm.value | json}}
   </form>
 </div>

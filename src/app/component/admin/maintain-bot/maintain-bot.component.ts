@@ -1,10 +1,10 @@
 import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, NgModel } from '@angular/forms';
-import { ActivatedRoute, UrlSegment } from '@angular/router';
-import { BaseReactiveComponent, SUBSCRIBER_TYPES, Option } from 'my-component-library';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { BaseReactiveComponent, Option, SUBSCRIBER_TYPES } from 'my-component-library';
+import { Subscription } from 'rxjs/Subscription';
 
 import { BotService } from '../../../service/bot.service';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-maintain-bot',
@@ -21,11 +21,10 @@ export class MaintainBotComponent extends BaseReactiveComponent implements OnIni
   createButtonLabel = 'Create Bot';
   validationRuleSubscription: Subscription;
 
-  language: Option[] = [];
   category: Option[] = [];
 
   constructor(injector: Injector, private activatedRoute: ActivatedRoute,
-    private botService: BotService) {
+    private botService: BotService, private router: Router) {
     super(injector);
   }
 
@@ -34,14 +33,6 @@ export class MaintainBotComponent extends BaseReactiveComponent implements OnIni
       this.botModel,
       this.validationRules
     );
-    this.language.push(new Option('', 'None'));
-    for (const entry of this.botModel.referenceData.languages) {
-      this.language.push(new Option(entry.code, entry.name));
-    }
-    this.category.push(new Option('', 'None'));
-    for (const entry of this.botModel.referenceData.categories) {
-      this.category.push(new Option(entry.code, entry.name));
-    }
   }
 
   ngOnInit() {
@@ -63,6 +54,11 @@ export class MaintainBotComponent extends BaseReactiveComponent implements OnIni
 
   private initComponent(path: string): void {
     this.createForm();
+
+    this.category.push(new Option('', 'None'));
+    for (const entry of this.botModel.referenceData.categories) {
+      this.category.push(new Option(entry.code, entry.name));
+    }
   }
 
   ngOnDestroy(): void {
@@ -72,8 +68,20 @@ export class MaintainBotComponent extends BaseReactiveComponent implements OnIni
     if (this.botForm.invalid) {
 
     } else {
-      this.botService.save(this.botForm.value).subscribe();
+      const selectedCat = this.botForm.get('category').value;
+      const targetCat = this.botModel.referenceData.categories.filter(element => element.code === selectedCat);
+      this.botForm.get('category').setValue(targetCat[0]);
+      const enLang = this.botModel.referenceData.languages.filter(element => element.code === 'en');
+      const finalModel = this.botForm.value;
+      finalModel.supportedLanguages.push(enLang[0]);
+      this.botService.save(finalModel).subscribe(res => {
+        this.router.navigate(['/dashboard']);
+      });
     }
+  }
+
+  cancel() {
+    this.router.navigate(['/dashboard']);
   }
 
   revert() {

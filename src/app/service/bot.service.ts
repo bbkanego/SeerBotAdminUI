@@ -36,6 +36,6 @@ export class BotService extends CrudService<any> {
     }
 
     public getAll(): Observable<any[]> {
-        return this.getRequest(environment.ALL_INTENTS);
+        return this.getRequest(environment.ALL_BOTS);
     }
 }

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import { MaintainBotComponent } from './maintain-bot/maintain-bot.component';
 import { MaintainIntentsComponent } from './maintain-intents/maintain-intents.component';
+import { SearchBotComponent } from './search-bot/search-bot.component';
 
 const routes: Routes = [
     {
@@ -22,6 +23,28 @@ const routes: Routes = [
     {
         path: 'edit-bot',
         component: MaintainBotComponent
+    },
+    {
+        path: 'search-bot',
+        component: SearchBotComponent,
+        children: [
+            {
+                path: 'all',
+                component: SearchBotComponent
+            },
+            {
+                path: 'criteria',
+                component: SearchBotComponent
+            },
+            {
+                path: 'search',
+                component: SearchBotComponent
+            },
+            {
+                path: 'clear-criteria',
+                component: SearchBotComponent
+            }
+        ]
     },
     {
         path: 'maintain-intents',

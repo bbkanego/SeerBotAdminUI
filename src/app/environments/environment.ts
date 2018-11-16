@@ -11,6 +11,7 @@ export const environment = {
   envName: 'dev',
   ALL_INTENTS : 'http://localhost:8084/chatnlp/api/intents',
   INIT_BOT: 'http://localhost:8091/api/v1/chatbot/init/',
+  ALL_BOTS: 'http://localhost:8091/api/v1/chatbot',
   SAVE_BOT: 'http://localhost:8091/api/v1/chatbot',
   ALL_MESSAGES_URL: 'http://localhost:8091/metadata/messages',
   LOGIN_URL: 'http://localhost:8091/api/v1/auth/generate-token',
