@@ -8,13 +8,13 @@
   </div>
   <div class='row'>
     <div class='col-sm-12'>
-      <bk-datatable [records]='botResults' #bkTop5Heroes smallDeviceHeader='Top 5 Heroes' pageSize='6'>
-        <bk-column header='Name' sort='true' field='name'></bk-column>
-        <bk-column header='Display Name' sort='true' field='displayName'></bk-column>
-        <bk-column header='Description' sort='true' field='description'></bk-column>
+      <bk-datatable [records]='intentsResults' #bkTop5Heroes smallDeviceHeader='Top 5 Heroes' pageSize='6'>
+        <bk-column header='Intent' sort='true' field='intent'></bk-column>
+        <bk-column header='Utterance' sort='true' field='utterance'></bk-column>
         <bk-column header='Type' sort='true' field='category'>
-          <ng-template let-col='column' let-cat='rowData' let-index='rowIndex' bkTemplate='body'>
-            {{cat.name}}
+          <ng-template let-col='column' let-cat='rowData' 
+                  let-index='rowIndex' bkTemplate='body'>
+            {{cat.category.name}}
           </ng-template>
         </bk-column>
       </bk-datatable>
