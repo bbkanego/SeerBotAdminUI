@@ -10,11 +10,11 @@ export class IntentService extends CrudService<any> {
   }
 
   public initModel(): Observable<any> {
-    throw new Error('Not implemented yet.');
+    return this.getRequest(environment.INIT_PREDEF_INTENTS);
   }
 
   public save(model: any): Observable<any> {
-    return this.postRequest(environment.ALL_INTENTS, model);
+    return this.postRequest(environment.SAVE_PREDEF_INTENT, model);
   }
 
   public delete(id: string): Observable<any> {

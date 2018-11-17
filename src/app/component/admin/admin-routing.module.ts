@@ -4,6 +4,7 @@ import { LandingComponent } from './landing/landing.component';
 import { MaintainBotComponent } from './maintain-bot/maintain-bot.component';
 import { MaintainIntentsComponent } from './maintain-intents/maintain-intents.component';
 import { SearchBotComponent } from './search-bot/search-bot.component';
+import { SearchIntentComponent } from './search-intent/search-intent.component';
 
 const routes: Routes = [
     {
@@ -47,9 +48,31 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'maintain-intents',
+        path: 'add-intent',
         component: MaintainIntentsComponent
-    }
+    },
+    {
+        path: 'search-intent',
+        component: SearchIntentComponent,
+        children: [
+            {
+                path: 'all',
+                component: SearchIntentComponent
+            },
+            {
+                path: 'criteria',
+                component: SearchIntentComponent
+            },
+            {
+                path: 'search',
+                component: SearchIntentComponent
+            },
+            {
+                path: 'clear-criteria',
+                component: SearchIntentComponent
+            }
+        ]
+    },
 ];
 
 @NgModule({
