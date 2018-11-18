@@ -1,7 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, UrlSegment } from '@angular/router';
-import { IntentService } from '../../../service/intent.service';
+import { NotificationService, CommonService } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
+
+import { IntentService } from '../../../service/intent.service';
+import { BIZ_BOTS_CONSTANTS } from '../../model/Constants';
 
 @Component({
   selector: 'app-search-intent',
@@ -13,13 +16,25 @@ export class SearchIntentComponent implements OnInit, OnDestroy {
   intentsResults;
   allIntents: Subscription;
 
-  constructor(private activatedRoute: ActivatedRoute, private intentService: IntentService) { }
+  constructor(private activatedRoute: ActivatedRoute, private intentService: IntentService,
+    private notificationService: NotificationService, private commonService: CommonService) { }
 
   ngOnInit() {
     this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
-      this.allIntents = this.intentService.getAll().subscribe(results => {
-        this.intentsResults = results;
-      });
+      this.getAllResults();
+    });
+
+    this.notificationService.onNotification().subscribe((data: any) => {
+      if (data.subscriberType === BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS) {
+        this.getAllResults();
+      }
+    });
+  }
+
+  private getAllResults() {
+    this.allIntents = this.intentService.getAll().subscribe(results => {
+      this.intentsResults = results;
+      this.intentService.setAllIntents(this.intentsResults);
     });
   }
 

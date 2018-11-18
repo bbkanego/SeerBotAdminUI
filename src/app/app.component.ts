@@ -33,6 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.isLoggedIn()) {
       this.showAuthenticatedItems = true;
       this.commonService.getMessages();
+      this.commonService.getCmsContent();
     }
 
     this.loginSubscription = this.notificationService

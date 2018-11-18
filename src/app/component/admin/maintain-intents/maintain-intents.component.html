@@ -1,10 +1,10 @@
-<div class='container-fluid'>
+<div class='container-fluid' *ngIf='intentsForm'>
     <div class='row'>
         <div class='col-sm-12'>
             <h1 class='page-header'>Maintain Intents</h1>
         </div>
     </div>
-    <form *ngIf='intentsForm' [formGroup]='intentsForm' (ngSubmit)='onSubmit($event)' #formDir='ngForm' novalidate>
+    <form [formGroup]='intentsForm' (ngSubmit)='onSubmit($event)' #formDir='ngForm' novalidate>
         <div class='row'>
             <div class='col-sm-12'>
                 <div class='table-box tp-10margin'>
@@ -38,4 +38,5 @@
             </div>
         </div>
     </form>
+    {{intentsForm.value | json}}
 </div>

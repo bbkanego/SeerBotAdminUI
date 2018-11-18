@@ -5,8 +5,18 @@ import { environment } from '../environments/environment';
 
 @Injectable()
 export class IntentService extends CrudService<any> {
+  private allIntents: [] = null;
+
   constructor(injector: Injector) {
     super(injector);
+  }
+
+  setAllIntents(allIntents) {
+    this.allIntents = allIntents;
+  }
+
+  getAllIntents() {
+    return this.allIntents;
   }
 
   public initModel(): Observable<any> {
@@ -26,7 +36,7 @@ export class IntentService extends CrudService<any> {
   }
 
   public getById(id: string): Observable<any> {
-    return this.getRequest(environment.ALL_INTENTS + '/' + id);
+    return this.getRequest(environment.GET_PREDEF_INTENT + '/' + id);
   }
 
   public getAll(): Observable<any[]> {

@@ -18,4 +18,6 @@ export const environment = {
   VALIDATION_METADATA_URL: 'http://localhost:8091/metadata/validation',
   INIT_PREDEF_INTENTS: 'http://localhost:8091/api/v1/predefined-intent/init',
   SAVE_PREDEF_INTENT: 'http://localhost:8091/api/v1/predefined-intent',
+  GET_PREDEF_INTENT: 'http://localhost:8091/api/v1/predefined-intent',
+  GET_ALL_CMS_CONTENT: 'http://localhost:8091/api/cms/all-content'
 };

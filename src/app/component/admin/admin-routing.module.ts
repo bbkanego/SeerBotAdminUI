@@ -52,24 +52,20 @@ const routes: Routes = [
         component: MaintainIntentsComponent
     },
     {
+        path: 'edit-intent/:id',
+        component: MaintainIntentsComponent
+    },
+    {
+        path: 'delete-intent',
+        component: MaintainIntentsComponent
+    },
+    {
         path: 'search-intent',
         component: SearchIntentComponent,
         children: [
             {
-                path: 'all',
-                component: SearchIntentComponent
-            },
-            {
-                path: 'criteria',
-                component: SearchIntentComponent
-            },
-            {
-                path: 'search',
-                component: SearchIntentComponent
-            },
-            {
-                path: 'clear-criteria',
-                component: SearchIntentComponent
+                path: 'edit/:id',
+                component: MaintainIntentsComponent
             }
         ]
     },

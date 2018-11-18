@@ -2,22 +2,23 @@
   <div class='row'>
     <div class='col-sm-12'>
       <h1 class='page-header'>
-        Search Intents
+        {{commonService.cmsContent.searchIntents.pageHeading}}
       </h1>
     </div>
   </div>
   <div class='row'>
     <div class='col-sm-12'>
       <bk-datatable [records]='intentsResults' #bkTop5Heroes smallDeviceHeader='Top 5 Heroes' pageSize='6'>
-        <bk-column header='Intent' sort='true' field='intent'></bk-column>
-        <bk-column header='Utterance' sort='true' field='utterance'></bk-column>
-        <bk-column header='Type' sort='true' field='category'>
-          <ng-template let-col='column' let-cat='rowData' 
+        <bk-column header='{{commonService.cmsContent.searchIntents.resultsTable.colHeaders.col1}}' sort='true' field='intent'></bk-column>
+        <bk-column header='{{commonService.cmsContent.searchIntents.resultsTable.colHeaders.col2}}' sort='true' field='utterance'></bk-column>
+        <bk-column header='{{commonService.cmsContent.searchIntents.resultsTable.colHeaders.col3}}' sort='true' field='category'>
+          <ng-template let-col='column' let-intent='rowData' 
                   let-index='rowIndex' bkTemplate='body'>
-            {{cat.category.name}}
+            <a [routerLink]="['edit', intent.id]" routerLinkActive="router-link-active">{{intent.category.name}}</a>
           </ng-template>
         </bk-column>
       </bk-datatable>
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>
