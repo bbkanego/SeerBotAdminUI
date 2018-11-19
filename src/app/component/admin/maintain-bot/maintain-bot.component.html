@@ -1,33 +1,31 @@
-<div class='container-fluid'>
+<div class='container-fluid' *ngIf='botForm'>
   <div class="row">
     <div class="col-sm-12">
-      <h1 class="page-header">Maintain Bot</h1>
+      <h1 class="page-header">{{getResource("maintainBot", 'pageHeading')}}</h1>
     </div>
   </div>
-  <form *ngIf='botForm' [formGroup]='botForm' (ngSubmit)='onSubmit($event)' #formDir="ngForm" novalidate>
+  <form [formGroup]='botForm' (ngSubmit)='onSubmit($event)' #formDir="ngForm" novalidate>
     <div class='row'>
       <div class='col-sm-12'>
         <div class="table-box tp-10margin">
-          <div class="header">
-            Maintain Event
-          </div>
           <div class="content padded">
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentForm]='formDir' label='Name' currentFormControlName='name'></app-bk-input>
+                <app-bk-input [currentForm]='formDir' label='{{getResource("maintainBot", "nameLabel")}}' 
+                  currentFormControlName='name'></app-bk-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentForm]='formDir' label='Display Name' 
+                <app-bk-input [currentForm]='formDir' label='{{getResource("maintainBot", "displayNameLabel")}}' 
                       currentFormControlName='displayName'></app-bk-input>
               </div>
             </div>
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-select [currentForm]='formDir' label='Category' 
+                <app-bk-select [currentForm]='formDir' label='{{getResource("maintainBot", "categoryLabel")}}' 
                     currentFormControlName='category' [options]='category'></app-bk-select>
               </div>
               <div class="col-lg-6 col-sm-12">
-                  <app-bk-textarea [currentForm]='formDir' label='Enter Details' 
+                  <app-bk-textarea [currentForm]='formDir' label='{{getResource("maintainBot", "descriptionLabel")}}'  
                     currentFormControlName='description'></app-bk-textarea>
               </div>
             </div>
@@ -37,12 +35,16 @@
     </div>
     <div class='row'>
       <div style='margin-bottom: 1em' class='col-sm-12'>
-        <bk-button intent='success' [currentForm]='formDir' type='submit' [label]='createButtonLabel'></bk-button>
-        <bk-button intent='warning' (click)="revert()" label='Revert'></bk-button>&nbsp;
-        <bk-button intent='danger' (click)="cancel()" label='Cancel'></bk-button>
+        <bk-button intent='success' [currentForm]='formDir' type='submit' 
+            label='{{getCommonResources("saveButton")}}'></bk-button>
+        <bk-button intent='warning' (click)="revert()" 
+            label='{{getCommonResources("revertButton")}}'></bk-button>
+        <bk-button intent='danger' (click)="cancel()" 
+            label='{{getCommonResources("cancelButton")}}'>></bk-button>
       </div>
+      <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
     </div>
-    {{botForm.valid}}
-    {{botForm.value | json}}
+    <!-- {{botForm.valid}}
+    {{botForm.value | json}} -->
   </form>
 </div>

@@ -32,7 +32,7 @@ export class BotService extends CrudService<any> {
     }
 
     public getById(id: string): Observable<any> {
-        return this.getRequest(environment.ALL_INTENTS + '/' + id);
+        return this.getRequest(environment.GET_BOT + '/' + id);
     }
 
     public getAll(): Observable<any[]> {

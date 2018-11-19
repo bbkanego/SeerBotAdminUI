@@ -14,7 +14,7 @@
         <bk-column header='{{commonService.cmsContent.searchIntents.resultsTable.colHeaders.col3}}' sort='true' field='category'>
           <ng-template let-col='column' let-intent='rowData' 
                   let-index='rowIndex' bkTemplate='body'>
-            <a [routerLink]="['edit', intent.id]" routerLinkActive="router-link-active">{{intent.category.name}}</a>
+            <a (click)="editIntent(intent.id)">{{intent.category.name}}</a>
           </ng-template>
         </bk-column>
       </bk-datatable>

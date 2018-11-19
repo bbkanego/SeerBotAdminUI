@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 
 @Injectable()
 export class IntentService extends CrudService<any> {
-  private allIntents: [] = null;
+  private allIntents;
 
   constructor(injector: Injector) {
     super(injector);

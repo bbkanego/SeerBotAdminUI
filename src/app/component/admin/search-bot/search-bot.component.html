@@ -9,11 +9,12 @@
             <bk-column header='Display Name' sort='true' field='displayName'></bk-column>
             <bk-column header='Description' sort='true' field='description'></bk-column>
             <bk-column header='Type' sort='true' field='category'>
-                <ng-template let-col='column' let-cat='rowData' let-index='rowIndex' bkTemplate='body'>
-                    {{cat.name}}
+                <ng-template let-col='column' let-bot='rowData' let-index='rowIndex' bkTemplate='body'>
+                    <a (click)="editBot(bot.id)">{{bot.name}}</a>
                   </ng-template>
             </bk-column>
         </bk-datatable>
       </div>
     </div>
 </div>
+<router-outlet></router-outlet>

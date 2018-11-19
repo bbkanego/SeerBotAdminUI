@@ -30,6 +30,10 @@ const routes: Routes = [
         component: SearchBotComponent,
         children: [
             {
+                path: 'edit/:id',
+                component: MaintainBotComponent
+            },
+            {
                 path: 'all',
                 component: SearchBotComponent
             },

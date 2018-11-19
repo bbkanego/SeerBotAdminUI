@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, UrlSegment } from '@angular/router';
+import { ActivatedRoute, UrlSegment, Router, Route } from '@angular/router';
 import { NotificationService, CommonService } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -17,7 +17,8 @@ export class SearchIntentComponent implements OnInit, OnDestroy {
   allIntents: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute, private intentService: IntentService,
-    private notificationService: NotificationService, private commonService: CommonService) { }
+    private notificationService: NotificationService, private commonService: CommonService,
+    private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
@@ -42,6 +43,10 @@ export class SearchIntentComponent implements OnInit, OnDestroy {
     if (this.allIntents) {
       this.allIntents.unsubscribe();
     }
+  }
+
+  editIntent(id) {
+    this.router.navigate(['edit', id], { relativeTo: this.activatedRoute });
   }
 
 }

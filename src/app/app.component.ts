@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService, NotificationService, SUBSCRIBER_TYPES } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
@@ -10,7 +10,7 @@ import { BotAuthenticationService } from './service/authentication.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy, AfterViewChecked {
   title = 'app';
   showAuthenticatedItems: boolean;
   loginSubscription: Subscription;
@@ -26,14 +26,20 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onDeactivate(eventObj) {}
 
+  ngAfterViewChecked() {
+    if (this.isLoggedIn()) {
+      this.showAuthenticatedItems = true;
+      this.commonService.getMessages();
+      this.commonService.getCmsContent();
+    }
+  }
+
   ngOnInit(): void {
     this.showAuthenticatedItems = false;
 
     // this will be called when the user refreshes the page.
     if (this.isLoggedIn()) {
       this.showAuthenticatedItems = true;
-      this.commonService.getMessages();
-      this.commonService.getCmsContent();
     }
 
     this.loginSubscription = this.notificationService

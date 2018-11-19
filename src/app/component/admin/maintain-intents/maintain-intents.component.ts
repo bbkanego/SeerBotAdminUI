@@ -1,18 +1,20 @@
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { ActivatedRoute, Router, UrlSegment, ParamMap } from '@angular/router';
 import { BaseReactiveComponent, Option, SUBSCRIBER_TYPES } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
+import { switchMap } from 'rxjs/operators';
 
 import { IntentService } from '../../../service/intent.service';
-import { BIZ_BOTS_CONSTANTS } from '../../model/Constants';
+import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
+import { BaseBotComponent } from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-maintain-intents',
   templateUrl: './maintain-intents.component.html',
   styleUrls: ['./maintain-intents.component.css']
 })
-export class MaintainIntentsComponent extends BaseReactiveComponent implements OnInit, OnDestroy {
+export class MaintainIntentsComponent extends BaseBotComponent implements OnInit, OnDestroy {
   allIntents;
   intentsForm: FormGroup;
   intentsModel;
@@ -20,8 +22,6 @@ export class MaintainIntentsComponent extends BaseReactiveComponent implements O
   private intentsSubscription: Subscription;
   private validationRuleSubscription: Subscription;
   validationRules: any;
-  createButtonLabel = 'Create';
-  private currentAction = 'add';
   private currentEditCategory = null;
 
   constructor(injector: Injector, private intentService: IntentService, private router: Router,
@@ -90,10 +90,8 @@ export class MaintainIntentsComponent extends BaseReactiveComponent implements O
         this.loadUtterance(path);
       } else if (path.indexOf('edit') > -1) {
         this.currentAction = 'edit';
-        this.activatedRoute.params.subscribe(params => {
-          const id = params['id'];
-          this.editUtterance(path, id);
-        });
+        const id = this.activatedRoute.snapshot.paramMap.get('id');
+        this.editUtterance(path, id);
       }
     });
   }
