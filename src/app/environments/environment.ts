@@ -9,7 +9,7 @@
 export const environment = {
   production: false,
   envName: 'dev',
-  ALL_INTENTS : 'http://localhost:8091/api/v1/predefined-intent',
+  ALL_INTENTS: 'http://localhost:8091/api/v1/predefined-intent',
   INIT_BOT: 'http://localhost:8091/api/v1/chatbot/init/',
   ALL_BOTS: 'http://localhost:8091/api/v1/chatbot',
   SAVE_BOT: 'http://localhost:8091/api/v1/chatbot',
@@ -20,5 +20,9 @@ export const environment = {
   INIT_PREDEF_INTENTS: 'http://localhost:8091/api/v1/predefined-intent/init',
   SAVE_PREDEF_INTENT: 'http://localhost:8091/api/v1/predefined-intent',
   GET_PREDEF_INTENT: 'http://localhost:8091/api/v1/predefined-intent',
-  GET_ALL_CMS_CONTENT: 'http://localhost:8091/api/cms/all-content'
+  GET_ALL_CMS_CONTENT: 'http://localhost:8091/api/cms/all-content',
+  LAUNCH_BOT: 'http://localhost:8091/api/v1/chatbot/launch',
+  TERMINATE_BOT: 'http://localhost:8091/api/v1/chatbot/terminate',
+  STOP_BOT: 'http://localhost:8091/api/v1/chatbot/stop',
+  CHANGE_BOT_STATUS: 'http://localhost:8091/api/v1/chatbot/status'
 };

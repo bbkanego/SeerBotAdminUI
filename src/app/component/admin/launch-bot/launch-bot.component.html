@@ -1,0 +1,55 @@
+<div class='container-fluid' *ngIf='context'>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <h1 class='page-header'>{{getPageHeader()}}</h1>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="col-sm-12">
+      <div class='table-box tp-10margin'>
+        <div class='content padded'>
+          <div class='row'>
+            <div class="form-group col-sm-12 displayHeader">
+              {{getHeader()}} <a *ngIf='context === "launched"' href='{{botAccessUrl}}' target="_botTestWindow">{{botAccessUrl}}</a>
+            </div>
+          </div>
+          <div class='row' *ngIf='context === "startLaunch"'>
+            <div class="col-lg-3 col-sm-12">
+              <div class='row'>
+                <div class="form-group col-lg-6 col-sm-12 displayHeader">
+                  {{commonService.cmsContent.launchBot.startLaunch.nameLabel}}
+                </div>
+                <div class="form-group col-lg-6 col-sm-12">
+                  {{botModel.name}}
+                </div>
+              </div>
+              <div class='row'>
+                <div class="form-group col-lg-6 col-sm-12 displayHeader">
+                  {{commonService.cmsContent.launchBot.startLaunch.descriptionLabel}}
+                </div>
+                <div class="form-group col-lg-6 col-sm-12">
+                  {{botModel.description}}
+                </div>
+              </div>
+              <div class='row'>
+                <div class="form-group col-lg-6 col-sm-12 displayHeader">
+                  {{commonService.cmsContent.launchBot.startLaunch.statusLabel}}
+                </div>
+                <div class="form-group col-lg-6 col-sm-12">
+                  {{botModel.status.name}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div style='margin-bottom: 1em' class='col-sm-12'>
+      <bk-button intent='success' *ngIf='context === "startLaunch"' type='button' (click)="launchNow()" [label]='createButtonLabel'></bk-button>
+      <bk-button intent='danger' *ngIf='context === "launched"' (click)='stopNow()' label='Stop'></bk-button>
+      <bk-button intent='danger' (click)='cancel()' label='{{getCancelButtonLabel()}}'></bk-button>
+    </div>
+  </div>
+</div>

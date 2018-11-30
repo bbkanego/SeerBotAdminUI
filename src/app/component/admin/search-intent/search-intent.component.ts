@@ -4,7 +4,7 @@ import { NotificationService, CommonService } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 
 import { IntentService } from '../../../service/intent.service';
-import { BIZ_BOTS_CONSTANTS } from '../../model/Constants';
+import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
 
 @Component({
   selector: 'app-search-intent',

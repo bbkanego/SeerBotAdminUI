@@ -37,7 +37,7 @@ const ROUTES: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(
-      ROUTES //, { enableTracing: true } // <-- debugging purposes only
+      ROUTES, {onSameUrlNavigation: 'reload'} //, { enableTracing: true } // <-- debugging purposes only
     )
   ],
   // imports:[RouterModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules})], -- allows preloading of lazy modules

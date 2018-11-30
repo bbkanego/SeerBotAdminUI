@@ -9,12 +9,13 @@ import { MaintainIntentsComponent } from './maintain-intents/maintain-intents.co
 import { BotService } from '../../service/bot.service';
 import { SearchBotComponent } from './search-bot/search-bot.component';
 import { SearchIntentComponent } from './search-intent/search-intent.component';
+import { LaunchBotComponent } from './launch-bot/launch-bot.component';
 
 @NgModule({
   imports: [
     CommonModule, CommonUtilsModule, FormsModule, ReactiveFormsModule, AdminRoutingModule
   ],
-  declarations: [MaintainBotComponent, LandingComponent, MaintainIntentsComponent, SearchBotComponent, SearchIntentComponent],
+  declarations: [MaintainBotComponent, LandingComponent, MaintainIntentsComponent, SearchBotComponent, SearchIntentComponent, LaunchBotComponent],
   providers: [BotService]
 })
 export class AdminModule { }

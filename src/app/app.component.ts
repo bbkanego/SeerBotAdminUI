@@ -10,10 +10,11 @@ import { BotAuthenticationService } from './service/authentication.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
   showAuthenticatedItems: boolean;
   loginSubscription: Subscription;
+  private allBootstrapItemsFetched = false;
 
   constructor(
     private authenticationService: BotAuthenticationService,
@@ -26,16 +27,18 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   onDeactivate(eventObj) {}
 
-  ngAfterViewChecked() {
+  private loadResources() {
     if (this.isLoggedIn()) {
       this.showAuthenticatedItems = true;
       this.commonService.getMessages();
       this.commonService.getCmsContent();
+      this.allBootstrapItemsFetched = true;
     }
   }
 
   ngOnInit(): void {
     this.showAuthenticatedItems = false;
+    this.loadResources();
 
     // this will be called when the user refreshes the page.
     if (this.isLoggedIn()) {
@@ -48,8 +51,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewChecked {
           if (SUBSCRIBER_TYPES.LOGIN_SUCCESS === data.subscriberType ||
             SUBSCRIBER_TYPES.LOGOUT_SUCCESS === data.subscriberType) {
             if (SUBSCRIBER_TYPES.LOGIN_SUCCESS === data.subscriberType) {
-              this.commonService.getMessages();
-              this.showAuthenticatedItems = true;
+              this.allBootstrapItemsFetched = false;
+              this.loadResources();
             }
           } else if (SUBSCRIBER_TYPES.NETWORK_ERROR === data.subscriberType) {
             this.showNetworkErrorDialog(data);

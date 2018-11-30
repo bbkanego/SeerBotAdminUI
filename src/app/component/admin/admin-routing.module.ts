@@ -5,6 +5,7 @@ import { MaintainBotComponent } from './maintain-bot/maintain-bot.component';
 import { MaintainIntentsComponent } from './maintain-intents/maintain-intents.component';
 import { SearchBotComponent } from './search-bot/search-bot.component';
 import { SearchIntentComponent } from './search-intent/search-intent.component';
+import { LaunchBotComponent } from './launch-bot/launch-bot.component';
 
 const routes: Routes = [
     {
@@ -26,7 +27,21 @@ const routes: Routes = [
         component: MaintainBotComponent
     },
     {
-        path: 'search-bot',
+        path: 'search_bots_to_launch',
+        component: SearchBotComponent,
+        children: [
+            {
+                path: 'launch_start/:id',
+                component: LaunchBotComponent
+            },
+            {
+                path: 'launched',
+                component: LaunchBotComponent
+            }
+        ]
+    },
+    {
+        path: 'search_bot',
         component: SearchBotComponent,
         children: [
             {
@@ -46,7 +61,7 @@ const routes: Routes = [
                 component: SearchBotComponent
             },
             {
-                path: 'clear-criteria',
+                path: 'clear_criteria',
                 component: SearchBotComponent
             }
         ]

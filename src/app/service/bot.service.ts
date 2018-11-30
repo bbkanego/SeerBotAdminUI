@@ -38,4 +38,20 @@ export class BotService extends CrudService<any> {
     public getAll(): Observable<any[]> {
         return this.getRequest(environment.ALL_BOTS);
     }
+
+    public launchBot(id: string): Observable<any> {
+        return this.getRequest(environment.LAUNCH_BOT + '/' + id);
+    }
+
+    public stopBot(id: string): Observable<any> {
+        return this.getRequest(environment.STOP_BOT + '/' + id);
+    }
+
+    public terminateBot(id: string): Observable<any> {
+        return this.getRequest(environment.TERMINATE_BOT + '/' + id);
+    }
+
+    public changeBotStatus(id: string, status: string): Observable<any> {
+        return this.getRequest(environment.CHANGE_BOT_STATUS + '/' + id + '/' + status);
+    }
 }

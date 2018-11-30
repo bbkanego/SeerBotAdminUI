@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 @import url('https://fonts.googleapis.com/css?family=Lato|Nanum+Gothic|Ubuntu');
 /*https://fonts.googleapis.com/css?family=Raleway|Lato|Ubuntu*/
 
@@ -171,8 +173,8 @@ div.table-box .row {
   
 }
 
-div.table-box .padded {
-  
+div.table-box .displayHeader {
+  font-weight: bold;
 }
 /*CSS table box-----------------------*/
 
