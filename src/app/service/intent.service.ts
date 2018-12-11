@@ -27,6 +27,10 @@ export class IntentService extends CrudService<any> {
     return this.postRequest(environment.SAVE_PREDEF_INTENT, model);
   }
 
+  public saveMultiPart(model: FormData): Observable<any> {
+    return this.postMultiPartRequest(environment.UPLOAD_PREDEF_INTENT, model);
+  }
+
   public delete(id: string): Observable<any> {
     throw new Error('Not implemented yet.');
   }

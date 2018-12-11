@@ -107,7 +107,7 @@ a.actionLink {
 /*Bootstrap theming*/
 
 .form-control {
-  border-radius: 0;
+  margin-bottom: 10px;
 }
 
 .modal2.in ~ .modal-backdrop.in {
@@ -185,12 +185,22 @@ label {
 
 input, select {
   color: #000 !important;
-  border: 0px !important;
   border: 1px solid #BDBDBD !important;
   background-color: transparent !important;
-  font-size: 1.10em !important;
-  height: 2.1em !important;
-  line-height: 1.8em !important;
+  font-size: 1em !important;
+  height: 1.85em !important;
+  line-height: 1.85em !important;
+}
+
+select {
+  padding: 0 0 0 10px !important;
+}
+
+textarea {
+  color: #000 !important;
+  border: 1px solid #BDBDBD !important;
+  background-color: transparent !important;
+  font-size: 1em !important;
 }
 
 .btn-warning, .btn-success, .btn-danger {

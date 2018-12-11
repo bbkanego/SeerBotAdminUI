@@ -1,13 +1,13 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router, UrlSegment, ParamMap } from '@angular/router';
-import { BaseReactiveComponent, Option, SUBSCRIBER_TYPES } from 'my-component-library';
-import { Subscription } from 'rxjs/Subscription';
-import { switchMap } from 'rxjs/operators';
+import {Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {Option, SUBSCRIBER_TYPES} from 'my-component-library';
+import {Subscription} from 'rxjs/Subscription';
 
-import { IntentService } from '../../../service/intent.service';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {IntentService} from '../../../service/intent.service';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {BaseBotComponent} from '../../common/baseBot.component';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-maintain-intents',
@@ -23,9 +23,14 @@ export class MaintainIntentsComponent extends BaseBotComponent implements OnInit
   private validationRuleSubscription: Subscription;
   validationRules: any;
   private currentEditCategory = null;
+  @ViewChild('intentsFile') intentsFile: ElementRef;
+  useFileUpload = false;
+  enterEachItem = true;
+  problemWithUpload = false;
+  showRadioOptions = true;
 
   constructor(injector: Injector, private intentService: IntentService, private router: Router,
-    private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute) {
     super(injector);
   }
 
@@ -36,6 +41,7 @@ export class MaintainIntentsComponent extends BaseBotComponent implements OnInit
 
   private initComponent(path: string): void {
     if (this.currentAction === 'edit') {
+      this.showRadioOptions = false;
       this.currentEditCategory = this.intentsModel.category;
       this.intentsModel.category = null;
       this.createForm();
@@ -105,21 +111,43 @@ export class MaintainIntentsComponent extends BaseBotComponent implements OnInit
     }
   }
 
-  onSubmit(eventObj) {
-    if (this.intentsForm.invalid) {
+  private submitEachEntryForm() {
+    const selectedCat = this.intentsForm.get('category').value;
+    const targetCat = this.intentsModel.referenceData.categories.filter(element => element.code === selectedCat);
+    this.intentsForm.get('category').setValue(targetCat[0]);
+    const finalModel = this.intentsForm.value;
+    this.intentService.save(finalModel).subscribe(res => {
+      if (this.currentAction === 'add') {
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.intentsForm = null;
+        this.notificationService.notify('Refresh Results!', BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS,
+          BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS);
+      }
+    });
+  }
 
+  onSubmit(eventObj) {
+    if (this.enterEachItem) {
+      if (this.intentsForm.valid) {
+        this.submitEachEntryForm();
+      }
     } else {
-      const selectedCat = this.intentsForm.get('category').value;
-      const targetCat = this.intentsModel.referenceData.categories.filter(element => element.code === selectedCat);
-      this.intentsForm.get('category').setValue(targetCat[0]);
-      const finalModel = this.intentsForm.value;
-      this.intentService.save(finalModel).subscribe(res => {
-        if (this.currentAction === 'add') {
+      this.submitMultiPartForm();
+    }
+  }
+
+  private submitMultiPartForm() {
+    const intentsFile: FileList = this.intentsFile.nativeElement.files;
+    if (intentsFile.length > 0) {
+      const formData = new FormData();
+      formData.append('intentsData', intentsFile[0], intentsFile[0].name);
+      formData.append('category', this.intentsForm.get('category').value);
+      this.intentService.saveMultiPart(formData).subscribe((response: any) => {
+        if (response === true) {
           this.router.navigate(['/dashboard']);
         } else {
-          this.intentsForm = null;
-          this.notificationService.notify('Refresh Results!', BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS, 
-              BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS);
+          this.problemWithUpload = true;
         }
       });
     }
@@ -138,6 +166,20 @@ export class MaintainIntentsComponent extends BaseBotComponent implements OnInit
       this.initComponent('');
       this.notificationService.notifyAny(this.intentsForm, SUBSCRIBER_TYPES.FORM_GROUP_RESET,
         SUBSCRIBER_TYPES.FORM_GROUP_RESET);
+    }
+  }
+
+  getFileUploadUrl() {
+    return environment.UPLOAD_PREDEF_INTENT;
+  }
+
+  showOptions(selection) {
+    if (selection === 'uploadFile') {
+      this.useFileUpload = true;
+      this.enterEachItem = false;
+    } else {
+      this.enterEachItem = true;
+      this.useFileUpload = false;
     }
   }
 }

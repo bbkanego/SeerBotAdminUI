@@ -1,10 +1,10 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import {Component, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { BotService } from '../../../service/bot.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {BotService, LaunchBot} from '../../../service/bot.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-launch-bot',
@@ -12,14 +12,13 @@ import { BaseBotComponent } from '../../common/baseBot.component';
   styleUrls: ['./launch-bot.component.css']
 })
 export class LaunchBotComponent extends BaseBotComponent implements OnInit, OnDestroy {
-  validationRuleSubscription: Subscription;
-  validationRules: any;
   botServiceSubscription: Subscription;
-  botModel: any;
+  launchDTO: any;
   botAccessUrl: string;
   createButtonLabel = 'NONE';
   context = 'startLaunch';
   botCallSub: Subscription;
+  trainedModelSelectValue;
 
   constructor(injector: Injector, private activatedRoute: ActivatedRoute, private router: Router, private botService: BotService) {
     super(injector);
@@ -35,12 +34,12 @@ export class LaunchBotComponent extends BaseBotComponent implements OnInit, OnDe
     this.context = 'startLaunch';
     this.createButtonLabel = this.commonService.cmsContent['launchBot'].startLaunch.launchNowButton;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.botServiceSubscription = this.botService.getById(id).subscribe((model) => {
-      this.botModel = model;
-      if (model.configurations.length > 0) {
-        this.botAccessUrl = model.configurations[0].url;
+    this.botServiceSubscription = this.botService.startLaunchBot(id).subscribe((model) => {
+      this.launchDTO = model;
+      if (this.launchDTO.bot.configurations.length > 0) {
+        this.botAccessUrl = this.launchDTO.bot.configurations[0].url;
       }
-      if (this.botModel.status.code === 'LAUNCHED') {
+      if (this.launchDTO.bot.status.code === 'LAUNCHED') {
         this.context = 'launched';
       }
     });
@@ -56,8 +55,8 @@ export class LaunchBotComponent extends BaseBotComponent implements OnInit, OnDe
   }
 
   stopNow() {
-    this.botCallSub = this.botService.stopBot(this.botModel.id).subscribe(botRes => {
-      this.botModel = botRes;
+    this.botCallSub = this.botService.stopBot(this.launchDTO.bot.id).subscribe(botRes => {
+      this.launchDTO.bot = botRes;
       this.context = 'startLaunch';
       this.notificationService.notify('Refresh Bot Results',
         BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS,
@@ -66,19 +65,27 @@ export class LaunchBotComponent extends BaseBotComponent implements OnInit, OnDe
   }
 
   launchNow() {
-    this.botCallSub = this.botService.launchBot(this.botModel.id).subscribe(botRes => {
-      this.botModel = botRes.bot;
-      this.botAccessUrl = botRes.url1;
-      this.context = 'launched';
-      this.notificationService.notify('Refresh Bot Results',
-        BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS,
-        BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS);
-    });
+    if (this.trainedModelSelectValue !== 'NONE') {
+      const launchBot: LaunchBot = new LaunchBot(this.launchDTO.bot, +this.trainedModelSelectValue);
+      this.botCallSub = this.botService.launchBot(launchBot).subscribe(botRes => {
+        this.launchDTO.bot = botRes.bot;
+        this.botAccessUrl = botRes.url1;
+        this.context = 'launched';
+        this.notificationService.notify('Refresh Bot Results',
+          BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS,
+          BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS);
+        this.trainedModelSelectValue = 'NONE';
+      });
+    }
+  }
+
+  isDisabled() {
+    return !this.trainedModelSelectValue || this.trainedModelSelectValue === 'NONE';
   }
 
   cancel() {
     this.context = null;
-    this.router.navigate(['../../'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../../'], {relativeTo: this.activatedRoute});
   }
 
   getPageHeader() {
