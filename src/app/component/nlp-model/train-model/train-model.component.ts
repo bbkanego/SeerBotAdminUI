@@ -11,7 +11,6 @@ import {NlpModelService} from '../../../service/nlp-model.service';
   styleUrls: ['./train-model.component.css']
 })
 export class TrainModelComponent extends BaseReactiveComponent implements OnInit, OnDestroy {
-
   trainModel: any;
   trainForm: FormGroup;
   private validationRules;

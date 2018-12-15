@@ -22,6 +22,11 @@ const ROUTES: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'model',
+    loadChildren: './component/nlp-model/nlp-model.module#NlpModelModule',
+    canActivate: [AuthGuard]
+  },
+  {
     // This is default route. this will automatically redirect the user to dashboard if the context path is "/"
     path: '',
     redirectTo: '/dashboard',

@@ -1,3 +1,45 @@
-<p>
-  train-model works!
-</p>
+<div class='container-fluid' *ngIf='trainForm'>
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="page-header">{{getResource("maintainModels", 'pageHeading')}}</h1>
+    </div>
+  </div>
+  <form [formGroup]='trainForm' (ngSubmit)='onSubmit($event)' #formDir="ngForm" novalidate>
+    <div class='row'>
+      <div class='col-sm-12'>
+        <div class="table-box tp-10margin">
+          <div class="content padded">
+            <!--<div class='row'>
+              <div class="col-lg-6 col-sm-12">
+                <app-bk-input [currentForm]='formDir' label='{{getResource("maintainBot", "nameLabel")}}'
+                              currentFormControlName='name'></app-bk-input>
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <app-bk-input [currentForm]='formDir' label='{{getResource("maintainBot", "displayNameLabel")}}'
+                              currentFormControlName='displayName'></app-bk-input>
+              </div>
+            </div>
+            <div class='row'>
+              <div class="col-lg-6 col-sm-12">
+                <app-bk-select [currentForm]='formDir' label='{{getResource("maintainBot", "categoryLabel")}}'
+                               currentFormControlName='category' [options]='category'></app-bk-select>
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <app-bk-textarea [currentForm]='formDir' label='{{getResource("maintainBot", "descriptionLabel")}}'
+                                 currentFormControlName='description'></app-bk-textarea>
+              </div>
+            </div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <div style='margin-bottom: 1em' class='col-sm-12'>
+
+      </div>
+      <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
+    </div>
+    <!-- {{botForm.valid}}
+    {{botForm.value | json}} -->
+  </form>
+</div>
