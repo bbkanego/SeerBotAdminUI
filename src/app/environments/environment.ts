@@ -26,5 +26,9 @@ export const environment = {
   LAUNCH_BOT: 'http://localhost:8091/api/v1/chatbot/launch',
   TERMINATE_BOT: 'http://localhost:8091/api/v1/chatbot/terminate',
   STOP_BOT: 'http://localhost:8091/api/v1/chatbot/stop',
-  CHANGE_BOT_STATUS: 'http://localhost:8091/api/v1/chatbot/status'
+  CHANGE_BOT_STATUS: 'http://localhost:8091/api/v1/chatbot/status',
+  INIT_TRAIN_MODEL: 'http://localhost:8091/api/v1/model/train/init',
+  TRAIN_MODEL: 'http://localhost:8091/api/v1/model/train',
+  TRAIN_MODEL_DOWNLOAD: 'http://localhost:8091/api/v1/model/download',
+  TRAIN_MODELS: 'http://localhost:8091/api/v1/model'
 };
