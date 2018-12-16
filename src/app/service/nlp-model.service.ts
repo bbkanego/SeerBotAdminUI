@@ -14,7 +14,7 @@ export class NlpModelService extends CrudService<any> {
   }
 
   getAll(): Observable<any[]> {
-    return undefined;
+    return this.getRequest(environment.TRAIN_MODELS);
   }
 
   getById(id: string): Observable<any> {

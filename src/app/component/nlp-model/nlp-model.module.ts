@@ -5,9 +5,10 @@ import {NlpModelRoutingModule} from "./nlp-model-routing.module";
 import {NlpModelService} from "../../service/nlp-model.service";
 import {CommonModule} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
+import {CommonUtilsModule} from "my-component-library";
 
 @NgModule({
-  imports:[NlpModelRoutingModule, CommonModule, ReactiveFormsModule],
+  imports:[NlpModelRoutingModule, CommonModule, ReactiveFormsModule, CommonUtilsModule],
   declarations: [TrainModelComponent, SearchModelComponent],
   providers:[NlpModelService]
 })

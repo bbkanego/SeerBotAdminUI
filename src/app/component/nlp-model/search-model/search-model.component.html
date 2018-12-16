@@ -1,3 +1,19 @@
-<p>
-  search-model works!
-</p>
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-sm-12'><h1 class='page-header'>{{commonService.cmsContent.maintainModels.searchTrainedModel.pageHeading}}</h1></div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <bk-datatable [records]='modelResults' #bkTop5Heroes smallDeviceHeader='Top 5 Heroes' pageSize='6'>
+        <bk-column header='{{commonService.cmsContent.searchBots.resultsTable.colHeaders.col1}}' sort='true' field='name'></bk-column>
+        <bk-column header='{{commonService.cmsContent.searchBots.resultsTable.colHeaders.col3}}' sort='true' field='description'></bk-column>
+        <bk-column header='{{commonService.cmsContent.searchBots.resultsTable.colHeaders.col4}}' sort='true' field='category'>
+          <ng-template let-col='column' let-bot='rowData' let-index='rowIndex' bkTemplate='body'>
+            <a (click)="editBot(bot.id)">{{bot.name}}</a>
+          </ng-template>
+        </bk-column>
+      </bk-datatable>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

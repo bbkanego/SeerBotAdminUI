@@ -4,13 +4,15 @@ import {FormGroup} from '@angular/forms';
 import {BaseReactiveComponent, Option, SUBSCRIBER_TYPES} from 'my-component-library';
 import {Subscription} from 'rxjs/Subscription';
 import {NlpModelService} from '../../../service/nlp-model.service';
+import {BaseBotComponent} from "../../common/baseBot.component";
+import {BIZ_BOTS_CONSTANTS} from "../../../model/Constants";
 
 @Component({
   selector: 'app-train-model',
   templateUrl: './train-model.component.html',
   styleUrls: ['./train-model.component.css']
 })
-export class TrainModelComponent extends BaseReactiveComponent implements OnInit, OnDestroy {
+export class TrainModelComponent extends BaseBotComponent implements OnInit, OnDestroy {
   trainModel: any;
   trainForm: FormGroup;
   private validationRules;
@@ -55,6 +57,11 @@ export class TrainModelComponent extends BaseReactiveComponent implements OnInit
     this.router.navigate(['/dashboard']);
   }
 
+  getResource(context, key) {
+    const resources = this.commonService.cmsContent['maintainModels'];
+    return resources[context][key];
+  }
+
   ngOnDestroy(): void {
     if (this.validationRuleSubscription) {
       this.validationRuleSubscription.unsubscribe();
@@ -75,7 +82,7 @@ export class TrainModelComponent extends BaseReactiveComponent implements OnInit
   private startTrain() {
     this.currentAction = 'add';
     this.validationRuleSubscription = this.validationService
-      .getValidationRuleMetadata('validateBotRule').subscribe(rules => {
+      .getValidationRuleMetadata('validateTrainModelRule').subscribe(rules => {
         this.validationRules = rules;
         this.botServiceSubscription = this.nlpService.initModel().subscribe((model) => {
           this.trainModel = model;
@@ -85,7 +92,17 @@ export class TrainModelComponent extends BaseReactiveComponent implements OnInit
   }
 
   onSubmit(event) {
+    if (this.trainForm.invalid) {
 
+    } else {
+      const selectedCat = this.trainForm.get('category').value;
+      const targetCat = this.trainModel.referenceData.categories.filter(element => element.code === selectedCat);
+      this.trainForm.get('category').setValue(targetCat[0]);
+      const finalModel = this.trainForm.value;
+      this.nlpService.trainModel(finalModel).subscribe(res => {
+        this.router.navigate(['/dashboard']);
+      });
+    }
   }
 
 }
