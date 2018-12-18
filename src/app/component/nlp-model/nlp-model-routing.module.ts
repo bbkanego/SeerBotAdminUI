@@ -28,7 +28,10 @@ const ROUTES: Routes = [
     children: [
       {
         path: 'delete',
-        component: SearchModelComponent
+        component: TrainModelComponent
+      },{
+        path: 'view/:id',
+        component: TrainModelComponent
       }
     ]
   }

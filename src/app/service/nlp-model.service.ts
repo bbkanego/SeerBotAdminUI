@@ -10,7 +10,7 @@ export class NlpModelService extends CrudService<any> {
   }
 
   delete(id: string): Observable<any> {
-    return undefined;
+    return this.deleteRequest(environment.TRAIN_MODELS, id);
   }
 
   getAll(): Observable<any[]> {
@@ -18,7 +18,7 @@ export class NlpModelService extends CrudService<any> {
   }
 
   getById(id: string): Observable<any> {
-    return undefined;
+    return this.getRequest(environment.TRAIN_MODELS + "/" + id);
   }
 
   initModel(): Observable<any> {

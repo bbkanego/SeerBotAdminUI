@@ -19,7 +19,7 @@ export class TrainModelComponent extends BaseBotComponent implements OnInit, OnD
   currentAction = 'start';
   category = [];
   validationRuleSubscription: Subscription;
-  botServiceSubscription: Subscription;
+  viewModelSubscription: Subscription;
 
   constructor(injector: Injector, private activatedRoute: ActivatedRoute, private nlpService: NlpModelService,
                     private router: Router) {
@@ -49,12 +49,30 @@ export class TrainModelComponent extends BaseBotComponent implements OnInit, OnD
       const path = urlSegment.join('/');
       if (path.indexOf('start') > -1) {
         this.startTrain();
+      } else if (path.indexOf('view') > -1) {
+        this.viewModel();
       }
+    });
+  }
+
+  viewModel() {
+    this.currentAction = 'edit';
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.viewModelSubscription = this.nlpService.getById(id).subscribe((model) => {
+      this.trainModel = model;
     });
   }
 
   cancel() {
     this.router.navigate(['/dashboard']);
+  }
+
+  delete(id) {
+    this.nlpService.delete(id).subscribe(() => {
+      this.notificationService.notify('Refresh Results!', BIZ_BOTS_CONSTANTS.REFRESH_MODELS_SEARCH_RESULTS,
+        BIZ_BOTS_CONSTANTS.REFRESH_MODELS_SEARCH_RESULTS);
+      this.trainModel = null;
+    });
   }
 
   getResource(context, key) {
@@ -66,8 +84,8 @@ export class TrainModelComponent extends BaseBotComponent implements OnInit, OnD
     if (this.validationRuleSubscription) {
       this.validationRuleSubscription.unsubscribe();
     }
-    if (this.botServiceSubscription) {
-      this.botServiceSubscription.unsubscribe();
+    if (this.viewModelSubscription) {
+      this.viewModelSubscription.unsubscribe();
     }
   }
 
@@ -84,7 +102,7 @@ export class TrainModelComponent extends BaseBotComponent implements OnInit, OnD
     this.validationRuleSubscription = this.validationService
       .getValidationRuleMetadata('validateTrainModelRule').subscribe(rules => {
         this.validationRules = rules;
-        this.botServiceSubscription = this.nlpService.initModel().subscribe((model) => {
+        this.viewModelSubscription = this.nlpService.initModel().subscribe((model) => {
           this.trainModel = model;
           this.initComponent();
         });
