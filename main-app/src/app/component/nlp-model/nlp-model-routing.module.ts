@@ -1,7 +1,7 @@
 import {RouterModule, Routes} from '@angular/router';
 import {TrainModelComponent} from './train-model/train-model.component';
 import {SearchModelComponent} from './search-model/search-model.component';
-import {NgModule} from "@angular/core";
+import {NgModule} from '@angular/core';
 
 const ROUTES: Routes = [
   {
