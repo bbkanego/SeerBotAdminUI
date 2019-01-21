@@ -5,12 +5,14 @@
     "node": ">=6.10.0"
   },
   "scripts": {
-    "clean": "node ./node_modules/",
-    "start": "ng serve",
-    "build": "ng build --prod",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "clean": "node ./node_modules/rimraf/bin.js ./chat-*.tgz ./public/javascript/*.min.js ./public/javascript/*.map ./public/javascript/**/*.map ./temp ./dist",
+    "start": "node ./bin/www",
+    "lint": "npm run clean && node ./node_modules/eslint/bin/eslint -c ../.eslintrc.json public/javascript/*.js  public/javascript/**/*.js",
+    "stop": "lsof -t -i :3003 | xargs kill",
+    "prepack": "npm run webpack-prod",
+    "webpack-watch": "npm run clean && npm run lint && ./node_modules/.bin/webpack --watch --devtool source-map --config ./webpack.config.js --mode development",
+    "webpack-dev": "npm run clean && npm run lint && ./node_modules/.bin/webpack --devtool source-map --config ./webpack.config.js --mode development",
+    "webpack-prod": "npm run clean && npm run lint && ./node_modules/.bin/webpack --config ./webpack.config.js --mode production --optimize-minimize"
   },
   "private": true,
   "dependencies": {
@@ -28,8 +30,8 @@
     "css-loader": "^1.0.0",
     "cssnano": "^4.1.8",
     "debug": "~2.6.9",
-    "eslint": "^4.19.1",
-    "eslint-config-google": "^0.9.1",
+    "eslint": "^5.12.1",
+    "eslint-config-google": "^0.11.0",
     "express": "~4.16.0",
     "jasmine-core": "^3.1.0",
     "json-loader": "^0.5.7",
@@ -42,13 +44,14 @@
     "postcss-preset-env": "^6.5.0",
     "requirejs": "^2.3.5",
     "rimraf": "^2.6.2",
-    "uglify-js": "^3.3.26",
+    "html-webpack-plugin": "^3.2.0",
     "script-ext-html-webpack-plugin": "^2.0.1",
     "sonar-scanner": "^3.1.0",
     "style-loader": "^0.21.0",
     "sugarss": "^2.0.0",
     "svgo": "^1.0.5",
     "svgo-loader": "^2.1.0",
+    "uglify-js": "^3.3.26",
     "url-loader": "^1.1.0",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.0"

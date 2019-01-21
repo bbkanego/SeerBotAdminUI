@@ -10,6 +10,13 @@
             "name": "Chat Admin Debug",
             "url": "http://localhost:4200",
             "webRoot": "/Users/bkane/svn/code/angular/Angular-NLP-Chat-Admin/src"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "SeerChat Reference local UI",
+            "url": "http://localhost:3004/customer/html/reference-ui-chat-local.html",
+            "webRoot": "/home/bkane/svn/code/angular/SeerlogicsBotAdminUI"
         }
     ]
 }

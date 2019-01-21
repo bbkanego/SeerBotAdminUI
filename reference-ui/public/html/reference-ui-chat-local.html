@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+  </head>
+  <body id="customer-website-body">
+    <div class="corpBanner">
+        <h1>Opulant Inc.</h1>
+        <div>
+            This is a test!
+        </div>
+    </div>
+    <div id="chat-iframe-target">
+      <!--Chat iframe will be loaded here. This div should be absolute and styles should be provided to the customer-->
+    </div>
+    <script>
+      var SEER_CHAT_config = {
+        targetDivId: 'chat-iframe-target',
+        sdkUrl: 'https://youtube.com'
+      };
+    </script>
+    <script src="http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js"></script>
+    <script>window.SEER_CHAT_BOOTSTRAP.initialize()</script>
+  </body>
+</html>
