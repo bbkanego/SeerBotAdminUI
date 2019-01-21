@@ -1,5 +1,6 @@
 # **SeerLogic Bot Admin UI**
-* In order to view this file in "chrome" install the "Markdown Viewer" plugin
+
+- In order to view this file in "chrome" install the "Markdown Viewer" plugin
 
 ## **Setting up EsList**
 
@@ -16,18 +17,21 @@
 3. Make sure that you choose "edit json" and edit the "User Settings".
 4. In the User Settings set the following:
 
-   ```"eslint.enable": true,
+```
+   "eslint.enable": true,
     "prettier.eslintIntegration": true,
-    "prettier.singleQuote": true```
-   
+    "prettier.singleQuote": true
+```
 
 5. Next install the "Intellij" key bindings and perform "Cntrl+Alt+L" on linux to format the code.
 6. Note that VsCode will look for eslint settings in **eslintrc.json** first and then use the global settings.
 
 ## **Use Express Application Generator to create app skeleton**
+
 1. Refer: https://expressjs.com/en/starter/generator.html
 2. Create your invidual projects using the above.
 3. Below is the example o/p when I created an express project in an existing dir
+
 ```
 bkane@bhushanhplinux:~/svn/code/angular/SeerlogicsBotAdminUI$ express --view=pug reference-ui
 destination is not empty, continue? [y/N] y
@@ -59,4 +63,5 @@ destination is not empty, continue? [y/N] y
    run the app:
      $ DEBUG=reference-ui:* npm start
 ```
+
 4. Note that you will need to remove the views/routes etc and adjust the www and app.js file per your needs.
