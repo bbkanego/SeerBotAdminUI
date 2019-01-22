@@ -69,7 +69,7 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
 
     const iframe = document.createElement('iframe');
     iframe.sandbox = 'allow-same-origin allow-scripts allow-forms allow-popups';
-    iframe.src = externalConf.sdkUrl + '/index.html';
+    iframe.src = externalConf.sdkUrl;
     if (externalConf.collapsed) {
       iframe.setAttribute('style', iframeHiddenStyle);
     } else {
@@ -80,8 +80,9 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
     iframe.setAttribute('allowfullscreen', 'true');
     // iframe will show in the div.It will take the width of the div
     iframe.width = '100%';
-    iframe.height = 300;
+    iframe.height = '100%';
     iframe.title = 'Seer Chat';
+    iframe.id = 'seerChatIdTypeIframe';
 
     targetDivObj.appendChild(iframe);
 
@@ -100,6 +101,10 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
   const sendInitialize = function() {
     internalConf.receiverNonce = uuid();
 
+    /**
+     * This sends an "initialize" message for the JS in the iframe to
+     * initialize
+     */
     internalConf.iframeHandle.postMessage(
         ':initialize:' + internalConf.receiverNonce,
         internalConf.iframeTargetOrigin
@@ -145,6 +150,9 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
     if (!externalConf.targetDivId) {
       return false;
     }
+
+    internalConf.iframeTargetOrigin = externalConf.sdkUrl;
+
     return true;
   };
 

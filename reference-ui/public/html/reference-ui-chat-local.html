@@ -3,25 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <title></title>
-    <link rel="stylesheet" href="../stylesheets/style.css">
+    <link rel="stylesheet" href="../stylesheets/style.css" />
+    <style>
+      .chat_window {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        width: 500px;
+        max-width: 800px;
+        min-width: 300px;
+        height: 500px;
+        overflow: hidden;
+        z-index: 4;
+     }
+    </style>
   </head>
   <body id="customer-website-body">
     <div class="corpBanner">
-        <h1>Opulant Inc.</h1>
-        <div>
-            This is a test!
-        </div>
+      <h1>Opulant Inc.</h1>
+      <div>This is a test!</div>
     </div>
-    <div id="chat-iframe-target">
+    <div id="chat-iframe-target" class="chat_window">
       <!--Chat iframe will be loaded here. This div should be absolute and styles should be provided to the customer-->
     </div>
     <script>
       var SEER_CHAT_config = {
         targetDivId: 'chat-iframe-target',
-        sdkUrl: 'https://youtube.com'
+        sdkUrl: 'http://localhost:4200'
       };
     </script>
     <script src="http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js"></script>
-    <script>window.SEER_CHAT_BOOTSTRAP.initialize()</script>
+    <script>
+      window.SEER_CHAT_BOOTSTRAP.initialize();
+    </script>
   </body>
 </html>
