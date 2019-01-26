@@ -9,6 +9,7 @@ a {
 
 .corpBanner {
   background-image: url(../images/yumyum.jpeg);
+  background-repeat: repeat;
   width: 500px;
   height: 374px;
 }
