@@ -1,0 +1,24 @@
+{
+  "name": "reference-ui",
+  "version": "1.1.0-SNAPSHOT",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "stop": "lsof -t -i :3005 | xargs kill",
+    "prepack": "npm run clean && npm run lint"
+  },
+  "devDependencies": {
+    "compression": "^1.7.3",
+    "cookie-parser": "~1.4.3",
+    "copyfiles": "^2.0.0",
+    "eslint": "^5.12.1",
+    "eslint-config-google": "^0.11.0",
+    "express": "~4.16.0",
+    "jasmine-core": "^3.1.0",
+    "json-loader": "^0.5.7",
+    "morgan": "~1.9.0",
+    "requirejs": "^2.3.5",
+    "rimraf": "^2.6.2",
+    "uglify-js": "^3.3.26"
+  }
+}
