@@ -88,3 +88,13 @@ destination is not empty, continue? [y/N] y
    ```
    To fix the above make sure that you set the "targetOrigin" to the target domain (ie domain of the Chat Client) when doing a "postMessage".
    See : https://www.codeproject.com/Questions/845454/Failed-to-execute-postMessage-on-DOMWindow-The-tar
+
+
+## Git issues
+1. In certain cases GIT does not save your username/pwd when you do a push or pull to a repository. And it keeps asking you for credentials. In order to avoid this situation run the following command in any GIT local repo:
+```
+git config --global credential.helper store
+```
+> So the next time you push or pull, your credentials will be saved.
+
+
