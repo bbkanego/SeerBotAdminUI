@@ -2,7 +2,7 @@
 <!--<div id="throbber" style="display:none; min-height:120px;"></div>
 <div id="noty-holder"></div>-->
 <!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" *ngIf='isLoggedIn()' role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -13,7 +13,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#">
-        Project name
+        Seer Bot Admin
       </a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
@@ -27,7 +27,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
              aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
+            <li><a href="#" (click)="logout()">Logout</a></li>
             <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
@@ -43,7 +43,7 @@
 </nav>
 <div class="wrapper">
   <app-left-menu *ngIf='isLoggedIn()'></app-left-menu>
-  <div id="content" *ngIf='isLoggedIn()'>
+  <div id="content">
       <router-outlet (activate)='onActivate($event)' (deactivate)='onDeactivate($event)'></router-outlet>
   </div>
   <!-- /#page-wrapper -->

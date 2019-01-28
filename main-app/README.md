@@ -39,3 +39,7 @@ ng build --prod --env=<envName> (eg: ng build --prod --env=dev)
 ```
 
 Refer the [Environments in Angular 5](https://medium.com/@onlyyprasanth/how-to-manage-multiple-environments-with-angular-cli-angular-2-to-5-aa68d557fa77) article for more info.
+
+# How the App Works
+
+1. When the user hits to index URL ie http://localhost:4300 the app tries to load the dashbaord. But before doing so the "AuthGuard" kicks in and check if the user is logged in or not. If not loggged in the user is forwarded to the '/login' URL.

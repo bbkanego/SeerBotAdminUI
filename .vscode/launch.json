@@ -7,9 +7,9 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Chat Admin Debug",
-            "url": "http://localhost:4200",
-            "webRoot": "/Users/bkane/svn/code/angular/Angular-NLP-Chat-Admin/src"
+            "name": "SeerBotAdmin",
+            "url": "http://localhost:4300/login",
+            "webRoot": "/home/bkane/svn/code/angular/SeerlogicsBotAdminUI/main-app/src"
         },
         {
             "type": "chrome",

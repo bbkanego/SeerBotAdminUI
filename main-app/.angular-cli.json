@@ -30,6 +30,7 @@
       ],
       "environmentSource": "app/environments/environment.ts",
       "environments": {
+        "local": "app/environments/environment.ts",
         "dev": "app/environments/environment.dev.ts",
         "mock": "app/environments/environment.mock.ts",
         "prod": "app/environments/environment.prod.ts",
