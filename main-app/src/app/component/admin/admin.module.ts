@@ -10,12 +10,25 @@ import { BotService } from '../../service/bot.service';
 import { SearchBotComponent } from './search-bot/search-bot.component';
 import { SearchIntentComponent } from './search-intent/search-intent.component';
 import { LaunchBotComponent } from './launch-bot/launch-bot.component';
+import { SearchIntentCriteriaComponent } from './search-intent/search-intent-criteria.component';
 
 @NgModule({
   imports: [
-    CommonModule, CommonUtilsModule, FormsModule, ReactiveFormsModule, AdminRoutingModule
+    CommonModule,
+    CommonUtilsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AdminRoutingModule
   ],
-  declarations: [MaintainBotComponent, LandingComponent, MaintainIntentsComponent, SearchBotComponent, SearchIntentComponent, LaunchBotComponent],
+  declarations: [
+    MaintainBotComponent,
+    LandingComponent,
+    MaintainIntentsComponent,
+    SearchBotComponent,
+    SearchIntentCriteriaComponent,
+    SearchIntentComponent,
+    LaunchBotComponent
+  ],
   providers: [BotService]
 })
-export class AdminModule { }
+export class AdminModule {}
