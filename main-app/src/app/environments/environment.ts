@@ -10,6 +10,8 @@ export const environment = {
   production: false,
   envName: 'dev',
   ALL_INTENTS: 'http://localhost:8091/api/v1/predefined-intent',
+  INIT_SEARCH_INTENT: 'http://localhost:8091/api/v1/predefined-intent/search/init',
+  SEARCH_INTENT: 'http://localhost:8091/api/v1/predefined-intent/search',
   INIT_BOT: 'http://localhost:8091/api/v1/chatbot/init/',
   ALL_BOTS: 'http://localhost:8091/api/v1/chatbot',
   SAVE_BOT: 'http://localhost:8091/api/v1/chatbot',

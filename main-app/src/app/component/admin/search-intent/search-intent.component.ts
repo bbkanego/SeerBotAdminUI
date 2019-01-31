@@ -21,19 +21,20 @@ export class SearchIntentComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit() {
+    const searchModel = this.intentService.getIntentSearchModel();
     this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
-      this.getAllResults();
+      this.searchIntents(searchModel);
     });
 
     this.notificationService.onNotification().subscribe((data: any) => {
       if (data.subscriberType === BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS) {
-        this.getAllResults();
+        this.searchIntents(searchModel);
       }
     });
   }
 
-  private getAllResults() {
-    this.allIntents = this.intentService.getAll().subscribe(results => {
+  private searchIntents(model) {
+    this.allIntents = this.intentService.searchIntents(model).subscribe(results => {
       this.intentsResults = results;
       this.intentService.setAllIntents(this.intentsResults);
     });

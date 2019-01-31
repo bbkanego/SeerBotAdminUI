@@ -6,6 +6,7 @@ import { MaintainIntentsComponent } from './maintain-intents/maintain-intents.co
 import { SearchBotComponent } from './search-bot/search-bot.component';
 import { SearchIntentComponent } from './search-intent/search-intent.component';
 import { LaunchBotComponent } from './launch-bot/launch-bot.component';
+import { SearchIntentCriteriaComponent } from './search-intent/search-intent-criteria.component';
 
 const routes: Routes = [
     {
@@ -77,6 +78,10 @@ const routes: Routes = [
     {
         path: 'delete-intent',
         component: MaintainIntentsComponent
+    },
+    {
+        path: 'init-search-intent',
+        component: SearchIntentCriteriaComponent
     },
     {
         path: 'search-intent',

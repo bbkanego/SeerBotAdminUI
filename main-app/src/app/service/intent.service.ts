@@ -6,9 +6,18 @@ import { environment } from '../environments/environment';
 @Injectable()
 export class IntentService extends CrudService<any> {
   private allIntents;
+  private intentSearchForm;
 
   constructor(injector: Injector) {
     super(injector);
+  }
+
+  setIntentSearchForm(model) {
+    this.intentSearchForm = model;
+  }
+
+  getIntentSearchModel() {
+    return this.intentSearchForm;
   }
 
   setAllIntents(allIntents) {
@@ -45,5 +54,13 @@ export class IntentService extends CrudService<any> {
 
   public getAll(): Observable<any[]> {
     return this.getRequest(environment.ALL_INTENTS);
+  }
+
+  public getSearchIntentsModel(): Observable<any> {
+    return this.getRequest(environment.INIT_SEARCH_INTENT);
+  }
+
+  public searchIntents(model): Observable<any> {
+    return this.postRequest(environment.SEARCH_INTENT, model);
   }
 }
