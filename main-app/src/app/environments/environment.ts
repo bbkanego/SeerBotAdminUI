@@ -10,7 +10,8 @@ export const environment = {
   production: false,
   envName: 'dev',
   ALL_INTENTS: 'http://localhost:8091/api/v1/predefined-intent',
-  INIT_SEARCH_INTENT: 'http://localhost:8091/api/v1/predefined-intent/search/init',
+  INIT_SEARCH_INTENT:
+    'http://localhost:8091/api/v1/predefined-intent/search/init',
   SEARCH_INTENT: 'http://localhost:8091/api/v1/predefined-intent/search',
   INIT_BOT: 'http://localhost:8091/api/v1/chatbot/init/',
   ALL_BOTS: 'http://localhost:8091/api/v1/chatbot',
@@ -29,6 +30,8 @@ export const environment = {
   TERMINATE_BOT: 'http://localhost:8091/api/v1/chatbot/terminate',
   STOP_BOT: 'http://localhost:8091/api/v1/chatbot/stop',
   CHANGE_BOT_STATUS: 'http://localhost:8091/api/v1/chatbot/status',
+  INIT_SEARCH_BOT: 'http://localhost:8091/api/v1/chatbot/search/init',
+  SEARCH_BOT: 'http://localhost:8091/api/v1/chatbot/search',
   INIT_TRAIN_MODEL: 'http://localhost:8091/api/v1/model/train/init',
   TRAIN_MODEL: 'http://localhost:8091/api/v1/model/train',
   TRAIN_MODEL_DOWNLOAD: 'http://localhost:8091/api/v1/model/download',

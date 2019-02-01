@@ -7,6 +7,7 @@ import { SearchBotComponent } from './search-bot/search-bot.component';
 import { SearchIntentComponent } from './search-intent/search-intent.component';
 import { LaunchBotComponent } from './launch-bot/launch-bot.component';
 import { SearchIntentCriteriaComponent } from './search-intent/search-intent-criteria.component';
+import { SearchBotCriteriaComponent } from './search-bot/search-bot-criteria.component';
 
 const routes: Routes = [
     {
@@ -40,6 +41,10 @@ const routes: Routes = [
                 component: LaunchBotComponent
             }
         ]
+    },
+    {
+        path: 'init_search_bot',
+        component: SearchBotCriteriaComponent
     },
     {
         path: 'search_bot',

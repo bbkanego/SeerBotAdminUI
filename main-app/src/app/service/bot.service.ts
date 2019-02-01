@@ -1,8 +1,8 @@
-import {Injectable, Injector} from '@angular/core';
-import {CrudService} from 'my-component-library';
-import {Observable} from 'rxjs/Observable';
+import { Injectable, Injector } from '@angular/core';
+import { CrudService } from 'my-component-library';
+import { Observable } from 'rxjs/Observable';
 
-import {environment} from '../environments/environment';
+import { environment } from '../environments/environment';
 
 export class LaunchBot {
   constructor(private bot: any, private trainedModelId: number) {}
@@ -11,8 +11,18 @@ export class LaunchBot {
 @Injectable()
 export class BotService extends CrudService<any> {
 
+  private searchBotCriteriaModel: any;
+
   constructor(injector: Injector) {
     super(injector);
+  }
+
+  public getSearchBotCriteriaModel() {
+    return this.searchBotCriteriaModel;
+  }
+
+  public setSearchBotCriteriaModel(model) {
+    this.searchBotCriteriaModel = model;
   }
 
   public initModelByType(type: string): Observable<any> {
@@ -60,6 +70,16 @@ export class BotService extends CrudService<any> {
   }
 
   public changeBotStatus(id: string, status: string): Observable<any> {
-    return this.getRequest(environment.CHANGE_BOT_STATUS + '/' + id + '/' + status);
+    return this.getRequest(
+      environment.CHANGE_BOT_STATUS + '/' + id + '/' + status
+    );
+  }
+
+  public getSearchBotModel(): Observable<any> {
+    return this.getRequest(environment.INIT_SEARCH_BOT);
+  }
+
+  public searchBot(model): Observable<any> {
+    return this.postRequest(environment.SEARCH_BOT, model);
   }
 }

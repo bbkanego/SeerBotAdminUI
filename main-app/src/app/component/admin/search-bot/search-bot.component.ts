@@ -15,12 +15,14 @@ export class SearchBotComponent implements OnInit, OnDestroy {
 
   botResults;
   getAllSubscription: Subscription;
+  notificationSub: Subscription;
   searchContext = 'search_bots';
 
   constructor(private botService: BotService, private router: Router, private commonService: CommonService,
     private activatedRoute: ActivatedRoute, private notificationService: NotificationService) { }
 
   ngOnInit() {
+    const searchBotCriteriaModel = this.botService.getSearchBotCriteriaModel();
     this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
       const path = urlSegment.join('/');
       if (path.indexOf('search_bots_to_launch') > -1) {
@@ -28,13 +30,19 @@ export class SearchBotComponent implements OnInit, OnDestroy {
       } else if (path.indexOf('search_bots') > -1) {
         this.searchContext = 'search_bots';
       }
-      this.getAllResults();
+      this.searchBots(searchBotCriteriaModel);
     });
 
-    this.notificationService.onNotification().subscribe((data: any) => {
+    this.notificationSub = this.notificationService.onNotification().subscribe((data: any) => {
       if (data.subscriberType === BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS) {
-        this.getAllResults();
+        this.searchBots(searchBotCriteriaModel);
       }
+    });
+  }
+
+  private searchBots(model) {
+    this.getAllSubscription = this.botService.searchBot(model).subscribe(results => {
+      this.botResults = results;
     });
   }
 
@@ -47,6 +55,9 @@ export class SearchBotComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.getAllSubscription) {
       this.getAllSubscription.unsubscribe();
+    }
+    if (this.notificationSub) {
+      this.notificationSub.unsubscribe();
     }
   }
 

@@ -9,7 +9,8 @@ import { CommonService } from 'my-component-library';
 })
 export class LeftMenuComponent implements OnInit {
 
-  constructor(private authenticationService: BotAuthenticationService, private commonService: CommonService) { }
+  constructor(private authenticationService: BotAuthenticationService, 
+    private commonService: CommonService) { }
 
   ngOnInit() {
   }

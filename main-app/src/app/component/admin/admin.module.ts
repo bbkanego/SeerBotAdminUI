@@ -11,6 +11,7 @@ import { SearchBotComponent } from './search-bot/search-bot.component';
 import { SearchIntentComponent } from './search-intent/search-intent.component';
 import { LaunchBotComponent } from './launch-bot/launch-bot.component';
 import { SearchIntentCriteriaComponent } from './search-intent/search-intent-criteria.component';
+import { SearchBotCriteriaComponent } from './search-bot/search-bot-criteria.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { SearchIntentCriteriaComponent } from './search-intent/search-intent-cri
     LandingComponent,
     MaintainIntentsComponent,
     SearchBotComponent,
+    SearchBotCriteriaComponent,
     SearchIntentCriteriaComponent,
     SearchIntentComponent,
     LaunchBotComponent

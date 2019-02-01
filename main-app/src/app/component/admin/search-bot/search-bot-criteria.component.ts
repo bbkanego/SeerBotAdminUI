@@ -1,30 +1,37 @@
 import { Component, OnDestroy, OnInit, Injector } from '@angular/core';
-import { CommonService, Option, SUBSCRIBER_TYPES } from 'my-component-library';
-import { ActivatedRoute, UrlSegment, Router } from '@angular/router';
-import { IntentService } from '../../../service/intent.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
-import { FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import {
+  CommonService,
+  NotificationService,
+  Option
+} from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 
+import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
+import { BotService } from '../../../service/bot.service';
+import { BaseBotComponent } from '../../common/baseBot.component';
+import { FormGroup } from '@angular/forms';
+import { IntentService } from '../../../service/intent.service';
+
 @Component({
-  selector: 'app-search-intent-criteria',
-  templateUrl: './search-intent-criteria.component.html',
-  styleUrls: ['./search-intent-criteria.component.css']
+  selector: 'app-search-bot-criteria',
+  templateUrl: './search-bot-criteria.component.html',
+  styleUrls: ['./search-bot-criteria.component.css']
 })
-export class SearchIntentCriteriaComponent extends BaseBotComponent
+export class SearchBotCriteriaComponent extends BaseBotComponent
   implements OnInit, OnDestroy {
   searchModel: any;
-  intentSearchForm: FormGroup;
+  botSearchForm: FormGroup;
   category: Option[] = [];
   validationRuleSubscription: Subscription;
   validationRules: any;
-  intentSubscription: Subscription;
+  botSubscription: Subscription;
 
   constructor(
     injector: Injector,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private intentService: IntentService
+    private botService: BotService
   ) {
     super(injector);
   }
@@ -33,7 +40,7 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
     this.currentAction = 'search';
     this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
       const path = urlSegment.join('/');
-      if (path.indexOf('init-search-intent') > -1) {
+      if (path.indexOf('init_search_bot') > -1) {
         this.initSearchModel();
       }
     });
@@ -41,7 +48,7 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
 
   private initSearchModel() {
     this.validationRuleSubscription = this.validationService
-      .getValidationRuleMetadata('validateSearchIntentRule')
+      .getValidationRuleMetadata('validateSearchBotsRule')
       .subscribe(rules => {
         this.validationRules = rules;
         this.getSearchModel();
@@ -49,46 +56,44 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
   }
 
   private createForm() {
-    this.intentSearchForm = this.autoGenFormGroup(
+    this.botSearchForm = this.autoGenFormGroup(
       this.searchModel,
       this.validationRules
     );
 
     this.category = [];
     this.category.push(new Option('', 'None'));
-    for (const entry of this.searchModel.referenceData.categories) {
+    for (const entry of this.searchModel.referenceData.category) {
       this.category.push(new Option(entry.code, entry.name));
     }
   }
 
   private getSearchModel() {
-    this.intentSubscription = this.intentService
-      .getSearchIntentsModel()
-      .subscribe(model => {
-        this.searchModel = model;
-        this.createForm();
-      });
+    this.botSubscription = this.botService.getSearchBotModel().subscribe(model => {
+      this.searchModel = model;
+      this.createForm();
+    });
   }
 
   ngOnDestroy(): void {
     if (this.validationRuleSubscription) {
       this.validationRuleSubscription.unsubscribe();
     }
-    if (this.intentSubscription) {
-      this.intentSubscription.unsubscribe();
+    if (this.botSubscription) {
+      this.botSubscription.unsubscribe();
     }
   }
 
-  onSubmit() {
-    if (this.intentSearchForm.valid) {
-      const selectedCat = this.intentSearchForm.get('category').value;
+  onSubmit(event) {
+    if (this.botSearchForm.valid) {
+      const selectedCat = this.botSearchForm.get('category').value;
       const targetCat = this.searchModel.referenceData.categories.filter(
         element => element.code === selectedCat
       );
-      const finalModel = this.intentSearchForm.value;
+      const finalModel = this.botSearchForm.value;
       finalModel.category = targetCat[0];
-      this.intentService.setIntentSearchForm(finalModel);
-      this.router.navigate(['/admin/search-intent']);
+      this.botService.setSearchBotCriteriaModel(finalModel);
+      this.router.navigate(['/admin/search-bot']);
     }
   }
 
