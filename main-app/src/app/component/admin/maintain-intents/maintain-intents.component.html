@@ -1,48 +1,74 @@
-<div class='container-fluid' *ngIf='intentsForm'>
-  <div class='row'>
-    <div class='col-sm-12'>
-      <h1 class='page-header'>Maintain Intents</h1>
-    </div>
+<div class="container-fluid" *ngIf="intentsForm">
+  <div class="row">
+    <div class="col-sm-12"><h1 class="page-header">Maintain Intents</h1></div>
   </div>
-  <form [formGroup]='intentsForm' (ngSubmit)='onSubmit($event)' #formDir='ngForm' novalidate>
-    <div class='row'>
-      <div class='col-sm-12'>
-        <div class='table-box tp-10margin'>
-          <div class='content padded'>
-            <div class="row" *ngIf="showRadioOptions">
-              <div class='col-sm-12'>
-                <label class="radio"><input type="radio" name="selectEntryOption" [checked]="enterEachItem"
-                                            value="enterEachItem" (change)="showOptions('enterEachItem')"/>Option
-                  1</label>
+  <form
+    [formGroup]="intentsForm"
+    (ngSubmit)="onSubmit($event)"
+    #formDir="ngForm"
+    novalidate>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a
+                  data-toggle="collapse"
+                  data-parent="#accordion"
+                  href="#collapseOne"
+                  (click)="selectEntryType('enterDetails')"
+                  ><span class="glyphicon glyphicon-folder-close"> </span>EnterIntent</a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="panel-body content padded">
+                <div class="row" *ngIf="enterEachItem">
+                  <div class="col-lg-6 col-sm-12">
+                    <app-bk-input
+                      [currentForm]="formDir"
+                      label="Intent"
+                      currentFormControlName="intent"></app-bk-input>
+                  </div>
+                  <div class="col-lg-6 col-sm-12">
+                    <app-bk-input
+                      [currentForm]="formDir"
+                      label="Utterance"
+                      currentFormControlName="utterance"
+                    ></app-bk-input>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class='row' *ngIf="enterEachItem">
-              <div class='col-lg-6 col-sm-12'>
-                <app-bk-input [currentForm]='formDir' label='Intent' currentFormControlName='intent'></app-bk-input>
-              </div>
-              <div class='col-lg-6 col-sm-12'>
-                <app-bk-input [currentForm]='formDir' label='Utterance'
-                              currentFormControlName='utterance'></app-bk-input>
-              </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a
+                  data-toggle="collapse"
+                  data-parent="#accordion"
+                  href="#collapseTwo"
+                  (click)="selectEntryType('upload')"
+                  ><span class="glyphicon glyphicon-th"> </span>Upload Intent
+                  File</a
+                >
+              </h4>
             </div>
-            <div class="row" *ngIf="showRadioOptions">
-              <div class='col-sm-12'>
-                <label class="radio"><input type="radio" name="selectEntryOption" [checked]="useFileUpload"
-                                            value="uploadFile" (change)="showOptions('uploadFile')"/>Option 2</label>
-              </div>
-            </div>
-            <div class="row" *ngIf="useFileUpload">
-              <div class='col-lg-6 col-sm-12'>
-                <input type="file" name="intentsFileUpload" #intentsFile/>
-              </div>
-            </div>
-            <div class='row'>
-              <div class='col-lg-6 col-sm-12'>
-                <app-bk-select [currentForm]='formDir' label='Category' currentFormControlName='category'
-                               [options]='category'></app-bk-select>
-              </div>
-              <div class='col-lg-6 col-sm-12'>
-
+            <div id="collapseTwo" class="panel-collapse collapse">
+              <div class="panel-body content padded">
+                <div class="row">
+                  <div class="col-lg-6 col-sm-12">
+                    <div class="input-group">
+                      <label class="input-group-btn">
+                        <span class="btn btn-primary">
+                          Browse&hellip; <input name="intentsFileUpload" (change)="fileChangeEvent($event)" #intentsFile type="file"
+                            style="display: none;" multiple>
+                        </span>
+                      </label>
+                      <input type="text" class="form-control" #showFileName readonly>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -50,16 +76,38 @@
       </div>
     </div>
     <div class='row'>
-      <div style='margin-bottom: 1em' class='col-sm-12'>
-        <bk-button intent='success' [currentForm]='formDir' type='submit'
-                   label='{{getCommonResources("saveButton")}}'></bk-button>
-        <bk-button intent='warning' (click)="revert()"
-                   label='{{getCommonResources("revertButton")}}'></bk-button>
-        <bk-button intent='danger' (click)="cancel()"
-                   label='{{getCommonResources("cancelButton")}}'>>
+        <div class="col-lg-6 col-sm-12">
+            <app-bk-select
+              [currentForm]="formDir"
+              label="Category"
+              currentFormControlName="category"
+              [options]="category"></app-bk-select>
+          </div>
+    </div>
+    <div class="row">
+      <div style="margin-bottom: 1em" class="col-sm-12">
+        <bk-button
+          intent="success"
+          [currentForm]="formDir"
+          type="submit"
+          label="{{ getCommonResources('saveButton') }}"
+        ></bk-button>
+        <bk-button
+          intent="warning"
+          (click)="revert()"
+          label="{{ getCommonResources('revertButton') }}"
+        ></bk-button>
+        <bk-button
+          intent="danger"
+          (click)="cancel()"
+          label="{{ getCommonResources('cancelButton') }}"
+          >>
         </bk-button>
       </div>
-      <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
+      <div
+        class="col-sm-12"
+        [innerHTML]="getCommonResources('requiredIndicator')"
+      ></div>
     </div>
   </form>
   <!-- {{intentsForm.value | json}} -->
