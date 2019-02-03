@@ -73,7 +73,7 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'add-intent',
+        path: 'add_intent',
         component: MaintainIntentsComponent
     },
     {
@@ -85,11 +85,11 @@ const routes: Routes = [
         component: MaintainIntentsComponent
     },
     {
-        path: 'init-search-intent',
+        path: 'start_search_intent',
         component: SearchIntentCriteriaComponent
     },
     {
-        path: 'search-intent',
+        path: 'search_intent',
         component: SearchIntentComponent,
         children: [
             {

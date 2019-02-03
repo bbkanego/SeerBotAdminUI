@@ -15,38 +15,43 @@
         class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="homeSubmenu">
-        <li><a [routerLink]="['/admin/add-bot']">{{getCommonService().cmsContent.leftMenu.admin.option1}}</a></li>
-        <li><a [routerLink]="['/admin/init_search_bot']">{{getCommonService().cmsContent.leftMenu.admin.option2}}</a></li>
-        <li><a [routerLink]="['/admin/add-intent']">{{getCommonService().cmsContent.leftMenu.admin.option3}}</a></li>
-        <li><a [routerLink]="['/admin/init-search-intent']">{{getCommonService().cmsContent.leftMenu.admin.option4}}</a></li>
+        <li><a [routerLink]="['/admin/add_intent']">{{getCommonService().cmsContent.leftMenu.admin.option1}}</a></li>
+        <li><a [routerLink]="['/admin/start_search_intent']">{{getCommonService().cmsContent.leftMenu.admin.option2}}</a></li>
+        <li><a [routerLink]="['/model/start-train-model']">{{getCommonService().cmsContent.leftMenu.admin.option3}}</a></li>
+        <li><a [routerLink]="['/model/search-models']">{{getCommonService().cmsContent.leftMenu.admin.option4}}</a></li>
       </ul>
     </li>
     <li>
       <a href="#botsLife" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-        <i class="glyphicon glyphicon-cog"></i>{{getCommonService().cmsContent.leftMenu.botsLife.heading}}<i
+        <i class="glyphicon glyphicon-cog"></i>{{getCommonService().cmsContent.leftMenu.maintainIntents.heading}}<i
         class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="botsLife">
-        <li><a
-          [routerLink]="['/admin/search_bots_to_launch']">{{getCommonService().cmsContent.leftMenu.botsLife.option1}}</a>
+        <li><a [routerLink]="['/admin/add_intent']">{{getCommonService().cmsContent.leftMenu.maintainIntents.option1}}</a>
         </li>
-        <li><a [routerLink]="['/admin/search-bot']">{{getCommonService().cmsContent.leftMenu.botsLife.option2}}</a></li>
-        <li><a [routerLink]="['/admin/add-intent']">{{getCommonService().cmsContent.leftMenu.botsLife.option3}}</a></li>
-        <li><a [routerLink]="['/admin/search-intent']">{{getCommonService().cmsContent.leftMenu.botsLife.option4}}</a>
+        <li><a [routerLink]="['/admin/start_search_intent']">{{getCommonService().cmsContent.leftMenu.maintainIntents.option2}}</a></li>
+        <li><a [routerLink]="['/model/start-train-model']">{{getCommonService().cmsContent.leftMenu.maintainIntents.option3}}</a></li>
+        <li><a [routerLink]="['/model/search-models']">{{getCommonService().cmsContent.leftMenu.maintainIntents.option4}}</a>
         </li>
       </ul>
     </li>
     <li>
       <a href="#maintainModel" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-        <i class="glyphicon glyphicon-cog"></i>{{getCommonService().cmsContent.leftMenu.maintainModel.heading}}<i
+        <i class="glyphicon glyphicon-cog"></i>{{getCommonService().cmsContent.leftMenu.maintainBots.heading}}<i
         class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="maintainModel">
         <li><a
-          [routerLink]="['/model/start-train-model']">{{getCommonService().cmsContent.leftMenu.maintainModel.option1}}</a>
+          [routerLink]="['/admin/add-bot']">{{getCommonService().cmsContent.leftMenu.maintainBots.option1}}</a>
         </li>
         <li><a
-          [routerLink]="['/model/search-models']">{{getCommonService().cmsContent.leftMenu.maintainModel.option2}}</a>
+          [routerLink]="['/admin/init_search_bot?action=editBot']">{{getCommonService().cmsContent.leftMenu.maintainBots.option2}}</a>
+        </li>
+        <li><a
+          [routerLink]="['/admin/init_search_bot?action=launchBot']">{{getCommonService().cmsContent.leftMenu.maintainBots.option3}}</a>
+        </li>
+        <li><a
+          [routerLink]="['/admin/init_search_bot?action=testBot']">{{getCommonService().cmsContent.leftMenu.maintainBots.option4}}</a>
         </li>
       </ul>
     </li>

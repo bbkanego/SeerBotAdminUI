@@ -92,7 +92,7 @@ export class MaintainIntentsComponent extends BaseBotComponent implements OnInit
   ngOnInit() {
     this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
       const path = urlSegment.join('/');
-      if (path.indexOf('add-intent') > -1) {
+      if (path.indexOf('add_intent') > -1) {
         this.loadUtterance(path);
       } else if (path.indexOf('edit') > -1) {
         this.currentAction = 'edit';

@@ -33,7 +33,7 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
     this.currentAction = 'search';
     this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
       const path = urlSegment.join('/');
-      if (path.indexOf('init-search-intent') > -1) {
+      if (path.indexOf('start_search_intent') > -1) {
         this.initSearchModel();
       }
     });
@@ -88,7 +88,7 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
       const finalModel = this.intentSearchForm.value;
       finalModel.category = targetCat[0];
       this.intentService.setIntentSearchForm(finalModel);
-      this.router.navigate(['/admin/search-intent']);
+      this.router.navigate(['/admin/search_intent']);
     }
   }
 

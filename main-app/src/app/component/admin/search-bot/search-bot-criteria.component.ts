@@ -3,7 +3,8 @@ import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import {
   CommonService,
   NotificationService,
-  Option
+  Option,
+  SUBSCRIBER_TYPES
 } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -87,13 +88,13 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
   onSubmit(event) {
     if (this.botSearchForm.valid) {
       const selectedCat = this.botSearchForm.get('category').value;
-      const targetCat = this.searchModel.referenceData.categories.filter(
+      const targetCat = this.searchModel.referenceData.category.filter(
         element => element.code === selectedCat
       );
       const finalModel = this.botSearchForm.value;
       finalModel.category = targetCat[0];
       this.botService.setSearchBotCriteriaModel(finalModel);
-      this.router.navigate(['/admin/search-bot']);
+      this.router.navigate(['/admin/search_bot']);
     }
   }
 
