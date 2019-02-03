@@ -212,9 +212,9 @@ export class MaintainIntentsComponent extends BaseBotComponent
     return environment.UPLOAD_PREDEF_INTENT;
   }
 
-  fileChangeEvent(fileInput: any) {
-    if (fileInput.target.files && fileInput.target.files[0]) {
-      this.showFileName.nativeElement.value = fileInput.target.files[0].name;
+  fileChangeEvent(fileChangeEvent: any) {
+    if (fileChangeEvent.target.files && fileChangeEvent.target.files[0]) {
+      this.showFileName.nativeElement.value = fileChangeEvent.target.files[0].name;
     }
   }
 }
