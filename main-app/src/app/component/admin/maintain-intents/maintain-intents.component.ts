@@ -143,11 +143,6 @@ export class MaintainIntentsComponent extends BaseBotComponent
   }
 
   private submitEachEntryForm() {
-    const selectedCat = this.intentsForm.get('category').value;
-    const targetCat = this.intentsModel.referenceData.categories.filter(
-      element => element.code === selectedCat
-    );
-    this.intentsForm.get('category').setValue(targetCat[0]);
     const finalModel = this.intentsForm.value;
     this.intentService.save(finalModel).subscribe(res => {
       if (this.currentAction === 'add') {
@@ -174,6 +169,11 @@ export class MaintainIntentsComponent extends BaseBotComponent
 
   onSubmit() {
     if (this.enterEachItem) {
+      const selectedCat = this.intentsForm.get('category').value;
+      const targetCat = this.intentsModel.referenceData.categories.filter(
+        element => element.code === selectedCat
+      );
+      this.intentsForm.get('category').setValue(targetCat[0]);
       if (this.intentsForm.valid) {
         this.submitEachEntryForm();
       }
@@ -236,10 +236,18 @@ export class MaintainIntentsComponent extends BaseBotComponent
   }
 
   getHeading() {
-    if (this.currentContext === 'predefined') {
-      return this.cmsContent.addIntent.pageHeadingPredefined;
+    if (this.currentAction === 'add') {
+      if (this.currentContext === 'predefined') {
+        return this.cmsContent.addIntent.pageHeadingPredefined;
+      } else {
+        return this.cmsContent.addIntent.pageHeadingCustom;
+      }
     } else {
-      return this.cmsContent.addIntent.pageHeadingCustom;
+      if (this.currentContext === 'predefined') {
+        return this.cmsContent.editIntent.pageHeadingPredefined;
+      } else {
+        return this.cmsContent.editIntent.pageHeadingCustom;
+      }
     }
   }
 }

@@ -6,12 +6,12 @@
   <ul class="list-unstyled components">
     <li class="active" *ngIf='getAuthenticationService().isAdmin()'>
       <a [routerLink]="['/dashboard']" data-toggle="collapse" aria-expanded="false">
-        <i class="glyphicon glyphicon-cog"></i>Dashboard
+        <i class="headingLi glyphicon glyphicon-dashboard"></i>Dashboard
       </a>
     </li>
     <li class="active" *ngIf='getAuthenticationService().isAdmin()'>
       <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-        <i class="glyphicon glyphicon-cog"></i>{{getCommonService().cmsContent.leftMenu.admin.heading}}<i
+        <i class="headingLi glyphicon glyphicon-king"></i>{{getCommonService().cmsContent.leftMenu.admin.heading}}<i
         class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -23,7 +23,7 @@
     </li>
     <li>
       <a href="#botsLife" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-        <i class="glyphicon glyphicon-cog"></i>{{getCommonService().cmsContent.leftMenu.maintainIntents.heading}}<i
+        <i class="headingLi glyphicon glyphicon-user"></i>{{getCommonService().cmsContent.leftMenu.maintainIntents.heading}}<i
         class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="botsLife">
@@ -37,7 +37,7 @@
     </li>
     <li>
       <a href="#maintainModel" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-        <i class="glyphicon glyphicon-cog"></i>{{getCommonService().cmsContent.leftMenu.maintainBots.heading}}<i
+        <i class="headingLi glyphicon glyphicon-play-circle"></i>{{getCommonService().cmsContent.leftMenu.maintainBots.heading}}<i
         class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="maintainModel">

@@ -12,32 +12,42 @@ import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
   styleUrls: ['./search-intent.component.css']
 })
 export class SearchIntentComponent implements OnInit, OnDestroy {
-
   intentsResults;
   allIntents: Subscription;
+  cmsContent = {};
 
-  constructor(private activatedRoute: ActivatedRoute, private intentService: IntentService,
-    private notificationService: NotificationService, private commonService: CommonService,
-    private router: Router) { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private intentService: IntentService,
+    private notificationService: NotificationService,
+    private commonService: CommonService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    this.cmsContent = this.commonService.cmsContent;
     const searchModel = this.intentService.getIntentSearchModel();
     this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
       this.searchIntents(searchModel);
     });
 
     this.notificationService.onNotification().subscribe((data: any) => {
-      if (data.subscriberType === BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS) {
+      if (
+        data.subscriberType ===
+        BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS
+      ) {
         this.searchIntents(searchModel);
       }
     });
   }
 
   private searchIntents(model) {
-    this.allIntents = this.intentService.searchIntents(model).subscribe(results => {
-      this.intentsResults = results;
-      this.intentService.setAllIntents(this.intentsResults);
-    });
+    this.allIntents = this.intentService
+      .searchIntents(model)
+      .subscribe(results => {
+        this.intentsResults = results;
+        this.intentService.setAllIntents(this.intentsResults);
+      });
   }
 
   ngOnDestroy(): void {
@@ -47,7 +57,17 @@ export class SearchIntentComponent implements OnInit, OnDestroy {
   }
 
   editIntent(id) {
-    this.router.navigate(['edit', id], { relativeTo: this.activatedRoute });
+    this.router.navigate(['edit', id], {
+      queryParams: { action: this.intentService.getSearchContext() },
+      relativeTo: this.activatedRoute
+    });
   }
 
+  getHeading(): string {
+    if (this.intentService.getSearchContext() === 'predefined') {
+      return this.cmsContent.searchIntents.pageHeadingPredefined;
+    } else {
+      return this.cmsContent.searchIntents.pageHeadingCustom;
+    }
+  }
 }

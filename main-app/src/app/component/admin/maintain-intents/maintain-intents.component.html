@@ -39,7 +39,7 @@
               </div>
             </div>
           </div>
-          <div class="panel panel-default">
+          <div class="panel panel-default" *ngIf='currentAction === "add"'>
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a
@@ -62,10 +62,10 @@
                             style="display: none;">
                         </span>
                       </label>
-                      <div *ngIf='fileCount() === 0' class="errorMessage">
-                        This is required
-                      </div>
                       <input type="text" class="form-control" #showFileName readonly>
+                    </div>
+                    <div *ngIf='fileCount() === 0' class="errorMessage">
+                      This is required
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, Injector } from '@angular/core';
 import { CommonService, Option, SUBSCRIBER_TYPES } from 'my-component-library';
-import { ActivatedRoute, UrlSegment, Router } from '@angular/router';
+import { ActivatedRoute, UrlSegment, Router, Params } from '@angular/router';
 import { IntentService } from '../../../service/intent.service';
 import { BaseBotComponent } from '../../common/baseBot.component';
 import { FormGroup } from '@angular/forms';
@@ -19,6 +19,7 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
   validationRuleSubscription: Subscription;
   validationRules: any;
   intentSubscription: Subscription;
+  currentContext: string;
 
   constructor(
     injector: Injector,
@@ -31,11 +32,15 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
 
   ngOnInit() {
     this.currentAction = 'search';
-    this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
-      const path = urlSegment.join('/');
-      if (path.indexOf('start_search_intent') > -1) {
-        this.initSearchModel();
-      }
+    this.activatedRoute.queryParams.subscribe((qParams: Params) => {
+      this.currentContext = qParams['action'];
+      this.intentService.setSearchContext(this.currentContext);
+      this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
+        const path = urlSegment.join('/');
+        if (path.indexOf('start_search_intent') > -1) {
+          this.initSearchModel();
+        }
+      });
     });
   }
 
@@ -104,6 +109,14 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
         SUBSCRIBER_TYPES.FORM_GROUP_RESET,
         SUBSCRIBER_TYPES.FORM_GROUP_RESET
       );
+    }
+  }
+
+  getHeading(): string {
+    if (this.currentContext === 'predefined') {
+      return this.getResource('searchIntents', 'pageHeadingPredefined');
+    } else {
+      return this.getResource('searchIntents', 'pageHeadingCustom');
     }
   }
 }
