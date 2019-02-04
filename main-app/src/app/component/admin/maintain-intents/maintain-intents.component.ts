@@ -7,14 +7,14 @@ import {
   ViewChild
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 import { Option, SUBSCRIBER_TYPES } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 
-import { IntentService } from '../../../service/intent.service';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { BaseBotComponent } from '../../common/baseBot.component';
 import { environment } from '../../../environments/environment';
+import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
+import { IntentService } from '../../../service/intent.service';
+import { BaseBotComponent } from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-maintain-intents',
@@ -33,9 +33,13 @@ export class MaintainIntentsComponent extends BaseBotComponent
   private currentEditCategory = null;
   @ViewChild('intentsFile') intentsFile: ElementRef;
   @ViewChild('showFileName') showFileName: ElementRef;
+  @ViewChild('utteranceTextBox') utteranceTextBox: ElementRef;
+  @ViewChild('intentTextBox') intentTextBox: ElementRef;
   enterEachItem = true;
   problemWithUpload = false;
   showRadioOptions = true;
+  currentContext = 'NONE';
+  cmsContent;
 
   constructor(
     injector: Injector,
@@ -84,7 +88,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
     }
   }
 
-  private loadUtterance(path) {
+  private loadIntentsForm(path) {
     this.validationRuleSubscription = this.validationService
       .getValidationRuleMetadata('validateIntentRule')
       .subscribe(rules => {
@@ -113,15 +117,19 @@ export class MaintainIntentsComponent extends BaseBotComponent
   }
 
   ngOnInit() {
-    this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
-      const path = urlSegment.join('/');
-      if (path.indexOf('add_intent') > -1) {
-        this.loadUtterance(path);
-      } else if (path.indexOf('edit') > -1) {
-        this.currentAction = 'edit';
-        const id = this.activatedRoute.snapshot.paramMap.get('id');
-        this.editUtterance(path, id);
-      }
+    this.cmsContent = this.commonService.cmsContent.maintainIntents;
+    this.activatedRoute.queryParams.subscribe((qParams: Params) => {
+      this.currentContext = qParams['action'];
+      this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
+        const path = urlSegment.join('/');
+        if (path.indexOf('add_intent') > -1) {
+          this.loadIntentsForm(path);
+        } else if (path.indexOf('edit') > -1) {
+          this.currentAction = 'edit';
+          const id = this.activatedRoute.snapshot.paramMap.get('id');
+          this.editUtterance(path, id);
+        }
+      });
     });
   }
 
@@ -160,6 +168,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
       this.enterEachItem = true;
     } else {
       this.enterEachItem = false;
+      this.initComponent('');
     }
   }
 
@@ -189,6 +198,13 @@ export class MaintainIntentsComponent extends BaseBotComponent
     }
   }
 
+  fileCount(): number {
+    if (this.intentsFile) {
+      const intentsFile: FileList = this.intentsFile.nativeElement.files;
+      return intentsFile.length;
+    }
+  }
+
   cancel() {
     if (this.currentAction === 'add') {
       this.router.navigate(['/dashboard']);
@@ -214,7 +230,16 @@ export class MaintainIntentsComponent extends BaseBotComponent
 
   fileChangeEvent(fileChangeEvent: any) {
     if (fileChangeEvent.target.files && fileChangeEvent.target.files[0]) {
-      this.showFileName.nativeElement.value = fileChangeEvent.target.files[0].name;
+      this.showFileName.nativeElement.value =
+        fileChangeEvent.target.files[0].name;
+    }
+  }
+
+  getHeading() {
+    if (this.currentContext === 'predefined') {
+      return this.cmsContent.addIntent.pageHeadingPredefined;
+    } else {
+      return this.cmsContent.addIntent.pageHeadingCustom;
     }
   }
 }

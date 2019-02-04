@@ -237,3 +237,7 @@ textarea {
   border-right: 5px solid black;
 }
 /* Tooltip -------------------------------------*/
+
+.icon-required {
+    color: red;
+}

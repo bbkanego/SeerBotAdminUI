@@ -1,6 +1,6 @@
 <div class="container-fluid" *ngIf="intentsForm">
   <div class="row">
-    <div class="col-sm-12"><h1 class="page-header">Maintain Intents</h1></div>
+    <div class="col-sm-12"><h1 class="page-header">{{getHeading()}}</h1></div>
   </div>
   <form
     [formGroup]="intentsForm"
@@ -18,22 +18,20 @@
                   data-parent="#accordion"
                   href="#collapseOne"
                   (click)="selectEntryType('enterDetails')"
-                  ><span class="glyphicon glyphicon-folder-close"> </span>EnterIntent</a>
+                  ><span class="glyphicon glyphicon-edit"> </span>{{cmsContent.addIntent.enterIntent}}</a>
               </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
               <div class="panel-body content padded">
                 <div class="row" *ngIf="enterEachItem">
                   <div class="col-lg-6 col-sm-12">
-                    <app-bk-input
-                      [currentForm]="formDir"
-                      label="Intent"
-                      currentFormControlName="intent"></app-bk-input>
+                    <app-bk-input #intentTextBox [currentForm]="formDir" label="{{cmsContent.addIntent.intentLabel}}" currentFormControlName="intent"></app-bk-input>
                   </div>
                   <div class="col-lg-6 col-sm-12">
                     <app-bk-input
                       [currentForm]="formDir"
-                      label="Utterance"
+                      #utteranceTextBox
+                      label="{{cmsContent.addIntent.utteranceLabel}}"
                       currentFormControlName="utterance"
                     ></app-bk-input>
                   </div>
@@ -49,8 +47,7 @@
                   data-parent="#accordion"
                   href="#collapseTwo"
                   (click)="selectEntryType('upload')"
-                  ><span class="glyphicon glyphicon-th"> </span>Upload Intent
-                  File</a
+                  ><span class="glyphicon glyphicon-upload"> </span>{{cmsContent.addIntent.uploadIntents}}</a
                 >
               </h4>
             </div>
@@ -61,10 +58,13 @@
                     <div class="input-group">
                       <label class="input-group-btn">
                         <span class="btn btn-primary">
-                          Browse&hellip; <input name="intentsFileUpload" (change)="fileChangeEvent($event)" #intentsFile type="file"
-                            style="display: none;" multiple>
+                          Select File&nbsp;<span class="glyphicon glyphicon-asterisk icon-required"></span><input name="intentsFileUpload" (change)="fileChangeEvent($event)" #intentsFile type="file"
+                            style="display: none;">
                         </span>
                       </label>
+                      <div *ngIf='fileCount() === 0' class="errorMessage">
+                        This is required
+                      </div>
                       <input type="text" class="form-control" #showFileName readonly>
                     </div>
                   </div>
@@ -79,7 +79,7 @@
         <div class="col-lg-6 col-sm-12">
             <app-bk-select
               [currentForm]="formDir"
-              label="Category"
+              label="{{cmsContent.addIntent.categoryLabel}}"
               currentFormControlName="category"
               [options]="category"></app-bk-select>
           </div>
@@ -88,7 +88,6 @@
       <div style="margin-bottom: 1em" class="col-sm-12">
         <bk-button
           intent="success"
-          [currentForm]="formDir"
           type="submit"
           label="{{ getCommonResources('saveButton') }}"
         ></bk-button>

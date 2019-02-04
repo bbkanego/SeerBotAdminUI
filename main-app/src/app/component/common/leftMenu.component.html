@@ -15,10 +15,10 @@
         class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="homeSubmenu">
-        <li><a [routerLink]="['/admin/add_intent']">{{getCommonService().cmsContent.leftMenu.admin.option1}}</a></li>
-        <li><a [routerLink]="['/admin/start_search_intent']">{{getCommonService().cmsContent.leftMenu.admin.option2}}</a></li>
-        <li><a [routerLink]="['/model/start-train-model']">{{getCommonService().cmsContent.leftMenu.admin.option3}}</a></li>
-        <li><a [routerLink]="['/model/search-models']">{{getCommonService().cmsContent.leftMenu.admin.option4}}</a></li>
+        <li><a [routerLink]="['/admin/add_intent']" [queryParams]="{'action': 'predefined'}">{{getCommonService().cmsContent.leftMenu.admin.option1}}</a></li>
+        <li><a [routerLink]="['/admin/start_search_intent']" [queryParams]="{'action': 'predefined'}">{{getCommonService().cmsContent.leftMenu.admin.option2}}</a></li>
+        <li><a [routerLink]="['/model/start-train-model']" [queryParams]="{'action': 'predefined'}">{{getCommonService().cmsContent.leftMenu.admin.option3}}</a></li>
+        <li><a [routerLink]="['/model/search-models']" [queryParams]="{'action': 'predefined'}">{{getCommonService().cmsContent.leftMenu.admin.option4}}</a></li>
       </ul>
     </li>
     <li>
