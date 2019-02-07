@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, Injector } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { ActivatedRoute, Router, UrlSegment, Params } from '@angular/router';
 import {
   CommonService,
   NotificationService,
@@ -27,6 +27,7 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
   validationRuleSubscription: Subscription;
   validationRules: any;
   botSubscription: Subscription;
+  currentContext: string;
 
   constructor(
     injector: Injector,
@@ -39,11 +40,15 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
 
   ngOnInit() {
     this.currentAction = 'search';
-    this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
-      const path = urlSegment.join('/');
-      if (path.indexOf('init_search_bot') > -1) {
-        this.initSearchModel();
-      }
+    this.activatedRoute.queryParams.subscribe((qParams: Params) => {
+      this.currentContext = qParams['action'];
+      this.botService.setSearchContext(this.currentContext);
+      this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
+        const path = urlSegment.join('/');
+        if (path.indexOf('init_search_bot') > -1) {
+          this.initSearchModel();
+        }
+      });
     });
   }
 
@@ -70,10 +75,12 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
   }
 
   private getSearchModel() {
-    this.botSubscription = this.botService.getSearchBotModel().subscribe(model => {
-      this.searchModel = model;
-      this.createForm();
-    });
+    this.botSubscription = this.botService
+      .getSearchBotModel()
+      .subscribe(model => {
+        this.searchModel = model;
+        this.createForm();
+      });
   }
 
   ngOnDestroy(): void {
@@ -85,7 +92,7 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
     }
   }
 
-  onSubmit(event) {
+  onSubmit() {
     if (this.botSearchForm.valid) {
       const selectedCat = this.botSearchForm.get('category').value;
       const targetCat = this.searchModel.referenceData.category.filter(
@@ -110,6 +117,16 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
         SUBSCRIBER_TYPES.FORM_GROUP_RESET,
         SUBSCRIBER_TYPES.FORM_GROUP_RESET
       );
+    }
+  }
+
+  getHeading(): string {
+    if (this.currentContext === 'editBot') {
+      return this.getResource('searchBots', 'pageHeading');
+    } else if (this.currentContext === 'testBot') {
+      return this.getResource('searchBots', 'pageHeadingTestBot');
+    } else if (this.currentContext === 'launchBot') {
+      return this.getResource('searchBots', 'pageHeadingLaunchBot');
     }
   }
 }

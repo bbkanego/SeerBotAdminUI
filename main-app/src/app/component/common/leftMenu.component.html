@@ -4,12 +4,12 @@
     <h3>Bootstrap Sidebar</h3>
   </div>-->
   <ul class="list-unstyled components">
-    <li class="active" *ngIf='getAuthenticationService().isAdmin()'>
+    <li *ngIf='getAuthenticationService().isAdmin()'>
       <a [routerLink]="['/dashboard']" data-toggle="collapse" aria-expanded="false">
         <i class="headingLi glyphicon glyphicon-dashboard"></i>Dashboard
       </a>
     </li>
-    <li class="active" *ngIf='getAuthenticationService().isAdmin()'>
+    <li *ngIf='getAuthenticationService().isAdmin()'>
       <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-king"></i>{{getCommonService().cmsContent.leftMenu.admin.heading}}<i
         class="fa fa-fw fa-angle-down pull-right"></i>
@@ -27,11 +27,11 @@
         class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="botsLife">
-        <li><a [routerLink]="['/admin/add_intent']">{{getCommonService().cmsContent.leftMenu.maintainIntents.option1}}</a>
+        <li><a [routerLink]="['/admin/add_intent']" [queryParams]="{'action': 'custom'}">{{getCommonService().cmsContent.leftMenu.maintainIntents.option1}}</a>
         </li>
-        <li><a [routerLink]="['/admin/start_search_intent']">{{getCommonService().cmsContent.leftMenu.maintainIntents.option2}}</a></li>
-        <li><a [routerLink]="['/model/start-train-model']">{{getCommonService().cmsContent.leftMenu.maintainIntents.option3}}</a></li>
-        <li><a [routerLink]="['/model/search-models']">{{getCommonService().cmsContent.leftMenu.maintainIntents.option4}}</a>
+        <li><a [routerLink]="['/admin/start_search_intent']" [queryParams]="{'action': 'custom'}">{{getCommonService().cmsContent.leftMenu.maintainIntents.option2}}</a></li>
+        <li><a [routerLink]="['/model/start-train-model']" [queryParams]="{'action': 'custom'}">{{getCommonService().cmsContent.leftMenu.maintainIntents.option3}}</a></li>
+        <li><a [routerLink]="['/model/search-models']" [queryParams]="{'action': 'custom'}">{{getCommonService().cmsContent.leftMenu.maintainIntents.option4}}</a>
         </li>
       </ul>
     </li>
@@ -45,13 +45,13 @@
           [routerLink]="['/admin/add-bot']">{{getCommonService().cmsContent.leftMenu.maintainBots.option1}}</a>
         </li>
         <li><a
-          [routerLink]="['/admin/init_search_bot?action=editBot']">{{getCommonService().cmsContent.leftMenu.maintainBots.option2}}</a>
+          [routerLink]="['/admin/init_search_bot']" [queryParams]="{'action': 'editBot'}">{{getCommonService().cmsContent.leftMenu.maintainBots.option2}}</a>
         </li>
         <li><a
-          [routerLink]="['/admin/init_search_bot?action=launchBot']">{{getCommonService().cmsContent.leftMenu.maintainBots.option3}}</a>
+          [routerLink]="['/admin/init_search_bot']" [queryParams]="{'action': 'launchBot'}">{{getCommonService().cmsContent.leftMenu.maintainBots.option3}}</a>
         </li>
         <li><a
-          [routerLink]="['/admin/init_search_bot?action=testBot']">{{getCommonService().cmsContent.leftMenu.maintainBots.option4}}</a>
+          [routerLink]="['/admin/init_search_bot']" [queryParams]="{'action': 'testBot'}">{{getCommonService().cmsContent.leftMenu.maintainBots.option4}}</a>
         </li>
       </ul>
     </li>

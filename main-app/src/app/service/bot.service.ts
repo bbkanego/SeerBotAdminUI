@@ -12,9 +12,18 @@ export class LaunchBot {
 export class BotService extends CrudService<any> {
 
   private searchBotCriteriaModel: any;
+  private searchContext: string;
 
   constructor(injector: Injector) {
     super(injector);
+  }
+
+  public setSearchContext(context: string) {
+    this.searchContext = context;
+  }
+
+  public getSearchContext() {
+    return this.searchContext;
   }
 
   public getSearchBotCriteriaModel() {

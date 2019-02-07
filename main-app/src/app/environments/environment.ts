@@ -13,6 +13,7 @@ export const environment = {
   INIT_SEARCH_INTENT:
     'http://localhost:8091/api/v1/predefined-intent/search/init',
   SEARCH_INTENT: 'http://localhost:8091/api/v1/predefined-intent/search',
+  CUSTOM_SEARCH_INTENT: 'http://localhost:8091/api/v1/custom-intent/search',
   INIT_BOT: 'http://localhost:8091/api/v1/chatbot/init/',
   ALL_BOTS: 'http://localhost:8091/api/v1/chatbot',
   SAVE_BOT: 'http://localhost:8091/api/v1/chatbot',
@@ -24,6 +25,10 @@ export const environment = {
   SAVE_PREDEF_INTENT: 'http://localhost:8091/api/v1/predefined-intent',
   GET_PREDEF_INTENT: 'http://localhost:8091/api/v1/predefined-intent',
   UPLOAD_PREDEF_INTENT: 'http://localhost:8091/api/v1/predefined-intent/upload',
+  INIT_CUSTOM_INTENTS: 'http://localhost:8091/api/v1/custom-intent/init',
+  SAVE_CUSTOM_INTENT: 'http://localhost:8091/api/v1/custom-intent',
+  GET_CUSTOM_INTENT: 'http://localhost:8091/api/v1/custom-intent',
+  UPLOAD_CUSTOM_INTENT: 'http://localhost:8091/api/v1/custom-intent/upload',
   GET_ALL_CMS_CONTENT: 'http://localhost:8091/api/cms/all-content',
   START_LAUNCH_BOT: 'http://localhost:8091/api/v1/chatbot/launch/start',
   LAUNCH_BOT: 'http://localhost:8091/api/v1/chatbot/launch',

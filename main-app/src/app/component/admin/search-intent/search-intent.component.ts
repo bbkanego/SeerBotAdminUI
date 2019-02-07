@@ -56,7 +56,7 @@ export class SearchIntentComponent implements OnInit, OnDestroy {
     }
   }
 
-  editIntent(id) {
+  editIntent(id: string) {
     this.router.navigate(['edit', id], {
       queryParams: { action: this.intentService.getSearchContext() },
       relativeTo: this.activatedRoute
