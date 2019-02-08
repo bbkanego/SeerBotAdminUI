@@ -93,13 +93,9 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
   }
 
   onSubmit() {
+    this.mapSelectValue(this.botSearchForm, this.searchModel, 'category', 'category');
     if (this.botSearchForm.valid) {
-      const selectedCat = this.botSearchForm.get('category').value;
-      const targetCat = this.searchModel.referenceData.category.filter(
-        element => element.code === selectedCat
-      );
       const finalModel = this.botSearchForm.value;
-      finalModel.category = targetCat[0];
       this.botService.setSearchBotCriteriaModel(finalModel);
       this.router.navigate(['/admin/search_bot']);
     }

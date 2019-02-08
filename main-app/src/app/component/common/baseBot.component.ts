@@ -2,6 +2,7 @@ import { Injector } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BaseReactiveComponent, CommonService } from 'my-component-library';
 import { combineLatest } from 'rxjs/observable/combineLatest';
+import { FormGroup } from '@angular/forms';
 
 export abstract class BaseBotComponent extends BaseReactiveComponent {
   currentAction = 'add';
@@ -43,5 +44,13 @@ export abstract class BaseBotComponent extends BaseReactiveComponent {
       activatedRoute.queryParams,
       (params, queryParams) => ({ ...params, ...queryParams })
     );
+  }
+
+  protected mapSelectValue(form: FormGroup, model, formControlName: string, referenceDataProp: string) {
+    const selectedCat = form.get(formControlName).value;
+    const targetCat = model.referenceData[referenceDataProp].filter(
+      (element: any) => element.code === selectedCat
+    );
+    form.get(formControlName).setValue(targetCat[0]);
   }
 }
