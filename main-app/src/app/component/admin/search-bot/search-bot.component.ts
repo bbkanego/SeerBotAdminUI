@@ -17,11 +17,13 @@ export class SearchBotComponent implements OnInit, OnDestroy {
   getAllSubscription: Subscription;
   notificationSub: Subscription;
   searchContext = 'search_bots';
+  cmsContent = {};
 
   constructor(private botService: BotService, private router: Router, private commonService: CommonService,
     private activatedRoute: ActivatedRoute, private notificationService: NotificationService) { }
 
   ngOnInit() {
+    this.cmsContent = this.commonService.cmsContent;
     const searchBotCriteriaModel = this.botService.getSearchBotCriteriaModel();
     this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
       const path = urlSegment.join('/');
@@ -63,11 +65,23 @@ export class SearchBotComponent implements OnInit, OnDestroy {
 
   editBot(id) {
     let finalPath = '';
-    if (this.searchContext === 'search_bots') {
+    if (this.botService.getSearchContext() === 'editBot') {
       finalPath = 'edit';
-    } else if (this.searchContext === 'search_bots_to_launch') {
+    } else if (this.botService.getSearchContext() === 'launchBot') {
       finalPath = 'launch_start';
+    } else if (this.botService.getSearchContext() === 'testBot') {
+      finalPath = 'test_start';
     }
     this.router.navigate([finalPath, id], { relativeTo: this.activatedRoute });
+  }
+
+  getHeading(): string {
+    if (this.botService.getSearchContext() === 'editBot') {
+      return this.cmsContent.searchBots.pageHeading;
+    } else if (this.botService.getSearchContext() === 'launchBot') {
+      return this.cmsContent.searchBots.pageHeadingLaunchBot;
+    } else if (this.botService.getSearchContext() === 'testBot') {
+      return this.cmsContent.searchBots.pageHeadingTestBot;
+    }
   }
 }

@@ -8,6 +8,7 @@ import { SearchIntentComponent } from './search-intent/search-intent.component';
 import { LaunchBotComponent } from './launch-bot/launch-bot.component';
 import { SearchIntentCriteriaComponent } from './search-intent/search-intent-criteria.component';
 import { SearchBotCriteriaComponent } from './search-bot/search-bot-criteria.component';
+import { TestBotComponent } from './test-bot/test-bot.component';
 
 const routes: Routes = [
     {
@@ -27,20 +28,6 @@ const routes: Routes = [
     {
         path: 'edit-bot',
         component: MaintainBotComponent
-    },
-    {
-        path: 'search_bots_to_launch',
-        component: SearchBotComponent,
-        children: [
-            {
-                path: 'launch_start/:id',
-                component: LaunchBotComponent
-            },
-            {
-                path: 'launched',
-                component: LaunchBotComponent
-            }
-        ]
     },
     {
         path: 'init_search_bot',
@@ -69,6 +56,22 @@ const routes: Routes = [
             {
                 path: 'clear_criteria',
                 component: SearchBotComponent
+            },
+            {
+                path: 'launch_start/:id',
+                component: LaunchBotComponent
+            },
+            {
+                path: 'launched',
+                component: LaunchBotComponent
+            },
+            {
+                path: 'test_start/:id',
+                component: TestBotComponent
+            },
+            {
+                path: 'test',
+                component: TestBotComponent
             }
         ]
     },

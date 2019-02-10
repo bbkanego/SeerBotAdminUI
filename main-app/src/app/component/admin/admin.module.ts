@@ -12,6 +12,7 @@ import { SearchIntentComponent } from './search-intent/search-intent.component';
 import { LaunchBotComponent } from './launch-bot/launch-bot.component';
 import { SearchIntentCriteriaComponent } from './search-intent/search-intent-criteria.component';
 import { SearchBotCriteriaComponent } from './search-bot/search-bot-criteria.component';
+import { TestBotComponent } from './test-bot/test-bot.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { SearchBotCriteriaComponent } from './search-bot/search-bot-criteria.com
     SearchBotCriteriaComponent,
     SearchIntentCriteriaComponent,
     SearchIntentComponent,
-    LaunchBotComponent
+    LaunchBotComponent,
+    TestBotComponent
   ],
   providers: [BotService]
 })
