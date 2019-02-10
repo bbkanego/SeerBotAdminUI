@@ -117,7 +117,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
   }
 
   ngOnInit() {
-    this.cmsContent = this.commonService.cmsContent.maintainIntents;
+    this.cmsContent = this.commonService.cmsContent['maintainIntents'];
     this.activatedRoute.queryParams.subscribe((qParams: Params) => {
       this.currentContext = qParams['action'];
       this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {

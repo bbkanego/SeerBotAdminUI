@@ -64,10 +64,11 @@ export class SearchIntentComponent implements OnInit, OnDestroy {
   }
 
   getHeading(): string {
+      const localCms = this.cmsContent['searchIntents'];
     if (this.intentService.getSearchContext() === 'predefined') {
-      return this.cmsContent.searchIntents.pageHeadingPredefined;
+      return localCms.pageHeadingPredefined;
     } else {
-      return this.cmsContent.searchIntents.pageHeadingCustom;
+      return localCms.pageHeadingCustom;
     }
   }
 }

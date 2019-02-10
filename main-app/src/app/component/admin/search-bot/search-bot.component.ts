@@ -12,15 +12,19 @@ import { BotService } from '../../../service/bot.service';
   styleUrls: ['./search-bot.component.css']
 })
 export class SearchBotComponent implements OnInit, OnDestroy {
-
   botResults;
   getAllSubscription: Subscription;
   notificationSub: Subscription;
   searchContext = 'search_bots';
   cmsContent = {};
 
-  constructor(private botService: BotService, private router: Router, private commonService: CommonService,
-    private activatedRoute: ActivatedRoute, private notificationService: NotificationService) { }
+  constructor(
+    private botService: BotService,
+    private router: Router,
+    private commonService: CommonService,
+    private activatedRoute: ActivatedRoute,
+    private notificationService: NotificationService
+  ) {}
 
   ngOnInit() {
     this.cmsContent = this.commonService.cmsContent;
@@ -35,17 +39,23 @@ export class SearchBotComponent implements OnInit, OnDestroy {
       this.searchBots(searchBotCriteriaModel);
     });
 
-    this.notificationSub = this.notificationService.onNotification().subscribe((data: any) => {
-      if (data.subscriberType === BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS) {
-        this.searchBots(searchBotCriteriaModel);
-      }
-    });
+    this.notificationSub = this.notificationService
+      .onNotification()
+      .subscribe((data: any) => {
+        if (
+          data.subscriberType === BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS
+        ) {
+          this.searchBots(searchBotCriteriaModel);
+        }
+      });
   }
 
   private searchBots(model) {
-    this.getAllSubscription = this.botService.searchBot(model).subscribe(results => {
-      this.botResults = results;
-    });
+    this.getAllSubscription = this.botService
+      .searchBot(model)
+      .subscribe(results => {
+        this.botResults = results;
+      });
   }
 
   private getAllResults() {
@@ -76,12 +86,13 @@ export class SearchBotComponent implements OnInit, OnDestroy {
   }
 
   getHeading(): string {
+    const localCmsContent = this.cmsContent['searchBots'];
     if (this.botService.getSearchContext() === 'editBot') {
-      return this.cmsContent.searchBots.pageHeading;
+      return localCmsContent.pageHeading;
     } else if (this.botService.getSearchContext() === 'launchBot') {
-      return this.cmsContent.searchBots.pageHeadingLaunchBot;
+      return localCmsContent.pageHeadingLaunchBot;
     } else if (this.botService.getSearchContext() === 'testBot') {
-      return this.cmsContent.searchBots.pageHeadingTestBot;
+      return localCmsContent.pageHeadingTestBot;
     }
   }
 }

@@ -3,14 +3,32 @@ import {
   Injector,
   OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild,
+  ComponentFactoryResolver,
+  ElementRef,
+  ViewContainerRef,
+  Input,
+  ComponentRef,
+  AfterViewChecked
 } from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { BotService, LaunchBot } from '../../../service/bot.service';
+import * as $ from 'jquery';
+import { BotService } from '../../../service/bot.service';
 import { BaseBotComponent } from '../../common/baseBot.component';
+import {
+  HttpClient,
+  Notification,
+  NotificationService,
+  ChatData,
+  TextChat2ComponentComponent,
+  TableChatComponentComponent,
+  ConfirmChatComponent,
+  OptionsChatComponent,
+  BaseDynamicComponent
+} from 'my-component-library';
+import { UUID } from 'angular2-uuid';
+import { environment } from '../../../environments/environment';
 
 export class Message {
   private messageSide: string;
@@ -47,7 +65,7 @@ export class Message {
   styleUrls: ['./test-bot.component.css']
 })
 export class TestBotComponent extends BaseBotComponent
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy, AfterViewChecked {
   botServiceSubscription: Subscription;
   launchDTO: any;
   botAccessUrl: string;
@@ -55,25 +73,6 @@ export class TestBotComponent extends BaseBotComponent
   context = 'startTest';
   botCallSub: Subscription;
   trainedModelSelectValue;
-
-  constructor(
-    injector: Injector,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private botService: BotService,
-    private httpClient: HttpClient,
-    private stomp: StompService,
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private notificationService: NotificationService,
-    private authenticationService: ChatAuthenticationService,
-    private messaging: Messaging,
-    private configHelper: ConfigHelper,
-    private utils: Util
-  ) {
-    super(injector);
-  }
-
-  //-------------------------
 
   clickedColumn: any;
   localMessageJSON: any;
@@ -86,9 +85,6 @@ export class TestBotComponent extends BaseBotComponent
   messageListContainer: ElementRef;
   @ViewChild('messageList', { read: ViewContainerRef })
   messageList: ViewContainerRef;
-  showChatBox = false;
-  @Input()
-  showChatBoxAfterSeconds = 10000;
   private dynamicComponentMap: Map<number, ComponentRef<{}>> = new Map();
   private dynamicComponentCount = 0;
 
@@ -101,13 +97,24 @@ export class TestBotComponent extends BaseBotComponent
   private initiateMessageSent = false;
   private messageSide = 'left';
   private uniqueClientId;
-  private readonly LOCAL_CONST = CONSTANTS;
 
   @Input()
   hostUrl: string;
   @Input()
   subscriptionUrl: string;
   chatMessages: ChatData[] = new Array();
+
+  constructor(
+    injector: Injector,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private botService: BotService,
+    private httpClient: HttpClient,
+    private stomp: StompService,
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) {
+    super(injector);
+  }
 
   private DYNAMIC_COMPONENTS = {
     text: TextChat2ComponentComponent,
@@ -130,10 +137,6 @@ export class TestBotComponent extends BaseBotComponent
       this.loadBot();
     });
 
-    setTimeout(() => {
-      this.showChatBox = true;
-    }, this.showChatBoxAfterSeconds);
-
     this.localEventSubscription = this.notificationService
       .onNotification()
       .subscribe((eventObj: Notification) => {
@@ -146,11 +149,8 @@ export class TestBotComponent extends BaseBotComponent
         }
       });
     this.uniqueClientId = UUID.UUID();
-    this.setUpStomp();
     this.connect();
   }
-
-  //-------------------------
 
   loadBot() {
     this.context = 'startTest';
@@ -177,6 +177,18 @@ export class TestBotComponent extends BaseBotComponent
     }
     if (this.botCallSub) {
       this.botCallSub.unsubscribe();
+    }
+
+    // unsubscribe
+    this.subscription.unsubscribe();
+
+    if (this.componentRef) {
+      this.componentRef.destroy();
+      this.componentRef = null;
+    }
+
+    if (this.localEventSubscription) {
+      this.localEventSubscription.unsubscribe();
     }
   }
 
@@ -295,60 +307,6 @@ export class TestBotComponent extends BaseBotComponent
       .subscribe(() => {
         this.chatBox.nativeElement.value = '';
       });
-  }
-
-  dismissChatbox() {
-    this.showChatBox = false;
-  }
-
-  showChatbox() {
-    this.showChatBox = true;
-    if (!this.initiateMessageSent) {
-      this.sendPingMessage();
-    }
-  }
-
-  ngOnDestroy() {
-    // unsubscribe
-    this.subscription.unsubscribe();
-
-    // disconnect
-    this.stomp.disconnect().then(() => {
-      // console.log('Connection closed')
-    });
-
-    if (this.componentRef) {
-      this.componentRef.destroy();
-      this.componentRef = null;
-    }
-
-    if (this.localEventSubscription) {
-      this.localEventSubscription.unsubscribe();
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // console.log(">>>>>>>>" + this.chatMessages.length);
-  }
-
-  setUpStomp() {
-    const currentUser = JSON.parse(this.authenticationService.getCurrentUser());
-    if (currentUser && currentUser.token) {
-      this.headers['Authorization'] = currentUser.token;
-    }
-    console.log(
-      'hostUrl = ' +
-        this.hostUrl +
-        ', subscriptionUrl = ' +
-        this.subscriptionUrl
-    );
-    const config: Config = {
-      host: this.hostUrl + '?token=' + currentUser.token,
-      debug: true,
-      headers: this.headers,
-      queue: { init: false }
-    };
-    this.stomp.configure(config);
   }
 
   connect() {
