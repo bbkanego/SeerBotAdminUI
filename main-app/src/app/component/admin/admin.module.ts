@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CommonUtilsModule } from 'my-component-library';
+import { CommonUtilsModule, StompService } from 'my-component-library';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaintainBotComponent } from './maintain-bot/maintain-bot.component';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -33,6 +33,6 @@ import { TestBotComponent } from './test-bot/test-bot.component';
     LaunchBotComponent,
     TestBotComponent
   ],
-  providers: [BotService]
+  providers: [BotService, StompService]
 })
 export class AdminModule {}

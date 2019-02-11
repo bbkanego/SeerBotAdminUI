@@ -64,6 +64,16 @@ export class LaunchBotComponent extends BaseBotComponent implements OnInit, OnDe
     });
   }
 
+  restartNow() {
+    this.botCallSub = this.botService.restartBot(this.launchDTO.bot.id).subscribe(botRes => {
+      this.launchDTO.bot = botRes;
+      this.context = 'startLaunch';
+      this.notificationService.notify('Refresh Bot Results',
+        BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS,
+        BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS);
+    });
+  }
+
   launchNow() {
     if (this.trainedModelSelectValue !== 'NONE') {
       const launchBot: LaunchBot = new LaunchBot(this.launchDTO.bot, +this.trainedModelSelectValue);

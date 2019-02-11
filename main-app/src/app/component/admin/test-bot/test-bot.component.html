@@ -11,12 +11,8 @@
           <div class="row">
             <div class="form-group col-sm-12 displayHeader">
               {{ getHeader() }}
-              <a
-                *ngIf="context === 'launched'"
-                href="{{ botAccessUrl }}"
-                target="_botTestWindow"
-                >{{ botAccessUrl }}</a
-              >
+              <a *ngIf="context === 'launched'" 
+              href="{{botAccessUrl}}" target="_botTestWindow">{{ botAccessUrl }}</a>
             </div>
           </div>
         </div>
@@ -34,25 +30,18 @@
           </div>
           <div class="title">Chat</div>
         </div>
-        <ul class="messages"></ul>
+        <ul class="messages" #messageListContainer>
+            <li #messageList></li>
+        </ul>
         <div class="bottom_wrapper clearfix">
-          <div class="message_input_wrapper">
-            <input
-              class="message_input"
-              placeholder="Type your message here..."
-            />
-          </div>
-          <div class="send_message">
-            <div class="icon"></div>
-            <div class="text">Send</div>
-          </div>
+            <div class="input-group">
+                <input type="text" class="form-control message_input" (keydown)=onKeydownEvent($event) 
+                      #chatbox placeholder="Type your message here and hit enter...">
+                <span class="input-group-btn">
+                    <button (click)="sendMessage()" class="btn btn-default send-button" type="button">Send</button>
+                </span>
+            </div>
         </div>
-      </div>
-      <div class="message_template">
-        <li class="message">
-          <div class="avatar"></div>
-          <div class="text_wrapper"><div class="text"></div></div>
-        </li>
       </div>
     </div>
   </div>

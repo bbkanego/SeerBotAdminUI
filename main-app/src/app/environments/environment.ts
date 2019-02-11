@@ -34,6 +34,7 @@ export const environment = {
   LAUNCH_BOT: 'http://localhost:8091/api/v1/chatbot/launch',
   TERMINATE_BOT: 'http://localhost:8091/api/v1/chatbot/terminate',
   STOP_BOT: 'http://localhost:8091/api/v1/chatbot/stop',
+  RESTART_BOT: 'http://localhost:8091/api/v1/chatbot/restart',
   CHANGE_BOT_STATUS: 'http://localhost:8091/api/v1/chatbot/status',
   INIT_SEARCH_BOT: 'http://localhost:8091/api/v1/chatbot/search/init',
   SEARCH_BOT: 'http://localhost:8091/api/v1/chatbot/search',

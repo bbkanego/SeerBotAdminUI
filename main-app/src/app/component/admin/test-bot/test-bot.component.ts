@@ -11,6 +11,7 @@ import {
   ComponentRef,
   AfterViewChecked
 } from '@angular/core';
+import {Response} from '@angular/http';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import * as $ from 'jquery';
@@ -19,42 +20,15 @@ import { BaseBotComponent } from '../../common/baseBot.component';
 import {
   HttpClient,
   Notification,
-  NotificationService,
   ChatData,
   TextChat2ComponentComponent,
   TableChatComponentComponent,
   ConfirmChatComponent,
   OptionsChatComponent,
-  BaseDynamicComponent
+  BaseDynamicComponent,
+  StompService
 } from 'my-component-library';
 import { UUID } from 'angular2-uuid';
-import { environment } from '../../../environments/environment';
-
-export class Message {
-  private messageSide: string;
-  private text: string;
-
-  constructor(args: { text: ''; messageSide: '' }) {
-    this.messageSide = args.messageSide;
-    this.text = args.text;
-  }
-
-  draw() {
-    const $message = $(
-      $('.message_template')
-        .clone()
-        .html()
-    );
-    $message
-      .addClass(this.messageSide)
-      .find('.text')
-      .html(this.text);
-    $('.messages').append($message);
-    return setTimeout(function() {
-      return $message.addClass('appeared');
-    }, 0);
-  }
-}
 
 /**
  * https://bootsnipp.com/snippets/ZlkBn
@@ -88,7 +62,7 @@ export class TestBotComponent extends BaseBotComponent
   private dynamicComponentMap: Map<number, ComponentRef<{}>> = new Map();
   private dynamicComponentCount = 0;
 
-  private subscription: any;
+  private stompSubscription: any;
   private headers = {};
   private chatSessionId;
   private previousChatId;
@@ -149,7 +123,7 @@ export class TestBotComponent extends BaseBotComponent
         }
       });
     this.uniqueClientId = UUID.UUID();
-    this.connect();
+    // this.connect();
   }
 
   loadBot() {
@@ -179,8 +153,9 @@ export class TestBotComponent extends BaseBotComponent
       this.botCallSub.unsubscribe();
     }
 
-    // unsubscribe
-    this.subscription.unsubscribe();
+    if (this.stompSubscription) {
+      this.stompSubscription.unsubscribe();
+    }
 
     if (this.componentRef) {
       this.componentRef.destroy();
@@ -259,10 +234,13 @@ export class TestBotComponent extends BaseBotComponent
       uniqueClientId: this.uniqueClientId,
       response: ''
     };
+
     this.httpClient
-      .post(environment.SEND_CHAT_URL, JSON.stringify(message))
-      .subscribe(() => {
+      .post(this.botAccessUrl, JSON.stringify(message))
+      .map((res: Response) => res.json())
+      .subscribe((data) => {
         this.chatBox.nativeElement.value = '';
+        this.handleResponse(data);
       });
   }
 
@@ -279,8 +257,9 @@ export class TestBotComponent extends BaseBotComponent
       response: ''
     };
     this.httpClient
-      .post(environment.SEND_CHAT_URL, JSON.stringify(message))
-      .subscribe(() => {});
+      .post(this.botAccessUrl, JSON.stringify(message))
+      .map((res: Response) => res.json())
+      .subscribe((data) => {});
   }
 
   sendMessage() {
@@ -298,21 +277,30 @@ export class TestBotComponent extends BaseBotComponent
       uniqueClientId: this.uniqueClientId,
       response: ''
     };
+
+    message.accountId = 'Admin';
+    message.chatSessionId = UUID.UUID();
+    // message.previousChatId = 1;
+    message.uniqueClientId = UUID.UUID();
+
     if (appendRequest) {
       this.chatMessages.push(message);
       this.appendChatRequest(message);
     }
+
     this.httpClient
-      .post(environment.SEND_CHAT_URL, JSON.stringify(message))
-      .subscribe(() => {
+      .post(this.botAccessUrl, JSON.stringify(message))
+      .map((res: Response) => res.json())
+      .subscribe(data => {
         this.chatBox.nativeElement.value = '';
+        this.handleResponse(data);
       });
   }
 
   connect() {
     this.stomp.startConnect().then(() => {
       this.stomp.done('init');
-      this.subscription = this.stomp.subscribe(
+      this.stompSubscription = this.stomp.subscribe(
         this.subscriptionUrl + '/' + this.uniqueClientId,
         this.handleResponse.bind(this),
         this.headers
