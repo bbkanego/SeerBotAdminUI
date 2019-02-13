@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
-import { Option, SUBSCRIBER_TYPES } from 'my-component-library';
+import { Option, SUBSCRIBER_TYPES, SelectComponent } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../environments/environment';
@@ -27,6 +27,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
   intentsForm: FormGroup;
   intentsModel;
   category: Option[] = [];
+  responseTypes: Option[] = [];
   private intentsSubscription: Subscription;
   private validationRuleSubscription: Subscription;
   validationRules: any;
@@ -35,6 +36,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
   @ViewChild('showFileName') showFileName: ElementRef;
   @ViewChild('utteranceTextBox') utteranceTextBox: ElementRef;
   @ViewChild('intentTextBox') intentTextBox: ElementRef;
+  @ViewChild('selectCategory') selectCategory: SelectComponent;
   enterEachItem = true;
   problemWithUpload = false;
   showRadioOptions = true;
@@ -69,11 +71,8 @@ export class MaintainIntentsComponent extends BaseBotComponent
       this.createForm();
     }
 
-    this.category = [];
-    this.category.push(new Option('', 'None'));
-    for (const entry of this.intentsModel.referenceData.categories) {
-      this.category.push(new Option(entry.code, entry.name));
-    }
+    this.category = this.buildOptions(this.intentsModel.referenceData.categories);
+    this.responseTypes = this.buildOptions(this.intentsModel.referenceData.responseTypes);
 
     if (this.currentEditCategory != null) {
       this.intentsForm.get('category').setValue(this.currentEditCategory.code);
@@ -120,6 +119,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
     this.cmsContent = this.commonService.cmsContent['maintainIntents'];
     this.activatedRoute.queryParams.subscribe((qParams: Params) => {
       this.currentContext = qParams['action'];
+      this.intentService.setSearchContext(this.currentContext);
       this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
         const path = urlSegment.join('/');
         if (path.indexOf('add_intent') > -1) {
@@ -186,8 +186,9 @@ export class MaintainIntentsComponent extends BaseBotComponent
     const intentsFile: FileList = this.intentsFile.nativeElement.files;
     if (intentsFile.length > 0) {
       const formData = new FormData();
+      const selectedCat = this.selectCategory.selectWidget.nativeElement.value;
       formData.append('intentsData', intentsFile[0], intentsFile[0].name);
-      formData.append('category', this.intentsForm.get('category').value);
+      formData.append('category', selectedCat);
       this.intentService.saveMultiPart(formData).subscribe((response: any) => {
         if (response === true) {
           this.router.navigate(['/dashboard']);

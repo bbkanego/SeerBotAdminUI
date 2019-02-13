@@ -1,6 +1,10 @@
 import { Injector } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BaseReactiveComponent, CommonService } from 'my-component-library';
+import {
+  BaseReactiveComponent,
+  CommonService,
+  Option
+} from 'my-component-library';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { FormGroup } from '@angular/forms';
 
@@ -26,7 +30,7 @@ export abstract class BaseBotComponent extends BaseReactiveComponent {
       if (key.indexOf('.') !== -1) {
         const keys: string[] = key.split('.');
         let value = resources;
-        keys.forEach((item) => {
+        keys.forEach(item => {
           value = value[item];
         });
         return value;
@@ -46,11 +50,25 @@ export abstract class BaseBotComponent extends BaseReactiveComponent {
     );
   }
 
-  protected mapSelectValue(form: FormGroup, model, formControlName: string, referenceDataProp: string) {
+  protected mapSelectValue(
+    form: FormGroup,
+    model,
+    formControlName: string,
+    referenceDataProp: string
+  ) {
     const selectedCat = form.get(formControlName).value;
     const targetCat = model.referenceData[referenceDataProp].filter(
       (element: any) => element.code === selectedCat
     );
     form.get(formControlName).setValue(targetCat[0]);
+  }
+
+  protected buildOptions(referenceData: [{ code: ''; name: '' }]): Option[] {
+    const optionsObj: Option[] = [];
+    optionsObj.push(new Option('', 'None'));
+    for (const entry of referenceData) {
+      optionsObj.push(new Option(entry.code, entry.name));
+    }
+    return optionsObj;
   }
 }

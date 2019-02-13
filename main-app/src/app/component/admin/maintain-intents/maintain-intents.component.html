@@ -35,6 +35,20 @@
                       currentFormControlName="utterance"
                     ></app-bk-input>
                   </div>
+                  <div class="col-lg-6 col-sm-12">
+                    <app-bk-input
+                      [currentForm]="formDir"
+                      #utteranceTextBox
+                      label="{{cmsContent.addIntent.responseLabel}}"
+                      currentFormControlName="response"
+                    ></app-bk-input>
+                  </div>
+                  <div class="col-lg-6 col-sm-12">
+                    <app-bk-select [currentForm]="formDir"
+                    [options]="responseTypes"
+                    label="{{cmsContent.addIntent.responseTypeLabel}}"
+                    currentFormControlName="responseType"></app-bk-select>
+                  </div>
                 </div>
               </div>
             </div>
@@ -79,6 +93,7 @@
         <div class="col-lg-6 col-sm-12">
             <app-bk-select
               [currentForm]="formDir"
+              #selectCategory
               label="{{cmsContent.addIntent.categoryLabel}}"
               currentFormControlName="category"
               [options]="category"></app-bk-select>
