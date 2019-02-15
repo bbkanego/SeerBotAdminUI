@@ -11,7 +11,7 @@ import {
   ComponentRef,
   AfterViewChecked
 } from '@angular/core';
-import {Response} from '@angular/http';
+import { Response } from '@angular/http';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import * as $ from 'jquery';
@@ -71,6 +71,7 @@ export class TestBotComponent extends BaseBotComponent
   private initiateMessageSent = false;
   private messageSide = 'left';
   private uniqueClientId;
+  private botId;
 
   @Input()
   hostUrl: string;
@@ -131,9 +132,9 @@ export class TestBotComponent extends BaseBotComponent
     this.createButtonLabel = this.commonService.cmsContent[
       'launchBot'
     ].startLaunch.launchNowButton;
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.botId = this.activatedRoute.snapshot.paramMap.get('id');
     this.botServiceSubscription = this.botService
-      .startLaunchBot(id)
+      .startLaunchBot(this.botId)
       .subscribe(model => {
         this.launchDTO = model;
         if (this.launchDTO.bot.configurations.length > 0) {
@@ -192,6 +193,12 @@ export class TestBotComponent extends BaseBotComponent
     return this.commonService.cmsContent['commonMessages'].cancelButton;
   }
 
+  stopBot() {
+    this.botService.stopBot(this.botId).subscribe(() => {
+      this.router.navigate(['/dashboard']);
+    });
+  }
+
   getHeader() {
     if (this.context === 'launched') {
       return this.commonService.cmsContent['launchBot'].test.message;
@@ -238,7 +245,7 @@ export class TestBotComponent extends BaseBotComponent
     this.httpClient
       .post(this.botAccessUrl, JSON.stringify(message))
       .map((res: Response) => res.json())
-      .subscribe((data) => {
+      .subscribe(data => {
         this.chatBox.nativeElement.value = '';
         this.handleResponse(data);
       });
@@ -259,7 +266,7 @@ export class TestBotComponent extends BaseBotComponent
     this.httpClient
       .post(this.botAccessUrl, JSON.stringify(message))
       .map((res: Response) => res.json())
-      .subscribe((data) => {});
+      .subscribe(data => {});
   }
 
   sendMessage() {
@@ -363,9 +370,9 @@ export class TestBotComponent extends BaseBotComponent
     } else if (messageJSON.widget === 'table') {
       this.processTableWidget(messageJSON, data);
     } else if (messageJSON.widget === 'confirmAction') {
-      this.proccessConfirmAction(messageJSON, data);
+      this.processConfirmAction(messageJSON, data);
     } else if (messageJSON.widget === 'options') {
-      this.proccessOptionsAction(messageJSON, data);
+      this.processOptionsAction(messageJSON, data);
     }
   }
 
@@ -386,7 +393,7 @@ export class TestBotComponent extends BaseBotComponent
     this.createDynamicComponent('table', contextData);
   }
 
-  private proccessConfirmAction(messageJSON, data: ChatData) {
+  private processConfirmAction(messageJSON, data: ChatData) {
     const contextData = {
       chatData: data,
       message: messageJSON
@@ -394,7 +401,7 @@ export class TestBotComponent extends BaseBotComponent
     this.createDynamicComponent('confirmAction', contextData);
   }
 
-  private proccessOptionsAction(messageJSON, data: ChatData) {
+  private processOptionsAction(messageJSON, data: ChatData) {
     const contextData = {
       chatData: data,
       message: messageJSON
