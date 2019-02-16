@@ -58,14 +58,14 @@ export class SearchIntentComponent implements OnInit, OnDestroy {
 
   editIntent(id: string) {
     this.router.navigate(['edit', id], {
-      queryParams: { action: this.intentService.getSearchContext() },
+      queryParams: { action: this.intentService.getActionContext() },
       relativeTo: this.activatedRoute
     });
   }
 
   getHeading(): string {
       const localCms = this.cmsContent['searchIntents'];
-    if (this.intentService.getSearchContext() === 'predefined') {
+    if (this.intentService.getActionContext() === 'predefined') {
       return localCms.pageHeadingPredefined;
     } else {
       return localCms.pageHeadingCustom;

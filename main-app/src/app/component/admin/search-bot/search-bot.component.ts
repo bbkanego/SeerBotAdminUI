@@ -75,11 +75,11 @@ export class SearchBotComponent implements OnInit, OnDestroy {
 
   editBot(id) {
     let finalPath = '';
-    if (this.botService.getSearchContext() === 'editBot') {
+    if (this.botService.getActionContext() === 'editBot') {
       finalPath = 'edit';
-    } else if (this.botService.getSearchContext() === 'launchBot') {
+    } else if (this.botService.getActionContext() === 'launchBot') {
       finalPath = 'launch_start';
-    } else if (this.botService.getSearchContext() === 'testBot') {
+    } else if (this.botService.getActionContext() === 'testBot') {
       finalPath = 'test_start';
     }
     this.router.navigate([finalPath, id], { relativeTo: this.activatedRoute });
@@ -87,11 +87,11 @@ export class SearchBotComponent implements OnInit, OnDestroy {
 
   getHeading(): string {
     const localCmsContent = this.cmsContent['searchBots'];
-    if (this.botService.getSearchContext() === 'editBot') {
+    if (this.botService.getActionContext() === 'editBot') {
       return localCmsContent.pageHeading;
-    } else if (this.botService.getSearchContext() === 'launchBot') {
+    } else if (this.botService.getActionContext() === 'launchBot') {
       return localCmsContent.pageHeadingLaunchBot;
-    } else if (this.botService.getSearchContext() === 'testBot') {
+    } else if (this.botService.getActionContext() === 'testBot') {
       return localCmsContent.pageHeadingTestBot;
     }
   }

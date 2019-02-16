@@ -42,7 +42,7 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
     this.currentAction = 'search';
     this.activatedRoute.queryParams.subscribe((qParams: Params) => {
       this.currentContext = qParams['action'];
-      this.botService.setSearchContext(this.currentContext);
+      this.botService.setActionContext(this.currentContext);
       this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
         const path = urlSegment.join('/');
         if (path.indexOf('init_search_bot') > -1) {
@@ -96,11 +96,11 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
     this.mapSelectValue(this.botSearchForm, this.searchModel, 'category', 'category');
     if (this.botSearchForm.valid) {
       const finalModel = this.botSearchForm.value;
-      if (this.botService.getSearchContext() === 'testBot') {
+      if (this.botService.getActionContext() === 'testBot') {
         finalModel.statusCode = 'LAUNCHED';
-      } else if (this.botService.getSearchContext() === 'launchBot') {
+      } else if (this.botService.getActionContext() === 'launchBot') {
         finalModel.statusCode = 'DRAFT';
-      } else if (this.botService.getSearchContext() === 'editBot') {
+      } else if (this.botService.getActionContext() === 'editBot') {
         finalModel.statusCode = 'DRAFT';
       }
       this.botService.setSearchBotCriteriaModel(finalModel);

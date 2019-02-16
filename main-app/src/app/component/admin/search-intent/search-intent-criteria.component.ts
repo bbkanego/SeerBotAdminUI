@@ -34,7 +34,7 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
     this.currentAction = 'search';
     this.activatedRoute.queryParams.subscribe((qParams: Params) => {
       this.currentContext = qParams['action'];
-      this.intentService.setSearchContext(this.currentContext);
+      this.intentService.setActionContext(this.currentContext);
       this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
         const path = urlSegment.join('/');
         if (path.indexOf('start_search_intent') > -1) {

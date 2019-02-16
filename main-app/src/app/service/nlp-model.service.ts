@@ -2,9 +2,10 @@ import {CrudService} from 'my-component-library';
 import {Injectable, Injector} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../environments/environment';
+import { BaseBotCrudService } from './baseBotCrud.service';
 
 @Injectable()
-export class NlpModelService extends CrudService<any> {
+export class NlpModelService extends BaseBotCrudService {
   constructor(injector: Injector) {
     super(injector);
   }
@@ -22,7 +23,7 @@ export class NlpModelService extends CrudService<any> {
   }
 
   initModel(): Observable<any> {
-    return this.getRequest(environment.INIT_TRAIN_MODEL);
+    return this.getRequest(environment.INIT_TRAIN_MODEL + '/' + this.getActionContext());
   }
 
   trainModel(model: any): Observable<any> {

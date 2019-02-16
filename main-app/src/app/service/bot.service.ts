@@ -3,27 +3,18 @@ import { CrudService } from 'my-component-library';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../environments/environment';
+import { BaseBotCrudService } from './baseBotCrud.service';
 
 export class LaunchBot {
   constructor(private bot: any, private trainedModelId: number) {}
 }
-
 @Injectable()
-export class BotService extends CrudService<any> {
+export class BotService extends BaseBotCrudService {
 
   private searchBotCriteriaModel: any;
-  private searchContext: string;
 
   constructor(injector: Injector) {
     super(injector);
-  }
-
-  public setSearchContext(context: string) {
-    this.searchContext = context;
-  }
-
-  public getSearchContext() {
-    return this.searchContext;
   }
 
   public getSearchBotCriteriaModel() {

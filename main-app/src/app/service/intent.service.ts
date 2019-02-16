@@ -2,23 +2,15 @@ import { Injectable, Injector } from '@angular/core';
 import { CrudService } from 'my-component-library';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../environments/environment';
+import { BaseBotCrudService } from './baseBotCrud.service';
 
 @Injectable()
-export class IntentService extends CrudService<any> {
+export class IntentService extends BaseBotCrudService {
   private allIntents;
   private intentSearchForm = {};
-  private searchContext: string;
 
   constructor(injector: Injector) {
     super(injector);
-  }
-
-  public setSearchContext(context: string) {
-    this.searchContext = context;
-  }
-
-  public getSearchContext() {
-    return this.searchContext;
   }
 
   setIntentSearchForm(model) {
@@ -38,7 +30,7 @@ export class IntentService extends CrudService<any> {
   }
 
   public initModel(): Observable<any> {
-    if (this.searchContext === 'predefined') {
+    if (this.getActionContext() === 'predefined') {
       return this.getRequest(environment.INIT_PREDEF_INTENTS);
     } else {
       return this.getRequest(environment.INIT_CUSTOM_INTENTS);
@@ -46,7 +38,7 @@ export class IntentService extends CrudService<any> {
   }
 
   public save(model: any): Observable<any> {
-    if (this.searchContext === 'predefined') {
+    if (this.getActionContext() === 'predefined') {
       return this.postRequest(environment.SAVE_PREDEF_INTENT, model);
     } else {
       return this.postRequest(environment.SAVE_CUSTOM_INTENT, model);
@@ -54,7 +46,7 @@ export class IntentService extends CrudService<any> {
   }
 
   public saveMultiPart(model: FormData): Observable<any> {
-    if (this.searchContext === 'predefined') {
+    if (this.getActionContext() === 'predefined') {
       return this.postMultiPartRequest(environment.UPLOAD_PREDEF_INTENT, model);
     } else {
       return this.postMultiPartRequest(environment.UPLOAD_CUSTOM_INTENT, model);
@@ -70,7 +62,7 @@ export class IntentService extends CrudService<any> {
   }
 
   public getById(id: string): Observable<any> {
-    if (this.searchContext === 'predefined') {
+    if (this.getActionContext() === 'predefined') {
       return this.getRequest(environment.GET_PREDEF_INTENT + '/' + id);
     } else {
       return this.getRequest(environment.GET_CUSTOM_INTENT + '/' + id);
@@ -86,7 +78,7 @@ export class IntentService extends CrudService<any> {
   }
 
   public searchIntents(model): Observable<any> {
-    if (this.searchContext === 'predefined') {
+    if (this.getActionContext() === 'predefined') {
       return this.postRequest(environment.SEARCH_INTENT, model);
     } else {
       return this.postRequest(environment.CUSTOM_SEARCH_INTENT, model);

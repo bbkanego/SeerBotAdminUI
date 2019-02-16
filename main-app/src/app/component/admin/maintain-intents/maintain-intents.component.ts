@@ -119,7 +119,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
     this.cmsContent = this.commonService.cmsContent['maintainIntents'];
     this.activatedRoute.queryParams.subscribe((qParams: Params) => {
       this.currentContext = qParams['action'];
-      this.intentService.setSearchContext(this.currentContext);
+      this.intentService.setActionContext(this.currentContext);
       this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
         const path = urlSegment.join('/');
         if (path.indexOf('add_intent') > -1) {
