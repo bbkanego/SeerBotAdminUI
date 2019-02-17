@@ -84,4 +84,8 @@ export class IntentService extends BaseBotCrudService {
       return this.postRequest(environment.CUSTOM_SEARCH_INTENT, model);
     }
   }
+
+  public copyPredefinedIntents(categoryCode: string): Observable<any> {
+    return this.getRequest(environment.COPY_PREDEF_INTENT + '/' + categoryCode);
+  }
 }

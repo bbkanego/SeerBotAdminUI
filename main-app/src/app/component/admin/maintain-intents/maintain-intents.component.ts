@@ -37,7 +37,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
   @ViewChild('utteranceTextBox') utteranceTextBox: ElementRef;
   @ViewChild('intentTextBox') intentTextBox: ElementRef;
   @ViewChild('selectCategory') selectCategory: SelectComponent;
-  enterEachItem = true;
+  selectedEntryOption = 'enterDetails';
   problemWithUpload = false;
   showRadioOptions = true;
   currentContext = 'NONE';
@@ -159,16 +159,12 @@ export class MaintainIntentsComponent extends BaseBotComponent
   }
 
   selectEntryType(type) {
-    if ('enterDetails' === type) {
-      this.enterEachItem = true;
-    } else {
-      this.enterEachItem = false;
-      this.initComponent('');
-    }
+    this.selectedEntryOption = type;
+    // this.initComponent('');
   }
 
   onSubmit() {
-    if (this.enterEachItem) {
+    if (this.selectedEntryOption === 'enterDetails') {
       const selectedCat = this.intentsForm.get('category').value;
       const targetCat = this.intentsModel.referenceData.categories.filter(
         element => element.code === selectedCat
@@ -177,9 +173,18 @@ export class MaintainIntentsComponent extends BaseBotComponent
       if (this.intentsForm.valid) {
         this.submitEachEntryForm();
       }
-    } else {
+    } else if (this.selectedEntryOption === 'upload') {
       this.submitMultiPartForm();
+    } else if (this.selectedEntryOption === 'copy') {
+      this.copyPredefinedIntents();
     }
+  }
+
+  private copyPredefinedIntents() {
+    const selectedCat = this.selectCategory.selectWidget.nativeElement.value;
+    this.intentService.copyPredefinedIntents(selectedCat).subscribe(() => {
+      this.router.navigate(['/dashboard']);
+    });
   }
 
   private submitMultiPartForm() {

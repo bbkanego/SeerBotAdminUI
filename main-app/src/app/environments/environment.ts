@@ -28,6 +28,7 @@ export const environment = {
   INIT_CUSTOM_INTENTS: 'http://localhost:8091/api/v1/custom-intent/init',
   SAVE_CUSTOM_INTENT: 'http://localhost:8091/api/v1/custom-intent',
   GET_CUSTOM_INTENT: 'http://localhost:8091/api/v1/custom-intent',
+  COPY_PREDEF_INTENT: 'http://localhost:8091/api/v1/custom-intent/copy-standard-intents',
   UPLOAD_CUSTOM_INTENT: 'http://localhost:8091/api/v1/custom-intent/upload',
   GET_ALL_CMS_CONTENT: 'http://localhost:8091/api/cms/all-content',
   START_LAUNCH_BOT: 'http://localhost:8091/api/v1/chatbot/launch/start',
