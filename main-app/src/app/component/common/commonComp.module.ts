@@ -4,12 +4,13 @@ import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './pageNotFound.component';
 import { CommonComponentRoutingModule } from './commonComp-routing.module';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from './header.component';
 
 @NgModule({
   imports: [
     RouterModule, CommonComponentRoutingModule, CommonModule
   ],
-  declarations: [LeftMenuComponent, PageNotFoundComponent],
-  exports: [LeftMenuComponent, PageNotFoundComponent]
+  declarations: [LeftMenuComponent, PageNotFoundComponent, HeaderComponent],
+  exports: [LeftMenuComponent, PageNotFoundComponent, HeaderComponent]
 })
 export class CommonComponentModule { }
