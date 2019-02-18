@@ -1,3 +1,8 @@
+/*
+  https://bootstrapious.com/tutorial/sidebar/index5.html#
+  https://bootstrapious.com/p/bootstrap-sidebar#animating-the-toggle-button
+  https://bootstrapious.com/tutorial/sidebar/style5.css
+*/
 #sidebarCollapse {
   position: relative;
   width: 30px;
@@ -38,6 +43,7 @@
   box-shadow: none;
   outline: none !important;
   border: none;
+  display: none;
 }
 
 .navbar-toggle-custom {
@@ -48,14 +54,6 @@
       MEDIAQUERIES
   ----------------------------------------------------- */
 @media (max-width: 768px) {
-  #sidebar {
-    margin-left: -200px;
-    transform: rotateY(90deg);
-  }
-  #sidebar.active {
-    margin-left: 0;
-    transform: none;
-  }
   #sidebarCollapse span:first-of-type,
   #sidebarCollapse span:nth-of-type(2),
   #sidebarCollapse span:last-of-type {
@@ -74,5 +72,10 @@
   }
   #sidebarCollapse.active span:last-of-type {
     transform: rotate(-45deg) translate(1px, -1px);
+  }
+
+  .navbar-btn-visible {
+    display: block;
+    float: left;
   }
 }
