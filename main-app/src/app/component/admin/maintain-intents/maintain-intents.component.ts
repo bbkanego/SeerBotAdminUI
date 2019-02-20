@@ -211,6 +211,10 @@ export class MaintainIntentsComponent extends BaseBotComponent
     }
   }
 
+  showfileRequiredError(): boolean {
+    return this.fileCount() === 0;
+  }
+
   cancel() {
     if (this.currentAction === 'add') {
       this.router.navigate(['/dashboard']);

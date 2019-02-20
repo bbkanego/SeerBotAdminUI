@@ -79,3 +79,51 @@
     float: left;
   }
 }
+
+.navbar-brand-custom {
+  left: 0;
+  top: 0;
+}
+
+/*https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints*/
+/*extra small, small and Medium devices (tablets, 768px and up)*/
+@media (max-width: 768px) {
+  .logo {
+    position: absolute;
+    background-image: url(../../../assets/images/logo.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 180px;
+    height: 70px;
+    top:0;
+    left: 50px;
+  }
+}
+
+/* /*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .logo {
+      position: absolute;
+    background-image: url(../../../assets/images/logo.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 180px;
+    height: 70px;
+    top:0;
+    left: 0;
+  }
+}
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) {
+  .logo {
+      position: absolute;
+    background-image: url(../../../assets/images/logo.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 180px;
+    height: 70px;
+    top:0;
+    left: 0;
+  }
+}

@@ -78,7 +78,7 @@
                       </label>
                       <input type="text" class="form-control" #showFileName readonly>
                     </div>
-                    <div *ngIf='fileCount() === 0' class="errorMessage">
+                    <div *ngIf='showfileRequiredError()' class="errorMessage">
                       This is required
                     </div>
                   </div>
