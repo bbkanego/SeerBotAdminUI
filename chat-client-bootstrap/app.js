@@ -26,4 +26,11 @@ app.use('/load-chat', express.static(path.join(__dirname, 'public')));
 app.use('/packages/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
 app.use('/packages/jquery-slim', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 
+// https://medium.com/@rajaraodv/two-quick-ways-to-reduce-react-apps-size-in-production-82226605771a
+app.get('*.js', function(req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
+
 module.exports = app;

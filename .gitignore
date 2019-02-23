@@ -45,3 +45,4 @@ Thumbs.db
 .idea
 *.iml
 *.log
+*.min.js

@@ -1,5 +1,11 @@
 # MOCK API
 
+## How to run mock-api
+
+```
+http://localhost:3005/mock/chats/initiate
+```
+
 ## Possible Error Scenarios:
 
 1. You might see the below error when running mock-api express server using "npm run start"

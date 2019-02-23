@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -11,8 +13,7 @@ module.exports = {
     path: path.resolve(__dirname, 'public/javascript'),
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.m?js$/,
         exclude: /(node_modules|bower_components)/,
         use: {
@@ -28,19 +29,16 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192,
-            },
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 8192,
           },
-        ],
+        }, ],
       },
       {
         test: /\.(svg)$/,
-        use: [
-          {
+        use: [{
             loader: 'url-loader',
             options: {
               limit: 8192,
@@ -49,10 +47,17 @@ module.exports = {
           {
             loader: 'svgo-loader',
             options: {
-              plugins: [
-                {removeTitle: true},
-                {convertColors: {shorthex: false}},
-                {convertPathData: false},
+              plugins: [{
+                  removeTitle: true
+                },
+                {
+                  convertColors: {
+                    shorthex: false
+                  }
+                },
+                {
+                  convertPathData: false
+                },
               ],
             },
           },
@@ -65,6 +70,12 @@ module.exports = {
       filename: '../html/seer-chat.html',
       template: './template/seer-chat-template.html',
       title: 'Seer Chat',
+    }),
+    new CompressionPlugin({
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 50,
+      minRatio: 0.8,
     }),
   ],
 };
