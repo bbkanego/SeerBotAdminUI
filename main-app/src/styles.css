@@ -21,7 +21,7 @@ body {
 
 .errorMessage {
   color: red;
-  margin-bottom:1rem;
+  margin-bottom: 1rem;
   word-wrap: break-word;
   white-space: normal;
 }
@@ -33,9 +33,12 @@ body {
 .error-bullet li:before {
   /*Using a Bootstrap glyphicon as the bullet point*/
   content: "\e029";
-  font-size: 1rem;
+  font-family: 'Glyphicons Halflings';
+  font-size: 1.5rem;
+  line-height: 2.5rem;
   float: left;
   margin-top: 0px;
+  margin-right: 0.5rem;
   margin-left: -1rem;
   color: #000;
 }
@@ -47,40 +50,49 @@ body {
   -o-animation: spin 2s infinite linear;
   animation: spin 2s infinite linear;
 }
+
 @-moz-keyframes spin {
   0% {
     -moz-transform: rotate(0deg);
   }
+
   100% {
     -moz-transform: rotate(359deg);
   }
 }
+
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(359deg);
   }
 }
+
 @-o-keyframes spin {
   0% {
     -o-transform: rotate(0deg);
   }
+
   100% {
     -o-transform: rotate(359deg);
   }
 }
+
 @keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
+
 /*The above allows you to spin glypicons ----*/
 
 input.ng-invalid.ng-touched.ng-star.inserted {
@@ -110,9 +122,10 @@ a.actionLink {
   margin-bottom: 10px;
 }
 
-.modal2.in ~ .modal-backdrop.in {
+.modal2.in~.modal-backdrop.in {
   background-color: #f00;
 }
+
 /*Bootstrap theming----^^^^^^^*/
 
 .glyphicon-triangle-left {
@@ -133,7 +146,7 @@ div.table-box {
   border-radius: 3px;
   /*font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
   font-size: 1em;
-  margin-bottom: 10px;  
+  margin-bottom: 10px;
 }
 
 div.table-box .header {
@@ -151,7 +164,7 @@ div.table-box .header {
 }
 
 div.table-box .content {
-  background-color:#fcfcfc;
+  background-color: #fcfcfc;
   padding-top: 1em;
   padding-left: 0.5em;
   padding-bottom: 0.5em;
@@ -169,13 +182,12 @@ div.table-box .unshaded_content {
   padding-right: 0.5em;
 }
 
-div.table-box .row {
-  
-}
+div.table-box .row {}
 
 div.table-box .displayHeader {
   font-weight: bold;
 }
+
 /*CSS table box-----------------------*/
 
 label {
@@ -183,7 +195,8 @@ label {
   color: #000;
 }
 
-input, select {
+input,
+select {
   color: #000 !important;
   border: 1px solid #BDBDBD !important;
   background-color: transparent !important;
@@ -203,14 +216,16 @@ textarea {
   font-size: 1em !important;
 }
 
-.btn-warning, .btn-success, .btn-danger {
+.btn-warning,
+.btn-success,
+.btn-danger {
   font-size: 1em !important;
 }
 
 /* Tooltip */
-.egTooltip + .tooltip > .tooltip-inner {
-  background-color: #73AD21; 
-  color: #FFFFFF; 
+.egTooltip+.tooltip>.tooltip-inner {
+  background-color: #73AD21;
+  color: #FFFFFF;
   border: 1px solid rgb(146, 216, 146);
   padding: 10px;
   opacity: 1;
@@ -218,26 +233,27 @@ textarea {
 }
 
 /* Tooltip on top */
-.egTooltip + .tooltip.top > .tooltip-arrow {
+.egTooltip+.tooltip.top>.tooltip-arrow {
   border-top: 5px solid green;
 }
 
 /* Tooltip on bottom */
-.egTooltip + .tooltip.bottom > .tooltip-arrow {
+.egTooltip+.tooltip.bottom>.tooltip-arrow {
   border-bottom: 5px solid blue;
 }
 
 /* Tooltip on left */
-.egTooltip + .tooltip.left > .tooltip-arrow {
+.egTooltip+.tooltip.left>.tooltip-arrow {
   border-left: 5px solid red;
 }
 
 /* Tooltip on right */
-.egTooltip + .tooltip.right > .tooltip-arrow {
+.egTooltip+.tooltip.right>.tooltip-arrow {
   border-right: 5px solid black;
 }
+
 /* Tooltip -------------------------------------*/
 
 .icon-required {
-    color: red;
+  color: red;
 }

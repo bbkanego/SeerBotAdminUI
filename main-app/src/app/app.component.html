@@ -3,6 +3,7 @@
 <div class="wrapper">
   <app-left-menu *ngIf="isLoggedIn()"></app-left-menu>
   <div id="content">
+    <app-bk-error-messages></app-bk-error-messages>
     <router-outlet (activate)="onActivate($event)" (deactivate)="onDeactivate($event)"></router-outlet>
   </div>
 </div>

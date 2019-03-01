@@ -4,7 +4,8 @@ import { FormGroup } from '@angular/forms';
 import {
   BaseReactiveComponent,
   Option,
-  SUBSCRIBER_TYPES
+  SUBSCRIBER_TYPES,
+  Notification
 } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 import { NlpModelService } from '../../../service/nlp-model.service';
@@ -65,6 +66,12 @@ export class TrainModelComponent extends BaseBotComponent
           this.viewModel();
         }
       });
+    });
+
+    this.notificationService.onNotification().subscribe((eventData: Notification) => {
+      if (eventData.subscriberType === SUBSCRIBER_TYPES.ERROR_400) {
+        console.log('show error  message = ' + JSON.stringify(eventData.message));
+      }
     });
   }
 
