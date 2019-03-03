@@ -66,21 +66,6 @@ destination is not empty, continue? [y/N] y
 
 4. Note that you will need to remove the views/routes etc and adjust the www and app.js file per your needs.
 
-## **CHAT bot initialization process**
-
-1. The customer creates a absolute DIV with styles that we provide to them.
-2. The customer includes "seer-chat-bootstrap.js" in their HTML page.
-3. Next the customer defines config object:
-   ```
-   var SEER_CHAT_config = {
-        targetDivId: 'chat-iframe-target',
-        sdkUrl: 'http://localhost:4200/'
-    }
-   ```
-4. Next the customer calls : window.SEER_CHAT_BOOTSTRAP.initialize();
-5. The "initialize" method inits the IFrame and sends postMessage ":initialize:".
-6. The ":initialize:" method results in call to "getConfig" in the bootstrap JS.
-
 ## **Possible Error scenario**
 1. Cross domain communication issue:
    ```
