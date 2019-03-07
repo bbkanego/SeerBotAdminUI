@@ -31,3 +31,15 @@ http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js
 4. Next the customer calls : window.SEER_CHAT_BOOTSTRAP.initialize();
 5. The "initialize" method inits the IFrame and sends postMessage ":initialize:".
 6. The ":initialize:" method results in call to "getConfig" in the bootstrap JS.
+
+## Start the chatbot
+1. Got the dir:
+```
+/Users/bkane/svn/code/angular/SeerlogicsChatClientUI
+```
+2. Start the chat client
+```
+npm run local
+```
+
+3. This will start the chat client at port 4300

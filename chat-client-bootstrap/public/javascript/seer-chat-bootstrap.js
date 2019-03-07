@@ -9,7 +9,7 @@
  * we will use plain old JS here. No jquery etc
  * will be used here.
  */
-window.SEER_CHAT_BOOTSTRAP = (function(config) {
+window.SEER_CHAT_BOOTSTRAP = (function () {
   const iframeCommonStyle = 'border-width: 0;border-style: none;min-width: 100%;';
   const iframeHiddenStyle = iframeCommonStyle + 'display: none';
   const iframeDisplayStyle = iframeCommonStyle + 'display: block';
@@ -24,7 +24,7 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
 
   let externalConf;
 
-  const _initialize = function() {
+  const _initialize = function (config) {
     if (config) {
       externalConf = config;
     } else {
@@ -37,6 +37,9 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
       return false;
     }
 
+    /**
+     * Listen to messages coming in from the Iframe and handle them.
+     */
     window.removeEventListener('message', handleMessage, false);
     window.addEventListener('message', handleMessage, false);
 
@@ -45,15 +48,15 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
     return true;
   };
 
-  const _hide = function() {
+  const _hide = function () {
     internalConf.iframe.setAttribute('style', iframeHiddenStyle);
   };
 
-  const _show = function() {
+  const _show = function () {
     internalConf.iframe.setAttribute('style', iframeDisplayStyle);
   };
 
-  const _destroy = function() {
+  const _destroy = function () {
     const payload = {};
     const payloadString = JSON.stringify(payload);
 
@@ -63,7 +66,7 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
     );
   };
 
-  const setChatIframe = function() {
+  const setChatIframe = function () {
     const targetDivObj = document.getElementById(externalConf.targetDivId);
     emptyNode(targetDivObj);
 
@@ -90,15 +93,19 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
     internalConf.iframe = iframe;
     internalConf.iframeHandle = iframe.contentWindow;
 
-    iframe.removeEventListener('load', function() {
+    /**
+     * As soon as the Iframe and its content loads, trigger the
+     * sendInitialize function.
+     */
+    iframe.removeEventListener('load', function () {
       sendInitialize();
     });
-    iframe.addEventListener('load', function() {
+    iframe.addEventListener('load', function () {
       sendInitialize();
     });
   };
 
-  const sendInitialize = function() {
+  const sendInitialize = function () {
     internalConf.receiverNonce = uuid();
 
     /**
@@ -111,29 +118,29 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
     );
   };
 
-  const uuid = function() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+  const uuid = function () {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
       const r = (Math.random() * 16) | 0;
       const v = c == 'x' ? r : (r & 0x3) | 0x8;
       return v.toString(16);
     });
   };
 
-  const emptyNode = function(node) {
+  const emptyNode = function (node) {
     while (node.hasChildNodes()) {
       node.removeChild(node.firstChild);
     }
   };
 
-  const getConfig = function() {
+  const getConfig = function () {
     if (!window.SEER_CHAT_config) {
-      handleError('Chat cannot be inited since bootstrap config SEER_CHAT_config not defined');
+      handleError('Chat cannot be initialized since bootstrap config SEER_CHAT_config not defined');
     }
     externalConf = window.SEER_CHAT_config;
     return true;
   };
 
-  const handleError = function(errorStr) {
+  const handleError = function (errorStr) {
     if (externalConf.errorHandler) {
       externalConf.errorHandler(errorStr);
     } else {
@@ -141,10 +148,10 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
     }
   };
 
-  const validateConfig = function() {
+  const validateConfig = function () {
     if (externalConf.brandIdentifier) {
       externalConf.loadCustomCSS = true;
-      externalConf.loadCustomResourceBunle = true;
+      externalConf.loadCustomResourceBundle = true;
     }
 
     if (!externalConf.targetDivId) {
@@ -156,9 +163,10 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
     return true;
   };
 
-  const handleMessage = function(event) {
+  const handleMessage = function (event) {
     if (internalConf.iframeTargetOrigin !== event.origin) {
-      handleError('Error: recieved an iframe post message froma different post: ' + event.origin);
+      handleError('Error: received an iframe post ' +
+        'message from a different origin: ' + event.origin);
       return;
     }
 
@@ -167,8 +175,8 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
     const data = payload.data ? payload.data : {};
 
     if (
-      payload.nonce ||
-      (internalConf.receiverNonce && payload.nonce !== internalConf.receiverNonce)
+      !payload.nonce || !internalConf.receiverNonce ||
+      (payload.nonce !== internalConf.receiverNonce)
     ) {
       handleError('Received an iframe post message with an invalid nonce');
       return;
@@ -199,7 +207,7 @@ window.SEER_CHAT_BOOTSTRAP = (function(config) {
     }
   };
 
-  const sendConfig = function(event, nonce) {
+  const sendConfig = function (event, nonce) {
     if (!internalConf.senderNonce) {
       internalConf.senderNonce = nonce;
     }
