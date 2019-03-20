@@ -1,53 +1,80 @@
 <div class="container-fluid" *ngIf="intentsForm">
   <div class="row">
-    <div class="col-sm-12"><h1 class="page-header">{{getHeading()}}</h1></div>
+    <div class="col-sm-12">
+      <h1 class="page-header">{{getHeading()}}</h1>
+    </div>
   </div>
-  <form
-    [formGroup]="intentsForm"
-    (ngSubmit)="onSubmit($event)"
-    #formDir="ngForm"
-    novalidate>
+  <form [formGroup]="intentsForm" (ngSubmit)="onSubmit($event)" #formDir="ngForm" novalidate>
     <div class="row">
       <div class="col-sm-12">
         <div class="panel-group" id="accordion">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a
-                  data-toggle="collapse"
-                  data-parent="#accordion"
-                  href="#collapseOne"
-                  (click)="selectEntryType('enterDetails')"
-                  ><span class="glyphicon glyphicon-edit"> </span>{{cmsContent.addIntent.enterIntent}}</a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" (click)="selectEntryType('enterDetails')"><span
+                    class="glyphicon glyphicon-edit"> </span>{{cmsContent.addIntent.enterIntent}}</a>
               </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
               <div class="panel-body content padded">
                 <div class="row" *ngIf="selectedEntryOption === 'enterDetails'">
-                  <div class="col-lg-6 col-sm-12">
-                    <app-bk-input #intentTextBox [currentForm]="formDir" label="{{cmsContent.addIntent.intentLabel}}" currentFormControlName="intent"></app-bk-input>
+                  <div class="col-sm-12">
+                    <app-bk-input #intentTextBox [currentForm]="formDir" label="{{cmsContent.addIntent.intentLabel}}"
+                      currentFormControlName="intent"></app-bk-input>
                   </div>
-                  <div class="col-lg-6 col-sm-12">
-                    <app-bk-input
-                      [currentForm]="formDir"
-                      #utteranceTextBox
-                      label="{{cmsContent.addIntent.utteranceLabel}}"
-                      currentFormControlName="utterance"
-                    ></app-bk-input>
+                  <div class="col-sm-12">
+                    <div formArrayName="utterances" class="row">
+                      <div class="col-sm-12">
+                        <span>Utterance</span>
+                        <span (click)="addUtterance($event)" class="custom-glyphicon glyphicon glyphicon-plus-sign"></span>
+                        <span *ngIf="utterances.controls.length > 0" (click)="removeLastUtterance($event)" class="custom-glyphicon glyphicon glyphicon-remove-sign"></span>
+                      </div>
+                      <div class="col-sm-12" *ngFor="let utteranceGrp of utterances.controls; let i=index"
+                        [formGroupName]="i">
+                        <div class="row">
+                          <div class="col-sm-1">&nbsp;</div>
+                          <div class="col-sm-6">
+                            <app-bk-input [currentForm]='formDir' controlId="utterances_utterance{{i}}" label="Utterance {{i + 1}}"
+                              [currentFormGroup]="utteranceGrp" currentFormControlName="utterance"></app-bk-input>
+                          </div>
+                          <div class="col-sm-5">
+                            <app-bk-select [currentForm]="formDir" [currentFormGroup]="utteranceGrp" label="Locale {{i + 1}}"
+                              currentFormControlName="locale" [options]="locales"></app-bk-select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-lg-6 col-sm-12">
-                    <app-bk-input
-                      [currentForm]="formDir"
-                      #utteranceTextBox
-                      label="{{cmsContent.addIntent.responseLabel}}"
-                      currentFormControlName="response"
-                    ></app-bk-input>
+                  <div class="col-sm-12">
+                    <div formArrayName="responses" class="row">
+                      <div class="col-sm-12">
+                        <span>Response</span>
+                        <span (click)="addResponse($event)" class="custom-glyphicon glyphicon glyphicon-plus-sign"></span>
+                        <span *ngIf="responses.controls.length > 0" (click)="removeLastResponse($event)" class="custom-glyphicon glyphicon glyphicon-remove-sign"></span>
+                      </div>
+                      <div class="col-sm-12" *ngFor="let responsesGrp of responses.controls; let i=index"
+                        [formGroupName]="i">
+                        <div class="row">
+                          <div class="col-sm-1">&nbsp;</div>
+                          <div class="col-md-6">
+                            <app-bk-input [currentForm]='formDir' controlId="responses_response{{i}}" label="Response {{i + 1}}"
+                              [currentFormGroup]="responsesGrp" currentFormControlName="response"></app-bk-input>
+                          </div>
+                          <div class="col-md-3">
+                            <app-bk-select [currentForm]="formDir" [currentFormGroup]="responsesGrp" label="Response Type {{i + 1}}"
+                              currentFormControlName="responseType" [options]="responseTypes"></app-bk-select>
+                          </div>
+                          <div class="col-md-2">
+                            <app-bk-select [currentForm]="formDir" [currentFormGroup]="responsesGrp" label="Locale {{i + 1}}"
+                              currentFormControlName="locale" [options]="locales"></app-bk-select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-lg-6 col-sm-12">
-                    <app-bk-select [currentForm]="formDir"
-                    [options]="responseTypes"
-                    label="{{cmsContent.addIntent.responseTypeLabel}}"
-                    currentFormControlName="responseType"></app-bk-select>
+                  <div class="col-sm-12">
+                    <!-- <app-bk-select [currentForm]="formDir" [options]="responseTypes" label="{{cmsContent.addIntent.responseTypeLabel}}"
+                      currentFormControlName="responseType"></app-bk-select> -->
                   </div>
                 </div>
               </div>
@@ -56,13 +83,8 @@
           <div class="panel panel-default" *ngIf='currentAction === "add"'>
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a
-                  data-toggle="collapse"
-                  data-parent="#accordion"
-                  href="#collapseTwo"
-                  (click)="selectEntryType('upload')"
-                  ><span class="glyphicon glyphicon-cloud-upload"> </span>{{cmsContent.addIntent.uploadIntents}}</a
-                >
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" (click)="selectEntryType('upload')"><span
+                    class="glyphicon glyphicon-cloud-upload"> </span>{{cmsContent.addIntent.uploadIntents}}</a>
               </h4>
             </div>
             <div id="collapseTwo" class="panel-collapse collapse">
@@ -72,8 +94,8 @@
                     <div class="input-group">
                       <label class="input-group-btn">
                         <span class="btn btn-primary">
-                          Select File&nbsp;<span class="glyphicon glyphicon-asterisk icon-required"></span><input name="intentsFileUpload" (change)="fileChangeEvent($event)" #intentsFile type="file"
-                            style="display: none;">
+                          Select File&nbsp;<span class="glyphicon glyphicon-asterisk icon-required"></span><input name="intentsFileUpload"
+                            (change)="fileChangeEvent($event)" #intentsFile type="file" style="display: none;">
                         </span>
                       </label>
                       <input type="text" class="form-control" #showFileName readonly>
@@ -87,64 +109,40 @@
             </div>
           </div>
           <div class="panel panel-default" *ngIf='currentAction === "add" && currentContext === "custom"'>
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a
-                    data-toggle="collapse"
-                    data-parent="#accordion"
-                    href="#collapse3"
-                    (click)="selectEntryType('copy')"
-                    ><span class="glyphicon glyphicon-copy"> </span>{{cmsContent.addIntent.copyIntents}}</a
-                  >
-                </h4>
-              </div>
-              <div id="collapse3" class="panel-collapse collapse">
-                <div class="panel-body content padded">
-                  <div class="row">
-                    <div class="col-lg-6 col-sm-12">
-                      {{cmsContent.addIntent.copyIntentsMsg}}
-                    </div>
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" (click)="selectEntryType('copy')"><span
+                    class="glyphicon glyphicon-copy"> </span>{{cmsContent.addIntent.copyIntents}}</a>
+              </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+              <div class="panel-body content padded">
+                <div class="row">
+                  <div class="col-lg-6 col-sm-12">
+                    {{cmsContent.addIntent.copyIntentsMsg}}
                   </div>
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </div>
     <div class='row'>
-        <div class="col-lg-6 col-sm-12">
-            <app-bk-select
-              [currentForm]="formDir"
-              #selectCategory
-              label="{{cmsContent.addIntent.categoryLabel}}"
-              currentFormControlName="category"
-              [options]="category"></app-bk-select>
-          </div>
+      <div class="col-lg-6 col-sm-12">
+        <app-bk-select [currentForm]="formDir" #selectCategory label="{{cmsContent.addIntent.categoryLabel}}"
+          currentFormControlName="category" [options]="category"></app-bk-select>
+      </div>
     </div>
     <div class="row">
       <div style="margin-bottom: 1em" class="col-sm-12">
-        <bk-button
-          intent="success"
-          type="submit"
-          label="{{ getCommonResources('saveButton') }}"
-        ></bk-button>
-        <bk-button
-          intent="warning"
-          (click)="revert()"
-          label="{{ getCommonResources('revertButton') }}"
-        ></bk-button>
-        <bk-button
-          intent="danger"
-          (click)="cancel()"
-          label="{{ getCommonResources('cancelButton') }}"
-          >>
+        <bk-button intent="success" type="submit" label="{{ getCommonResources('saveButton') }}"></bk-button>
+        <bk-button intent="warning" (click)="revert()" label="{{ getCommonResources('revertButton') }}"></bk-button>
+        <bk-button intent="danger" (click)="cancel()" label="{{ getCommonResources('cancelButton') }}">>
         </bk-button>
       </div>
-      <div
-        class="col-sm-12"
-        [innerHTML]="getCommonResources('requiredIndicator')"
-      ></div>
+      <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
     </div>
   </form>
-  <!-- {{intentsForm.value | json}} -->
+  {{intentsForm.value | json}}
 </div>

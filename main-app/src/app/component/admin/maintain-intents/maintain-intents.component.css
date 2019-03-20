@@ -34,3 +34,7 @@
     cursor: inherit;
     display: block;
 }
+
+.custom-glyphicon {
+  margin-right: 0px;
+}
