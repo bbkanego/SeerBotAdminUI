@@ -43,5 +43,7 @@ export const environment = {
   TRAIN_MODEL: 'http://localhost:8091/api/v1/model/train',
   TRAIN_MODEL_DOWNLOAD: 'http://localhost:8091/api/v1/model/download',
   TRAIN_MODELS: 'http://localhost:8091/api/v1/model',
-  SEND_CHAT_URL: 'http://localhost:8099/chatbot/api/chats'
+  SEND_CHAT_URL: 'http://localhost:8099/chatbot/api/chats',
+  INIT_ACCT_URL: 'http://localhost:8091/api/v1/account/init',
+  SIGN_UP_ACCT_URL: 'http://localhost:8091/api/v1/account/signup'
 };

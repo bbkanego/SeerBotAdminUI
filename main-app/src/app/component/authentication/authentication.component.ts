@@ -47,6 +47,10 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
     this.authenticationService.login(this.loginModel);
   }
 
+  createAccount(): void {
+    this.router.navigate(['/account/init-signup']);
+  }
+
   logout(): void {
     this.authenticationService.logout();
   }

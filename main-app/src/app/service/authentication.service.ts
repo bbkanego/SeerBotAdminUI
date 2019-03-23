@@ -64,9 +64,9 @@ export class BotAuthenticationService {
     return localStorage.getItem(COMMON_CONST.CURRENT_USER);
   }
 
-  isAdmin() {
+  isUberAdmin() {
     if (this.isLoggedIn()) {
-      return JSON.parse(this.getCurrentUser()).roles.includes('ADMIN');
+      return JSON.parse(this.getCurrentUser()).roles.includes('UBER_ADMIN');
     }
     return false;
   }

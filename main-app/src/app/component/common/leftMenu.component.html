@@ -4,12 +4,12 @@
     <h3>Bootstrap Sidebar</h3>
   </div>-->
   <ul class="list-unstyled components">
-    <li *ngIf='getAuthenticationService().isAdmin()'>
+    <li *ngIf='getAuthenticationService().isUberAdmin()'>
       <a [routerLink]="['/dashboard']" data-toggle="collapse" aria-expanded="false">
         <i class="headingLi glyphicon glyphicon-dashboard"></i>Dashboard
       </a>
     </li>
-    <li *ngIf='getAuthenticationService().isAdmin()'>
+    <li *ngIf='getAuthenticationService().isUberAdmin()'>
       <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-king"></i>{{getCommonService().cmsContent.leftMenu.admin.heading}}<i
         class="fa fa-fw fa-angle-down pull-right"></i>
