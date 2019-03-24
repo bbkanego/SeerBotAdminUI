@@ -6,9 +6,13 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
-import { Option, SUBSCRIBER_TYPES, SelectComponent } from 'my-component-library';
+import {
+  Option,
+  SUBSCRIBER_TYPES,
+  SelectComponent
+} from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../environments/environment';
@@ -42,6 +46,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
   showRadioOptions = true;
   currentContext = 'NONE';
   cmsContent;
+  locales: Option[] = [];
 
   constructor(
     injector: Injector,
@@ -57,6 +62,10 @@ export class MaintainIntentsComponent extends BaseBotComponent
       this.intentsModel,
       this.validationRules
     );
+    if (this.currentAction === 'add') {
+      this.addUtterance();
+      this.addResponse();
+    }
   }
 
   private initComponent(path: string): void {
@@ -71,8 +80,13 @@ export class MaintainIntentsComponent extends BaseBotComponent
       this.createForm();
     }
 
-    this.category = this.buildOptions(this.intentsModel.referenceData.categories);
-    this.responseTypes = this.buildOptions(this.intentsModel.referenceData.responseTypes);
+    this.category = this.buildOptions(
+      this.intentsModel.referenceData.categories
+    );
+    this.responseTypes = this.buildOptions(
+      this.intentsModel.referenceData.responseTypes
+    );
+    this.locales = this.buildOptions(this.intentsModel.referenceData.locales);
 
     if (this.currentEditCategory != null) {
       this.intentsForm.get('category').setValue(this.currentEditCategory.code);
@@ -131,6 +145,50 @@ export class MaintainIntentsComponent extends BaseBotComponent
         }
       });
     });
+  }
+
+  get utterances(): FormArray {
+    return this.intentsForm.get('utterances') as FormArray;
+  }
+
+  getUtteranceGroup(intent: IntentUtterance): FormGroup {
+    return this.autoGenFormGroup(
+      intent,
+      this.findValidatorRuleForProperty(this.validationRules, 'utterances')
+        .fields
+    );
+  }
+
+  getResponseGroup(response: IntentResponse): FormGroup {
+    return this.autoGenFormGroup(
+      response,
+      this.findValidatorRuleForProperty(this.validationRules, 'responses')
+        .fields
+    );
+  }
+
+  get responses(): FormArray {
+    return this.intentsForm.get('responses') as FormArray;
+  }
+
+  addUtterance() {
+    this.utterances.push(this.getUtteranceGroup(new IntentUtterance()));
+  }
+
+  removeLastUtterance() {
+    if (this.utterances.length > 0) {
+      this.utterances.removeAt(this.utterances.length - 1);
+    }
+  }
+
+  addResponse() {
+    this.responses.push(this.getResponseGroup(new IntentResponse()));
+  }
+
+  removeLastResponse() {
+    if (this.responses.length > 0) {
+      this.responses.removeAt(this.responses.length - 1);
+    }
   }
 
   ngOnDestroy(): void {
@@ -260,4 +318,14 @@ export class MaintainIntentsComponent extends BaseBotComponent
       }
     }
   }
+}
+
+export class IntentUtterance {
+  utterance = '';
+  locale = '';
+}
+export class IntentResponse {
+  response = '';
+  responseType = '';
+  locale = '';
 }

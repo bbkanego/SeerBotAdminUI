@@ -22,21 +22,15 @@ export abstract class BaseBotComponent extends BaseReactiveComponent {
 
   getResource(context: string, key: string) {
     const resources = this.commonService.cmsContent[context];
-    if (this.currentAction === 'add') {
-      return resources.addBot[key];
-    } else if (this.currentAction === 'edit') {
-      return resources.editBot[key];
+    if (key.indexOf('.') !== -1) {
+      const keys: string[] = key.split('.');
+      let value = resources;
+      keys.forEach(item => {
+        value = value[item];
+      });
+      return value;
     } else {
-      if (key.indexOf('.') !== -1) {
-        const keys: string[] = key.split('.');
-        let value = resources;
-        keys.forEach(item => {
-          value = value[item];
-        });
-        return value;
-      } else {
-        return resources[key];
-      }
+      return resources[key];
     }
   }
 

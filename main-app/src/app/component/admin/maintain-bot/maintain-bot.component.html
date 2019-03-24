@@ -1,7 +1,7 @@
 <div class='container-fluid' *ngIf='botForm'>
   <div class="row">
     <div class="col-sm-12">
-      <h1 class="page-header">{{getResource("maintainBot", 'pageHeading')}}</h1>
+      <h1 class="page-header">{{getResourceLocal('pageHeading')}}</h1>
     </div>
   </div>
   <form [formGroup]='botForm' (ngSubmit)='onSubmit($event)' #formDir="ngForm" novalidate>
@@ -11,21 +11,21 @@
           <div class="content padded">
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentForm]='formDir' label='{{getResource("maintainBot", "nameLabel")}}' 
+                <app-bk-input [currentForm]='formDir' label='{{getResourceLocal("nameLabel")}}' 
                   currentFormControlName='name'></app-bk-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentForm]='formDir' label='{{getResource("maintainBot", "displayNameLabel")}}' 
+                <app-bk-input [currentForm]='formDir' label='{{getResourceLocal("displayNameLabel")}}' 
                       currentFormControlName='displayName'></app-bk-input>
               </div>
             </div>
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-select [currentForm]='formDir' label='{{getResource("maintainBot", "categoryLabel")}}' 
+                <app-bk-select [currentForm]='formDir' label='{{getResourceLocal("categoryLabel")}}' 
                     currentFormControlName='category' [options]='category'></app-bk-select>
               </div>
               <div class="col-lg-6 col-sm-12">
-                  <app-bk-textarea [currentForm]='formDir' label='{{getResource("maintainBot", "descriptionLabel")}}'  
+                  <app-bk-textarea [currentForm]='formDir' label='{{getResourceLocal("descriptionLabel")}}'  
                     currentFormControlName='description'></app-bk-textarea>
               </div>
             </div>

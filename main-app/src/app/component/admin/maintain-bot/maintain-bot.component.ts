@@ -150,4 +150,12 @@ export class MaintainBotComponent extends BaseBotComponent implements OnInit, On
     }
   }
 
+  getResourceLocal(key) {
+    let prefix = 'addBot';
+    if (this.currentAction === 'edit') {
+      prefix = 'editBot';
+    }
+    return this.getResource('maintainBot', prefix + '.' + key);
+  }
+
 }

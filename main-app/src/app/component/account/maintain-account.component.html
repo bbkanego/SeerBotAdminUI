@@ -1,0 +1,95 @@
+<div class='container-fluid' *ngIf='accountForm'>
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="page-header">{{getResourceLocal('createAccount')}}</h1>
+    </div>
+  </div>
+  <form [formGroup]='accountForm' (ngSubmit)='onSubmit()' #formDir="ngForm" novalidate>
+    <div class="row">
+      <div class='col-sm-12'>
+        <div class="table-box">
+          <div class="content">
+            <div class='panel panel-default'>
+              <div class="panel-heading">{{getResourceLocal('accountDetailsHeading')}}</div>
+              <div class="panel-body">
+                <div class='row'>
+                  <div class="col-sm-6">
+                    <app-bk-input [currentForm]='formDir' label='{{getResourceLocal("userName")}}'
+                      currentFormControlName='userName'></app-bk-input>
+                  </div>
+                  <div class="col-sm-3">
+                    <app-bk-input [currentForm]='formDir' label='{{getResourceLocal("password")}}'
+                      currentFormControlName='passwordCapture'></app-bk-input>
+                  </div>
+                  <div class="col-sm-3">
+                    <app-bk-input [currentForm]='formDir' label='{{getResourceLocal("passwordRenter")}}'
+                      currentFormControlName='passwordCaptureReenter'></app-bk-input>
+                  </div>
+                </div>
+                <div class='row'>
+                  <div class="col-sm-6">
+                    <app-bk-select [currentForm]='formDir' [currentFormGroup]='accountForm' controlId='roleCode' 
+                    label='{{getResourceLocal("roles")}}' currentFormControlName='roleCode' 
+                    [options]='roles'></app-bk-select>
+                  </div>
+                  <div class="col-sm-6">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class='panel panel-default row'>
+              <div class="panel-heading">{{getResourceLocal('personInfoHeading')}}</div>
+              <div class="panel-body">
+                <div class="col-sm-6" [formGroup]='accountOwner'>
+                  <app-bk-input [currentFormGroup]='accountOwner' [currentForm]='formDir' label='{{getResourceLocal("firstName")}}'
+                    currentFormControlName='firstName'></app-bk-input>
+                </div>
+                <div class="col-sm-6">
+                  <app-bk-input [currentFormGroup]='accountOwner' [currentForm]='formDir' label='{{getResourceLocal("lastName")}}'
+                    currentFormControlName='lastName'></app-bk-input>
+                </div>
+              </div>
+            </div>
+            <div class='row' [formGroup]='accountOwner'>
+              <div class='col-sm-12' formArrayName='contactModes'>
+                <div *ngFor="let contactMode of contactModes.controls; let i=index" [formGroupName]="i">
+                  <div class='row panel panel-default'>
+                    <div class="panel-heading">{{getResourceLocal('addressInfoHeading')}}</div>
+                    <div class="col-sm-12 panel-body">
+                      <div class='row'>
+                        <div class="col-sm-6">
+                          <app-bk-input [currentFormGroup]='contactMode' [currentForm]='formDir' label='{{getResourceLocal("address.street")}}'
+                            currentFormControlName='street'></app-bk-input>
+                        </div>
+                        <div class="col-sm-6">
+                          <app-bk-input [currentFormGroup]='contactMode' [currentForm]='formDir' label='{{getResourceLocal("address.city")}}'
+                            currentFormControlName='city'></app-bk-input>
+                        </div>
+                      </div>
+                      <div class='row'>
+                        <div class="col-sm-6">
+                          <app-bk-input [currentFormGroup]='contactMode' [currentForm]='formDir' label='{{getResourceLocal("address.state")}}'
+                            currentFormControlName='state'></app-bk-input>
+                        </div>
+                        <div class="col-sm-6">
+                          <app-bk-input [currentFormGroup]='contactMode' [currentForm]='formDir' label='{{getResourceLocal("address.zip")}}'
+                            currentFormControlName='zip'></app-bk-input>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style='margin-bottom: 1em' class='col-sm-12'>
+      <bk-button intent='success' [disabled]='!accountForm.valid' type='submit' 
+            label='{{getSubmitButtonLabel()}}'></bk-button>
+      <bk-button (onClick)='revert()' intent='warning' label='{{getResource("commonMessages", "revertButton")}}'></bk-button>
+      <bk-button (onClick)='cancel()' intent='danger' label='{{getResource("commonMessages", "cancelButton")}}'></bk-button>
+    </div>
+  </form>
+  <!-- {{accountModel | json }} -->
+</div>

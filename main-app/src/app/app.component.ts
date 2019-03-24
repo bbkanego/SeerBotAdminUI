@@ -28,10 +28,10 @@ export class AppComponent implements OnInit, OnDestroy {
   onDeactivate(eventObj) {}
 
   private loadResources() {
+    this.commonService.getCmsContent();
     if (this.isLoggedIn()) {
       this.showAuthenticatedItems = true;
       this.commonService.getMessages();
-      this.commonService.getCmsContent();
       this.allBootstrapItemsFetched = true;
     }
   }

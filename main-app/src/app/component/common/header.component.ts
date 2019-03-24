@@ -17,4 +17,8 @@ export class HeaderComponent {
     $('#sidebar').toggleClass('active');
     $(event.target).toggleClass('active');
   }
+
+  logout() {
+    this.authenticationService.logout();
+  }
 }

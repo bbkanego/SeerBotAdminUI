@@ -13,17 +13,18 @@ import { BotAuthenticationService } from './service/authentication.service';
 import { AuthGuard } from './guard/auth.guard';
 import { LogoutGuard } from './guard/logout.guard';
 import { environment } from './environments/environment';
-
+import { AccountModule } from './component/account/account.module';
+import { AccountService } from './service/account.service';
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule, CommonComponentModule, CommonUtilsModule, DashboardModule,
-    AppRoutingModule, AuthenticationModule, BrowserAnimationsModule
+    AppRoutingModule, AuthenticationModule, BrowserAnimationsModule, AccountModule
   ],
   providers: [NotificationService, BotAuthenticationService, AuthenticationService,
-    CommonService, IntentService, ValidationService, AuthGuard, LogoutGuard,
+    CommonService, IntentService, ValidationService, AuthGuard, LogoutGuard, AccountService,
     {provide: 'environment', useValue: environment}],
   bootstrap: [AppComponent]
 })

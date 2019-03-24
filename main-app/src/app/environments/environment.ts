@@ -12,6 +12,8 @@ export const environment = {
   ALL_INTENTS: 'http://localhost:8091/api/v1/predefined-intent',
   INIT_SEARCH_INTENT:
     'http://localhost:8091/api/v1/predefined-intent/search/init',
+  INIT_SEARCH_CUSTOM_INTENT:
+    'http://localhost:8091/api/v1/custom-intent/search/init',
   SEARCH_INTENT: 'http://localhost:8091/api/v1/predefined-intent/search',
   CUSTOM_SEARCH_INTENT: 'http://localhost:8091/api/v1/custom-intent/search',
   INIT_BOT: 'http://localhost:8091/api/v1/chatbot/init/',
@@ -43,5 +45,7 @@ export const environment = {
   TRAIN_MODEL: 'http://localhost:8091/api/v1/model/train',
   TRAIN_MODEL_DOWNLOAD: 'http://localhost:8091/api/v1/model/download',
   TRAIN_MODELS: 'http://localhost:8091/api/v1/model',
-  SEND_CHAT_URL: 'http://localhost:8099/chatbot/api/chats'
+  SEND_CHAT_URL: 'http://localhost:8099/chatbot/api/chats',
+  INIT_ACCT_URL: 'http://localhost:8091/api/v1/account/init',
+  SIGN_UP_ACCT_URL: 'http://localhost:8091/api/v1/account/signup'
 };
