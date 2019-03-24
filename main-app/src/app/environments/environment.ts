@@ -12,6 +12,8 @@ export const environment = {
   ALL_INTENTS: 'http://localhost:8091/api/v1/predefined-intent',
   INIT_SEARCH_INTENT:
     'http://localhost:8091/api/v1/predefined-intent/search/init',
+  INIT_SEARCH_CUSTOM_INTENT:
+    'http://localhost:8091/api/v1/custom-intent/search/init',
   SEARCH_INTENT: 'http://localhost:8091/api/v1/predefined-intent/search',
   CUSTOM_SEARCH_INTENT: 'http://localhost:8091/api/v1/custom-intent/search',
   INIT_BOT: 'http://localhost:8091/api/v1/chatbot/init/',

@@ -8,9 +8,9 @@
     <div class="row">
       <div class='col-sm-12'>
         <div class="table-box">
-          <div class="content padded">
+          <div class="content">
             <div class='panel panel-default'>
-              <div class="panel-heading">Panel Heading</div>
+              <div class="panel-heading">{{getResourceLocal('accountDetailsHeading')}}</div>
               <div class="panel-body">
                 <div class='row'>
                   <div class="col-sm-6">
@@ -37,7 +37,7 @@
               </div>
             </div>
             <div class='panel panel-default row'>
-              <div class="panel-heading">Panel Heading</div>
+              <div class="panel-heading">{{getResourceLocal('personInfoHeading')}}</div>
               <div class="panel-body">
                 <div class="col-sm-6" [formGroup]='accountOwner'>
                   <app-bk-input [currentFormGroup]='accountOwner' [currentForm]='formDir' label='{{getResourceLocal("firstName")}}'
@@ -53,7 +53,7 @@
               <div class='col-sm-12' formArrayName='contactModes'>
                 <div *ngFor="let contactMode of contactModes.controls; let i=index" [formGroupName]="i">
                   <div class='row panel panel-default'>
-                    <div class="panel-heading">Panel Heading</div>
+                    <div class="panel-heading">{{getResourceLocal('addressInfoHeading')}}</div>
                     <div class="col-sm-12 panel-body">
                       <div class='row'>
                         <div class="col-sm-6">
@@ -87,9 +87,9 @@
     <div style='margin-bottom: 1em' class='col-sm-12'>
       <bk-button intent='success' [disabled]='!accountForm.valid' type='submit' 
             label='{{getSubmitButtonLabel()}}'></bk-button>
-      <bk-button (onClick)='revert()' intent='warning' label='{{getResource("commonMessages", "revertButton")}}'></bk-button>&nbsp;
+      <bk-button (onClick)='revert()' intent='warning' label='{{getResource("commonMessages", "revertButton")}}'></bk-button>
       <bk-button (onClick)='cancel()' intent='danger' label='{{getResource("commonMessages", "cancelButton")}}'></bk-button>
     </div>
   </form>
-  {{accountModel | json }}
+  <!-- {{accountModel | json }} -->
 </div>

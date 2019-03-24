@@ -74,7 +74,11 @@ export class IntentService extends BaseBotCrudService {
   }
 
   public getSearchIntentsModel(): Observable<any> {
-    return this.getRequest(environment.INIT_SEARCH_INTENT);
+    if (this.getActionContext() === 'predefined') {
+      return this.getRequest(environment.INIT_SEARCH_INTENT);
+    } else {
+      return this.getRequest(environment.INIT_SEARCH_CUSTOM_INTENT);
+    }
   }
 
   public searchIntents(model): Observable<any> {
