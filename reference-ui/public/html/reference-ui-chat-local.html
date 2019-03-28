@@ -30,7 +30,9 @@
     <script>
       var SEER_CHAT_config = {
         targetDivId: 'chat-iframe-target',
-        sdkUrl: 'http://localhost:4320'
+        sdkUrl: 'http://localhost:4320',
+        chatWindowHeading: 'Test Window',
+        chatButtonLabel: 'Talk To Us!'
       };
     </script>
     <script src="http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js"></script>
@@ -39,7 +41,8 @@
         targetDivId: 'chat-iframe-target',
         sdkUrl: 'http://localhost:4320',
         chatWindowHeading: 'Test Window',
-        chatButtonLabel: 'Talk To Us!'
+        chatButtonLabel: 'Talk To Us!',
+        chatAPIUrl: 'http://localhost:8099/chatbot/api/chats'
       });
     </script>
   </body>

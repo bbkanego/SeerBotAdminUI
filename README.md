@@ -29,7 +29,7 @@
 ## **Use Express Application Generator to create app skeleton**
 
 1. Refer: https://expressjs.com/en/starter/generator.html
-2. Create your invidual projects using the above.
+2. Create your individual projects using the above.
 3. Below is the example o/p when I created an express project in an existing dir
 
 ```

@@ -9,7 +9,7 @@
  * we will use plain old JS here. No jquery etc
  * will be used here.
  */
-window.SEER_CHAT_BOOTSTRAP = (function () {
+window.SEER_CHAT_BOOTSTRAP = (function() {
   const iframeCommonStyle = 'border-width: 0;border-style: none;min-width: 100%;';
   const iframeHiddenStyle = iframeCommonStyle + 'display: none';
   const iframeDisplayStyle = iframeCommonStyle + 'display: block';
@@ -24,7 +24,7 @@ window.SEER_CHAT_BOOTSTRAP = (function () {
 
   let externalConf;
 
-  const _initialize = function (config) {
+  const _initialize = function(config) {
     if (config) {
       externalConf = config;
     } else {
@@ -48,25 +48,25 @@ window.SEER_CHAT_BOOTSTRAP = (function () {
     return true;
   };
 
-  const _hide = function () {
+  const _hide = function() {
     internalConf.iframe.setAttribute('style', iframeHiddenStyle);
   };
 
-  const _show = function () {
+  const _show = function() {
     internalConf.iframe.setAttribute('style', iframeDisplayStyle);
   };
 
-  const _destroy = function () {
+  const _destroy = function() {
     const payload = {};
     const payloadString = JSON.stringify(payload);
 
     internalConf.iframeHandle.postMessage(
-        internalConf.senderNonce + ':destroy:' + payloadString,
-        internalConf.iframeTargetOrigin
+      internalConf.senderNonce + ':destroy:' + payloadString,
+      internalConf.iframeTargetOrigin
     );
   };
 
-  const setChatIframe = function () {
+  const setChatIframe = function() {
     const targetDivObj = document.getElementById(externalConf.targetDivId);
     emptyNode(targetDivObj);
 
@@ -97,15 +97,15 @@ window.SEER_CHAT_BOOTSTRAP = (function () {
      * As soon as the Iframe and its content loads, trigger the
      * sendInitialize function.
      */
-    iframe.removeEventListener('load', function () {
+    iframe.removeEventListener('load', function() {
       sendInitialize();
     });
-    iframe.addEventListener('load', function () {
+    iframe.addEventListener('load', function() {
       sendInitialize();
     });
   };
 
-  const sendInitialize = function () {
+  const sendInitialize = function() {
     internalConf.receiverNonce = uuid();
 
     /**
@@ -113,26 +113,26 @@ window.SEER_CHAT_BOOTSTRAP = (function () {
      * initialize
      */
     internalConf.iframeHandle.postMessage(
-        ':initialize:' + internalConf.receiverNonce,
-        internalConf.iframeTargetOrigin
+      ':initialize:' + internalConf.receiverNonce,
+      internalConf.iframeTargetOrigin
     );
   };
 
-  const uuid = function () {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+  const uuid = function() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       const r = (Math.random() * 16) | 0;
       const v = c == 'x' ? r : (r & 0x3) | 0x8;
       return v.toString(16);
     });
   };
 
-  const emptyNode = function (node) {
+  const emptyNode = function(node) {
     while (node.hasChildNodes()) {
       node.removeChild(node.firstChild);
     }
   };
 
-  const getConfig = function () {
+  const getConfig = function() {
     if (!window.SEER_CHAT_config) {
       handleError('Chat cannot be initialized since bootstrap config SEER_CHAT_config not defined');
     }
@@ -140,7 +140,7 @@ window.SEER_CHAT_BOOTSTRAP = (function () {
     return true;
   };
 
-  const handleError = function (errorStr) {
+  const handleError = function(errorStr) {
     if (externalConf.errorHandler) {
       externalConf.errorHandler(errorStr);
     } else {
@@ -148,7 +148,7 @@ window.SEER_CHAT_BOOTSTRAP = (function () {
     }
   };
 
-  const validateConfig = function () {
+  const validateConfig = function() {
     if (externalConf.brandIdentifier) {
       externalConf.loadCustomCSS = true;
       externalConf.loadCustomResourceBundle = true;
@@ -163,7 +163,7 @@ window.SEER_CHAT_BOOTSTRAP = (function () {
     return true;
   };
 
-  const handleMessage = function (event) {
+  const handleMessage = function(event) {
     if (internalConf.iframeTargetOrigin !== event.origin) {
       handleError('Error: received an iframe post ' +
         'message from a different origin: ' + event.origin);
@@ -207,15 +207,15 @@ window.SEER_CHAT_BOOTSTRAP = (function () {
     }
   };
 
-  const sendConfig = function (event, nonce) {
+  const sendConfig = function(event, nonce) {
     if (!internalConf.senderNonce) {
       internalConf.senderNonce = nonce;
     }
 
     const configString = JSON.stringify(externalConf);
     event.source.postMessage(
-        internalConf.senderNonce + ':setConfig:' + configString,
-        internalConf.iframeTargetOrigin
+      internalConf.senderNonce + ':setConfig:' + configString,
+      internalConf.iframeTargetOrigin
     );
   };
 

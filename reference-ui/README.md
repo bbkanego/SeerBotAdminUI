@@ -32,14 +32,25 @@ http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js
 5. The "initialize" method inits the IFrame and sends postMessage ":initialize:".
 6. The ":initialize:" method results in call to "getConfig" in the bootstrap JS.
 
-## Start the chatbot
-1. Got the dir:
+## How to use reference-ui for local testing.
+1. Refer the file
+   ```
+   /Users/bkane/svn/code/angular/SeerlogicsBotAdminUI/reference-ui/public/html/reference-ui-chat-local.html
+   ```   
+    * This HTML file mimics the customers website.
+   On this page you will see the "seer-chat-bootstrap.min.js" file included.
+    * You will also see "initialize" method called where we supply the sdkurl, targetDivId etc
+2. Next we start all the servers using 
+   ```
+   /Users/bkane/svn/code/angular/SeerlogicsBotAdminUI/start-all.sh
+   ```
+3. Start the chatbot. Got the dir:
 ```
 /Users/bkane/svn/code/angular/SeerlogicsChatClientUI
 ```
-2. Start the chat client
+4. Start the chat client
 ```
 npm run local
 ```
 
-3. This will start the chat client at port 4300
+3. This will start the chat client at port 4320
