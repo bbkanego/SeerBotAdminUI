@@ -61,8 +61,8 @@ window.SEER_CHAT_BOOTSTRAP = (function() {
     const payloadString = JSON.stringify(payload);
 
     internalConf.iframeHandle.postMessage(
-      internalConf.senderNonce + ':destroy:' + payloadString,
-      internalConf.iframeTargetOrigin
+        internalConf.senderNonce + ':destroy:' + payloadString,
+        internalConf.iframeTargetOrigin
     );
   };
 
@@ -113,8 +113,8 @@ window.SEER_CHAT_BOOTSTRAP = (function() {
      * initialize
      */
     internalConf.iframeHandle.postMessage(
-      ':initialize:' + internalConf.receiverNonce,
-      internalConf.iframeTargetOrigin
+        ':initialize:' + internalConf.receiverNonce,
+        internalConf.iframeTargetOrigin
     );
   };
 
@@ -165,8 +165,9 @@ window.SEER_CHAT_BOOTSTRAP = (function() {
 
   const handleMessage = function(event) {
     if (internalConf.iframeTargetOrigin !== event.origin) {
-      handleError('Error: received an iframe post ' +
-        'message from a different origin: ' + event.origin);
+      handleError(
+          'Error: received an iframe post ' + 'message from a different origin: ' + event.origin
+      );
       return;
     }
 
@@ -175,8 +176,9 @@ window.SEER_CHAT_BOOTSTRAP = (function() {
     const data = payload.data ? payload.data : {};
 
     if (
-      !payload.nonce || !internalConf.receiverNonce ||
-      (payload.nonce !== internalConf.receiverNonce)
+      !payload.nonce ||
+      !internalConf.receiverNonce ||
+      payload.nonce !== internalConf.receiverNonce
     ) {
       handleError('Received an iframe post message with an invalid nonce');
       return;
@@ -214,8 +216,8 @@ window.SEER_CHAT_BOOTSTRAP = (function() {
 
     const configString = JSON.stringify(externalConf);
     event.source.postMessage(
-      internalConf.senderNonce + ':setConfig:' + configString,
-      internalConf.iframeTargetOrigin
+        internalConf.senderNonce + ':setConfig:' + configString,
+        internalConf.iframeTargetOrigin
     );
   };
 

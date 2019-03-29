@@ -44,6 +44,10 @@ http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js
    ```
    /Users/bkane/svn/code/angular/SeerlogicsBotAdminUI/start-all.sh
    ```
+   once all the scripts start you can access the example UI using below link:
+   ```
+   http://localhost:3004/customer/html/reference-ui-chat-local.html
+   ```
 3. Start the chatbot. Got the dir:
 ```
 /Users/bkane/svn/code/angular/SeerlogicsChatClientUI
@@ -54,3 +58,6 @@ npm run local
 ```
 
 3. This will start the chat client at port 4320
+   
+4. Also make sure that chatbot MS is running by running the Intellij config: SeerlogicsReferenceBot:8099
+5. Using this set up you can debug issues with reference bot in intellij and fix those.
