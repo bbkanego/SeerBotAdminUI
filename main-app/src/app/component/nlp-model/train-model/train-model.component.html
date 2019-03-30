@@ -85,9 +85,11 @@
   </div>
   <div class='row'>
     <div style='margin-bottom: 1em' class='col-sm-12'>
-      <bk-button intent='success' (click)="delete(trainModel.id)"
+      <bk-button intent='success' (click)="reTrainModel(trainModel.id)"
+                 label='{{getCommonResources("reTrainButton")}}'></bk-button>
+      <bk-button intent='danger' (click)="delete(trainModel.id)"
                  label='{{getCommonResources("deleteButton")}}'></bk-button>
-      <bk-button intent='danger' (click)="cancel()"
+      <bk-button intent='warning' (click)="cancel()"
                  label='{{getCommonResources("cancelButton")}}'>>
       </bk-button>
     </div>

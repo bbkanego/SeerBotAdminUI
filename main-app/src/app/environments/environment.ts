@@ -43,6 +43,7 @@ export const environment = {
   SEARCH_BOT: 'http://localhost:8091/api/v1/chatbot/search',
   INIT_TRAIN_MODEL: 'http://localhost:8091/api/v1/model/train/init',
   TRAIN_MODEL: 'http://localhost:8091/api/v1/model/train',
+  RETRAIN_MODEL: 'http://localhost:8091/api/v1/model/re-train',
   TRAIN_MODEL_DOWNLOAD: 'http://localhost:8091/api/v1/model/download',
   TRAIN_MODELS: 'http://localhost:8091/api/v1/model',
   SEND_CHAT_URL: 'http://localhost:8099/chatbot/api/chats',

@@ -100,6 +100,17 @@ export class TrainModelComponent extends BaseBotComponent
     });
   }
 
+  reTrainModel(id) {
+    this.nlpService.reTrainModel(id).subscribe(() => {
+      this.notificationService.notify(
+        'Refresh Results!',
+        BIZ_BOTS_CONSTANTS.REFRESH_MODELS_SEARCH_RESULTS,
+        BIZ_BOTS_CONSTANTS.REFRESH_MODELS_SEARCH_RESULTS
+      );
+      this.trainModel = null;
+    });
+  }
+
   getResource(context, key) {
     const resources = this.commonService.cmsContent['maintainModels'];
     return resources[context][key];

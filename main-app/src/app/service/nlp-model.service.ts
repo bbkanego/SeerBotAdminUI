@@ -1,7 +1,7 @@
-import {CrudService} from 'my-component-library';
-import {Injectable, Injector} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {environment} from '../environments/environment';
+import { CrudService } from 'my-component-library';
+import { Injectable, Injector } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { environment } from '../environments/environment';
 import { BaseBotCrudService } from './baseBotCrud.service';
 
 @Injectable()
@@ -19,15 +19,21 @@ export class NlpModelService extends BaseBotCrudService {
   }
 
   getById(id: string): Observable<any> {
-    return this.getRequest(environment.TRAIN_MODELS + "/" + id);
+    return this.getRequest(environment.TRAIN_MODELS + '/' + id);
   }
 
   initModel(): Observable<any> {
-    return this.getRequest(environment.INIT_TRAIN_MODEL + '/' + this.getActionContext());
+    return this.getRequest(
+      environment.INIT_TRAIN_MODEL + '/' + this.getActionContext()
+    );
   }
 
   trainModel(model: any): Observable<any> {
     return this.postRequest(environment.TRAIN_MODEL, model);
+  }
+
+  reTrainModel(id: string): Observable<any> {
+    return this.getRequest(environment.RETRAIN_MODEL + '/' + id);
   }
 
   save(model: any): Observable<any> {

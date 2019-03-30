@@ -23,6 +23,10 @@ const ROUTES: Routes = [
     component: TrainModelComponent
   },
   {
+    path: 're-train-model',
+    component: TrainModelComponent
+  },
+  {
     path: 'search-models',
     component: SearchModelComponent,
     children: [
