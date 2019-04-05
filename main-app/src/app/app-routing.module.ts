@@ -31,6 +31,12 @@ const ROUTES: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'state-machine',
+    loadChildren:
+      './component/state-machine/state-machine.module#StateMachineModule',
+    canActivate: [AuthGuard]
+  },
+  {
     // This is default route. this will automatically redirect the user to dashboard if the context path is "/"
     path: '',
     redirectTo: '/dashboard',
@@ -46,7 +52,8 @@ const ROUTES: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(
-      ROUTES, {onSameUrlNavigation: 'reload'} //, { enableTracing: true } // <-- debugging purposes only
+      ROUTES,
+      { onSameUrlNavigation: 'reload' } // , { enableTracing: true } // <-- debugging purposes only
     )
   ],
   // imports:[RouterModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules})], -- allows preloading of lazy modules

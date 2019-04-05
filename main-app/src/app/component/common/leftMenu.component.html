@@ -12,46 +12,67 @@
     <li *ngIf='getAuthenticationService().isUberAdmin()'>
       <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-king"></i>{{getCommonService().cmsContent.leftMenu.admin.heading}}<i
-        class="fa fa-fw fa-angle-down pull-right"></i>
+          class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="homeSubmenu">
-        <li><a [routerLink]="['/admin/add_intent']" [queryParams]="{'action': 'predefined'}">{{getCommonService().cmsContent.leftMenu.admin.option1}}</a></li>
-        <li><a [routerLink]="['/admin/start_search_intent']" [queryParams]="{'action': 'predefined'}">{{getCommonService().cmsContent.leftMenu.admin.option2}}</a></li>
-        <li><a [routerLink]="['/model/start-train-model']" [queryParams]="{'action': 'predefined'}">{{getCommonService().cmsContent.leftMenu.admin.option3}}</a></li>
-        <li><a [routerLink]="['/model/search-models']" [queryParams]="{'action': 'predefined'}">{{getCommonService().cmsContent.leftMenu.admin.option4}}</a></li>
+        <li><a [routerLink]="['/admin/add_intent']"
+            [queryParams]="{'action': 'predefined'}">{{getCommonService().cmsContent.leftMenu.admin.option1}}</a></li>
+        <li><a [routerLink]="['/admin/start_search_intent']"
+            [queryParams]="{'action': 'predefined'}">{{getCommonService().cmsContent.leftMenu.admin.option2}}</a></li>
+        <li><a [routerLink]="['/model/start-train-model']"
+            [queryParams]="{'action': 'predefined'}">{{getCommonService().cmsContent.leftMenu.admin.option3}}</a></li>
+        <li><a [routerLink]="['/model/search-models']"
+            [queryParams]="{'action': 'predefined'}">{{getCommonService().cmsContent.leftMenu.admin.option4}}</a></li>
       </ul>
     </li>
     <li>
       <a href="#botsLife" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-        <i class="headingLi glyphicon glyphicon-user"></i>{{getCommonService().cmsContent.leftMenu.maintainIntents.heading}}<i
-        class="fa fa-fw fa-angle-down pull-right"></i>
+        <i
+          class="headingLi glyphicon glyphicon-user"></i>{{getCommonService().cmsContent.leftMenu.maintainIntents.heading}}<i
+          class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="botsLife">
-        <li><a [routerLink]="['/admin/add_intent']" [queryParams]="{'action': 'custom'}">{{getCommonService().cmsContent.leftMenu.maintainIntents.option1}}</a>
+        <li><a [routerLink]="['/admin/add_intent']"
+            [queryParams]="{'action': 'custom'}">{{getCommonService().cmsContent.leftMenu.maintainIntents.option1}}</a>
         </li>
-        <li><a [routerLink]="['/admin/start_search_intent']" [queryParams]="{'action': 'custom'}">{{getCommonService().cmsContent.leftMenu.maintainIntents.option2}}</a></li>
-        <li><a [routerLink]="['/model/start-train-model']" [queryParams]="{'action': 'custom'}">{{getCommonService().cmsContent.leftMenu.maintainIntents.option3}}</a></li>
-        <li><a [routerLink]="['/model/search-models']" [queryParams]="{'action': 'custom'}">{{getCommonService().cmsContent.leftMenu.maintainIntents.option4}}</a>
+        <li><a [routerLink]="['/admin/start_search_intent']"
+            [queryParams]="{'action': 'custom'}">{{getCommonService().cmsContent.leftMenu.maintainIntents.option2}}</a>
+        </li>
+        <li><a [routerLink]="['/model/start-train-model']"
+            [queryParams]="{'action': 'custom'}">{{getCommonService().cmsContent.leftMenu.maintainIntents.option3}}</a>
+        </li>
+        <li><a [routerLink]="['/model/search-models']"
+            [queryParams]="{'action': 'custom'}">{{getCommonService().cmsContent.leftMenu.maintainIntents.option4}}</a>
         </li>
       </ul>
     </li>
     <li>
       <a href="#maintainModel" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-        <i class="headingLi glyphicon glyphicon-play-circle"></i>{{getCommonService().cmsContent.leftMenu.maintainBots.heading}}<i
-        class="fa fa-fw fa-angle-down pull-right"></i>
+        <i
+          class="headingLi glyphicon glyphicon-play-circle"></i>{{getCommonService().cmsContent.leftMenu.maintainBots.heading}}<i
+          class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="maintainModel">
-        <li><a
-          [routerLink]="['/admin/add-bot']">{{getCommonService().cmsContent.leftMenu.maintainBots.option1}}</a>
+        <li><a [routerLink]="['/admin/add-bot']">{{getCommonService().cmsContent.leftMenu.maintainBots.option1}}</a>
         </li>
-        <li><a
-          [routerLink]="['/admin/init_search_bot']" [queryParams]="{'action': 'editBot'}">{{getCommonService().cmsContent.leftMenu.maintainBots.option2}}</a>
+        <li><a [routerLink]="['/admin/init_search_bot']"
+            [queryParams]="{'action': 'editBot'}">{{getCommonService().cmsContent.leftMenu.maintainBots.option2}}</a>
         </li>
-        <li><a
-          [routerLink]="['/admin/init_search_bot']" [queryParams]="{'action': 'launchBot'}">{{getCommonService().cmsContent.leftMenu.maintainBots.option3}}</a>
+        <li><a [routerLink]="['/admin/init_search_bot']"
+            [queryParams]="{'action': 'launchBot'}">{{getCommonService().cmsContent.leftMenu.maintainBots.option3}}</a>
         </li>
-        <li><a
-          [routerLink]="['/admin/init_search_bot']" [queryParams]="{'action': 'testBot'}">{{getCommonService().cmsContent.leftMenu.maintainBots.option4}}</a>
+        <li><a [routerLink]="['/admin/init_search_bot']"
+            [queryParams]="{'action': 'testBot'}">{{getCommonService().cmsContent.leftMenu.maintainBots.option4}}</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#stateMachineModel" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+        <i class="headingLi glyphicon glyphicon-play-circle"></i>Modelling<i
+          class="fa fa-fw fa-angle-down pull-right"></i>
+      </a>
+      <ul class="collapse list-unstyled" id="stateMachineModel">
+        <li><a [routerLink]="['/state-machine']">Model</a>
         </li>
       </ul>
     </li>
