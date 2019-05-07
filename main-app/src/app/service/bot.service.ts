@@ -10,7 +10,6 @@ export class LaunchBot {
 }
 @Injectable()
 export class BotService extends BaseBotCrudService {
-
   private searchBotCriteriaModel: any;
 
   constructor(injector: Injector) {
@@ -53,7 +52,7 @@ export class BotService extends BaseBotCrudService {
     return this.getRequest(environment.ALL_BOTS);
   }
 
-  public launchBot(launchBot: LaunchBot): Observable<any> {
+  public launchBot(launchBot): Observable<any> {
     return this.postRequest(environment.LAUNCH_BOT, launchBot);
   }
 

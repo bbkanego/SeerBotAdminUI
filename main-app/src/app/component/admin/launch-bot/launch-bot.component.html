@@ -1,67 +1,94 @@
-<div class='container-fluid' *ngIf='context && launchDTO'>
-  <div class='row'>
-    <div class='col-sm-12'>
-      <h1 class='page-header'>{{getPageHeader()}}</h1>
+<div class="container-fluid" *ngIf="context && launchDTO">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="page-header">{{ getPageHeader() }}</h1>
     </div>
   </div>
-  <div class='row'>
+  <div class="row">
     <div class="col-sm-12">
-      <div class='table-box tp-10margin'>
-        <div class='content padded'>
-          <div class='row'>
+      <div class="table-box tp-10margin">
+        <div class="content padded">
+          <div class="row">
             <div class="form-group col-sm-12 displayHeader">
-              {{getHeader()}}<!--  <a *ngIf='context === "launched"' href='{{botAccessUrl}}' target="_botTestWindow">{{botAccessUrl}}</a> -->
+              {{ getHeader() }}
             </div>
           </div>
-          <div class='row' *ngIf='context === "startLaunch"'>
-            <div class="col-lg-6 col-sm-12">
-              <div class='row'>
-                <div class="form-group col-lg-6 col-sm-12 displayHeader">
-                  {{commonService.cmsContent.launchBot.startLaunch.nameLabel}}
+          <form
+            [formGroup]="launchForm"
+            (ngSubmit)="launchNow($event)"
+            #formDir="ngForm"
+            novalidate
+          >
+            <div class="row" *ngIf="context === 'startLaunch'">
+              <div class="col-lg-6 col-sm-12">
+                <div class="row">
+                  <div class="form-group col-lg-3 col-sm-12 displayHeader">
+                    {{ getResourceLocal('startLaunch.nameLabel') }}
+                  </div>
+                  <div class="form-group col-lg-6 col-sm-12">
+                    {{ launchDTO.bot.name }}
+                  </div>
                 </div>
-                <div class="form-group col-lg-6 col-sm-12">
-                  {{launchDTO.bot.name}}
+                <div class="row">
+                  <div class="form-group col-lg-3 col-sm-12 displayHeader">
+                    {{ getResourceLocal('startLaunch.descriptionLabel') }}
+                  </div>
+                  <div class="form-group col-lg-6 col-sm-12">
+                    {{ launchDTO.bot.description }}
+                  </div>
                 </div>
-              </div>
-              <div class='row'>
-                <div class="form-group col-lg-6 col-sm-12 displayHeader">
-                  {{commonService.cmsContent.launchBot.startLaunch.descriptionLabel}}
+                <div class="row">
+                  <div class="form-group col-lg-3 col-sm-12 displayHeader">
+                    {{ getResourceLocal('startLaunch.statusLabel') }}
+                  </div>
+                  <div class="form-group col-lg-6 col-sm-12">
+                    {{ launchDTO.bot.status.name }}
+                  </div>
                 </div>
-                <div class="form-group col-lg-6 col-sm-12">
-                  {{launchDTO.bot.description}}
-                </div>
-              </div>
-              <div class='row'>
-                <div class="form-group col-lg-6 col-sm-12 displayHeader">
-                  {{commonService.cmsContent.launchBot.startLaunch.statusLabel}}
-                </div>
-                <div class="form-group col-lg-6 col-sm-12">
-                  {{launchDTO.bot.status.name}}
-                </div>
-              </div>
-              <div class='row'>
-                <div class="form-group col-lg-6 col-sm-12 displayHeader">
-                  Trained Models
-                </div>
-                <div class="form-group col-lg-6 col-sm-12">
-                  <select id="trainedModels" [(ngModel)]="trainedModelSelectValue" class="form-control">
-                    <option value="NONE" selected="selected">None</option>
-                    <option value="{{option.id}}" *ngFor="let option of launchDTO.referenceData.trainedModels">{{option.name}}</option>
-                  </select>
+                <div class="row">
+                  <div class="form-group col-lg-6 displayHeader">
+                    <app-bk-select
+                      label="{{ getResourceLocal('startLaunch.trainedModel') }}"
+                      [currentForm]="formDir"
+                      (onSelect)="onSelectHandler($event)"
+                      currentFormControlName="trainedModelId"
+                      [options]="trainedModels"
+                    ></app-bk-select>
+                  </div>
+                  <div class="form-group col-lg-6 displayHeader">
+                    <app-bk-input
+                      [currentForm]="formDir"
+                      label="{{
+                        getResourceLocal('startLaunch.allowedOrigin')
+                      }}"
+                      currentFormControlName="allowedOrigins"
+                    ></app-bk-input>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  <div class='row'>
-    <div style='margin-bottom: 1em' class='col-sm-12'>
-      <bk-button intent='success' [disabled]="isDisabled()" *ngIf='context === "startLaunch"' type='button' (click)="launchNow()" [label]='createButtonLabel'></bk-button>
+  <div class="row">
+    <div style="margin-bottom: 1em" class="col-sm-12">
+      <bk-button
+        intent="success"
+        [disabled]="isDisabled()"
+        *ngIf="context === 'startLaunch'"
+        type="button"
+        (click)="launchNow()"
+        [label]="createButtonLabel"
+      ></bk-button>
       <!-- <bk-button intent='warning' *ngIf='context === "launched"' (click)='restartNow()' label='Restart'></bk-button>
       <bk-button intent='danger' *ngIf='context === "launched"' (click)='stopNow()' label='Stop'></bk-button> -->
-      <bk-button intent='danger' (click)='cancel()' label='{{getCancelButtonLabel()}}'></bk-button>
+      <bk-button
+        intent="danger"
+        (click)="cancel()"
+        label="{{ getCancelButtonLabel() }}"
+      ></bk-button>
     </div>
   </div>
 </div>

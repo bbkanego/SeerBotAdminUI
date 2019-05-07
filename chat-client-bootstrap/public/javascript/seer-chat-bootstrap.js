@@ -72,7 +72,7 @@ window.SEER_CHAT_BOOTSTRAP = (function() {
 
     const iframe = document.createElement('iframe');
     iframe.sandbox = 'allow-same-origin allow-scripts allow-forms allow-popups';
-    iframe.src = externalConf.sdkUrl;
+    iframe.src = externalConf.chatBotUrl;
     if (externalConf.collapsed) {
       iframe.setAttribute('style', iframeHiddenStyle);
     } else {
@@ -158,7 +158,7 @@ window.SEER_CHAT_BOOTSTRAP = (function() {
       return false;
     }
 
-    internalConf.iframeTargetOrigin = externalConf.sdkUrl;
+    internalConf.iframeTargetOrigin = externalConf.chatBotUrl;
 
     return true;
   };

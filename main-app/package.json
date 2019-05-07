@@ -5,9 +5,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "local": "ng serve --env=local --port=4300 --poll=100",
-    "dev": "ng serve --env=dev --port=4300 --poll=100",
-    "mock": "ng serve --env=mock --port=4300 --poll=100",
+    "local": "ng serve --env=local --port=4320 --poll=100",
+    "dev": "ng serve --env=dev --port=4320 --poll=100",
+    "mock": "ng serve --env=mock --port=4320 --poll=100",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
