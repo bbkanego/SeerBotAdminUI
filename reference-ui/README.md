@@ -74,7 +74,7 @@ http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js
 
 ### **Starting the Server (express based) and Chabotbot (Spring boot)**
 
-1. First make sure chatbot service is running by running the Intellij config: SeerlogicsReferenceBot:8099
+1. First make sure chatbot service is running by running the Intellij config: SeerlogicsReferenceBot-local:8099
 
 2. Start the chatbot angular client. Go to the dir:
    ```
@@ -88,13 +88,23 @@ http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js
 
 4. This will start the chat client at port 4320
 
-5. Next we start all the other servers using
+5. Next make sure you build the latest bootstrap file using webpack and watch for any changes you make while its running using below
+
+   ```
+   cd ~/svn/code/angular/SeerlogicsBotAdminUI/chat-client-bootstrap
+   npm run webpack-watch
+   ```
+
+6. Next we start all the other servers using
+
    ```
    ~/svn/code/angular/SeerlogicsBotAdminUI/start-all.sh
    ```
+
    once all the scripts start you can access the example UI using below link:
+
    ```
    http://localhost:3004/customer/html/reference-ui-chat-local.html
    ```
 
-6. Using this set up you can debug issues with reference bot in intellij and fix those.
+7. Using this set up you can debug issues with reference bot in intellij and fix those.
