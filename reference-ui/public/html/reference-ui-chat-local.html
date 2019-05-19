@@ -16,7 +16,7 @@
         overflow: hidden;
         z-index: 4;
         background-color: transparent;
-     }
+      }
     </style>
   </head>
   <body id="customer-website-body">
@@ -37,11 +37,12 @@
     </script>
     <script src="http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.min.js"></script>
     <script>
-      window.SEER_CHAT_BOOTSTRAP.initialize({
+      window.SEER_CHAT_SETUP.initialize({
         targetDivId: 'chat-iframe-target',
         chatBotUrl: 'http://localhost:4320',
         chatWindowHeading: 'Test Window',
         chatButtonLabel: 'Talk To Us!',
+        botId: '04c071d0-2b19-4e4e-bcda-b98a91a1595d',
         chatAPIUrl: 'http://localhost:8099/chatbot/api/chats'
       });
     </script>

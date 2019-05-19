@@ -9,7 +9,7 @@
  * we will use plain old JS here. No jquery etc
  * will be used here.
  */
-window.SEER_CHAT_BOOTSTRAP = (function() {
+window.SEER_CHAT_SETUP = (function() {
   const iframeCommonStyle = 'border-width: 0;border-style: none;min-width: 100%;';
   const iframeHiddenStyle = iframeCommonStyle + 'display: none';
   const iframeDisplayStyle = iframeCommonStyle + 'display: block';
@@ -154,9 +154,11 @@ window.SEER_CHAT_BOOTSTRAP = (function() {
       externalConf.loadCustomResourceBundle = true;
     }
 
-    if (!externalConf.targetDivId) {
+    if (!externalConf.targetDivId || !externalConf.chatBotUrl || !externalConf.botId) {
       return false;
     }
+
+    externalConf.origin = window.location.origin;
 
     internalConf.iframeTargetOrigin = externalConf.chatBotUrl;
 
