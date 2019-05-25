@@ -43,6 +43,8 @@ export class TestBotComponent extends BaseBotComponent
   botServiceSubscription: Subscription;
   launchDTO: any;
   botAccessUrl: string;
+  botUniqueId: string;
+  botAllowedOrigin: string;
   createButtonLabel = 'NONE';
   context = 'startTest';
   botCallSub: Subscription;
@@ -139,6 +141,8 @@ export class TestBotComponent extends BaseBotComponent
         this.launchDTO = model;
         if (this.launchDTO.bot.configurations.length > 0) {
           this.botAccessUrl = this.launchDTO.bot.configurations[0].url;
+          this.botUniqueId = this.launchDTO.bot.configurations[0].uniqueBotId;
+          this.botAllowedOrigin = this.launchDTO.bot.configurations[0].allowedOrigins;
         }
         if (this.launchDTO.bot.status.code === 'LAUNCHED') {
           this.context = 'launched';
@@ -241,14 +245,7 @@ export class TestBotComponent extends BaseBotComponent
       uniqueClientId: this.uniqueClientId,
       response: ''
     };
-
-    this.httpClient
-      .post(this.botAccessUrl, JSON.stringify(message))
-      .map((res: Response) => res.json())
-      .subscribe(data => {
-        this.chatBox.nativeElement.value = '';
-        this.handleResponse(data);
-      });
+    this.sendPostMessage(this.botAccessUrl, message);
   }
 
   sendPingMessage() {
@@ -295,8 +292,27 @@ export class TestBotComponent extends BaseBotComponent
       this.appendChatRequest(message);
     }
 
+    this.sendPostMessage(this.botAccessUrl, message);
+  }
+
+  private sendPostMessage(botAccessUrl: string, message: {}) {
+    const inputHeaders = [
+      {
+        name: 'Access-Control-Allow-Credentials',
+        value: 'true'
+      },
+      {
+        name: 'X-Customer-Origin',
+        value: this.botAllowedOrigin
+      },
+      {
+        name: 'X-Bot-Id',
+        value: this.botUniqueId
+      }
+    ];
+
     this.httpClient
-      .post(this.botAccessUrl, JSON.stringify(message))
+      .post(this.botAccessUrl, JSON.stringify(message), inputHeaders)
       .map((res: Response) => res.json())
       .subscribe(data => {
         this.chatBox.nativeElement.value = '';
@@ -445,5 +461,9 @@ export class TestBotComponent extends BaseBotComponent
     if (event.keyCode === 13) {
       this.sendMessage();
     }
+  }
+
+  getResourceLocal(key: string) {
+    return this.getResource('launchBot', key);
   }
 }
