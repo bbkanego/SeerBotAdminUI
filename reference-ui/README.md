@@ -32,6 +32,7 @@ http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js
         chatBotUrl: 'http://localhost:4320',
         chatWindowHeading: 'Test Window',
         chatButtonLabel: 'Talk To Us!',
+        botId: '<A Guide provided when the customer creates the bot>',
         chatAPIUrl: '<Url to Chat API provided during setup>'
     }
    ```

@@ -17,8 +17,7 @@
             [formGroup]="launchForm"
             (ngSubmit)="launchNow($event)"
             #formDir="ngForm"
-            novalidate
-          >
+            novalidate>
             <div class="row" *ngIf="context === 'startLaunch'">
               <div class="col-lg-6 col-sm-12">
                 <div class="row">
@@ -58,9 +57,7 @@
                   <div class="form-group col-lg-6 displayHeader">
                     <app-bk-input
                       [currentForm]="formDir"
-                      label="{{
-                        getResourceLocal('startLaunch.allowedOrigin')
-                      }}"
+                      label="{{getResourceLocal('startLaunch.allowedOrigin')}}"
                       currentFormControlName="allowedOrigins"
                     ></app-bk-input>
                   </div>
