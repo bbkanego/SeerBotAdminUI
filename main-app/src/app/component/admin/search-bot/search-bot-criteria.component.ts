@@ -68,7 +68,7 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
     );
 
     this.category = [];
-    this.category.push(new Option('', 'None'));
+    this.category.push(new Option('_NONE_', 'None'));
     for (const entry of this.searchModel.referenceData.category) {
       this.category.push(new Option(entry.code, entry.name));
     }

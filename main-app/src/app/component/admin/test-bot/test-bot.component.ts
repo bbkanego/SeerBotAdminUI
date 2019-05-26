@@ -44,6 +44,7 @@ export class TestBotComponent extends BaseBotComponent
   launchDTO: any;
   botAccessUrl: string;
   botUniqueId: string;
+  chatApiUrl: string;
   botAllowedOrigin: string;
   createButtonLabel = 'NONE';
   context = 'startTest';
@@ -143,6 +144,7 @@ export class TestBotComponent extends BaseBotComponent
           this.botAccessUrl = this.launchDTO.bot.configurations[0].url;
           this.botUniqueId = this.launchDTO.bot.configurations[0].uniqueBotId;
           this.botAllowedOrigin = this.launchDTO.bot.configurations[0].allowedOrigins;
+          this.chatApiUrl = this.launchDTO.bot.configurations[0].url;
         }
         if (this.launchDTO.bot.status.code === 'LAUNCHED') {
           this.context = 'launched';
@@ -243,7 +245,8 @@ export class TestBotComponent extends BaseBotComponent
       previousChatId: this.previousChatId,
       currentSessionId: this.currentSessionId,
       uniqueClientId: this.uniqueClientId,
-      response: ''
+      response: '',
+      authCode: this.botUniqueId,
     };
     this.sendPostMessage(this.botAccessUrl, message);
   }
@@ -258,7 +261,8 @@ export class TestBotComponent extends BaseBotComponent
       previousChatId: null,
       currentSessionId: null,
       uniqueClientId: this.uniqueClientId,
-      response: ''
+      response: '',
+      authCode: this.botUniqueId,
     };
     this.httpClient
       .post(this.botAccessUrl, JSON.stringify(message))
@@ -279,6 +283,7 @@ export class TestBotComponent extends BaseBotComponent
       previousChatId: this.previousChatId,
       currentSessionId: this.currentSessionId,
       uniqueClientId: this.uniqueClientId,
+      authCode: this.botUniqueId,
       response: ''
     };
 
@@ -312,7 +317,7 @@ export class TestBotComponent extends BaseBotComponent
     ];
 
     this.httpClient
-      .post(this.botAccessUrl, JSON.stringify(message), inputHeaders)
+      .post(botAccessUrl, JSON.stringify(message), inputHeaders)
       .map((res: Response) => res.json())
       .subscribe(data => {
         this.chatBox.nativeElement.value = '';
