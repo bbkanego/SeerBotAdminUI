@@ -42,13 +42,13 @@ export class MaintainBotComponent extends BaseBotComponent implements OnInit, On
   private initAddBot(path) {
     this.currentAction = 'add';
     this.validationRuleSubscription = this.validationService
-    .getValidationRuleMetadata('validateBotRule').subscribe(rules => {
-      this.validationRules = rules;
-      this.botServiceSubscription = this.botService.initModelByType('chat_bot').subscribe((model) => {
-        this.botModel = model;
-        this.initComponent(path);
+      .getValidationRuleMetadata('validateBotRule').subscribe(rules => {
+        this.validationRules = rules;
+        this.botServiceSubscription = this.botService.initModelByType('chat_bot').subscribe((model) => {
+          this.botModel = model;
+          this.initComponent(path);
+        });
       });
-    });
   }
 
   private editBot() {
@@ -113,6 +113,8 @@ export class MaintainBotComponent extends BaseBotComponent implements OnInit, On
   }
 
   onSubmit(eventObj) {
+    this.markFormGroupTouched(this.botForm);
+
     if (this.botForm.invalid) {
 
     } else {
@@ -127,8 +129,8 @@ export class MaintainBotComponent extends BaseBotComponent implements OnInit, On
           this.router.navigate(['/dashboard']);
         } else {
           this.botForm = null;
-          this.notificationService.notify('Refresh Results!', BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS, 
-              BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS);
+          this.notificationService.notify('Refresh Results!', BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS,
+            BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS);
         }
       });
     }
@@ -145,8 +147,8 @@ export class MaintainBotComponent extends BaseBotComponent implements OnInit, On
   revert() {
     if (this.botModel) {
       this.createForm();
-      this.notificationService.notifyAny(this.botForm, SUBSCRIBER_TYPES.FORM_GROUP_RESET, 
-                SUBSCRIBER_TYPES.FORM_GROUP_RESET);
+      this.notificationService.notifyAny(this.botForm, SUBSCRIBER_TYPES.FORM_GROUP_RESET,
+        SUBSCRIBER_TYPES.FORM_GROUP_RESET);
     }
   }
 

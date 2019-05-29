@@ -6,7 +6,7 @@
         </h1>
       </div>
     </div>
-    <form [formGroup]="botSearchForm" (ngSubmit)="onSubmit($event)" #formDir="ngForm"
+    <form [formGroup]="botSearchForm" (ngSubmit)="onSubmit()"
       novalidate>
       <div class="row">
         <div class="col-sm-12">
@@ -14,22 +14,22 @@
             <div class="content padded">
               <div class="row">
                 <div class="col-lg-6 col-sm-12">
-                  <app-bk-input [currentForm]="formDir" label='{{getResource("maintainBot", "addBot.nameLabel")}}'
+                  <app-bk-input [currentFormGroup]="botSearchForm" label='{{getResource("maintainBot", "addBot.nameLabel")}}'
                     currentFormControlName="name"></app-bk-input>
                 </div>
                 <div class="col-lg-6 col-sm-12">
-                  <app-bk-input [currentForm]="formDir" label='{{getResource("maintainBot", "addBot.displayNameLabel")}}'
+                  <app-bk-input [currentFormGroup]="botSearchForm" label='{{getResource("maintainBot", "addBot.displayNameLabel")}}'
                   currentFormControlName="displayName"></app-bk-input>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-6 col-sm-12">
-                    <app-bk-select [currentForm]='formDir' 
+                    <app-bk-select [currentFormGroup]='botSearchForm'
                     label='{{getResource("maintainBot", "addBot.categoryLabel")}}' currentFormControlName='category'
                     [options]='category'></app-bk-select>
                 </div>
                 <div class="col-lg-6 col-sm-12">
-                    <app-bk-input [currentForm]="formDir" label='{{getResource("maintainBot", "addBot.descriptionLabel")}}'
+                    <app-bk-input [currentFormGroup]="botSearchForm" label='{{getResource("maintainBot", "addBot.descriptionLabel")}}'
                     currentFormControlName="description"></app-bk-input>
                 </div>
               </div>
@@ -39,7 +39,7 @@
       </div>
       <div class='row'>
           <div style='margin-bottom: 1em' class='col-sm-12'>
-            <bk-button intent='success' [currentForm]='formDir' type='submit' 
+            <bk-button intent='success' [currentFormGroup]='formDir' type='submit'
                 label='{{getCommonResources("searchButton")}}'></bk-button>
             <bk-button intent='warning' (click)="revert()" 
                 label='{{getCommonResources("resetButton")}}'></bk-button>
@@ -52,4 +52,3 @@
     <!-- {{botSearchForm.value | json}} -->
     <router-outlet></router-outlet>
   </div>
-  

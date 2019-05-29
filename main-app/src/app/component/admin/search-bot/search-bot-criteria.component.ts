@@ -93,6 +93,7 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
   }
 
   onSubmit() {
+    this.markFormGroupTouched(this.botSearchForm);
     this.mapSelectValue(this.botSearchForm, this.searchModel, 'category', 'category');
     if (this.botSearchForm.valid) {
       const finalModel = this.botSearchForm.value;
