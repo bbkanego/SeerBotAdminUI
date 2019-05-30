@@ -1,18 +1,19 @@
-import { Component, OnDestroy, OnInit, Injector } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment, Params } from '@angular/router';
+import {Component, OnDestroy, OnInit, Injector} from '@angular/core';
+import {ActivatedRoute, Router, UrlSegment, Params} from '@angular/router';
+import {CustomValidator} from "my-component-library";
 import {
   CommonService,
   NotificationService,
   Option,
   SUBSCRIBER_TYPES
 } from 'my-component-library';
-import { Subscription } from 'rxjs/Subscription';
+import {Subscription} from 'rxjs/Subscription';
 
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { BotService } from '../../../service/bot.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
-import { FormGroup } from '@angular/forms';
-import { IntentService } from '../../../service/intent.service';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {BotService} from '../../../service/bot.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
+import {FormGroup} from '@angular/forms';
+import {IntentService} from '../../../service/intent.service';
 
 @Component({
   selector: 'app-search-bot-criteria',
@@ -72,6 +73,8 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
     for (const entry of this.searchModel.referenceData.category) {
       this.category.push(new Option(entry.code, entry.name));
     }
+
+    this.botSearchForm.get('category').setValidators(CustomValidator.isSelectValid());
   }
 
   private getSearchModel() {
@@ -94,8 +97,8 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
 
   onSubmit() {
     this.markFormGroupTouched(this.botSearchForm);
-    this.mapSelectValue(this.botSearchForm, this.searchModel, 'category', 'category');
     if (this.botSearchForm.valid) {
+      this.mapSelectValue(this.botSearchForm, this.searchModel, 'category', 'category');
       const finalModel = this.botSearchForm.value;
       if (this.botService.getActionContext() === 'testBot') {
         finalModel.statusCode = 'LAUNCHED';

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, Injector } from '@angular/core';
-import { CommonService, Option, SUBSCRIBER_TYPES } from 'my-component-library';
+import { CustomValidator, Option, SUBSCRIBER_TYPES } from 'my-component-library';
 import { ActivatedRoute, UrlSegment, Router, Params } from '@angular/router';
 import { IntentService } from '../../../service/intent.service';
 import { BaseBotComponent } from '../../common/baseBot.component';
@@ -59,11 +59,9 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
       this.validationRules
     );
 
-    this.category = [];
-    this.category.push(new Option('', 'None'));
-    for (const entry of this.searchModel.referenceData.categories) {
-      this.category.push(new Option(entry.code, entry.name));
-    }
+    this.category = this.buildOptions(this.searchModel.referenceData.categories);
+
+    this.intentSearchForm.get('category').setValidators(CustomValidator.isSelectValid());
   }
 
   private getSearchModel() {
@@ -85,6 +83,7 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
   }
 
   onSubmit() {
+    this.markFormGroupTouched(this.intentSearchForm);
     if (this.intentSearchForm.valid) {
       const selectedCat = this.intentSearchForm.get('category').value;
       const targetCat = this.searchModel.referenceData.categories.filter(

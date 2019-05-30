@@ -5,7 +5,8 @@ import {
   BaseReactiveComponent,
   Option,
   SUBSCRIBER_TYPES,
-  Notification
+  Notification,
+  CustomValidator
 } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 import { NlpModelService } from '../../../service/nlp-model.service';
@@ -41,17 +42,14 @@ export class TrainModelComponent extends BaseBotComponent
       this.trainModel,
       this.validationRules
     );
+    this.trainForm.get('category').setValidators(CustomValidator.isSelectValid());
   }
 
   private initComponent(): void {
     this.createForm();
 
     // prepare the drop downs.
-    this.category = [];
-    this.category.push(new Option('', 'None'));
-    for (const entry of this.trainModel.referenceData.categories) {
-      this.category.push(new Option(entry.code, entry.name));
-    }
+    this.category = this.buildOptions(this.trainModel.referenceData.categories);
   }
 
   ngOnInit() {
@@ -152,8 +150,8 @@ export class TrainModelComponent extends BaseBotComponent
   }
 
   onSubmit(event) {
-    if (this.trainForm.invalid) {
-    } else {
+    this.markFormGroupTouched(this.trainForm);
+    if (this.trainForm.valid) {
       const selectedCat = this.trainForm.get('category').value;
       const targetCat = this.trainModel.referenceData.categories.filter(
         element => element.code === selectedCat

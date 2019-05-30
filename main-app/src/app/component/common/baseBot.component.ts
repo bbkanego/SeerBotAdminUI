@@ -59,7 +59,7 @@ export abstract class BaseBotComponent extends BaseReactiveComponent {
 
   protected buildOptions(referenceData: [{ code: ''; name: '' }]): Option[] {
     const optionsObj: Option[] = [];
-    optionsObj.push(new Option('', 'None'));
+    optionsObj.push(new Option('_NONE_', 'None'));
     for (const entry of referenceData) {
       optionsObj.push(new Option(entry.code, entry.name));
     }

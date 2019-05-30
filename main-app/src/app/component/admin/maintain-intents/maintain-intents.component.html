@@ -4,7 +4,7 @@
       <h1 class="page-header">{{getHeading()}}</h1>
     </div>
   </div>
-  <form [formGroup]="intentsForm" (ngSubmit)="onSubmit($event)" #formDir="ngForm" novalidate>
+  <form [formGroup]="intentsForm" (ngSubmit)="onSubmit($event)" novalidate>
     <div class="row">
       <div class="col-sm-12">
         <div class="panel-group" id="accordion">
@@ -19,7 +19,7 @@
               <div class="panel-body content padded">
                 <div class="row" *ngIf="selectedEntryOption === 'enterDetails'">
                   <div class="col-sm-12">
-                    <app-bk-input #intentTextBox [currentForm]="formDir" label="{{cmsContent.addIntent.intentLabel}}"
+                    <app-bk-input #intentTextBox [currentFormGroup]="intentsForm" label="{{cmsContent.addIntent.intentLabel}}"
                       currentFormControlName="intent"></app-bk-input>
                   </div>
                   <div class="col-sm-12">
@@ -34,11 +34,11 @@
                         <div class="row">
                           <div class="col-sm-1">&nbsp;</div>
                           <div class="col-sm-6">
-                            <app-bk-input [currentForm]='formDir' controlId="utterances_utterance{{i}}" label="Utterance {{i + 1}}"
+                            <app-bk-input controlId="utterances_utterance{{i}}" label="Utterance {{i + 1}}"
                               [currentFormGroup]="utteranceGrp" currentFormControlName="utterance"></app-bk-input>
                           </div>
                           <div class="col-sm-5">
-                            <app-bk-select [currentForm]="formDir" [currentFormGroup]="utteranceGrp" label="Locale {{i + 1}}"
+                            <app-bk-select [currentFormGroup]="utteranceGrp" label="Locale {{i + 1}}"
                               currentFormControlName="locale" [options]="locales"></app-bk-select>
                           </div>
                         </div>
@@ -57,15 +57,15 @@
                         <div class="row">
                           <div class="col-sm-1">&nbsp;</div>
                           <div class="col-md-6">
-                            <app-bk-input [currentForm]='formDir' controlId="responses_response{{i}}" label="Response {{i + 1}}"
+                            <app-bk-input controlId="responses_response{{i}}" label="Response {{i + 1}}"
                               [currentFormGroup]="responsesGrp" currentFormControlName="response"></app-bk-input>
                           </div>
                           <div class="col-md-3">
-                            <app-bk-select [currentForm]="formDir" [currentFormGroup]="responsesGrp" label="Response Type {{i + 1}}"
+                            <app-bk-select [currentFormGroup]="responsesGrp" label="Response Type {{i + 1}}"
                               currentFormControlName="responseType" [options]="responseTypes"></app-bk-select>
                           </div>
                           <div class="col-md-2">
-                            <app-bk-select [currentForm]="formDir" [currentFormGroup]="responsesGrp" label="Locale {{i + 1}}"
+                            <app-bk-select [currentFormGroup]="responsesGrp" label="Locale {{i + 1}}"
                               currentFormControlName="locale" [options]="locales"></app-bk-select>
                           </div>
                         </div>
@@ -130,7 +130,7 @@
     </div>
     <div class='row'>
       <div class="col-lg-6 col-sm-12">
-        <app-bk-select [currentForm]="formDir" #selectCategory label="{{cmsContent.addIntent.categoryLabel}}"
+        <app-bk-select [currentFormGroup]="intentsForm" #selectCategory label="{{cmsContent.addIntent.categoryLabel}}"
           currentFormControlName="category" [options]="category"></app-bk-select>
       </div>
     </div>
@@ -144,5 +144,5 @@
       <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
     </div>
   </form>
-  {{intentsForm.value | json}}
+  <!--{{intentsForm.value | json}}-->
 </div>

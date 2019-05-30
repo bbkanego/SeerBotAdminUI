@@ -4,24 +4,24 @@
       <h1 class="page-header">{{getResource("trainModel", 'pageHeading')}}</h1>
     </div>
   </div>
-  <form [formGroup]='trainForm' (ngSubmit)='onSubmit($event)' #formDir="ngForm" novalidate>
+  <form [formGroup]='trainForm' (ngSubmit)='onSubmit($event)' novalidate>
     <div class='row'>
       <div class='col-sm-12'>
         <div class="table-box tp-10margin">
           <div class="content padded">
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentForm]='formDir' label='{{getResource("trainModel", "nameLabel")}}'
+                <app-bk-input [currentFormGroup]='trainForm' label='{{getResource("trainModel", "nameLabel")}}'
                               currentFormControlName='name'></app-bk-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-textarea [currentForm]='formDir' label='{{getResource("trainModel", "descriptionNameLabel")}}'
+                <app-bk-textarea [currentFormGroup]='trainForm' label='{{getResource("trainModel", "descriptionNameLabel")}}'
                                  currentFormControlName='description'></app-bk-textarea>
               </div>
             </div>
             <div class='row'>
               <div class="col-sm-12">
-                <app-bk-select [currentForm]='formDir' label='{{getResource("trainModel", "categoryLabel")}}'
+                <app-bk-select [currentFormGroup]='trainForm' label='{{getResource("trainModel", "categoryLabel")}}'
                                currentFormControlName='category' [options]='category'></app-bk-select>
               </div>
             </div>
@@ -31,7 +31,7 @@
     </div>
     <div class='row'>
       <div style='margin-bottom: 1em' class='col-sm-12'>
-        <bk-button intent='success' [currentForm]='formDir' type='submit'
+        <bk-button intent='success' [currentFormGroup]='trainForm' type='submit'
                    label='{{getCommonResources("saveButton")}}'></bk-button>
         <bk-button intent='warning' (click)="revert()"
                    label='{{getCommonResources("revertButton")}}'></bk-button>

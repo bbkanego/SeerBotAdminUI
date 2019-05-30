@@ -6,7 +6,7 @@
       </h1>
     </div>
   </div>
-  <form [formGroup]="intentSearchForm" (ngSubmit)="onSubmit($event)" #formDir="ngForm"
+  <form [formGroup]="intentSearchForm" (ngSubmit)="onSubmit($event)"
     novalidate>
     <div class="row">
       <div class="col-sm-12">
@@ -14,17 +14,17 @@
           <div class="content padded">
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentForm]="formDir" label='{{getResource("maintainIntents", "addIntent.intentLabel")}}'
+                <app-bk-input [currentFormGroup]="intentSearchForm" label='{{getResource("maintainIntents", "addIntent.intentLabel")}}'
                   currentFormControlName="intentName"></app-bk-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentForm]="formDir" label='{{getResource("maintainIntents", "addIntent.utteranceLabel")}}'
+                <app-bk-input [currentFormGroup]="intentSearchForm" label='{{getResource("maintainIntents", "addIntent.utteranceLabel")}}'
                 currentFormControlName="utterance"></app-bk-input>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                  <app-bk-select [currentForm]='formDir' 
+                  <app-bk-select [currentFormGroup]="intentSearchForm" 
                   label='{{getResource("maintainIntents", "addIntent.categoryLabel")}}' currentFormControlName='category'
                   [options]='category'></app-bk-select>
               </div>
@@ -38,7 +38,7 @@
     </div>
     <div class='row'>
         <div style='margin-bottom: 1em' class='col-sm-12'>
-          <bk-button intent='success' [currentForm]='formDir' type='submit' 
+          <bk-button intent='success' [currentFormGroup]="intentSearchForm" type='submit' 
               label='{{getCommonResources("searchButton")}}'></bk-button>
           <bk-button intent='warning' (click)="revert()" 
               label='{{getCommonResources("resetButton")}}'></bk-button>

@@ -11,7 +11,8 @@ import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 import {
   Option,
   SUBSCRIBER_TYPES,
-  SelectComponent
+  SelectComponent,
+  CustomValidator
 } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -62,6 +63,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
       this.intentsModel,
       this.validationRules
     );
+    this.intentsForm.get('category').setValidators(CustomValidator.isSelectValid());
     if (this.currentAction === 'add') {
       this.addUtterance();
       this.addResponse();
@@ -152,19 +154,24 @@ export class MaintainIntentsComponent extends BaseBotComponent
   }
 
   getUtteranceGroup(intent: IntentUtterance): FormGroup {
-    return this.autoGenFormGroup(
+    const utterance: FormGroup = this.autoGenFormGroup(
       intent,
       this.findValidatorRuleForProperty(this.validationRules, 'utterances')
         .fields
     );
+    utterance.get('locale').setValidators(CustomValidator.isSelectValid());
+    return utterance;
   }
 
   getResponseGroup(response: IntentResponse): FormGroup {
-    return this.autoGenFormGroup(
+    const responses: FormGroup = this.autoGenFormGroup(
       response,
       this.findValidatorRuleForProperty(this.validationRules, 'responses')
         .fields
     );
+    responses.get('responseType').setValidators(CustomValidator.isSelectValid());
+    responses.get('locale').setValidators(CustomValidator.isSelectValid());
+    return responses;
   }
 
   get responses(): FormArray {
@@ -222,13 +229,15 @@ export class MaintainIntentsComponent extends BaseBotComponent
   }
 
   onSubmit() {
+    this.markFormGroupTouched(this.intentsForm);
     if (this.selectedEntryOption === 'enterDetails') {
-      const selectedCat = this.intentsForm.get('category').value;
-      const targetCat = this.intentsModel.referenceData.categories.filter(
-        element => element.code === selectedCat
-      );
-      this.intentsForm.get('category').setValue(targetCat[0]);
       if (this.intentsForm.valid) {
+        const selectedCat = this.intentsForm.get('category').value;
+        const targetCat = this.intentsModel.referenceData.categories.filter(
+          element => element.code === selectedCat
+        );
+        this.intentsForm.get('category').setValue(targetCat[0]);
+
         this.submitEachEntryForm();
       }
     } else if (this.selectedEntryOption === 'upload') {

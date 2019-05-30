@@ -115,9 +115,7 @@ export class MaintainBotComponent extends BaseBotComponent implements OnInit, On
   onSubmit(eventObj) {
     this.markFormGroupTouched(this.botForm);
 
-    if (this.botForm.invalid) {
-
-    } else {
+    if (this.botForm.invalid) { } else {
       const selectedCat = this.botForm.get('category').value;
       const targetCat = this.botModel.referenceData.categories.filter(element => element.code === selectedCat);
       this.botForm.get('category').setValue(targetCat[0]);

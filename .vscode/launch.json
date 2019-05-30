@@ -4,11 +4,12 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
         {
             "type": "chrome",
             "request": "launch",
             "name": "SeerBotAdmin",
-            "url": "http://localhost:4300/login",
+            "url": "http://localhost:4320",
             "webRoot": "/home/bkane/svn/code/angular/SeerlogicsBotAdminUI/main-app/src/app"
         },
         {
