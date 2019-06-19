@@ -6,20 +6,20 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
-import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
+import {FormGroup, FormArray} from '@angular/forms';
+import {ActivatedRoute, Params, Router, UrlSegment} from '@angular/router';
 import {
   Option,
   SUBSCRIBER_TYPES,
   SelectComponent,
   CustomValidator
 } from 'my-component-library';
-import { Subscription } from 'rxjs/Subscription';
+import {Subscription} from 'rxjs/Subscription';
 
-import { environment } from '../../../environments/environment';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { IntentService } from '../../../service/intent.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {environment} from '../../../environments/environment';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {IntentService} from '../../../service/intent.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-maintain-intents',
@@ -93,6 +93,8 @@ export class MaintainIntentsComponent extends BaseBotComponent
     if (this.currentEditCategory != null) {
       this.intentsForm.get('category').setValue(this.currentEditCategory.code);
     }
+
+    this.currentFormGroup = this.intentsForm;
 
     if (this.currentAction === 'edit') {
       this.notificationService.notifyAny(
@@ -178,6 +180,18 @@ export class MaintainIntentsComponent extends BaseBotComponent
     return this.intentsForm.get('responses') as FormArray;
   }
 
+  getMayBeIntentFormGroup(): FormGroup {
+    return this.intentsForm.get('mayBeIntent') as FormGroup;
+  }
+
+  get mayBeIntentResponses(): FormArray {
+    const mayBeResponses: FormArray = this.getMayBeIntentFormGroup().get('responses') as FormArray;
+    for (const mayBeResponse of mayBeResponses.controls) {
+      mayBeResponse.get('locale').setValidators(CustomValidator.isSelectValid());
+    }
+    return mayBeResponses;
+  }
+
   addUtterance() {
     this.utterances.push(this.getUtteranceGroup(new IntentUtterance()));
   }
@@ -185,6 +199,12 @@ export class MaintainIntentsComponent extends BaseBotComponent
   removeLastUtterance() {
     if (this.utterances.length > 0) {
       this.utterances.removeAt(this.utterances.length - 1);
+    }
+  }
+
+  removeCurrentUtterance(index) {
+    if (this.utterances.length > 0) {
+      this.utterances.removeAt(index);
     }
   }
 
@@ -333,6 +353,7 @@ export class IntentUtterance {
   utterance = '';
   locale = '';
 }
+
 export class IntentResponse {
   response = '';
   responseType = '';

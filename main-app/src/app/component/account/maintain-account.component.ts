@@ -1,14 +1,14 @@
-import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
-import { FormGroup, FormArray } from '@angular/forms';
-import { AccountService } from '../../service/account.service';
-import { BaseBotComponent } from '../common/baseBot.component';
+import {Component, OnInit, Injector, OnDestroy} from '@angular/core';
+import {FormGroup, FormArray} from '@angular/forms';
+import {AccountService} from '../../service/account.service';
+import {BaseBotComponent} from '../common/baseBot.component';
 import {
   Option,
   SUBSCRIBER_TYPES,
-  CustomFormControl
+  CustomFormControl, CustomValidator
 } from 'my-component-library';
-import { Subscription } from 'rxjs/Subscription';
-import { Router } from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-maintain-acct',
@@ -25,6 +25,12 @@ export class MaintainAccountComponent extends BaseBotComponent
   validationRules: any;
   roles: Option[];
   validationRuleSubscription: Subscription;
+
+  static checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+    const pass = group.controls.passwordCapture.value;
+    const confirmPass = group.controls.passwordCaptureReenter.value;
+    return pass === confirmPass ? null : {notSame: true};
+  }
 
   constructor(
     injector: Injector,
@@ -74,11 +80,11 @@ export class MaintainAccountComponent extends BaseBotComponent
   revert() {
     if (this.accountModel) {
       this.createForm();
-      this.notificationService.notifyAny(
+      /*this.notificationService.notifyAny(
         this.accountForm,
         SUBSCRIBER_TYPES.FORM_GROUP_RESET,
         SUBSCRIBER_TYPES.FORM_GROUP_RESET
-      );
+      );*/
     }
   }
 
@@ -87,6 +93,7 @@ export class MaintainAccountComponent extends BaseBotComponent
       this.accountModel,
       this.validationRules
     );
+    this.accountForm.setValidators(MaintainAccountComponent.checkPasswords);
     /**
      * To capture role code we add a custom form control. We capture the code and then convert the code
      * into role object and set that object into the role array.
@@ -114,6 +121,7 @@ export class MaintainAccountComponent extends BaseBotComponent
     }
 
     this.roles = this.buildOptions(this.accountModel.referenceData.roles);
+    this.accountForm.get('roleCode').setValidators(CustomValidator.isSelectValid());
 
     if (this.currentAction === 'edit') {
       this.notificationService.notifyAny(
@@ -128,7 +136,7 @@ export class MaintainAccountComponent extends BaseBotComponent
     return this.getResource('maintainAccount', key);
   }
 
-  onSubmit(event) {
+  onSubmit() {
     if (this.accountForm.invalid) {
     } else {
       const roleCode = this.accountForm.get('roleCode').value;

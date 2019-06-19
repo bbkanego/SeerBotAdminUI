@@ -4,7 +4,7 @@
       <h1 class="page-header">{{getResourceLocal('createAccount')}}</h1>
     </div>
   </div>
-  <form [formGroup]='accountForm' (ngSubmit)='onSubmit()' #formDir="ngForm" novalidate>
+  <form [formGroup]='accountForm' (ngSubmit)='onSubmit()' novalidate>
     <div class="row">
       <div class='col-sm-12'>
         <div class="table-box">
@@ -14,21 +14,24 @@
               <div class="panel-body">
                 <div class='row'>
                   <div class="col-sm-6">
-                    <app-bk-input [currentForm]='formDir' label='{{getResourceLocal("userName")}}'
+                    <app-bk-input [currentFormGroup]="accountForm" label='{{getResourceLocal("userName")}}'
                       currentFormControlName='userName'></app-bk-input>
                   </div>
                   <div class="col-sm-3">
-                    <app-bk-input [currentForm]='formDir' label='{{getResourceLocal("password")}}'
+                    <app-bk-input [currentFormGroup]="accountForm" label='{{getResourceLocal("password")}}'
                       currentFormControlName='passwordCapture'></app-bk-input>
                   </div>
                   <div class="col-sm-3">
-                    <app-bk-input [currentForm]='formDir' label='{{getResourceLocal("passwordRenter")}}'
+                    <app-bk-input [currentFormGroup]="accountForm" label='{{getResourceLocal("passwordRenter")}}'
                       currentFormControlName='passwordCaptureReenter'></app-bk-input>
+                    <div class="errorMessage" *ngIf="accountForm.hasError('notSame')">
+                      Does not match
+                    </div>
                   </div>
                 </div>
                 <div class='row'>
                   <div class="col-sm-6">
-                    <app-bk-select [currentForm]='formDir' [currentFormGroup]='accountForm' controlId='roleCode' 
+                    <app-bk-select [currentFormGroup]="accountForm" controlId='roleCode'
                     label='{{getResourceLocal("roles")}}' currentFormControlName='roleCode' 
                     [options]='roles'></app-bk-select>
                   </div>
@@ -40,11 +43,11 @@
               <div class="panel-heading">{{getResourceLocal('personInfoHeading')}}</div>
               <div class="panel-body">
                 <div class="col-sm-6" [formGroup]='accountOwner'>
-                  <app-bk-input [currentFormGroup]='accountOwner' [currentForm]='formDir' label='{{getResourceLocal("firstName")}}'
+                  <app-bk-input [currentFormGroup]='accountOwner' label='{{getResourceLocal("firstName")}}'
                     currentFormControlName='firstName'></app-bk-input>
                 </div>
                 <div class="col-sm-6">
-                  <app-bk-input [currentFormGroup]='accountOwner' [currentForm]='formDir' label='{{getResourceLocal("lastName")}}'
+                  <app-bk-input [currentFormGroup]='accountOwner' label='{{getResourceLocal("lastName")}}'
                     currentFormControlName='lastName'></app-bk-input>
                 </div>
               </div>
@@ -57,21 +60,21 @@
                     <div class="col-sm-12 panel-body">
                       <div class='row'>
                         <div class="col-sm-6">
-                          <app-bk-input [currentFormGroup]='contactMode' [currentForm]='formDir' label='{{getResourceLocal("address.street")}}'
+                          <app-bk-input [currentFormGroup]='contactMode'  label='{{getResourceLocal("address.street")}}'
                             currentFormControlName='street'></app-bk-input>
                         </div>
                         <div class="col-sm-6">
-                          <app-bk-input [currentFormGroup]='contactMode' [currentForm]='formDir' label='{{getResourceLocal("address.city")}}'
+                          <app-bk-input [currentFormGroup]='contactMode' label='{{getResourceLocal("address.city")}}'
                             currentFormControlName='city'></app-bk-input>
                         </div>
                       </div>
                       <div class='row'>
                         <div class="col-sm-6">
-                          <app-bk-input [currentFormGroup]='contactMode' [currentForm]='formDir' label='{{getResourceLocal("address.state")}}'
+                          <app-bk-input [currentFormGroup]='contactMode' label='{{getResourceLocal("address.state")}}'
                             currentFormControlName='state'></app-bk-input>
                         </div>
                         <div class="col-sm-6">
-                          <app-bk-input [currentFormGroup]='contactMode' [currentForm]='formDir' label='{{getResourceLocal("address.zip")}}'
+                          <app-bk-input [currentFormGroup]='contactMode' label='{{getResourceLocal("address.zip")}}'
                             currentFormControlName='zip'></app-bk-input>
                         </div>
                       </div>

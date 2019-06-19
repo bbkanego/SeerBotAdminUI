@@ -9,7 +9,8 @@ import {
   ViewContainerRef,
   Input,
   ComponentRef,
-  AfterViewChecked
+  AfterViewChecked,
+  AfterViewInit
 } from '@angular/core';
 import { Response } from '@angular/http';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
@@ -39,7 +40,7 @@ import { UUID } from 'angular2-uuid';
   styleUrls: ['./test-bot.component.css']
 })
 export class TestBotComponent extends BaseBotComponent
-  implements OnInit, OnDestroy, AfterViewChecked {
+  implements OnInit, OnDestroy, AfterViewChecked, AfterViewInit {
   botServiceSubscription: Subscription;
   launchDTO: any;
   botAccessUrl: string;
@@ -148,6 +149,7 @@ export class TestBotComponent extends BaseBotComponent
         }
         if (this.launchDTO.bot.status.code === 'LAUNCHED') {
           this.context = 'launched';
+          this.sendPingMessage();
         }
       });
   }
@@ -224,8 +226,8 @@ export class TestBotComponent extends BaseBotComponent
     if (this.clickedColumn && eventObj.message.response === 'yes') {
       this.sendMessageGeneral(
         eventObj.message.messageJSON.yesResponse +
-          '|' +
-          this.clickedColumn.clickItemId,
+        '|' +
+        this.clickedColumn.clickItemId,
         false
       );
       this.clickedColumn = null;
@@ -264,10 +266,11 @@ export class TestBotComponent extends BaseBotComponent
       response: '',
       authCode: this.botUniqueId,
     };
-    this.httpClient
+    this.sendPostMessage(this.botAccessUrl, message);
+    /* this.httpClient
       .post(this.botAccessUrl, JSON.stringify(message))
       .map((res: Response) => res.json())
-      .subscribe(data => {});
+      .subscribe(data => {}); */
   }
 
   sendMessage() {
@@ -356,6 +359,10 @@ export class TestBotComponent extends BaseBotComponent
       this.scrollToBottom();
       this.scrollToTheBottom = false;
     }
+  }
+
+  ngAfterViewInit(): void {
+
   }
 
   scrollToBottom(): void {

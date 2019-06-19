@@ -5,14 +5,14 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { BotService, LaunchBot } from '../../../service/bot.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
-import { FormGroup } from '@angular/forms';
-import { Option } from 'my-component-library';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {BotService, LaunchBot} from '../../../service/bot.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
+import {FormGroup} from '@angular/forms';
+import {CustomValidator, Option} from 'my-component-library';
 
 @Component({
   selector: 'app-launch-bot',
@@ -55,10 +55,12 @@ export class LaunchBotComponent extends BaseBotComponent
     );
 
     this.trainedModels = [];
-    this.trainedModels.push(new Option('', 'None'));
+    this.trainedModels.push(new Option('_NONE_', 'None'));
     for (const entry of this.launchDTO.referenceData.trainedModels) {
       this.trainedModels.push(new Option(entry.id, entry.name));
     }
+
+    this.launchForm.get('trainedModelId').setValidators(CustomValidator.isSelectValid());
   }
 
   onSelectHandler(event) {
@@ -71,7 +73,7 @@ export class LaunchBotComponent extends BaseBotComponent
     this.context = 'startLaunch';
     this.createButtonLabel = this.commonService.cmsContent[
       'launchBot'
-    ].startLaunch.launchNowButton;
+      ].startLaunch.launchNowButton;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.validationRuleSubscription = this.validationService
       .getValidationRuleMetadata('validateLaunchBotRule')
@@ -158,7 +160,7 @@ export class LaunchBotComponent extends BaseBotComponent
 
   cancel() {
     this.context = null;
-    this.router.navigate(['../../'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../../'], {relativeTo: this.activatedRoute});
   }
 
   getPageHeader() {

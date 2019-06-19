@@ -16,7 +16,6 @@
           <form
             [formGroup]="launchForm"
             (ngSubmit)="launchNow($event)"
-            #formDir="ngForm"
             novalidate>
             <div class="row" *ngIf="context === 'startLaunch'">
               <div class="col-lg-6 col-sm-12">
@@ -48,7 +47,7 @@
                   <div class="form-group col-lg-6 displayHeader">
                     <app-bk-select
                       label="{{ getResourceLocal('startLaunch.trainedModel') }}"
-                      [currentForm]="formDir"
+                      [currentFormGroup]="launchForm"
                       (onSelect)="onSelectHandler($event)"
                       currentFormControlName="trainedModelId"
                       [options]="trainedModels"
@@ -56,7 +55,7 @@
                   </div>
                   <div class="form-group col-lg-6 displayHeader">
                     <app-bk-input
-                      [currentForm]="formDir"
+                      [currentFormGroup]="launchForm"
                       label="{{getResourceLocal('startLaunch.allowedOrigin')}}"
                       currentFormControlName="allowedOrigins"
                     ></app-bk-input>
