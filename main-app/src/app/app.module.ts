@@ -12,7 +12,7 @@ import { AuthenticationModule } from './component/authentication/authentication.
 import { BotAuthenticationService } from './service/authentication.service';
 import { AuthGuard } from './guard/auth.guard';
 import { LogoutGuard } from './guard/logout.guard';
-import { environment } from './environments/environment';
+import { environment } from './environments/frozenEnvironment';
 import { AccountModule } from './component/account/account.module';
 import { AccountService } from './service/account.service';
 @NgModule({

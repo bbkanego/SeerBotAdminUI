@@ -1,7 +1,7 @@
 import { CrudService } from 'my-component-library';
 import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/frozenEnvironment';
 import { BaseBotCrudService } from './baseBotCrud.service';
 
 @Injectable()

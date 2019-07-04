@@ -1,4 +1,4 @@
-import { Injector } from '@angular/core';
+import {Directive, Injector} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   BaseReactiveComponent,
@@ -8,7 +8,8 @@ import {
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { FormGroup } from '@angular/forms';
 
-export abstract class BaseBotComponent extends BaseReactiveComponent {
+@Directive({selector: 'app-base-comp'})
+export class BaseBotComponent extends BaseReactiveComponent {
   currentAction = 'add';
   protected commonService: CommonService;
   constructor(injector: Injector) {

@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { BaseBotCrudService } from './baseBotCrud.service';
 import { Observable } from 'rxjs/Observable';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/frozenEnvironment';
 
 @Injectable()
 export class AccountService extends BaseBotCrudService {

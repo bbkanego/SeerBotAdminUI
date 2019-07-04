@@ -16,7 +16,7 @@ import {
 } from 'my-component-library';
 import {Subscription} from 'rxjs/Subscription';
 
-import {environment} from '../../../environments/environment';
+import {environment} from '../../../environments/frozenEnvironment';
 import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
 import {IntentService} from '../../../service/intent.service';
 import {BaseBotComponent} from '../../common/baseBot.component';

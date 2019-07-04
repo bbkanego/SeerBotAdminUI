@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {environment} from '../environments/environment';
+import {environment} from '../environments/frozenEnvironment';
 import { Headers, Http, Response } from '@angular/http';
 import { Login, NotificationService, SUBSCRIBER_TYPES, COMMON_CONST, HttpClient } from 'my-component-library';
 import { Observable } from 'rxjs/Observable';
