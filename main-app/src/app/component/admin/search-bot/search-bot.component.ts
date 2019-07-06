@@ -1,17 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { CommonService, NotificationService } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 
 import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
 import { BotService } from '../../../service/bot.service';
+import {BaseBotComponent} from "../../common/baseBot.component";
 
 @Component({
   selector: 'app-search-bot',
   templateUrl: './search-bot.component.html',
   styleUrls: ['./search-bot.component.css']
 })
-export class SearchBotComponent implements OnInit, OnDestroy {
+export class SearchBotComponent extends BaseBotComponent implements OnInit, OnDestroy {
   botResults;
   getAllSubscription: Subscription;
   notificationSub: Subscription;
@@ -21,10 +22,11 @@ export class SearchBotComponent implements OnInit, OnDestroy {
   constructor(
     private botService: BotService,
     private router: Router,
-    private commonService: CommonService,
     private activatedRoute: ActivatedRoute,
-    private notificationService: NotificationService
-  ) {}
+    injector: Injector
+  ) {
+    super(injector);
+  }
 
   ngOnInit() {
     this.cmsContent = this.commonService.cmsContent;
@@ -94,5 +96,9 @@ export class SearchBotComponent implements OnInit, OnDestroy {
     } else if (this.botService.getActionContext() === 'testBot') {
       return localCmsContent.pageHeadingTestBot;
     }
+  }
+
+  getResourceLocal(key: string): string {
+    return this.getResource('searchBots', key);
   }
 }
