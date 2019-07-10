@@ -8,7 +8,8 @@
     "local": "ng serve --env=local --port=4320 --poll=100",
     "dev": "ng serve --env=dev --port=4320 --poll=100",
     "mock": "ng serve --env=mock --port=4320 --poll=100",
-    "prodBuild": "ng build --prod=\"true\" --base-href /seeradmin/ ",
+    "prodBuild-bh": "ng build --prod=\"true\" --base-href /seeradmin/ ",
+    "prodBuild": "ng build --prod=\"true\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
