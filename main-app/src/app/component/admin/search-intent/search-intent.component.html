@@ -10,7 +10,9 @@
     <div class='col-sm-12'>
       <bk-datatable [records]='intentsResults' #bkTop5Heroes smallDeviceHeader='Top 5 Heroes' pageSize='6'>
         <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col1")}}' sort='true' field='intent'></bk-column>
+<!--
         <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col2")}}' sort='true' field='utterance'></bk-column>
+-->
         <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col3")}}' sort='true' field='category'>
           <ng-template let-col='column' let-intent='rowData' 
                   let-index='rowIndex' bkTemplate='body'>

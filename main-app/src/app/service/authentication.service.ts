@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../environments/frozenEnvironment';
-import { Headers, Http, Response } from '@angular/http';
-import { Login, NotificationService, SUBSCRIBER_TYPES, COMMON_CONST, HttpClient } from 'my-component-library';
+import { Injectable } from '@angular/core';
+import { Response } from '@angular/http';
+import { COMMON_CONST, HttpClient, Login, Notification, NotificationService, SUBSCRIBER_TYPES } from 'my-component-library';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../environments/frozenEnvironment';
 
 @Injectable()
 export class BotAuthenticationService {
@@ -19,35 +19,40 @@ export class BotAuthenticationService {
    */
   login(user: Login): any {
     return this.postRequest(environment.LOGIN_URL, {'userName': user.username, 'password': user.password})
-      // get the response and call .json() to get the JSON data
-      // .map((res:Response) => res.json())
+    // get the response and call .json() to get the JSON data
+    // .map((res:Response) => res.json())
       .subscribe((res: Response) => {
         // var payload = res.json();
         const authorization = res['token'];
         const roles = res['roles'];
+        const userName = res['userName'];
         console.log('AuthenticationService = ' + authorization);
         if (authorization) {
           localStorage.setItem(COMMON_CONST.CURRENT_USER,
-            JSON.stringify({'userName': user.username, 'password': user.password, 'token': authorization, 'roles': roles}));
+            JSON.stringify(res));
           this.notificationService.notify('Login was a success', SUBSCRIBER_TYPES.LOGIN_SUCCESS,
             SUBSCRIBER_TYPES.LOGIN_SUCCESS);
         }
         console.log(authorization);
       }, err => {
-        console.log(err);
-        if (err.status === 401) {
-          this.notificationService.notify('Login was NOT a success', SUBSCRIBER_TYPES.LOGIN_FAILED,
-            SUBSCRIBER_TYPES.LOGIN_FAILED);
-        }
+        this.notificationService.onNotification().subscribe((data: Notification) => {
+          if (SUBSCRIBER_TYPES.NETWORK_ERROR === data.type) {
+            const error = data.message;
+            if (error.status === 401) {
+              this.notificationService.notify('Login was NOT a success', SUBSCRIBER_TYPES.LOGIN_FAILED,
+                SUBSCRIBER_TYPES.LOGIN_FAILED);
+            }
+          }
+        });
       });
-      // ...errors if any
-      // .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    // ...errors if any
+    // .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   protected postRequest(url: string, model: any) {
     return this.httpClient.post(url, JSON.stringify(model))
-    .map((res: Response) => res.json())
-    .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   isLoggedIn() {
@@ -66,7 +71,18 @@ export class BotAuthenticationService {
 
   isUberAdmin() {
     if (this.isLoggedIn()) {
-      return JSON.parse(this.getCurrentUser()).roles.includes('UBER_ADMIN');
+      return JSON.parse(this.getCurrentUser()).roles.some((value: string) => {
+        return value === 'UBER_ADMIN';
+      });
+    }
+    return false;
+  }
+
+  isAdmin() {
+    if (this.isLoggedIn()) {
+      return JSON.parse(this.getCurrentUser()).roles.some((value: string) => {
+        return value === 'UBER_ADMIN' || value === 'ACCT_ADMIN';
+      });
     }
     return false;
   }

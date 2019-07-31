@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="page-header">
+        {{ getResourceLocal('searchCategory.pageHeading') }}:
+        {{ getResourceLocal('searchCategory.resultsHeading') }}
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <bk-datatable
+        [records]="categoryResults"
+        #bkTop5Heroes
+        smallDeviceHeader="Top 5 Heroes"
+        pageSize="6"
+      >
+        <bk-column
+          header="{{ getResourceLocal('searchCategory.nameLabel') }}"
+          sort="true"
+          field="name"
+        ></bk-column>
+        <bk-column
+          header="{{ getResourceLocal('searchCategory.codeLabel') }}"
+          sort="true"
+          field="code"
+        >
+          <ng-template
+            let-col="column"
+            let-category="rowData"
+            let-index="rowIndex"
+            bkTemplate="body"
+          >
+            <a (click)="editCategory(category.id)">{{ category.code }}</a>
+          </ng-template>
+        </bk-column>
+        <bk-column
+          header="{{ getResourceLocal('searchCategory.descriptionLabel') }}"
+          sort="true"
+          field="description"
+        ></bk-column>
+      </bk-datatable>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

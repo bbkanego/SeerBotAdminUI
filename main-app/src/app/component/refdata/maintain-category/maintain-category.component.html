@@ -1,0 +1,65 @@
+<div class="container-fluid" *ngIf="categoryForm">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="page-header" *ngIf="currentAction === 'edit'">
+        {{ getResourceLocal('maintainCategory.pageHeadingEdit') }}
+      </h1>
+      <h1 class="page-header" *ngIf="currentAction === 'create'">
+        {{ getResourceLocal('maintainCategory.pageHeadingCreate') }}
+      </h1>
+    </div>
+  </div>
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-box">
+          <div class="content padded">
+            <div class="row">
+              <div class="col-lg-6 col-sm-12">
+                <app-bk-input
+                  [currentFormGroup]="categoryForm"
+                  label="{{ getResourceLocal('maintainCategory.nameLabel') }}"
+                  currentFormControlName="name"
+                ></app-bk-input>
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <app-bk-input
+                  [currentFormGroup]="categoryForm"
+                  label="{{ getResourceLocal('maintainCategory.codeLabel') }}"
+                  currentFormControlName="code"
+                ></app-bk-input>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                  <app-bk-textarea
+                  [currentFormGroup]="categoryForm"
+                  label="{{ getResourceLocal('maintainCategory.descriptionLabel') }}"
+                  currentFormControlName="description"
+                ></app-bk-textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-bottom: 1em" class="col-sm-12">
+      <bk-button
+        intent="success"
+        [disabled]="!categoryForm.valid"
+        type="submit"
+        label="{{ getCommonResources('searchButton') }}"
+      ></bk-button
+      ><bk-button
+        (onClick)="revert()"
+        intent="warning"
+        label="{{ getCommonResources('revertButton') }}"
+      ></bk-button
+      >&nbsp;<bk-button
+        (onClick)="cancel()"
+        intent="danger"
+        label="{{ getCommonResources('cancelButton') }}"
+      ></bk-button>
+    </div>
+  </form>
+</div>

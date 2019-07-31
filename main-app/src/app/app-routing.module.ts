@@ -1,9 +1,9 @@
-import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationComponent } from './component/authentication/authentication.component';
-import { LogoutGuard } from './guard/logout.guard';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { AuthGuard } from './guard/auth.guard';
+import { LogoutGuard } from './guard/logout.guard';
 
 const ROUTES: Routes = [
   {
@@ -23,6 +23,11 @@ const ROUTES: Routes = [
   {
     path: 'admin',
     loadChildren: './component/admin/admin.module#AdminModule',
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'ref-data',
+    loadChildren: './component/refdata/refdata.module#RefDataModule',
     canActivate: [AuthGuard]
   },
   {

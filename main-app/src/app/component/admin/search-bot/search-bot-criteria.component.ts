@@ -1,19 +1,11 @@
-import {Component, OnDestroy, OnInit, Injector} from '@angular/core';
-import {ActivatedRoute, Router, UrlSegment, Params} from '@angular/router';
-import {CustomValidator} from "my-component-library";
-import {
-  CommonService,
-  NotificationService,
-  Option,
-  SUBSCRIBER_TYPES
-} from 'my-component-library';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
+import { CustomValidator, Option, SUBSCRIBER_TYPES } from 'my-component-library';
+import { Subscription } from 'rxjs/Subscription';
+import { BotService } from '../../../service/bot.service';
+import { BaseBotComponent } from '../../common/baseBot.component';
 
-import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
-import {BotService} from '../../../service/bot.service';
-import {BaseBotComponent} from '../../common/baseBot.component';
-import {FormGroup} from '@angular/forms';
-import {IntentService} from '../../../service/intent.service';
 
 @Component({
   selector: 'app-search-bot-criteria',

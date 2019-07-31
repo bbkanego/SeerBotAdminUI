@@ -1,11 +1,12 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {BotAuthenticationService} from '../../service/authentication.service';
 import {NotificationService, Login} from 'my-component-library';
 import {SUBSCRIBER_TYPES} from 'my-component-library';
 
 @Component({
   'selector': 'app-bkauthenticate',
+  'styleUrls': ['./authentication.component.css'],
   'templateUrl': './authentication.component.html'
 })
 export class AuthenticationComponent implements OnInit, OnDestroy {

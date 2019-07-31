@@ -46,6 +46,10 @@
   display: none;
 }
 
+.navbar {
+  margin-bottom: 0 !important;
+}
+
 .navbar-toggle-custom {
   margin-right: 20px !important;
 }

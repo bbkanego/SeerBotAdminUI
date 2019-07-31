@@ -4,86 +4,184 @@
     <h3>Bootstrap Sidebar</h3>
   </div>-->
   <ul class="list-unstyled components">
-    <li *ngIf='getAuthenticationService().isUberAdmin()'>
-      <a [routerLink]="['/dashboard']" data-toggle="collapse" aria-expanded="false">
+    <li *ngIf="getAuthenticationService().isAdmin()">
+      <a
+        [routerLink]="['/dashboard']"
+        data-toggle="collapse"
+        aria-expanded="false"
+      >
         <i class="headingLi glyphicon glyphicon-dashboard"></i>Dashboard
       </a>
     </li>
-    <li *ngIf='getAuthenticationService().isUberAdmin()'>
-      <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-        <i class="headingLi glyphicon glyphicon-king"></i>{{getResourceLocal('admin.heading')}}<i
-          class="fa fa-fw fa-angle-down pull-right"></i>
+    <li *ngIf="getAuthenticationService().isAdmin()">
+      <a
+        href="#refDataSubMenu"
+        data-toggle="collapse"
+        aria-expanded="false"
+        class="dropdown-toggle"
+      >
+        <i class="headingLi glyphicon glyphicon-th-list"></i>
+        {{ getResourceLocal('refData.heading')}}<i class="fa fa-fw fa-angle-down pull-right"></i>
+      </a>
+      <ul class="collapse list-unstyled" id="refDataSubMenu">
+        <li>
+          <a [routerLink]="['/ref-data/category/search/init']">{{
+            getResourceLocal('refData.category.searchCategory')
+          }}</a>
+        </li>
+        <li>
+          <a [routerLink]="['/ref-data/category/init']">{{
+            getResourceLocal('refData.category.createCategory')
+          }}</a>
+        </li>
+      </ul>
+    </li>
+    <li *ngIf="getAuthenticationService().isUberAdmin()">
+      <a
+        href="#homeSubmenu"
+        data-toggle="collapse"
+        aria-expanded="false"
+        class="dropdown-toggle"
+      >
+        <i class="headingLi glyphicon glyphicon-king"></i
+        >{{ getResourceLocal('admin.heading')
+        }}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="homeSubmenu">
-        <li><a [routerLink]="['/admin/add_intent']"
-            [queryParams]="{'action': 'predefined'}">{{getResourceLocal('admin.option1')}}</a></li>
-        <li><a [routerLink]="['/admin/start_search_intent']"
-            [queryParams]="{'action': 'predefined'}">{{getResourceLocal('admin.option2')}}</a></li>
-        <li><a [routerLink]="['/model/start-train-model']"
-            [queryParams]="{'action': 'predefined'}">{{getResourceLocal('admin.option3')}}</a></li>
-        <li><a [routerLink]="['/model/search-models']"
-            [queryParams]="{'action': 'predefined'}">{{getResourceLocal('admin.option4')}}</a></li>
+        <li>
+          <a
+            [routerLink]="['/admin/add_intent']"
+            [queryParams]="{ action: 'predefined' }"
+            >{{ getResourceLocal('admin.option1') }}</a
+          >
+        </li>
+        <li>
+          <a
+            [routerLink]="['/admin/start_search_intent']"
+            [queryParams]="{ action: 'predefined' }"
+            >{{ getResourceLocal('admin.option2') }}</a
+          >
+        </li>
+        <li>
+          <a
+            [routerLink]="['/model/start-train-model']"
+            [queryParams]="{ action: 'predefined' }"
+            >{{ getResourceLocal('admin.option3') }}</a
+          >
+        </li>
+        <li>
+          <a
+            [routerLink]="['/model/search-models']"
+            [queryParams]="{ action: 'predefined' }"
+            >{{ getResourceLocal('admin.option4') }}</a
+          >
+        </li>
       </ul>
     </li>
     <li>
-      <a href="#botsLife" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-        <i
-          class="headingLi glyphicon glyphicon-user"></i>{{getResourceLocal('maintainIntents.heading')}}<i
-          class="fa fa-fw fa-angle-down pull-right"></i>
+      <a
+        href="#botsLife"
+        data-toggle="collapse"
+        aria-expanded="false"
+        class="dropdown-toggle"
+      >
+        <i class="headingLi glyphicon glyphicon-user"></i
+        >{{ getResourceLocal('maintainIntents.heading')
+        }}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="botsLife">
-        <li><a [routerLink]="['/admin/add_intent']"
-            [queryParams]="{'action': 'custom'}">{{getResourceLocal('maintainIntents.option1')}}</a>
+        <li>
+          <a
+            [routerLink]="['/admin/add_intent']"
+            [queryParams]="{ action: 'custom' }"
+            >{{ getResourceLocal('maintainIntents.option1') }}</a
+          >
         </li>
-        <li><a [routerLink]="['/admin/start_search_intent']"
-            [queryParams]="{'action': 'custom'}">{{getResourceLocal('maintainIntents.option2')}}</a>
+        <li>
+          <a
+            [routerLink]="['/admin/start_search_intent']"
+            [queryParams]="{ action: 'custom' }"
+            >{{ getResourceLocal('maintainIntents.option2') }}</a
+          >
         </li>
-        <li><a [routerLink]="['/model/start-train-model']"
-            [queryParams]="{'action': 'custom'}">{{getResourceLocal('maintainIntents.option3')}}</a>
+        <li>
+          <a
+            [routerLink]="['/model/start-train-model']"
+            [queryParams]="{ action: 'custom' }"
+            >{{ getResourceLocal('maintainIntents.option3') }}</a
+          >
         </li>
-        <li><a [routerLink]="['/model/search-models']"
-            [queryParams]="{'action': 'custom'}">{{getResourceLocal('maintainIntents.option4')}}</a>
+        <li>
+          <a
+            [routerLink]="['/model/search-models']"
+            [queryParams]="{ action: 'custom' }"
+            >{{ getResourceLocal('maintainIntents.option4') }}</a
+          >
         </li>
       </ul>
     </li>
     <li>
-      <a href="#maintainModel" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-        <i
-          class="headingLi glyphicon glyphicon-play-circle"></i>{{getResourceLocal('maintainBots.heading')}}<i
-          class="fa fa-fw fa-angle-down pull-right"></i>
+      <a
+        href="#maintainModel"
+        data-toggle="collapse"
+        aria-expanded="false"
+        class="dropdown-toggle"
+      >
+        <i class="headingLi glyphicon glyphicon-play-circle"></i
+        >{{ getResourceLocal('maintainBots.heading')
+        }}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="maintainModel">
-        <li><a [routerLink]="['/admin/add-bot']">{{getResourceLocal('maintainBots.option1')}}</a>
+        <li>
+          <a [routerLink]="['/admin/add-bot']">{{
+            getResourceLocal('maintainBots.option1')
+          }}</a>
         </li>
-        <li><a [routerLink]="['/admin/init_search_bot']"
-            [queryParams]="{'action': 'editBot'}">{{getResourceLocal('maintainBots.option2')}}</a>
+        <li>
+          <a
+            [routerLink]="['/admin/init_search_bot']"
+            [queryParams]="{ action: 'editBot' }"
+            >{{ getResourceLocal('maintainBots.option2') }}</a
+          >
         </li>
-        <li><a [routerLink]="['/admin/init_search_bot']"
-            [queryParams]="{'action': 'launchBot'}">{{getResourceLocal('maintainBots.option3')}}</a>
+        <li>
+          <a
+            [routerLink]="['/admin/init_search_bot']"
+            [queryParams]="{ action: 'launchBot' }"
+            >{{ getResourceLocal('maintainBots.option3') }}</a
+          >
         </li>
-        <li><a [routerLink]="['/admin/init_search_bot']"
-            [queryParams]="{'action': 'testBot'}">{{getResourceLocal('maintainBots.option4')}}</a>
+        <li>
+          <a
+            [routerLink]="['/admin/init_search_bot']"
+            [queryParams]="{ action: 'testBot' }"
+            >{{ getResourceLocal('maintainBots.option4') }}</a
+          >
         </li>
       </ul>
     </li>
     <li>
-      <a href="#stateMachineModel" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+      <a
+        href="#stateMachineModel"
+        data-toggle="collapse"
+        aria-expanded="false"
+        class="dropdown-toggle"
+      >
         <i class="headingLi glyphicon glyphicon-play-circle"></i>Modelling<i
-          class="fa fa-fw fa-angle-down pull-right"></i>
+          class="fa fa-fw fa-angle-down pull-right"
+        ></i>
       </a>
       <ul class="collapse list-unstyled" id="stateMachineModel">
-        <li><a [routerLink]="['/state-machine']">Model</a>
-        </li>
+        <li><a [routerLink]="['/state-machine']">Model</a></li>
       </ul>
     </li>
-
   </ul>
-  <ul class="list-unstyled CTAs">
+  <!--<ul class="list-unstyled CTAs">
     <li>
       <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
     </li>
     <li>
       <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
     </li>
-  </ul>
+  </ul>-->
 </nav>

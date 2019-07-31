@@ -12,12 +12,12 @@ import {
   AfterViewChecked,
   AfterViewInit
 } from '@angular/core';
-import { Response } from '@angular/http';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import {Response} from '@angular/http';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 import * as $ from 'jquery';
-import { BotService } from '../../../service/bot.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {BotService} from '../../../service/bot.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 import {
   HttpClient,
   Notification,
@@ -29,7 +29,7 @@ import {
   BaseDynamicComponent,
   StompService
 } from 'my-component-library';
-import { UUID } from 'angular2-uuid';
+import {UUID} from 'angular2-uuid';
 
 /**
  * https://bootsnipp.com/snippets/ZlkBn
@@ -61,7 +61,7 @@ export class TestBotComponent extends BaseBotComponent
   chatMessageBoxContainer: ElementRef;
   @ViewChild('messageListContainer')
   messageListContainer: ElementRef;
-  @ViewChild('messageList', { read: ViewContainerRef })
+  @ViewChild('messageList', {read: ViewContainerRef})
   messageList: ViewContainerRef;
   private dynamicComponentMap: Map<number, ComponentRef<{}>> = new Map();
   private dynamicComponentCount = 0;
@@ -135,7 +135,7 @@ export class TestBotComponent extends BaseBotComponent
     this.context = 'startTest';
     this.createButtonLabel = this.commonService.cmsContent[
       'launchBot'
-    ].startLaunch.launchNowButton;
+      ].startLaunch.launchNowButton;
     this.botId = this.activatedRoute.snapshot.paramMap.get('id');
     this.botServiceSubscription = this.botService
       .startLaunchBot(this.botId)
@@ -146,6 +146,11 @@ export class TestBotComponent extends BaseBotComponent
           this.botUniqueId = this.launchDTO.bot.configurations[0].uniqueBotId;
           this.botAllowedOrigin = this.launchDTO.bot.configurations[0].allowedOrigins;
           this.chatApiUrl = this.launchDTO.bot.configurations[0].url;
+        } else if (this.launchDTO.bot.launchInfo.length > 0) {
+          this.botAccessUrl = this.launchDTO.bot.launchInfo[0].chatUrl;
+          this.botUniqueId = this.launchDTO.bot.launchInfo[0].uniqueBotId;
+          this.botAllowedOrigin = this.launchDTO.bot.launchInfo[0].allowedOrigins;
+          this.chatApiUrl = this.launchDTO.bot.launchInfo[0].chatUrl;
         }
         if (this.launchDTO.bot.status.code === 'LAUNCHED') {
           this.context = 'launched';
@@ -184,7 +189,7 @@ export class TestBotComponent extends BaseBotComponent
 
   cancel() {
     this.context = null;
-    this.router.navigate(['../../'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../../'], {relativeTo: this.activatedRoute});
   }
 
   getPageHeader() {
@@ -371,7 +376,7 @@ export class TestBotComponent extends BaseBotComponent
         this.messageListContainer.nativeElement
       );
       $messageListContainerObj.animate(
-        { scrollTop: $messageListContainerObj.prop('scrollHeight') },
+        {scrollTop: $messageListContainerObj.prop('scrollHeight')},
         300
       );
       // this.messageListContainer.nativeElement.scrollTop = this.messageListContainer.nativeElement.scrollHeight;
@@ -435,14 +440,6 @@ export class TestBotComponent extends BaseBotComponent
       message: messageJSON
     };
     this.createDynamicComponent('options', contextData);
-  }
-
-  getChatResponse(chat: ChatData) {
-    if (chat.accountId === 'ChatBot') {
-      return chat.response;
-    } else {
-      return chat.message;
-    }
   }
 
   private createDynamicComponent(type, contextData) {

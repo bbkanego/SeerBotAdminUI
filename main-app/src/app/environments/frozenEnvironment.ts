@@ -1,10 +1,12 @@
-import {rootEnvironment} from './environment';
+import { rootEnvironment } from './environment';
 
 const url = rootEnvironment.apiUrl;
+const envNameLocal = rootEnvironment.envName;
+const productionLocal = rootEnvironment.production;
 export const environment = Object.freeze({
   BASE_API_URL: url,
-  production: false,
-  envName: 'dev',
+  production: productionLocal,
+  envName: envNameLocal,
 
   ALL_INTENTS: url + '/api/v1/predefined-intent',
   INIT_SEARCH_INTENT:
@@ -43,7 +45,10 @@ export const environment = Object.freeze({
   RETRAIN_MODEL: url + '/api/v1/model/re-train',
   TRAIN_MODEL_DOWNLOAD: url + '/api/v1/model/download',
   TRAIN_MODELS: url + '/api/v1/model',
-  SEND_CHAT_URL: 'http://localhost:8099/chatbot/api/chats',
+  SEND_CHAT_URL: url + '/chatbot/api/chats',
   INIT_ACCT_URL: url + '/api/v1/account/init',
-  SIGN_UP_ACCT_URL: url + '/api/v1/account/signup'
+  SIGN_UP_ACCT_URL: url + '/api/v1/account/signup',
+  INIT_CATEGORY_URL: url + '/api/v1/category/init',
+  SAVE_CATEGORY_URL: url + '/api/v1/category',
+  GET_FOR_EDIT_CATEGORY_URL: url + '/api/v1/category/get-for-edit'
 });
