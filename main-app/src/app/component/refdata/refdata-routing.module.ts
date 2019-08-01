@@ -19,8 +19,8 @@ const ROUTE: Routes = [
             { path: 'save', component: MaintainCategoryComponent },
         ]
     },
-    { path: 'category/init', component: MaintainCategoryComponent },
-    { path: 'category/save', component: MaintainCategoryComponent }
+    { path: 'category/add/init', component: MaintainCategoryComponent },
+    { path: 'category/add/save', component: MaintainCategoryComponent }
 ];
 
 @NgModule({
