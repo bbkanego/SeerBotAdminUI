@@ -1,15 +1,12 @@
-<div class="container-fluid" *ngIf="categoryForm">
+<div class="container-fluid" *ngIf="resourceForm">
   <div class="row">
     <div class="col-sm-12">
-      <h1 class="page-header" *ngIf="currentAction === 'edit'">
-        {{ getResourceLocal('maintainCategory.pageHeadingEdit') }}
-      </h1>
-      <h1 class="page-header" *ngIf="currentAction === 'add'">
-        {{ getResourceLocal('maintainCategory.pageHeadingCreate') }}
+      <h1 class="page-header">
+        {{ getResourceLocal('maintainResource.pageHeadingCreate') }}
       </h1>
     </div>
   </div>
-  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" novalidate>
+  <form [formGroup]="resourceForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="row">
       <div class="col-sm-12">
         <div class="table-box">
@@ -17,23 +14,23 @@
             <div class="row">
               <div class="col-lg-6 col-sm-12">
                 <app-bk-input
-                  [currentFormGroup]="categoryForm"
+                  [currentFormGroup]="resourceForm"
                   label="{{ getCommonResources('entity.name') }}"
                   currentFormControlName="name"
                 ></app-bk-input>
               </div>
               <!-- <div class="col-lg-6 col-sm-12">
                 <app-bk-input
-                  [currentFormGroup]="categoryForm"
-                  label="{{ getCommonResources('entity.code') }}"
+                  [currentFormGroup]="resourceForm"
+                  label="{{ getCommonResources('entity.description') }}"
                   currentFormControlName="code"
                 ></app-bk-input>
               </div> -->
             </div>
             <div class="row">
               <div class="col-sm-12">
-                  <app-bk-textarea
-                  [currentFormGroup]="categoryForm"
+                <app-bk-textarea
+                  [currentFormGroup]="resourceForm"
                   label="{{ getCommonResources('entity.description') }}"
                   currentFormControlName="description"
                 ></app-bk-textarea>
@@ -46,9 +43,9 @@
     <div style="margin-bottom: 1em" class="col-sm-12">
       <bk-button
         intent="success"
-        [disabled]="!categoryForm.valid"
+        [disabled]="!resourceForm.valid"
         type="submit"
-        label="{{ getCommonResources('searchButton') }}"
+        label="{{ getCommonResources('saveButton') }}"
       ></bk-button
       ><bk-button
         (onClick)="revert()"

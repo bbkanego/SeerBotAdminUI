@@ -50,5 +50,8 @@ export const environment = Object.freeze({
   SIGN_UP_ACCT_URL: url + '/api/v1/account/signup',
   INIT_CATEGORY_URL: url + '/api/v1/category/init',
   SAVE_CATEGORY_URL: url + '/api/v1/category',
-  GET_FOR_EDIT_CATEGORY_URL: url + '/api/v1/category/get-for-edit'
+  GET_FOR_EDIT_CATEGORY_URL: url + '/api/v1/category/get-for-edit',
+  SAVE_ACTION_URL: url + '/api/v1/action',
+  SAVE_POLICY_URL: url + '/api/v1/policy',
+  SAVE_RESOURCE_URL: url + '/api/v1/resource',
 });

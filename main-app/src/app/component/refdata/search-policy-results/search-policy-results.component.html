@@ -1,0 +1,58 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="page-header">
+        {{ getResourceLocal('maintainPolicy.pageHeadingSearch') }}:
+        {{ getCommonResources('resultsHeading') }}
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <bk-datatable
+        [records]="policyResults"
+        #searchPolicyResultsTable
+        smallDeviceHeader="{{ getCommonResources('resultsHeading') }}"
+        pageSize="6"
+      >
+        <bk-column
+          header="{{ getCommonResources('entity.name') }}"
+          sort="true"
+          field="name"
+        >
+        <ng-template
+        let-col="column"
+        let-policyRow="rowData"
+        let-index="rowIndex"
+        bkTemplate="body"
+        >
+          <a (click)='editPolicy(policyRow.id)'>{{policyRow.name}}</a>
+      </ng-template>
+      </bk-column>
+        <bk-column
+          header="{{ getCommonResources('entity.description') }}"
+          sort="true"
+          field="description"
+        ></bk-column>
+        <bk-column
+          header="{{ getResourceLocal('maintainPolicy.statementHeading') }}"
+          sort="true"
+          field="statements"
+        >
+          <ng-template
+            let-col="column"
+            let-policyRow="rowData"
+            let-index="rowIndex"
+            bkTemplate="body"
+          >
+            <div *ngFor="let statement of policyRow.statements; let i = index">
+              {{statement.resource.name}} [{{statement.effect}}] 
+              [<span *ngFor="let action of statement.actions; let j = index">{{action.name}},</span>]
+            </div>
+          </ng-template>
+        </bk-column>
+      </bk-datatable>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

@@ -1,7 +1,7 @@
-import {Component, Injector, OnInit} from '@angular/core';
-import {BotAuthenticationService} from '../../service/authentication.service';
-import {CommonService} from 'my-component-library';
-import {BaseBotComponent} from "./baseBot.component";
+import { Component, Injector, OnInit } from '@angular/core';
+import { BotAuthenticationService } from '../../service/authentication.service';
+import { CommonService } from 'my-component-library';
+import { BaseBotComponent } from './baseBot.component';
 
 @Component({
   selector: 'app-left-menu',

@@ -38,7 +38,7 @@ export class SearchCategoryResultsComponent extends BaseBotComponent implements 
         if (
           data.subscriberType === BIZ_BOTS_CONSTANTS.REFRESH_CATEGORY_SEARCH_RESULTS
         ) {
-          this.searchCategory(searchCriteriaModel);
+          this.router.navigate(['/ref-data/category/search']);
         }
       });
   }

@@ -1,20 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
-import { AppComponent } from './app.component';
-import { CommonUtilsModule, NotificationService, ValidationService, AuthenticationService, CommonService} from 'my-component-library';
-import { DashboardModule } from './component/dashboard/dashboard.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthenticationService, CommonService, CommonUtilsModule, NotificationService, ValidationService } from 'my-component-library';
 import { AppRoutingModule } from './app-routing.module';
-import { CommonComponentModule } from './component/common/commonComp.module';
-import { IntentService } from './service/intent.service';
+import { AppComponent } from './app.component';
+import { AccountModule } from './component/account/account.module';
 import { AuthenticationModule } from './component/authentication/authentication.module';
-import { BotAuthenticationService } from './service/authentication.service';
+import { CommonComponentModule } from './component/common/commonComp.module';
+import { DashboardModule } from './component/dashboard/dashboard.module';
+import { environment } from './environments/frozenEnvironment';
 import { AuthGuard } from './guard/auth.guard';
 import { LogoutGuard } from './guard/logout.guard';
-import { environment } from './environments/frozenEnvironment';
-import { AccountModule } from './component/account/account.module';
 import { AccountService } from './service/account.service';
+import { BotAuthenticationService } from './service/authentication.service';
+import { IntentService } from './service/intent.service';
+import { UberAdminGuard } from './guard/uberAdmin.guard';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -24,8 +25,9 @@ import { AccountService } from './service/account.service';
     AppRoutingModule, AuthenticationModule, BrowserAnimationsModule, AccountModule
   ],
   providers: [NotificationService, BotAuthenticationService, AuthenticationService,
-    CommonService, IntentService, ValidationService, AuthGuard, LogoutGuard, AccountService,
-    {provide: 'environment', useValue: environment}],
+    CommonService, IntentService, ValidationService,
+    AuthGuard, LogoutGuard, UberAdminGuard, AccountService,
+    { provide: 'environment', useValue: environment }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

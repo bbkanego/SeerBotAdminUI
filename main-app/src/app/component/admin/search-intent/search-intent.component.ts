@@ -1,10 +1,10 @@
-import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
+import { IntentService } from '../../../service/intent.service';
+import { BaseBotComponent } from '../../common/baseBot.component';
 
-import {IntentService} from '../../../service/intent.service';
-import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
-import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-search-intent',
@@ -37,7 +37,7 @@ export class SearchIntentComponent extends BaseBotComponent implements OnInit, O
         data.subscriberType ===
         BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS
       ) {
-        this.searchIntents(searchModel);
+        this.router.navigate(['/admin/search_intent']);
       }
     });
   }

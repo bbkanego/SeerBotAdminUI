@@ -1,15 +1,12 @@
-<div class="container-fluid" *ngIf="categoryForm">
+<div class="container-fluid" *ngIf="actionForm">
   <div class="row">
     <div class="col-sm-12">
-      <h1 class="page-header" *ngIf="currentAction === 'edit'">
-        {{ getResourceLocal('maintainCategory.pageHeadingEdit') }}
-      </h1>
-      <h1 class="page-header" *ngIf="currentAction === 'add'">
-        {{ getResourceLocal('maintainCategory.pageHeadingCreate') }}
+      <h1 class="page-header">
+        {{ actionModel.id === null ? getResourceLocal('maintainAction.pageHeadingCreate'): getResourceLocal('maintainAction.pageHeadingEdit') }}
       </h1>
     </div>
   </div>
-  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" novalidate>
+  <form [formGroup]="actionForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="row">
       <div class="col-sm-12">
         <div class="table-box">
@@ -17,14 +14,14 @@
             <div class="row">
               <div class="col-lg-6 col-sm-12">
                 <app-bk-input
-                  [currentFormGroup]="categoryForm"
+                  [currentFormGroup]="actionForm"
                   label="{{ getCommonResources('entity.name') }}"
                   currentFormControlName="name"
                 ></app-bk-input>
               </div>
-              <!-- <div class="col-lg-6 col-sm-12">
+              <!-- div class="col-lg-6 col-sm-12">
                 <app-bk-input
-                  [currentFormGroup]="categoryForm"
+                  [currentFormGroup]="actionForm"
                   label="{{ getCommonResources('entity.code') }}"
                   currentFormControlName="code"
                 ></app-bk-input>
@@ -32,8 +29,8 @@
             </div>
             <div class="row">
               <div class="col-sm-12">
-                  <app-bk-textarea
-                  [currentFormGroup]="categoryForm"
+                <app-bk-textarea
+                  [currentFormGroup]="actionForm"
                   label="{{ getCommonResources('entity.description') }}"
                   currentFormControlName="description"
                 ></app-bk-textarea>
@@ -46,9 +43,15 @@
     <div style="margin-bottom: 1em" class="col-sm-12">
       <bk-button
         intent="success"
-        [disabled]="!categoryForm.valid"
+        [disabled]="!actionForm.valid"
         type="submit"
-        label="{{ getCommonResources('searchButton') }}"
+        label="{{ getCommonResources('saveButton') }}"
+      ></bk-button>
+      <bk-button *ngIf='actionModel.id !== null'
+        intent="danger"
+        type="button"
+        (onClick)="delete(actionModel.id)"
+        label="{{ getCommonResources('deleteButton') }}"
       ></bk-button
       ><bk-button
         (onClick)="revert()"

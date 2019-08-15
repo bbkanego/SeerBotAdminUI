@@ -25,13 +25,43 @@
       </a>
       <ul class="collapse list-unstyled" id="refDataSubMenu">
         <li>
-          <a [routerLink]="['/ref-data/category/search/init']">{{
-            getResourceLocal('refData.category.searchCategory')
+          <a [routerLink]="['/ref-data/category/add/init']">{{
+            getResourceLocal('refData.category.create')
           }}</a>
         </li>
         <li>
-          <a [routerLink]="['/ref-data/category/add/init']">{{
-            getResourceLocal('refData.category.createCategory')
+            <a [routerLink]="['/ref-data/category/search/init']">{{
+              getResourceLocal('refData.category.search')
+            }}</a>
+          </li>
+        <li *ngIf="getAuthenticationService().isUberAdmin()">
+          <a [routerLink]="['/ref-data/action/add/init']">{{
+            getResourceLocal('refData.action.create')
+          }}</a>
+        </li>
+        <li *ngIf="getAuthenticationService().isUberAdmin()">
+          <a [routerLink]="['/ref-data/action/search']">{{
+            getResourceLocal('refData.action.search')
+          }}</a>
+        </li>
+        <li *ngIf="getAuthenticationService().isUberAdmin()">
+          <a [routerLink]="['/ref-data/resource/add/init']">{{
+            getResourceLocal('refData.resource.create')
+          }}</a>
+        </li>
+        <li *ngIf="getAuthenticationService().isUberAdmin()">
+          <a [routerLink]="['/ref-data/resource/search']">{{
+            getResourceLocal('refData.resource.search')
+          }}</a>
+        </li>
+        <li *ngIf="getAuthenticationService().isUberAdmin()">
+          <a [routerLink]="['/ref-data/policy/add/init']">{{
+            getResourceLocal('refData.policy.create')
+          }}</a>
+        </li>
+        <li *ngIf="getAuthenticationService().isUberAdmin()">
+          <a [routerLink]="['/ref-data/policy/search']">{{
+            getResourceLocal('refData.policy.search')
           }}</a>
         </li>
       </ul>

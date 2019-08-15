@@ -17,8 +17,8 @@ export class BaseBotComponent extends BaseReactiveComponent {
     this.commonService = injector.get(CommonService);
   }
 
-  getCommonResources(key) {
-    return this.commonService.cmsContent['commonMessages'][key];
+  getCommonResources(key: string) {
+    return this.getResource('commonMessages', key);
   }
 
   getResource(context: string, key: string) {

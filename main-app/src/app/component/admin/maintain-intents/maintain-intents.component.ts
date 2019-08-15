@@ -1,25 +1,13 @@
-import {
-  Component,
-  ElementRef,
-  Injector,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
-import {FormGroup, FormArray} from '@angular/forms';
-import {ActivatedRoute, Params, Router, UrlSegment} from '@angular/router';
-import {
-  Option,
-  SUBSCRIBER_TYPES,
-  SelectComponent,
-  CustomValidator
-} from 'my-component-library';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
+import { CustomValidator, Option, SelectComponent, SUBSCRIBER_TYPES } from 'my-component-library';
+import { Subscription } from 'rxjs/Subscription';
+import { environment } from '../../../environments/frozenEnvironment';
+import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
+import { IntentService } from '../../../service/intent.service';
+import { BaseBotComponent } from '../../common/baseBot.component';
 
-import {environment} from '../../../environments/frozenEnvironment';
-import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
-import {IntentService} from '../../../service/intent.service';
-import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-maintain-intents',

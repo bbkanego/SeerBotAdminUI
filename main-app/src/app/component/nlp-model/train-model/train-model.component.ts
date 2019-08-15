@@ -109,9 +109,8 @@ export class TrainModelComponent extends BaseBotComponent
     });
   }
 
-  getResource(context, key) {
-    const resources = this.commonService.cmsContent['maintainModels'];
-    return resources[context][key];
+  getResourceLocal(key) {
+    return this.getResource('maintainModels', key)
   }
 
   ngOnDestroy(): void {
