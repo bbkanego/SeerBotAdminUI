@@ -110,7 +110,7 @@ export class TrainModelComponent extends BaseBotComponent
   }
 
   getResourceLocal(key) {
-    return this.getResource('maintainModels', key)
+    return this.getResource('maintainModels', key);
   }
 
   ngOnDestroy(): void {
