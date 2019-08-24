@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-12">
       <h1 class="page-header">
-        {{ getResourceLocal('maintainPolicy.pageHeadingCreate') }}
+        {{ policyModel.id === null ? getResourceLocal('maintainPolicy.pageHeadingCreate') : getResourceLocal('maintainPolicy.pageHeadingEdit') }}
       </h1>
     </div>
   </div>

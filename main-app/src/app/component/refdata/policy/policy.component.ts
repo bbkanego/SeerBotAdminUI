@@ -62,10 +62,10 @@ export class PolicyComponent extends BaseBotComponent implements OnInit, OnDestr
 
   private setValuesForEdit(model) {
     model.statements.forEach((statement) => {
-      const multiSelectStartValues: string[] = [];
+      const multiSelectStartValues: any[] = [];
       this.multiSelectStartValuesArray.push(multiSelectStartValues);
       statement.actions.forEach((action) => {
-        multiSelectStartValues.push(action.code);
+        multiSelectStartValues.push({value: action.code, label: action.name});
       });
     });
   }

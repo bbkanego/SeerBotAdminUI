@@ -18,9 +18,9 @@ export class BotAuthenticationService {
    * @returns {IDisposable|Subscription}
    */
   login(user: Login): any {
-    return this.postRequest(environment.LOGIN_URL, {'userName': user.username, 'password': user.password})
-    // get the response and call .json() to get the JSON data
-    // .map((res:Response) => res.json())
+    return this.postRequest(environment.LOGIN_URL, { 'userName': user.username, 'password': user.password })
+      // get the response and call .json() to get the JSON data
+      // .map((res:Response) => res.json())
       .subscribe((res: Response) => {
         // var payload = res.json();
         const authorization = res['token'];
@@ -71,8 +71,8 @@ export class BotAuthenticationService {
 
   isUberAdmin() {
     if (this.isLoggedIn()) {
-      return JSON.parse(this.getCurrentUser()).roles.some((value: string) => {
-        return value === 'UBER_ADMIN';
+      return JSON.parse(this.getCurrentUser()).roles.some((role) => {
+        return role.code === 'UBER_ADMIN';
       });
     }
     return false;
@@ -80,10 +80,97 @@ export class BotAuthenticationService {
 
   isAdmin() {
     if (this.isLoggedIn()) {
-      return JSON.parse(this.getCurrentUser()).roles.some((value: string) => {
-        return value === 'UBER_ADMIN' || value === 'ACCT_ADMIN';
+      return JSON.parse(this.getCurrentUser()).roles.some((role) => {
+        return role.code === 'UBER_ADMIN' || role.code === 'ACCT_ADMIN';
       });
     }
     return false;
+  }
+
+  private findMatchingStatement(resource) {
+    const allRoles: any[] = JSON.parse(this.getCurrentUser()).roles;
+    let found = null;
+    for (const role of allRoles) {
+      const policies: any[] = role.policies;
+      if (!policies) { return null; }
+      for (const policy of policies) {
+        const statements = policy.statements;
+        for (const statement of statements) {
+          if (statement.resource === resource) {
+            found = statement;
+            break;
+          }
+        }
+        if (found) { break; }
+      }
+      if (found) { break; }
+    }
+    return found;
+  }
+
+  private canDoAction(resource, action: string): boolean {
+    const statement = this.findMatchingStatement(resource);
+    if (!statement) { return false; }
+    return statement['actions'].indexOf(action) > -1;
+  }
+
+  canEditBot() {
+    return this.canDoAction('Bot', 'Update');
+  }
+
+  canDeleteBot() {
+    return this.canDoAction('Bot', 'Delete');
+  }
+
+  canCreateBot() {
+    return this.canDoAction('Bot', 'Create');
+  }
+
+  canReadBot() {
+    return this.canDoAction('Bot', 'Read');
+  }
+
+  canTrainBot() {
+    return this.canDoAction('Bot', 'Train');
+  }
+
+  canTestBot() {
+    return this.canDoAction('Bot', 'Train');
+  }
+
+  canCreateIntent() {
+    return this.canDoAction('Intent', 'Create');
+  }
+
+  canUpdateIntent() {
+    return this.canDoAction('Intent', 'Update');
+  }
+
+  canDeleteIntent() {
+    return this.canDoAction('Intent', 'Delete');
+  }
+
+  canReadIntent() {
+    return this.canDoAction('Intent', 'Read');
+  }
+
+  canReadModel() {
+    return this.canDoAction('Model', 'Read');
+  }
+
+  canDeleteModel() {
+    return this.canDoAction('Model', 'Delete');
+  }
+
+  canCreateModel() {
+    return this.canDoAction('Model', 'Create');
+  }
+
+  canUpdateModel() {
+    return this.canDoAction('Model', 'Update');
+  }
+
+  canDoAll() {
+    return this.findMatchingStatement('All') !== null;
   }
 }

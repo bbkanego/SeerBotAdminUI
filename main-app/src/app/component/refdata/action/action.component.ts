@@ -1,10 +1,10 @@
-import { Component, OnInit, Injector, OnDestroy } from '@angular/core';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { ActionService } from '../../../service/action.service';
-import { ActivatedRoute, UrlSegment, Router } from '@angular/router';
 import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
+import { ActionService } from '../../../service/action.service';
+import { BaseBotComponent } from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-action',
@@ -98,6 +98,8 @@ export class ActionComponent extends BaseBotComponent implements OnInit, OnDestr
 
   delete(id: string) {
     this.actionService.delete(id).subscribe(() => {
+      this.actionForm = null;
+      
       this.notificationService.notify('Refresh Results!', BIZ_BOTS_CONSTANTS.REFRESH_ACTIONS_SEARCH_RESULTS,
             BIZ_BOTS_CONSTANTS.REFRESH_ACTIONS_SEARCH_RESULTS);
     });

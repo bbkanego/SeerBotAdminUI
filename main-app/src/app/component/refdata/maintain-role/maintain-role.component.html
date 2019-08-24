@@ -1,12 +1,16 @@
-<div class="container-fluid" *ngIf="actionForm">
+<div class="container-fluid" *ngIf="roleForm">
   <div class="row">
     <div class="col-sm-12">
       <h1 class="page-header">
-        {{ actionModel.id === null ? getResourceLocal('maintainAction.pageHeadingCreate'): getResourceLocal('maintainAction.pageHeadingEdit') }}
+        {{
+          roleModel.id === null
+            ? getResourceLocal('maintainRole.pageHeadingCreate')
+            : getResourceLocal('maintainRole.pageHeadingEdit')
+        }}
       </h1>
     </div>
   </div>
-  <form [formGroup]="actionForm" (ngSubmit)="onSubmit()" novalidate>
+  <form [formGroup]="roleForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="row">
       <div class="col-sm-12">
         <div class="table-box">
@@ -14,26 +18,37 @@
             <div class="row">
               <div class="col-lg-6 col-sm-12">
                 <app-bk-input
-                  [currentFormGroup]="actionForm"
+                  [currentFormGroup]="roleForm"
                   label="{{ getCommonResources('entity.name') }}"
-                  currentFormControlName="name"
+                  currentFormControlName="role"
                 ></app-bk-input>
               </div>
-              <!-- div class="col-lg-6 col-sm-12">
+              <div class="col-lg-6 col-sm-12">
                 <app-bk-input
-                  [currentFormGroup]="actionForm"
+                  [currentFormGroup]="roleForm"
                   label="{{ getCommonResources('entity.code') }}"
                   currentFormControlName="code"
                 ></app-bk-input>
-              </div> -->
+              </div>
             </div>
             <div class="row">
-              <div class="col-sm-12">
+              <div class="col-lg-6 col-sm-12">
                 <app-bk-textarea
-                  [currentFormGroup]="actionForm"
+                  [currentFormGroup]="roleForm"
                   label="{{ getCommonResources('entity.description') }}"
                   currentFormControlName="description"
                 ></app-bk-textarea>
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <app-bk-multi-select
+                  [currentFormGroup]="roleForm"
+                  controlId="multiSelectCategoryId"
+                  (onSelect)="processSelectedValues($event)"
+                  [options]="policyOptions"
+                  [startingValues]="getStartingValues()"
+                  label="{{ getResourceLocal('maintainRole.policy') }}"
+                  currentFormControlName="selectPolicies"
+                ></app-bk-multi-select>
               </div>
             </div>
           </div>
@@ -43,11 +58,11 @@
     <div style="margin-bottom: 1em" class="col-sm-12">
       <bk-button
         intent="success"
-        [disabled]="!actionForm.valid"
+        [disabled]="!roleForm.valid"
         type="submit"
         label="{{ getCommonResources('saveButton') }}"
-      ></bk-button>
-      <bk-button
+      ></bk-button
+      ><bk-button
         (onClick)="revert()"
         intent="warning"
         label="{{ getCommonResources('revertButton') }}"

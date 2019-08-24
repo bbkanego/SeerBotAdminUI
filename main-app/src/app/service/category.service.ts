@@ -5,7 +5,7 @@ import { BaseBotCrudService } from './baseBotCrud.service';
 
 @Injectable()
 export class CategoryService extends BaseBotCrudService {
-    searchCriteriaModel: any;
+    searchCriteriaModel: any = {};
 
     constructor(injector: Injector) {
         super(injector);

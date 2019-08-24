@@ -54,4 +54,5 @@ export const environment = Object.freeze({
   SAVE_ACTION_URL: url + '/api/v1/action',
   SAVE_POLICY_URL: url + '/api/v1/policy',
   SAVE_RESOURCE_URL: url + '/api/v1/resource',
+  SAVE_ROLE_URL: url + '/api/v1/role'
 });

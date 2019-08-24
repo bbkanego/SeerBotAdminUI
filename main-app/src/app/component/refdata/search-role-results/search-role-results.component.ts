@@ -2,23 +2,23 @@ import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { CategoryService } from '../../../service/category.service';
+import { RoleService } from '../../../service/role.service';
 import { BaseBotComponent } from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-search-category-results',
-  templateUrl: './search-category-results.component.html',
-  styleUrls: ['./search-category-results.component.css']
+  selector: 'app-search-role-results',
+  templateUrl: './search-role-results.component.html',
+  styleUrls: ['./search-role-results.component.css']
 })
-export class SearchCategoryResultsComponent extends BaseBotComponent implements OnInit, OnDestroy {
+export class SearchRoleResultsComponent extends BaseBotComponent implements OnInit, OnDestroy {
 
-  categoryResults: any[];
+  roleResults: any[];
   searchCriteriaSubscription: Subscription;
   notificationSub: Subscription;
-  searchContext = 'search_category';
+  searchContext = 'searchRoles';
 
   constructor(
-    private categoryService: CategoryService,
+    private roleService: RoleService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     injector: Injector
@@ -26,32 +26,27 @@ export class SearchCategoryResultsComponent extends BaseBotComponent implements 
     super(injector);
   }
 
-  get categoryResultsGetter() {
-    return this.categoryResults;
-  }
-
   ngOnInit() {
-    const searchCriteriaModel = this.categoryService.getSearchCriteriaModel();
     this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
-      this.searchCategory(searchCriteriaModel);
+      this.searchRoles();
     });
 
     this.notificationSub = this.notificationService
       .onNotification()
       .subscribe((data: any) => {
         if (
-          data.subscriberType === BIZ_BOTS_CONSTANTS.REFRESH_CATEGORY_SEARCH_RESULTS
+          data.subscriberType === BIZ_BOTS_CONSTANTS.REFRESH_ROLE_SEARCH_RESULTS
         ) {
-          this.router.navigate(['/ref-data/category/search'], {queryParams : {ts : (new Date()).getTime()}});
+          this.router.navigate(['/ref-data/role/search'],  {queryParams : {ts : (new Date()).getTime()}});
         }
       });
   }
 
-  private searchCategory(model: any) {
-    this.searchCriteriaSubscription = this.categoryService
-      .searchCategoryForEdit(model)
+  private searchRoles() {
+    this.searchCriteriaSubscription = this.roleService
+      .getAll()
       .subscribe(results => {
-        this.categoryResults = results;
+        this.roleResults = results;
       });
   }
 
@@ -64,8 +59,10 @@ export class SearchCategoryResultsComponent extends BaseBotComponent implements 
     }
   }
 
-  editCategory(id: string) {
-    this.router.navigate(['./edit', id], { relativeTo: this.activatedRoute });
+  editRole(id: string) {
+    this.router.navigate(['edit', id], {
+      relativeTo: this.activatedRoute
+    });
   }
 
   getResourceLocal(key: string): string {

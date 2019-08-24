@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UberAdminGuard } from '../../guard/uberAdmin.guard';
 import { ActionComponent } from './action/action.component';
 import { MaintainCategoryComponent } from './maintain-category/maintain-category.component';
+import { MaintainRoleComponent } from './maintain-role/maintain-role.component';
 import { PolicyComponent } from './policy/policy.component';
 import { ResourceComponent } from './resource/resource.component';
 import { SearchActionResultsComponent } from './search-action-results/search-action-results.component';
@@ -10,6 +11,7 @@ import { SearchCategoryCriteriaComponent } from './search-category-criteria/sear
 import { SearchCategoryResultsComponent } from './search-category-results/search-category-results.component';
 import { SearchPolicyResultsComponent } from './search-policy-results/search-policy-results.component';
 import { SearchResourceResultsComponent } from './search-resource-results/search-resource-results.component';
+import { SearchRoleResultsComponent } from './search-role-results/search-role-results.component';
 
 const ROUTE: Routes = [
     { path: '', component: SearchCategoryCriteriaComponent },
@@ -56,7 +58,18 @@ const ROUTE: Routes = [
             { path: 'edit/:id', component: PolicyComponent },
             { path: 'delete/init/:id', component: PolicyComponent },
             { path: 'delete', component: PolicyComponent },
-            { path: 'save', component: PolicyComponent },
+            { path: 'save', component: PolicyComponent }
+        ]
+    },
+    {
+        path: 'role/search',
+        component: SearchRoleResultsComponent,
+        canActivate: [UberAdminGuard],
+        children: [
+            { path: 'edit/:id', component: MaintainRoleComponent },
+            { path: 'delete/init/:id', component: MaintainRoleComponent },
+            { path: 'delete', component: MaintainRoleComponent },
+            { path: 'save', component: MaintainRoleComponent }
         ]
     },
     { path: 'resource/add/init', component: ResourceComponent, canActivate: [UberAdminGuard] },
@@ -67,7 +80,10 @@ const ROUTE: Routes = [
     { path: 'action/add/edit', component: ActionComponent, canActivate: [UberAdminGuard] },
     { path: 'policy/add/init', component: PolicyComponent, canActivate: [UberAdminGuard] },
     { path: 'policy/add/save', component: PolicyComponent, canActivate: [UberAdminGuard] },
-    { path: 'policy/add/edit', component: PolicyComponent, canActivate: [UberAdminGuard] }
+    { path: 'policy/add/edit', component: PolicyComponent, canActivate: [UberAdminGuard] },
+    { path: 'role/add/init', component: MaintainRoleComponent, canActivate: [UberAdminGuard] },
+    { path: 'role/add/save', component: MaintainRoleComponent, canActivate: [UberAdminGuard] },
+    { path: 'role/add/edit', component: MaintainRoleComponent, canActivate: [UberAdminGuard] }
 ];
 
 @NgModule({

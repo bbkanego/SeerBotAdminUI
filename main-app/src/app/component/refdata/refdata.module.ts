@@ -17,6 +17,8 @@ import { SearchCategoryResultsComponent } from './search-category-results/search
 import { SearchPolicyResultsComponent } from './search-policy-results/search-policy-results.component';
 import { SearchResourceResultsComponent } from './search-resource-results/search-resource-results.component';
 import { SearchCategoryCriteriaComponent } from './search-category-criteria/search-category-criteria.component';
+import { MaintainRoleComponent } from './maintain-role/maintain-role.component';
+import { SearchRoleResultsComponent } from './search-role-results/search-role-results.component';
 
 @NgModule({
   imports: [
@@ -26,6 +28,6 @@ import { SearchCategoryCriteriaComponent } from './search-category-criteria/sear
   providers: [CategoryService, ActionService, ResourceService, PolicyService],
   declarations: [MaintainCategoryComponent, SearchCategoryResultsComponent,
     SearchActionResultsComponent, SearchResourceResultsComponent, SearchCategoryCriteriaComponent,
-    SearchPolicyResultsComponent, ActionComponent, PolicyComponent, ResourceComponent]
+    SearchPolicyResultsComponent, ActionComponent, PolicyComponent, ResourceComponent, MaintainRoleComponent, SearchRoleResultsComponent]
 })
 export class RefDataModule { }

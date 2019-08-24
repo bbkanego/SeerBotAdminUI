@@ -3,6 +3,7 @@
   <!--<div class="sidebar-header">
     <h3>Bootstrap Sidebar</h3>
   </div>-->
+  ---{{getAuthenticationService().canEditBot()}}
   <ul class="list-unstyled components">
     <li *ngIf="getAuthenticationService().isAdmin()">
       <a
@@ -30,7 +31,7 @@
           }}</a>
         </li>
         <li>
-            <a [routerLink]="['/ref-data/category/search/init']">{{
+            <a [routerLink]="['/ref-data/category/search']">{{
               getResourceLocal('refData.category.search')
             }}</a>
           </li>
@@ -62,6 +63,16 @@
         <li *ngIf="getAuthenticationService().isUberAdmin()">
           <a [routerLink]="['/ref-data/policy/search']">{{
             getResourceLocal('refData.policy.search')
+          }}</a>
+        </li>
+        <li *ngIf="getAuthenticationService().isUberAdmin()">
+          <a [routerLink]="['/ref-data/role/add/init']">{{
+            getResourceLocal('refData.role.create')
+          }}</a>
+        </li>
+        <li *ngIf="getAuthenticationService().isUberAdmin()">
+          <a [routerLink]="['/ref-data/role/search']">{{
+            getResourceLocal('refData.role.search')
           }}</a>
         </li>
       </ul>
