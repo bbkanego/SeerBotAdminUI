@@ -1,14 +1,10 @@
-import {Component, OnInit, Injector, OnDestroy} from '@angular/core';
-import {FormGroup, FormArray} from '@angular/forms';
-import {AccountService} from '../../service/account.service';
-import {BaseBotComponent} from '../common/baseBot.component';
-import {
-  Option,
-  SUBSCRIBER_TYPES,
-  CustomFormControl, CustomValidator
-} from 'my-component-library';
-import {Subscription} from 'rxjs/Subscription';
-import {Router} from '@angular/router';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Option, SUBSCRIBER_TYPES } from 'my-component-library';
+import { Subscription } from 'rxjs/Subscription';
+import { AccountService } from '../../service/account.service';
+import { BaseBotComponent } from '../common/baseBot.component';
 
 @Component({
   selector: 'app-maintain-acct',
@@ -29,7 +25,7 @@ export class MaintainAccountComponent extends BaseBotComponent
   static checkPasswords(group: FormGroup) { // here we have the 'passwords' group
     const pass = group.controls.passwordCapture.value;
     const confirmPass = group.controls.passwordCaptureReenter.value;
-    return pass === confirmPass ? null : {notSame: true};
+    return pass === confirmPass ? null : { notSame: true };
   }
 
   constructor(
@@ -102,13 +98,6 @@ export class MaintainAccountComponent extends BaseBotComponent
       this.validationRules,
       'roles'
     );
-    this.accountForm.addControl(
-      'roleCode',
-      new CustomFormControl(
-        '',
-        this.createValidatorRuleForProperty('roles', rolesValidationRules)
-      )
-    );
     this.accountOwner = this.accountForm.get('owner') as FormGroup;
     this.contactModes = this.accountOwner.get('contactModes') as FormArray;
   }
@@ -121,7 +110,6 @@ export class MaintainAccountComponent extends BaseBotComponent
     }
 
     this.roles = this.buildOptions(this.accountModel.referenceData.roles);
-    this.accountForm.get('roleCode').setValidators(CustomValidator.isSelectValid());
 
     if (this.currentAction === 'edit') {
       this.notificationService.notifyAny(
@@ -139,22 +127,15 @@ export class MaintainAccountComponent extends BaseBotComponent
   onSubmit() {
     if (this.accountForm.invalid) {
     } else {
-      const roleCode = this.accountForm.get('roleCode').value;
-      if (roleCode) {
-        const matchingRole = this.accountModel.referenceData.roles.filter(
-          role => role.code === roleCode
-        );
-        const finalModel = this.accountForm.value;
-        finalModel.roles = [];
-        finalModel.roles.push(matchingRole[0]);
-        this.accountService.save(finalModel).subscribe(res => {
-          if (this.currentAction === 'add') {
-            this.router.navigate(['/login']);
-          } else {
-            // take action when editing the account.
-          }
-        });
-      }
+      const finalModel = this.accountForm.value;
+      finalModel.owner.contactModes = [];
+      this.accountService.save(finalModel).subscribe(res => {
+        if (this.currentAction === 'add') {
+          this.router.navigate(['/login']);
+        } else {
+          // take action when editing the account.
+        }
+      });
     }
   }
 }

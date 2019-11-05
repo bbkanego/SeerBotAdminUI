@@ -149,18 +149,25 @@ export class MaintainIntentsComponent extends BaseBotComponent
       this.findValidatorRuleForProperty(this.validationRules, 'utterances')
         .fields
     );
-    utterance.get('locale').setValidators(CustomValidator.isSelectValid());
+    utterance.get('locale').setValue('en'); // .setValidators(CustomValidator.isSelectValid());
     return utterance;
   }
 
+  /**
+   * This creates the formGroup for the "exact match" response.
+   * Here we will hard code the responseType to 'static'
+   * @param response
+   */
   getResponseGroup(response: IntentResponse): FormGroup {
     const responses: FormGroup = this.autoGenFormGroup(
       response,
       this.findValidatorRuleForProperty(this.validationRules, 'responses')
         .fields
     );
-    responses.get('responseType').setValidators(CustomValidator.isSelectValid());
-    responses.get('locale').setValidators(CustomValidator.isSelectValid());
+    responses.get('responseType').setValue('STATIC');
+    // responses.get('responseType').setValidators(CustomValidator.isSelectValid());
+    responses.get('locale').setValue('en');
+    // .setValidators(CustomValidator.isSelectValid());
     return responses;
   }
 
@@ -175,7 +182,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
   get mayBeIntentResponses(): FormArray {
     const mayBeResponses: FormArray = this.getMayBeIntentFormGroup().get('responses') as FormArray;
     for (const mayBeResponse of mayBeResponses.controls) {
-      mayBeResponse.get('locale').setValidators(CustomValidator.isSelectValid());
+      mayBeResponse.get('locale').setValue('en'); // .setValidators(CustomValidator.isSelectValid());
     }
     return mayBeResponses;
   }
@@ -318,6 +325,10 @@ export class MaintainIntentsComponent extends BaseBotComponent
       this.showFileName.nativeElement.value =
         fileChangeEvent.target.files[0].name;
     }
+  }
+
+  getResourceLocal(key: string) {
+    return this.getResource('maintainIntents', key);
   }
 
   getHeading() {

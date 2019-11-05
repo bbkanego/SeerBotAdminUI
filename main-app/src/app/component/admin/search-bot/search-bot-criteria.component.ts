@@ -93,7 +93,7 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
       this.mapSelectValue(this.botSearchForm, this.searchModel, 'category', 'category');
       const finalModel = this.botSearchForm.value;
       if (this.botService.getActionContext() === 'testBot') {
-        finalModel.statusCode = 'LAUNCHED';
+        finalModel.statusCode = 'TESTING,LAUNCHED';
       } else if (this.botService.getActionContext() === 'launchBot') {
         finalModel.statusCode = 'DRAFT';
       } else if (this.botService.getActionContext() === 'editBot') {

@@ -76,6 +76,10 @@ const routes: Routes = [
         ]
     },
     {
+        path: 'test_start/:id',
+        component: TestBotComponent
+    },
+    {
         path: 'add_intent',
         component: MaintainIntentsComponent
     },

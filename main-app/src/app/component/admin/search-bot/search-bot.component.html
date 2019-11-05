@@ -5,14 +5,18 @@
   <div class='row'>
     <div class='col-sm-12'>
       <bk-datatable [records]='botResults' #bkTop5Heroes smallDeviceHeader='Top 5 Heroes' pageSize='6'>
-        <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col1")}}' sort='true' field='name'></bk-column>
+        <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col1")}}' sort='true' field='name'>
+            <ng-template let-col='column' let-bot='rowData' let-index='rowIndex' bkTemplate='body'>
+                <a (click)="editBot(bot.id)">{{bot.name}}</a>
+              </ng-template>
+        </bk-column>
         <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col2")}}' sort='true'
                    field='displayName'></bk-column>
         <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col3")}}' sort='true'
                    field='description'></bk-column>
         <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col4")}}' sort='true' field='category'>
           <ng-template let-col='column' let-bot='rowData' let-index='rowIndex' bkTemplate='body'>
-            <a (click)="editBot(bot.id)">{{bot.name}}</a>
+            {{bot.category.name}}
           </ng-template>
         </bk-column>
         <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col5")}}' sort='true' field='status'>

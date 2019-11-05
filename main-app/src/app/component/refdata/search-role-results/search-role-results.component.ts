@@ -34,9 +34,7 @@ export class SearchRoleResultsComponent extends BaseBotComponent implements OnIn
     this.notificationSub = this.notificationService
       .onNotification()
       .subscribe((data: any) => {
-        if (
-          data.subscriberType === BIZ_BOTS_CONSTANTS.REFRESH_ROLE_SEARCH_RESULTS
-        ) {
+        if (data.subscriberType === BIZ_BOTS_CONSTANTS.REFRESH_ROLE_SEARCH_RESULTS) {
           this.router.navigate(['/ref-data/role/search'],  {queryParams : {ts : (new Date()).getTime()}});
         }
       });

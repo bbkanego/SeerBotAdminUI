@@ -37,6 +37,8 @@
       <div style='margin-bottom: 1em' class='col-sm-12'>
         <bk-button intent='success' [currentFormGroup]='botForm' type='submit'
             label='{{getCommonResources("saveButton")}}'></bk-button>
+        <bk-button intent='danger' *ngIf='isDeleteAllowed()' (click)="deleteBot()" 
+            label='{{getCommonResources("deleteButton")}}'></bk-button>
         <bk-button intent='warning' (click)="revert()" 
             label='{{getCommonResources("revertButton")}}'></bk-button>
         <bk-button intent='danger' (click)="cancel()" 

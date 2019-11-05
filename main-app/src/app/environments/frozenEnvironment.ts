@@ -33,6 +33,7 @@ export const environment = Object.freeze({
   UPLOAD_CUSTOM_INTENT: url + '/api/v1/custom-intent/upload',
   GET_ALL_CMS_CONTENT: url + '/api/cms/all-content',
   START_LAUNCH_BOT: url + '/api/v1/chatbot/launch/start',
+  TEST_BOT: url + '/api/v1/chatbot/test',
   LAUNCH_BOT: url + '/api/v1/chatbot/launch',
   TERMINATE_BOT: url + '/api/v1/chatbot/terminate',
   STOP_BOT: url + '/api/v1/chatbot/stop',

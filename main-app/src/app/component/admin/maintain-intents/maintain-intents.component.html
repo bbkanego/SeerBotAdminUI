@@ -28,26 +28,31 @@
                     <div formArrayName="utterances" class="row">
                       <div class="col-sm-12">
                         <span>Utterance</span>
-                        <span (click)="addUtterance()" class="custom-glyphicon glyphicon glyphicon-plus-sign"></span>
-                        <span *ngIf="utterances.controls.length > 0" (click)="removeLastUtterance()"
-                              class="custom-glyphicon glyphicon glyphicon-remove-sign"></span>
+                        <span (click)="addUtterance()" 
+                        title="{{getResourceLocal('addIntent.addUtterance')}}"
+                        class="custom-glyphicon glyphicon glyphicon-plus-sign"></span>
+                        <!-- <span *ngIf="utterances.controls.length > 1" (click)="removeLastUtterance()"
+                              class="custom-glyphicon glyphicon glyphicon-remove-sign"></span> -->
                       </div>
                       <div class="col-sm-12" *ngFor="let utteranceGrp of utterances.controls; let i=index">
                         <div class="row">
                           <div class="col-sm-1" style="text-align: right">
-                            <span *ngIf="i !== 0 && utterances.controls.length > 0"
+                          </div>
+                          <div class="col-sm-11">
+                            <label class="center-block" for='utterances_utterance{{i}}'>Utterance {{i + 1}}
+                              <span class="glyphicon glyphicon-asterisk icon-required"></span>
+                              <span title="{{getResourceLocal('addIntent.removeUtterance')}}" *ngIf="i !== 0 && utterances.controls.length > 1"
                                   (click)="removeCurrentUtterance(i)"
                                   class="custom-glyphicon glyphicon glyphicon-remove-sign"></span>
+                              <app-bk-input controlId="utterances_utterance{{i}}"
+                                            [currentFormGroup]="utteranceGrp"
+                                            currentFormControlName="utterance"></app-bk-input>
+                            </label>
                           </div>
-                          <div class="col-sm-6">
-                            <app-bk-input controlId="utterances_utterance{{i}}" label="Utterance {{i + 1}}"
-                                          [currentFormGroup]="utteranceGrp"
-                                          currentFormControlName="utterance"></app-bk-input>
-                          </div>
-                          <div class="col-sm-5">
+                          <!-- <div class="col-sm-5">
                             <app-bk-select [currentFormGroup]="utteranceGrp" label="Locale {{i + 1}}"
                                            currentFormControlName="locale" [options]="locales"></app-bk-select>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>
@@ -55,28 +60,32 @@
                   <div class="col-sm-12">
                     <div formArrayName="responses" class="row">
                       <div class="col-sm-12">
-                        <span>Response</span>
-                        <span (click)="addResponse()" class="custom-glyphicon glyphicon glyphicon-plus-sign"></span>
-                        <span *ngIf="responses.controls.length > 0" (click)="removeLastResponse()"
-                              class="custom-glyphicon glyphicon glyphicon-remove-sign"></span>
+                        <span>{{getResourceLocal('addIntent.exactMatchResponse')}}</span>
+                        <!-- <span (click)="addResponse()" class="custom-glyphicon glyphicon glyphicon-plus-sign"></span> -->
                       </div>
                       <div class="col-sm-12" *ngFor="let responsesGrp of responses.controls; let i=index">
                         <div class="row">
                           <div class="col-sm-1">&nbsp;</div>
-                          <div class="col-md-6">
-                            <app-bk-textarea controlId="responses_response{{i}}" label="Response {{i + 1}}"
+                          <div class="col-md-11">
+                              <label class="center-block" for='responses_response{{i}}'>Response <!-- {{i + 1}} -->
+                                  <span class="glyphicon glyphicon-asterisk icon-required"></span>
+                                  <span *ngIf="i !== 0 && responses.controls.length > 1"
+                                      (click)="removeLastResponse(i)"
+                                      class="custom-glyphicon glyphicon glyphicon-remove-sign"></span>
+                                  <app-bk-textarea controlId="responses_response{{i}}"
                                              [currentFormGroup]="responsesGrp"
                                              currentFormControlName="response"></app-bk-textarea>
+                              </label>
                           </div>
-                          <div class="col-md-3">
+                          <!-- <div class="col-md-3">
                             <app-bk-select [currentFormGroup]="responsesGrp" label="Response Type {{i + 1}}"
                                            currentFormControlName="responseType"
                                            [options]="responseTypes"></app-bk-select>
-                          </div>
-                          <div class="col-md-2">
+                          </div> -->
+                          <!-- <div class="col-md-5">
                             <app-bk-select [currentFormGroup]="responsesGrp" label="Locale {{i + 1}}"
                                            currentFormControlName="locale" [options]="locales"></app-bk-select>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>
@@ -84,7 +93,7 @@
                   <div class="col-sm-12">
                     <div class="row">
                       <div class="col-sm-12">
-                        Enter close match response
+                          {{getResourceLocal('addIntent.closeMatchResponse')}}
                       </div>
                     </div>
 
@@ -92,15 +101,15 @@
                       <div class="col-sm-12" *ngFor="let responsesGrp of mayBeIntentResponses.controls; let j=index">
                         <div class="row">
                           <div class="col-sm-1">&nbsp;</div>
-                          <div class="col-md-6">
+                          <div class="col-md-11">
                             <app-bk-textarea controlId="responses_response{{j}}" label="Response"
                                              [currentFormGroup]="responsesGrp"
                                              currentFormControlName="response"></app-bk-textarea>
                           </div>
-                          <div class="col-md-5">
+                          <!-- <div class="col-md-5">
                             <app-bk-select [currentFormGroup]="responsesGrp" label="Locale"
                                            currentFormControlName="locale" [options]="locales"></app-bk-select>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>
@@ -176,5 +185,5 @@
       <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
     </div>
   </form>
-  {{intentsForm.get('mayBeIntent').value   | json}}
+  <!-- {{intentsForm.get('mayBeIntent').value   | json}} -->
 </div>

@@ -162,4 +162,8 @@ export class TrainModelComponent extends BaseBotComponent
       });
     }
   }
+
+  isDeleteAllowed() {
+    return this.trainModel.deleteAllowed;
+  }
 }

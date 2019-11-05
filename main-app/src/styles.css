@@ -275,3 +275,8 @@ textarea {
 .page-header {
   margin-top: 20px !important;
 }
+
+.custom-glyphicon {
+  margin-right: 0px;
+  cursor: pointer;
+}

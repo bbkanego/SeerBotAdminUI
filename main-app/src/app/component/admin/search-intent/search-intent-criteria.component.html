@@ -18,18 +18,9 @@
                   currentFormControlName="intentName"></app-bk-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]="intentSearchForm" label='{{getResource("maintainIntents", "addIntent.utteranceLabel")}}'
-                currentFormControlName="utterance"></app-bk-input>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-6 col-sm-12">
                   <app-bk-select [currentFormGroup]="intentSearchForm" 
                   label='{{getResource("maintainIntents", "addIntent.categoryLabel")}}' currentFormControlName='category'
                   [options]='category'></app-bk-select>
-              </div>
-              <div class="col-lg-6 col-sm-12">
-                
               </div>
             </div>
           </div>

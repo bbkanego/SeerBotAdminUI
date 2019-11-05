@@ -1,9 +1,8 @@
 import { Injectable, Injector } from '@angular/core';
-import { CrudService } from 'my-component-library';
 import { Observable } from 'rxjs/Observable';
-
 import { environment } from '../environments/frozenEnvironment';
 import { BaseBotCrudService } from './baseBotCrud.service';
+
 
 export class LaunchBot {
   constructor(private bot: any, private trainedModelId: number) {}
@@ -37,7 +36,7 @@ export class BotService extends BaseBotCrudService {
   }
 
   public delete(id: string): Observable<any> {
-    throw new Error('Not implemented yet.');
+    return this.deleteRequest(environment.SAVE_BOT, id);
   }
 
   public update(model: any): Observable<any> {
@@ -52,8 +51,12 @@ export class BotService extends BaseBotCrudService {
     return this.getRequest(environment.ALL_BOTS);
   }
 
-  public launchBot(launchBot): Observable<any> {
-    return this.postRequest(environment.LAUNCH_BOT, launchBot);
+  public testBot(launchBot): Observable<any> {
+    return this.postRequest(environment.TEST_BOT, launchBot);
+  }
+
+  public launchBot(bot): Observable<any> {
+    return this.getRequest(environment.LAUNCH_BOT + '/' + bot.id);
   }
 
   public startLaunchBot(id: string): Observable<any> {

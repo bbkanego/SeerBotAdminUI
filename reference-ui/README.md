@@ -75,7 +75,7 @@ http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js
 
 ### **Starting the Server (express based) and Chabotbot (Spring boot)**
 
-1. First make sure chatbot service is running by running the Intellij config: SeerlogicsReferenceBot-local:8099
+1. First make sure chatbot service is running by running the Intellij config: SeerLogicsSharedBot:local-8099
 
 2. Start the chatbot angular client. Go to the dir:
    ```
@@ -99,7 +99,9 @@ http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js
 6. Next we start all the other servers using
 
    ```
-   ~/svn/code/angular/SeerlogicsBotAdminUI/start-all.sh
+   cd ~/svn/code/angular/SeerlogicsBotAdminUI
+
+   ./start-all.sh
    ```
 
    once all the scripts start you can access the example UI using below link:

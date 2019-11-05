@@ -126,6 +126,7 @@ export class MaintainRoleComponent extends BaseBotComponent implements OnInit, O
           this.router.navigate(['/dashboard']);
         } else {
           this.roleForm = null;
+          this.roleModel = null;
           this.notificationService.notify('Refresh Results!', BIZ_BOTS_CONSTANTS.REFRESH_ROLE_SEARCH_RESULTS,
             BIZ_BOTS_CONSTANTS.REFRESH_ROLE_SEARCH_RESULTS);
         }

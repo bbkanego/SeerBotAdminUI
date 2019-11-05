@@ -13,15 +13,15 @@
               {{ getHeader() }}
             </div>
           </div>
-          <div class="form-group">
-            {{ getResourceLocal('test.botUniqueIdUse') }}
+          <div class="form-group" *ngIf="isBotLaunched()">
+            {{ getResourceLocal('launched.botUniqueIdUse') }}
           </div>
-          <div class="row">
+          <div class="row" *ngIf="isBotLaunched()">
             <div class="col-sm-12">
               <dl class="dl-horizontal">
-                <dt>{{ getResourceLocal('test.botUniqueId') }}:</dt>
+                <dt>{{ getResourceLocal('launched.botUniqueId') }}:</dt>
                 <dd>{{ botUniqueId }}</dd>
-                <dt>{{ getResourceLocal('test.chatApiUrl') }}:</dt>
+                <dt>{{ getResourceLocal('launched.chatApiUrl') }}:</dt>
                 <dd>{{ chatApiUrl }}</dd>
               </dl>
             </div>
@@ -31,7 +31,13 @@
               <bk-button
                 (onClick)="stopBot($event)"
                 intent="danger"
-                label="Stop Bot"
+                label="{{ getResourceLocal('startLaunch.stopNowButton') }}"
+              ></bk-button>
+              <bk-button
+                *ngIf='!isBotLaunched()'
+                (onClick)="launchBot($event)"
+                intent="success"
+                label="{{ getResourceLocal('startLaunch.launchNowButton') }}"
               ></bk-button>
             </div>
           </div>
@@ -60,7 +66,7 @@
               class="form-control message_input"
               (keydown)="onKeydownEvent($event)"
               #chatbox
-              placeholder="Type your message here and hit enter..."
+              placeholder="{{ getResourceLocal('startLaunch.typeYourMessage') }}"
             />
             <span class="input-group-btn">
               <button
@@ -68,7 +74,7 @@
                 class="btn btn-default send-button"
                 type="button"
               >
-                Send
+                {{ getResourceLocal('startLaunch.sendLabel') }}
               </button>
             </span>
           </div>

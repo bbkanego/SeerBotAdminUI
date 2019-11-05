@@ -1,35 +1,12 @@
-import {
-  Component,
-  Injector,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ComponentFactoryResolver,
-  ElementRef,
-  ViewContainerRef,
-  Input,
-  ComponentRef,
-  AfterViewChecked,
-  AfterViewInit
-} from '@angular/core';
-import {Response} from '@angular/http';
-import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
+import { AfterViewChecked, AfterViewInit, Component, ComponentFactoryResolver, ComponentRef, ElementRef, Injector, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Response } from '@angular/http';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { UUID } from 'angular2-uuid';
 import * as $ from 'jquery';
-import {BotService} from '../../../service/bot.service';
-import {BaseBotComponent} from '../../common/baseBot.component';
-import {
-  HttpClient,
-  Notification,
-  ChatData,
-  TextChat2ComponentComponent,
-  TableChatComponentComponent,
-  ConfirmChatComponent,
-  OptionsChatComponent,
-  BaseDynamicComponent,
-  StompService
-} from 'my-component-library';
-import {UUID} from 'angular2-uuid';
+import { BaseDynamicComponent, ChatData, ConfirmChatComponent, HttpClient, Notification, OptionsChatComponent, StompService, TableChatComponentComponent, TextChat2ComponentComponent } from 'my-component-library';
+import { Subscription } from 'rxjs/Subscription';
+import { BotService } from '../../../service/bot.service';
+import { BaseBotComponent } from '../../common/baseBot.component';
 
 /**
  * https://bootsnipp.com/snippets/ZlkBn
@@ -152,7 +129,7 @@ export class TestBotComponent extends BaseBotComponent
           this.botAllowedOrigin = this.launchDTO.bot.launchInfo[0].allowedOrigins;
           this.chatApiUrl = this.launchDTO.bot.launchInfo[0].chatUrl;
         }
-        if (this.launchDTO.bot.status.code === 'LAUNCHED') {
+        if (this.launchDTO.bot.status.code === 'TESTING') {
           this.context = 'launched';
           this.sendPingMessage();
         }
@@ -193,10 +170,13 @@ export class TestBotComponent extends BaseBotComponent
   }
 
   getPageHeader() {
-    if (this.context === 'launched') {
+    const statusCode = this.launchDTO.bot.status.code;
+    if (statusCode === 'DRAFT') {
+      return this.commonService.cmsContent['launchBot'].startLaunch.pageHeading;
+    } else if (statusCode === 'TESTING') {
       return this.commonService.cmsContent['launchBot'].test.pageHeading;
     }
-    return this.commonService.cmsContent['launchBot'].startLaunch.pageHeading;
+    return this.commonService.cmsContent['launchBot'].launched.pageHeading;
   }
 
   getCancelButtonLabel() {
@@ -208,15 +188,24 @@ export class TestBotComponent extends BaseBotComponent
 
   stopBot() {
     this.botService.stopBot(this.botId).subscribe(() => {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/admin/init_search_bot'], {queryParams: {'action': 'launchBot'}});
+    });
+  }
+
+  launchBot() {
+    this.botService.launchBot(this.launchDTO.bot).subscribe(() => {
+      this.router.navigate(['/admin/test_start', this.launchDTO.bot.id], { relativeTo: this.activatedRoute });
     });
   }
 
   getHeader() {
-    if (this.context === 'launched') {
+    const statusCode = this.launchDTO.bot.status.code;
+    if (statusCode === 'DRAFT') {
+      return this.commonService.cmsContent['launchBot'].startLaunch.testBotMessage;
+    } else if (statusCode === 'TESTING') {
       return this.commonService.cmsContent['launchBot'].test.message;
     }
-    return this.commonService.cmsContent['launchBot'].startLaunch.message;
+    return this.commonService.cmsContent['launchBot'].launched.botLaunchedMessage;
   }
 
   private deleteChildComponent(eventObj: Notification) {
@@ -474,5 +463,13 @@ export class TestBotComponent extends BaseBotComponent
 
   getResourceLocal(key: string) {
     return this.getResource('launchBot', key);
+  }
+
+  isBotLaunched() {
+    return this.launchDTO.bot.status.code === 'LAUNCHED';
+  }
+
+  isBotInTesting() {
+    return this.launchDTO.bot.status.code === 'TESTING';
   }
 }

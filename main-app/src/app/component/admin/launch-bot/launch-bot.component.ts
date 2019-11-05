@@ -1,18 +1,12 @@
-import {
-  Component,
-  Injector,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
-import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { CustomValidator, Option } from 'my-component-library';
+import { Subscription } from 'rxjs/Subscription';
+import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
+import { BotService } from '../../../service/bot.service';
+import { BaseBotComponent } from '../../common/baseBot.component';
 
-import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
-import {BotService, LaunchBot} from '../../../service/bot.service';
-import {BaseBotComponent} from '../../common/baseBot.component';
-import {FormGroup} from '@angular/forms';
-import {CustomValidator, Option} from 'my-component-library';
 
 @Component({
   selector: 'app-launch-bot',
@@ -73,7 +67,7 @@ export class LaunchBotComponent extends BaseBotComponent
     this.context = 'startLaunch';
     this.createButtonLabel = this.commonService.cmsContent[
       'launchBot'
-      ].startLaunch.launchNowButton;
+    ].startLaunch.launchNowButton;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.validationRuleSubscription = this.validationService
       .getValidationRuleMetadata('validateLaunchBotRule')
@@ -135,8 +129,23 @@ export class LaunchBotComponent extends BaseBotComponent
       });
   }
 
-  launchNow() {
+  testNow() {
     if (this.trainedModelSelectValue !== 'NONE') {
+      const launchBot = this.launchForm.value;
+      this.botCallSub = this.botService
+        .testBot(launchBot)
+        .subscribe(botRes => {
+          this.launchDTO.bot = botRes.bot;
+          this.botAccessUrl = botRes.url1;
+          this.context = 'test';
+          this.router.navigate(['/admin/test_start', botRes.bot.id], { relativeTo: this.activatedRoute });
+          this.trainedModelSelectValue = 'NONE';
+        });
+    }
+  }
+
+  launchNow() {
+    if (this.launchForm.valid) {
       const launchBot = this.launchForm.value;
       this.botCallSub = this.botService
         .launchBot(launchBot)
@@ -160,28 +169,37 @@ export class LaunchBotComponent extends BaseBotComponent
 
   cancel() {
     this.context = null;
-    this.router.navigate(['../../'], {relativeTo: this.activatedRoute});
+    this.router.navigate(['../../'], { relativeTo: this.activatedRoute });
   }
 
   getPageHeader() {
-    if (this.context === 'launched') {
-      return this.commonService.cmsContent['launchBot'].launched.pageHeading;
+    const statusCode = this.launchDTO.bot.status.code;
+    if (statusCode === 'DRAFT') {
+      return this.commonService.cmsContent['launchBot'].startLaunch.pageHeading;
+    } else if (statusCode === 'TESTING') {
+      return this.commonService.cmsContent['launchBot'].test.pageHeading;
     }
-    return this.commonService.cmsContent['launchBot'].startLaunch.pageHeading;
+    return this.commonService.cmsContent['launchBot'].launched.pageHeading;
   }
 
   getCancelButtonLabel() {
-    if (this.context === 'launched') {
+    const statusCode = this.launchDTO.bot.status.code;
+    if (statusCode === 'LAUNCHED') {
+      return this.commonService.cmsContent['commonMessages'].okButton;
+    } else if (statusCode === 'TESTING') {
       return this.commonService.cmsContent['commonMessages'].okButton;
     }
     return this.commonService.cmsContent['commonMessages'].cancelButton;
   }
 
   getHeader() {
-    if (this.context === 'launched') {
-      return this.commonService.cmsContent['launchBot'].launched.message;
+    const statusCode = this.launchDTO.bot.status.code;
+    if (statusCode === 'DRAFT') {
+      return this.commonService.cmsContent['launchBot'].startLaunch.testBotMessage;
+    } else if (statusCode === 'TESTING') {
+      return this.commonService.cmsContent['launchBot'].test.botLaunchedForTesting;
     }
-    return this.commonService.cmsContent['launchBot'].startLaunch.message;
+    return this.commonService.cmsContent['launchBot'].launched.botLaunchedMessage;
   }
 
   getResourceLocal(key: string) {

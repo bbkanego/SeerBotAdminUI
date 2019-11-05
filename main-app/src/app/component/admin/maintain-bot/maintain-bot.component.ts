@@ -134,6 +134,14 @@ export class MaintainBotComponent extends BaseBotComponent implements OnInit, On
     }
   }
 
+  deleteBot() {
+    this.botService.delete(this.botModel.id).subscribe(response => {
+      this.botForm = null;
+      this.notificationService.notify('Refresh Results!', BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS,
+        BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS);
+    });
+  }
+
   cancel() {
     if (this.currentAction === 'add') {
       this.router.navigate(['/dashboard']);
@@ -156,6 +164,10 @@ export class MaintainBotComponent extends BaseBotComponent implements OnInit, On
       prefix = 'editBot';
     }
     return this.getResource('maintainBot', prefix + '.' + key);
+  }
+
+  isDeleteAllowed() {
+    return this.botModel.id !== null;
   }
 
 }

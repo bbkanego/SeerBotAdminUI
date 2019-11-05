@@ -87,6 +87,15 @@ export class BotAuthenticationService {
     return false;
   }
 
+  isAccountAdmin() {
+    if (this.isLoggedIn()) {
+      return JSON.parse(this.getCurrentUser()).roles.some((role) => {
+        return role.code === 'ACCT_ADMIN';
+      });
+    }
+    return false;
+  }
+
   private findMatchingStatement(resource) {
     const allRoles: any[] = JSON.parse(this.getCurrentUser()).roles;
     let found = null;

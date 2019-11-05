@@ -4,7 +4,7 @@
       <h1 class="page-header">{{ getPageHeader() }}</h1>
     </div>
   </div>
-  <div class="row">
+  <div class="row" >
     <div class="col-sm-12">
       <div class="table-box tp-10margin">
         <div class="content padded">
@@ -13,7 +13,7 @@
               {{ getHeader() }}
             </div>
           </div>
-          <form
+          <form *ngIf="launchDTO.bot.status.code === 'DRAFT'"
             [formGroup]="launchForm"
             (ngSubmit)="launchNow($event)"
             novalidate>
@@ -73,11 +73,19 @@
       <bk-button
         intent="success"
         [disabled]="isDisabled()"
-        *ngIf="context === 'startLaunch'"
+        *ngIf="launchDTO.bot.status.code === 'DRAFT'"
+        type="button"
+        (click)="testNow()"
+        label="{{getResourceLocal('startLaunch.testNow')}}"
+      ></bk-button>
+      <!-- <bk-button
+        intent="success"
+        [disabled]="isDisabled()"
+        *ngIf="launchDTO.bot.status.code === 'TESTING'"
         type="button"
         (click)="launchNow()"
         [label]="createButtonLabel"
-      ></bk-button>
+      ></bk-button> -->
       <!-- <bk-button intent='warning' *ngIf='context === "launched"' (click)='restartNow()' label='Restart'></bk-button>
       <bk-button intent='danger' *ngIf='context === "launched"' (click)='stopNow()' label='Stop'></bk-button> -->
       <bk-button
