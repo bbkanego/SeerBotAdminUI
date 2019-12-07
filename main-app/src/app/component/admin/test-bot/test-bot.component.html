@@ -6,6 +6,50 @@
   </div>
   <div class="row">
     <div class="col-sm-12">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                Bot Details
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in table-box">
+                  <div class="panel-body content padded">
+                    <div class="row">
+                        <div class="form-group col-md-2 col-sm-12 displayHeader">
+                          {{ getResourceLocal('startLaunch.nameLabel') }}:
+                        </div>
+                        <div class="form-group col-md-10 col-sm-12">
+                          {{ launchDTO.bot.name }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-2 col-sm-12 displayHeader">
+                          {{ getResourceLocal('startLaunch.trainedModel') }}:
+                        </div>
+                        <div class="form-group col-md-10 col-sm-12">
+                          {{ launchDTO.bot.launchInfo[0].trainedModel.name }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-2 col-sm-12 displayHeader">
+                          {{ getResourceLocal('startLaunch.descriptionLabel') }}:
+                        </div>
+                        <div class="form-group col-md-10 col-sm-12">
+                          {{ launchDTO.bot.description }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-2 col-sm-12 displayHeader">
+                          {{ getResourceLocal('startLaunch.statusLabel') }}:
+                        </div>
+                        <div class="form-group col-md-10 col-sm-12">
+                          {{ launchDTO.bot.status.name }}
+                        </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+
       <div class="table-box tp-10margin">
         <div class="content padded">
           <div class="row">

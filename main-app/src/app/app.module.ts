@@ -8,6 +8,7 @@ import { AccountModule } from './component/account/account.module';
 import { AuthenticationModule } from './component/authentication/authentication.module';
 import { CommonComponentModule } from './component/common/commonComp.module';
 import { DashboardModule } from './component/dashboard/dashboard.module';
+import { StripeGWModule } from './component/stripe/stripe-gw.module';
 import { environment } from './environments/frozenEnvironment';
 import { AuthGuard } from './guard/auth.guard';
 import { LogoutGuard } from './guard/logout.guard';
@@ -23,7 +24,8 @@ import { RoleService } from './service/role.service';
   ],
   imports: [
     BrowserModule, CommonComponentModule, CommonUtilsModule, DashboardModule,
-    AppRoutingModule, AuthenticationModule, BrowserAnimationsModule, AccountModule
+    AppRoutingModule, AuthenticationModule, StripeGWModule,
+    BrowserAnimationsModule, AccountModule
   ],
   providers: [NotificationService, BotAuthenticationService, AuthenticationService,
     CommonService, IntentService, ValidationService, RoleService,

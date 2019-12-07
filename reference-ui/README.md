@@ -73,9 +73,10 @@ http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js
        </script>
    ```
 
-### **Starting the Server (express based) and Chabotbot (Spring boot)**
+### **Starting the Server (express based) and Chatbot (Spring boot)**
 
 1. First make sure chatbot service is running by running the Intellij config: SeerLogicsSharedBot:local-8099
+   When starting the SharedBot make sure that you pass -- "-seerchat.allowedOrigins=http://localhost:4330" as JVM arg.
 
 2. Start the chatbot angular client. Go to the dir:
    ```
@@ -87,7 +88,7 @@ http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js
    npm run local
    ```
 
-4. This will start the chat client at port 4320
+4. This will start the chat client at port 4330.
 
 5. Next make sure you build the latest bootstrap file using webpack and watch for any changes you make while its running using below
 
