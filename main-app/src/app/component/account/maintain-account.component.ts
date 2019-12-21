@@ -13,6 +13,7 @@ import { BaseBotComponent } from '../common/baseBot.component';
 })
 export class MaintainAccountComponent extends BaseBotComponent
   implements OnInit, OnDestroy {
+  accountDetailForm: FormGroup;
   accountForm: FormGroup;
   accountOwner: FormGroup;
   contactModes: FormArray;
@@ -20,7 +21,9 @@ export class MaintainAccountComponent extends BaseBotComponent
   accountModel;
   validationRules: any;
   roles: Option[];
+  plans: Option[];
   validationRuleSubscription: Subscription;
+  planDetailsObj: any = {};
 
   static checkPasswords(group: FormGroup) { // here we have the 'passwords' group
     const pass = group.controls.passwordCapture.value;
@@ -85,21 +88,16 @@ export class MaintainAccountComponent extends BaseBotComponent
   }
 
   private createForm(): void {
-    this.accountForm = this.autoGenFormGroup(
+    this.accountDetailForm = this.autoGenFormGroup(
       this.accountModel,
       this.validationRules
     );
+    this.accountForm = this.accountDetailForm.get('account') as FormGroup;
     this.accountForm.setValidators(MaintainAccountComponent.checkPasswords);
-    /**
-     * To capture role code we add a custom form control. We capture the code and then convert the code
-     * into role object and set that object into the role array.
-     */
-    const rolesValidationRules = this.findValidatorRuleForProperty(
-      this.validationRules,
-      'roles'
-    );
     this.accountOwner = this.accountForm.get('owner') as FormGroup;
     this.contactModes = this.accountOwner.get('contactModes') as FormArray;
+
+    this.plans = this.buildOptions(this.accountModel.referenceData.plans);
   }
 
   private initComponent(): void {
@@ -109,7 +107,7 @@ export class MaintainAccountComponent extends BaseBotComponent
       this.createForm();
     }
 
-    this.roles = this.buildOptions(this.accountModel.referenceData.roles);
+    // this.roles = this.buildOptions(this.accountModel.referenceData.roles);
 
     if (this.currentAction === 'edit') {
       this.notificationService.notifyAny(
@@ -124,11 +122,15 @@ export class MaintainAccountComponent extends BaseBotComponent
     return this.getResource('maintainAccount', key);
   }
 
+  getSubscriptionLabels(key: string): string {
+    return this.getResource('subscription', key);
+  }
+
   onSubmit() {
-    if (this.accountForm.invalid) {
+    if (this.accountDetailForm.invalid) {
     } else {
-      const finalModel = this.accountForm.value;
-      finalModel.owner.contactModes = [];
+      const finalModel = this.accountDetailForm.value;
+      finalModel.account.owner.contactModes = [];
       this.accountService.save(finalModel).subscribe(res => {
         if (this.currentAction === 'add') {
           this.router.navigate(['/login']);
@@ -137,5 +139,19 @@ export class MaintainAccountComponent extends BaseBotComponent
         }
       });
     }
+  }
+
+  onPlanSelect(event) {
+    const membershipPlanCode = event.target.value;
+    // this.accountDetailForm.get('membershipPlanCode').setValue(this.accountDetailForm.value.membershipPlanCode);
+    const selectedPlan = this.accountModel.referenceData.plans
+      .filter(plan => plan.code === membershipPlanCode);
+
+    if (selectedPlan.length > 0) {
+      this.planDetailsObj = selectedPlan[0];
+    } else {
+      this.planDetailsObj = {};
+    }
+
   }
 }

@@ -1,0 +1,63 @@
+<div class="container-fluid" *ngIf="tierForm">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="page-header">
+                {{ getResourceLocal('pageHeading') }}
+            </h1>
+        </div>
+    </div>
+    <form [formGroup]="tierForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-box">
+                    <div class="content padded">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12">
+                                <app-bk-input [currentFormGroup]="tierForm" label="{{ getResourceLocal('name') }}"
+                                    currentFormControlName="name"></app-bk-input>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                                <app-bk-input [currentFormGroup]="tierForm" label="{{
+                                    getResourceLocal('description')
+                                }}" currentFormControlName="description"></app-bk-input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12">
+                                <app-bk-select [currentFormGroup]="tierForm"
+                                    label="{{ getResourceLocal('tierDuration') }}" 
+                                    [options]="tierDurationOptions"
+                                    currentFormControlName="tierDurationString"></app-bk-select>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                                <app-bk-select [currentFormGroup]="tierForm"
+                                    label="{{ getResourceLocal('tierType') }}" 
+                                    [options]="tierTypeOptions"
+                                    currentFormControlName="tierTypeString"></app-bk-select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12">
+                                <app-bk-input [currentFormGroup]="tierForm"
+                                    label="{{ getResourceLocal('minTransactions') }}"
+                                    currentFormControlName="minTransactions"></app-bk-input>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                                <app-bk-input [currentFormGroup]="tierForm" label="{{
+                                    getResourceLocal('maxTransactions')
+                                }}" currentFormControlName="maxTransactions"></app-bk-input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-bottom: 1em" class="col-sm-12">
+            <bk-button intent="success" [disabled]="!tierForm.valid" type="submit"
+                label="{{getCommonResources('saveButton')}}"></bk-button>
+            <bk-button (onClick)="revert()" intent="warning" label="{{getCommonResources('revertButton')}}"></bk-button>
+            &nbsp;<bk-button (onClick)="cancel()" intent="danger" label="{{getCommonResources('cancelButton')}}">
+            </bk-button>
+        </div>
+    </form>
+</div>

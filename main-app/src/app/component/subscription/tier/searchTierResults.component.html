@@ -1,0 +1,35 @@
+<div class='container-fluid'>
+    <div class='row'>
+        <div class='col-sm-12'>
+            <h1 class='page-header'>
+                {{ getResourceLocal('pageHeading') }}:
+                {{ getCommonResources('resultsHeading') }}
+            </h1>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-sm-12'>
+            <bk-datatable [records]='tierResults' #availableTiers smallDeviceHeader='All Tiers' pageSize='6'>
+                <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col1")}}' sort='true' field='name'>
+                    <ng-template let-col="column" let-tier="rowData" let-index="rowIndex" bkTemplate="body">
+                        <a (click)="editTier(tier.id)">{{ tier.name }}</a>
+                    </ng-template>
+                </bk-column>
+                <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col2")}}' sort='true'
+                    field='description'>
+                </bk-column>
+                <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col3")}}' sort='true'
+                    field='tierDuration'></bk-column>
+                <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col4")}}' sort='true' field='tierType'>
+                </bk-column>
+                <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col5")}}' sort='true'
+                    field='minTransactions'>
+                </bk-column>
+                <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col6")}}' sort='true'
+                    field='maxTransactions'>
+                </bk-column>
+            </bk-datatable>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

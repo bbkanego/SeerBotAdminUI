@@ -1,11 +1,11 @@
-import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { CommonService, NotificationService } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 
 import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
 import { BotService } from '../../../service/bot.service';
-import {BaseBotComponent} from "../../common/baseBot.component";
+import { BaseBotComponent } from "../../common/baseBot.component";
 
 @Component({
   selector: 'app-search-bot',
@@ -53,6 +53,15 @@ export class SearchBotComponent extends BaseBotComponent implements OnInit, OnDe
   }
 
   private searchBots(model) {
+
+    if (!model) {
+      model = this.botService.getSessionStorageItem('searchBotModel');
+      this.botService.setActionContext(this.botService.getSessionStorageItem('actionCtx'));
+    } else {
+      this.botService.setSessionStorageItem('searchBotModel', model);
+      this.botService.setSessionStorageItem('actionCtx', this.botService.getActionContext());
+    }
+
     this.getAllSubscription = this.botService
       .searchBot(model)
       .subscribe(results => {

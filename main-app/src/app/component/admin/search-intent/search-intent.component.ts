@@ -43,6 +43,11 @@ export class SearchIntentComponent extends BaseBotComponent implements OnInit, O
   }
 
   private searchIntents(model) {
+    if (!model) {
+      model = this.intentService.getSessionStorageItem('searchIntentsModel');
+    } else {
+      this.intentService.setSessionStorageItem('searchIntentsModel', model);
+    }
     this.allIntents = this.intentService
       .searchIntents(model)
       .subscribe(results => {
@@ -59,7 +64,7 @@ export class SearchIntentComponent extends BaseBotComponent implements OnInit, O
 
   editIntent(id: string) {
     this.router.navigate(['edit', id], {
-      queryParams: {action: this.intentService.getActionContext()},
+      queryParams: { action: this.intentService.getActionContext() },
       relativeTo: this.activatedRoute
     });
   }

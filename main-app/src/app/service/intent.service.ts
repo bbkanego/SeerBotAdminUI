@@ -6,7 +6,7 @@ import { BaseBotCrudService } from './baseBotCrud.service';
 @Injectable()
 export class IntentService extends BaseBotCrudService {
   private allIntents;
-  private intentSearchForm = {};
+  private intentSearchForm = null;
 
   constructor(injector: Injector) {
     super(injector);

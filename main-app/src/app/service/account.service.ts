@@ -34,6 +34,6 @@ export class AccountService extends BaseBotCrudService {
   }
 
   initModelByType(type: string): Observable<any> {
-    return this.getRequest(environment.INIT_ACCT_URL + '/' + type);
+    return this.getRequest(environment.INIT_SUBSCRIPTION_URL + '/' + type);
   }
 }

@@ -42,6 +42,12 @@ const ROUTES: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'subscription',
+    loadChildren:
+      './component/subscription/subscription.module#SubscriptionModule',
+    canActivate: [AuthGuard]
+  },
+  {
     // This is default route. this will automatically redirect the user to dashboard if the context path is "/"
     path: '',
     redirectTo: '/dashboard',
@@ -64,4 +70,4 @@ const ROUTES: Routes = [
   // imports:[RouterModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules})], -- allows preloading of lazy modules
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

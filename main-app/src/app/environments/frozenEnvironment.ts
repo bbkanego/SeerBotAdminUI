@@ -48,12 +48,20 @@ export const environment = Object.freeze({
   TRAIN_MODELS: url + '/api/v1/model',
   SEND_CHAT_URL: url + '/chatbot/api/chats',
   INIT_ACCT_URL: url + '/api/v1/account/init',
-  SIGN_UP_ACCT_URL: url + '/api/v1/account/signup',
+  SIGN_UP_ACCT_URL: url + '/api/v1/subscription/signup',
   INIT_CATEGORY_URL: url + '/api/v1/category/init',
   SAVE_CATEGORY_URL: url + '/api/v1/category',
   GET_FOR_EDIT_CATEGORY_URL: url + '/api/v1/category/get-for-edit',
   SAVE_ACTION_URL: url + '/api/v1/action',
   SAVE_POLICY_URL: url + '/api/v1/policy',
   SAVE_RESOURCE_URL: url + '/api/v1/resource',
-  SAVE_ROLE_URL: url + '/api/v1/role'
+  SAVE_ROLE_URL: url + '/api/v1/role',
+  INIT_TIER_URL: url + '/api/v1/tier/init',
+  TIER_URL: url + '/api/v1/tier',
+  GET_ALL_TIER_URL: url + '/api/v1/tier/getAll',
+  SUBSCRIPTION_URL: url + '/api/v1/subscription',
+  INIT_SUBSCRIPTION_URL: url + '/api/v1/subscription/init',
+  INIT_PLAN_URL: url + '/api/v1/plan/init',
+  PLAN_URL: url + '/api/v1/plan',
+  GET_ALL_PLAN_URL: url + '/api/v1/plan/getAll'
 });

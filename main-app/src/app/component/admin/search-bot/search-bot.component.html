@@ -4,7 +4,8 @@
   </div>
   <div class='row'>
     <div class='col-sm-12'>
-      <bk-datatable [records]='botResults' #bkTop5Heroes smallDeviceHeader='Top 5 Heroes' pageSize='6'>
+      <bk-datatable [records]='botResults' #bkTop5Heroes 
+      smallDeviceHeader='{{getResourceLocal("resultsTable.heading")}}' pageSize='6'>
         <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col1")}}' sort='true' field='name'>
             <ng-template let-col='column' let-bot='rowData' let-index='rowIndex' bkTemplate='body'>
                 <a (click)="editBot(bot.id)">{{bot.name}}</a>

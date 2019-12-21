@@ -2,7 +2,7 @@
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-@import url('https://fonts.googleapis.com/css?family=Lato|Nanum+Gothic|Ubuntu');
+@import url("https://fonts.googleapis.com/css?family=Lato|Nanum+Gothic|Ubuntu");
 /*https://fonts.googleapis.com/css?family=Raleway|Lato|Ubuntu*/
 
 body {
@@ -33,7 +33,7 @@ body {
 .error-bullet li:before {
   /*Using a Bootstrap glyphicon as the bullet point*/
   content: "\e029";
-  font-family: 'Glyphicons Halflings';
+  font-family: "Glyphicons Halflings";
   font-size: 1.5rem;
   line-height: 2.5rem;
   float: left;
@@ -101,7 +101,7 @@ input.ng-invalid.ng-touched.ng-star.inserted {
   white-space: normal !important;
 }
 
-a.actionLink {
+a {
   cursor: pointer;
 }
 
@@ -122,7 +122,7 @@ a.actionLink {
   margin-bottom: 10px;
 }
 
-.modal2.in~.modal-backdrop.in {
+.modal2.in ~ .modal-backdrop.in {
   background-color: #f00;
 }
 
@@ -151,14 +151,14 @@ div.table-box {
 
 div.table-box .header {
   /* background-color: #e4f9d9; */
-  font-size: 1.30em;
-  font-family: 'Lato', Arial, Helvetica, sans-serif;
+  font-size: 1.3em;
+  font-family: "Lato", Arial, Helvetica, sans-serif;
   font-weight: 570;
   text-transform: uppercase;
-  padding: 0.50em;
-  padding-bottom: 0.20em;
-  padding-top: 0.20em;
-  border-bottom: 1px solid #BDBDBD;
+  padding: 0.5em;
+  padding-bottom: 0.2em;
+  padding-top: 0.2em;
+  border-bottom: 1px solid #bdbdbd;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
@@ -169,7 +169,7 @@ div.table-box .content {
   padding-bottom: 0.5em;
   padding-right: 0.5em;
   border-radius: 3px;
-  border-bottom: 1px dashed #BDBDBD;
+  border-bottom: 1px dashed #bdbdbd;
   /* border-right: 1px dashed #BDBDBD;
   border-left: 1px dashed #BDBDBD; */
 }
@@ -197,7 +197,7 @@ div.table-box .displayHeader {
 }
 
 .readOnlyTable .readOnlyRow {
-  border-bottom: 1px dashed #BDBDBD;
+  border-bottom: 1px dashed #bdbdbd;
 }
 
 /*CSS table box-----------------------*/
@@ -210,7 +210,7 @@ label {
 input,
 select {
   color: #000 !important;
-  border: 1px solid #BDBDBD !important;
+  border: 1px solid #bdbdbd !important;
   background-color: transparent !important;
   font-size: 1em !important;
   height: 1.85em !important;
@@ -223,7 +223,7 @@ select {
 
 textarea {
   color: #000 !important;
-  border: 1px solid #BDBDBD !important;
+  border: 1px solid #bdbdbd !important;
   background-color: transparent !important;
   font-size: 1em !important;
 }
@@ -235,9 +235,9 @@ textarea {
 }
 
 /* Tooltip */
-.egTooltip+.tooltip>.tooltip-inner {
-  background-color: #73AD21;
-  color: #FFFFFF;
+.egTooltip + .tooltip > .tooltip-inner {
+  background-color: #73ad21;
+  color: #ffffff;
   border: 1px solid rgb(146, 216, 146);
   padding: 10px;
   opacity: 1;
@@ -245,22 +245,22 @@ textarea {
 }
 
 /* Tooltip on top */
-.egTooltip+.tooltip.top>.tooltip-arrow {
+.egTooltip + .tooltip.top > .tooltip-arrow {
   border-top: 5px solid green;
 }
 
 /* Tooltip on bottom */
-.egTooltip+.tooltip.bottom>.tooltip-arrow {
+.egTooltip + .tooltip.bottom > .tooltip-arrow {
   border-bottom: 5px solid blue;
 }
 
 /* Tooltip on left */
-.egTooltip+.tooltip.left>.tooltip-arrow {
+.egTooltip + .tooltip.left > .tooltip-arrow {
   border-left: 5px solid red;
 }
 
 /* Tooltip on right */
-.egTooltip+.tooltip.right>.tooltip-arrow {
+.egTooltip + .tooltip.right > .tooltip-arrow {
   border-right: 5px solid black;
 }
 

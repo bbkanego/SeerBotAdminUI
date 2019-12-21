@@ -5,21 +5,12 @@
   </div>-->
   <ul class="list-unstyled components">
     <li *ngIf="getAuthenticationService().isAdmin()">
-      <a
-        [routerLink]="['/dashboard']"
-        data-toggle="collapse"
-        aria-expanded="false"
-      >
+      <a [routerLink]="['/dashboard']" data-toggle="collapse" aria-expanded="false">
         <i class="headingLi glyphicon glyphicon-dashboard"></i>Dashboard
       </a>
     </li>
     <li *ngIf="getAuthenticationService().isAdmin()">
-      <a
-        href="#refDataSubMenu"
-        data-toggle="collapse"
-        aria-expanded="false"
-        class="dropdown-toggle"
-      >
+      <a href="#refDataSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-th-list"></i>
         {{ getResourceLocal('refData.heading')}}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
@@ -30,10 +21,10 @@
           }}</a>
         </li>
         <li>
-            <a [routerLink]="['/ref-data/category/search']">{{
+          <a [routerLink]="['/ref-data/category/search']">{{
               getResourceLocal('refData.category.search')
             }}</a>
-          </li>
+        </li>
         <li *ngIf="getAuthenticationService().isUberAdmin()">
           <a [routerLink]="['/ref-data/action/add/init']">{{
             getResourceLocal('refData.action.create')
@@ -77,98 +68,72 @@
       </ul>
     </li>
     <li *ngIf="getAuthenticationService().isUberAdmin()">
-      <a
-        href="#homeSubmenu"
-        data-toggle="collapse"
-        aria-expanded="false"
-        class="dropdown-toggle"
-      >
-        <i class="headingLi glyphicon glyphicon-king"></i
-        >{{ getResourceLocal('admin.heading')
+      <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+        <i class="headingLi glyphicon glyphicon-king"></i>{{ getResourceLocal('admin.heading')
         }}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="homeSubmenu">
         <li>
-          <a
-            [routerLink]="['/admin/add_intent']"
-            [queryParams]="{ action: 'predefined' }"
-            >{{ getResourceLocal('admin.option1') }}</a
-          >
+          <a [routerLink]="['/admin/add_intent']"
+            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option1') }}</a>
         </li>
         <li>
-          <a
-            [routerLink]="['/admin/start_search_intent']"
-            [queryParams]="{ action: 'predefined' }"
-            >{{ getResourceLocal('admin.option2') }}</a
-          >
+          <a [routerLink]="['/admin/start_search_intent']"
+            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option2') }}</a>
         </li>
         <li>
-          <a
-            [routerLink]="['/model/start-train-model']"
-            [queryParams]="{ action: 'predefined' }"
-            >{{ getResourceLocal('admin.option3') }}</a
-          >
+          <a [routerLink]="['/model/start-train-model']"
+            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option3') }}</a>
         </li>
         <li>
-          <a
-            [routerLink]="['/model/search-models']"
-            [queryParams]="{ action: 'predefined' }"
-            >{{ getResourceLocal('admin.option4') }}</a
-          >
+          <a [routerLink]="['/model/search-models']"
+            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option4') }}</a>
+        </li>
+        <li>
+          <a [routerLink]="['/subscription/add-tier']"
+            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option5') }}</a>
+        </li>
+        <li>
+          <a [routerLink]="['/subscription/search-tier']"
+            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option6') }}</a>
+        </li>
+        <li>
+          <a [routerLink]="['/subscription/add-plan']"
+            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option7') }}</a>
+        </li>
+        <li>
+          <a [routerLink]="['/subscription/search-plan']"
+            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option8') }}</a>
         </li>
       </ul>
     </li>
     <li *ngIf="getAuthenticationService().isAccountAdmin()">
-      <a
-        href="#botsLife"
-        data-toggle="collapse"
-        aria-expanded="false"
-        class="dropdown-toggle"
-      >
-        <i class="headingLi glyphicon glyphicon-user"></i
-        >{{ getResourceLocal('maintainIntents.heading')
+      <a href="#botsLife" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+        <i class="headingLi glyphicon glyphicon-user"></i>{{ getResourceLocal('maintainIntents.heading')
         }}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="botsLife">
         <li>
-          <a
-            [routerLink]="['/admin/add_intent']"
-            [queryParams]="{ action: 'custom' }"
-            >{{ getResourceLocal('maintainIntents.option1') }}</a
-          >
+          <a [routerLink]="['/admin/add_intent']"
+            [queryParams]="{ action: 'custom' }">{{ getResourceLocal('maintainIntents.option1') }}</a>
         </li>
         <li>
-          <a
-            [routerLink]="['/admin/start_search_intent']"
-            [queryParams]="{ action: 'custom' }"
-            >{{ getResourceLocal('maintainIntents.option2') }}</a
-          >
+          <a [routerLink]="['/admin/start_search_intent']"
+            [queryParams]="{ action: 'custom' }">{{ getResourceLocal('maintainIntents.option2') }}</a>
         </li>
         <li>
-          <a
-            [routerLink]="['/model/start-train-model']"
-            [queryParams]="{ action: 'custom' }"
-            >{{ getResourceLocal('maintainIntents.option3') }}</a
-          >
+          <a [routerLink]="['/model/start-train-model']"
+            [queryParams]="{ action: 'custom' }">{{ getResourceLocal('maintainIntents.option3') }}</a>
         </li>
         <li>
-          <a
-            [routerLink]="['/model/search-models']"
-            [queryParams]="{ action: 'custom' }"
-            >{{ getResourceLocal('maintainIntents.option4') }}</a
-          >
+          <a [routerLink]="['/model/search-models']"
+            [queryParams]="{ action: 'custom' }">{{ getResourceLocal('maintainIntents.option4') }}</a>
         </li>
       </ul>
     </li>
-    <li  *ngIf="getAuthenticationService().isAccountAdmin()">
-      <a
-        href="#maintainModel"
-        data-toggle="collapse"
-        aria-expanded="false"
-        class="dropdown-toggle"
-      >
-        <i class="headingLi glyphicon glyphicon-play-circle"></i
-        >{{ getResourceLocal('maintainBots.heading')
+    <li *ngIf="getAuthenticationService().isAccountAdmin()">
+      <a href="#maintainModel" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+        <i class="headingLi glyphicon glyphicon-play-circle"></i>{{ getResourceLocal('maintainBots.heading')
         }}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="maintainModel">
@@ -178,38 +143,23 @@
           }}</a>
         </li>
         <li>
-          <a
-            [routerLink]="['/admin/init_search_bot']"
-            [queryParams]="{ action: 'editBot' }"
-            >{{ getResourceLocal('maintainBots.option2') }}</a
-          >
+          <a [routerLink]="['/admin/init_search_bot']"
+            [queryParams]="{ action: 'editBot' }">{{ getResourceLocal('maintainBots.option2') }}</a>
         </li>
         <li>
-          <a
-            [routerLink]="['/admin/init_search_bot']"
-            [queryParams]="{ action: 'launchBot' }"
-            >{{ getResourceLocal('maintainBots.option3') }}</a
-          >
+          <a [routerLink]="['/admin/init_search_bot']"
+            [queryParams]="{ action: 'launchBot' }">{{ getResourceLocal('maintainBots.option3') }}</a>
         </li>
         <li>
-          <a
-            [routerLink]="['/admin/init_search_bot']"
-            [queryParams]="{ action: 'testBot' }"
-            >{{ getResourceLocal('maintainBots.option4') }}</a
-          >
+          <a [routerLink]="['/admin/init_search_bot']"
+            [queryParams]="{ action: 'testBot' }">{{ getResourceLocal('maintainBots.option4') }}</a>
         </li>
       </ul>
     </li>
     <li>
-      <a
-        href="#stateMachineModel"
-        data-toggle="collapse"
-        aria-expanded="false"
-        class="dropdown-toggle"
-      >
+      <a href="#stateMachineModel" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-play-circle"></i>Modelling<i
-          class="fa fa-fw fa-angle-down pull-right"
-        ></i>
+          class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
       <ul class="collapse list-unstyled" id="stateMachineModel">
         <li><a [routerLink]="['/state-machine']">Model</a></li>
