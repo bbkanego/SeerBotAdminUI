@@ -49,7 +49,7 @@
     {{botForm.value | json}} -->
   </form>
 
-  <app-bk-custom-modal (modalState)="errorModelState($event)">
+  <app-bk-custom-modal>
     <div class="app-modal-header">
       <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal("deleteHeading")}}
     </div>
@@ -57,7 +57,7 @@
         {{getResourceLocal("deleteMessage")}}
     </div>
     <div class="app-modal-footer">
-      <bk-button intent="success" (click)='errorModal.hide()' label="{{ getCommonResources('noButton') }}">
+      <bk-button intent="success" (click)='deleteBotModal.hide()' label="{{ getCommonResources('noButton') }}">
       </bk-button>
       <bk-button intent="danger" (click)="deleteBot()" label="{{ getCommonResources('deleteButton') }}"></bk-button>
     </div>

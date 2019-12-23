@@ -6,49 +6,49 @@
   </div>
   <div class="row">
     <div class="col-sm-12">
-        <div class="panel-group" id="accordion">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                Bot Details
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            {{getResourceLocal('startLaunch.pageSubsectionHeading')}}
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse in table-box">
+            <div class="panel-body content padded">
+              <div class="row">
+                <div class="form-group col-md-2 col-sm-12 displayHeader">
+                  {{ getResourceLocal('startLaunch.nameLabel') }}:
+                </div>
+                <div class="form-group col-md-10 col-sm-12">
+                  {{ launchDTO.bot.name }}
+                </div>
               </div>
-              <div id="collapseOne" class="panel-collapse collapse in table-box">
-                  <div class="panel-body content padded">
-                    <div class="row">
-                        <div class="form-group col-md-2 col-sm-12 displayHeader">
-                          {{ getResourceLocal('startLaunch.nameLabel') }}:
-                        </div>
-                        <div class="form-group col-md-10 col-sm-12">
-                          {{ launchDTO.bot.name }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-2 col-sm-12 displayHeader">
-                          {{ getResourceLocal('startLaunch.trainedModel') }}:
-                        </div>
-                        <div class="form-group col-md-10 col-sm-12">
-                          {{ launchDTO.bot.launchInfo[0].trainedModel.name }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-2 col-sm-12 displayHeader">
-                          {{ getResourceLocal('startLaunch.descriptionLabel') }}:
-                        </div>
-                        <div class="form-group col-md-10 col-sm-12">
-                          {{ launchDTO.bot.description }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-2 col-sm-12 displayHeader">
-                          {{ getResourceLocal('startLaunch.statusLabel') }}:
-                        </div>
-                        <div class="form-group col-md-10 col-sm-12">
-                          {{ launchDTO.bot.status.name }}
-                        </div>
-                    </div>
-                  </div>
+              <div class="row">
+                <div class="form-group col-md-2 col-sm-12 displayHeader">
+                  {{ getResourceLocal('startLaunch.trainedModel') }}:
+                </div>
+                <div class="form-group col-md-10 col-sm-12">
+                  {{ launchDTO.bot.launchInfo[0].trainedModel.name }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-2 col-sm-12 displayHeader">
+                  {{ getResourceLocal('startLaunch.descriptionLabel') }}:
+                </div>
+                <div class="form-group col-md-10 col-sm-12">
+                  {{ launchDTO.bot.description }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-2 col-sm-12 displayHeader">
+                  {{ getResourceLocal('startLaunch.statusLabel') }}:
+                </div>
+                <div class="form-group col-md-10 col-sm-12">
+                  {{ launchDTO.bot.status.name }}
+                </div>
               </div>
             </div>
+          </div>
         </div>
+      </div>
 
       <div class="table-box tp-10margin">
         <div class="content padded">
@@ -73,13 +73,13 @@
           <div class="row">
             <div class="form-group col-sm-12">
               <bk-button
-                (onClick)="stopBot($event)"
+                (onClick)="showStopBot()"
                 intent="danger"
                 label="{{ getResourceLocal('startLaunch.stopNowButton') }}"
               ></bk-button>
               <bk-button
                 *ngIf='!isBotLaunched()'
-                (onClick)="launchBot($event)"
+                (onClick)="showLaunchBotModal()"
                 intent="success"
                 label="{{ getResourceLocal('startLaunch.launchNowButton') }}"
               ></bk-button>
@@ -89,6 +89,35 @@
       </div>
     </div>
   </div>
+
+  <app-bk-custom-modal #stopBotModal>
+    <div class="app-modal-header">
+      <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal("startLaunch.stopBotHeading")}}
+    </div>
+    <div class="app-modal-body">
+      {{getResourceLocal("startLaunch.stopBotMessage")}}
+    </div>
+    <div class="app-modal-footer">
+      <bk-button intent="success" (click)='testBotModal.hide()' label="{{ getCommonResources('noButton') }}">
+      </bk-button>
+      <bk-button intent="danger" (click)="stopBot()" label="{{ getCommonResources('deleteButton') }}"></bk-button>
+    </div>
+  </app-bk-custom-modal>
+
+  <app-bk-custom-modal #launchBotModal>
+    <div class="app-modal-header">
+      <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal("startLaunch.launchBotHeading")}}
+    </div>
+    <div class="app-modal-body">
+      {{getResourceLocal("startLaunch.launchBotMessage")}}
+    </div>
+    <div class="app-modal-footer">
+      <bk-button intent="success" (click)='launchBotModal.hide()' label="{{ getCommonResources('noButton') }}">
+      </bk-button>
+      <bk-button intent="danger" (click)="launchBot()" label="{{ getCommonResources('deleteButton') }}"></bk-button>
+    </div>
+  </app-bk-custom-modal>
+
   <div class="row">
     <div class="col-sm-12">
       <div class="chat_window">
@@ -110,14 +139,12 @@
               class="form-control message_input"
               (keydown)="onKeydownEvent($event)"
               #chatbox
-              placeholder="{{ getResourceLocal('startLaunch.typeYourMessage') }}"
-            />
+              placeholder="{{ getResourceLocal('startLaunch.typeYourMessage') }}"/>
             <span class="input-group-btn">
               <button
                 (click)="sendMessage()"
                 class="btn btn-default send-button"
-                type="button"
-              >
+                type="button">
                 {{ getResourceLocal('startLaunch.sendLabel') }}
               </button>
             </span>

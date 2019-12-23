@@ -1,12 +1,36 @@
-import { AfterViewChecked, AfterViewInit, Component, ComponentFactoryResolver, ComponentRef, ElementRef, Injector, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { Response } from '@angular/http';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { UUID } from 'angular2-uuid';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  ElementRef,
+  Injector,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
+import {Response} from '@angular/http';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {UUID} from 'angular2-uuid';
 import * as $ from 'jquery';
-import { BaseDynamicComponent, ChatData, ConfirmChatComponent, HttpClient, Notification, OptionsChatComponent, StompService, TableChatComponentComponent, TextChat2ComponentComponent } from 'my-component-library';
-import { Subscription } from 'rxjs/Subscription';
-import { BotService } from '../../../service/bot.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {
+  BaseDynamicComponent,
+  ChatData,
+  ConfirmChatComponent,
+  HttpClient,
+  ModalComponent,
+  Notification,
+  OptionsChatComponent,
+  StompService,
+  TableChatComponentComponent,
+  TextChat2ComponentComponent
+} from 'my-component-library';
+import {Subscription} from 'rxjs/Subscription';
+import {BotService} from '../../../service/bot.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 /**
  * https://bootsnipp.com/snippets/ZlkBn
@@ -53,6 +77,8 @@ export class TestBotComponent extends BaseBotComponent
   private messageSide = 'left';
   private uniqueClientId;
   private botId;
+  @ViewChild('stopBotModal') testBotModal: ModalComponent;
+  @ViewChild('launchBotModal') launchBotModal: ModalComponent;
 
   @Input()
   hostUrl: string;
@@ -186,15 +212,25 @@ export class TestBotComponent extends BaseBotComponent
     return this.commonService.cmsContent['commonMessages'].cancelButton;
   }
 
+  showStopBot() {
+    this.testBotModal.show();
+  }
+
+  showLaunchBotModal() {
+    this.launchBotModal.show();
+  }
+
   stopBot() {
+    this.testBotModal.hide();
     this.botService.stopBot(this.botId).subscribe(() => {
       this.router.navigate(['/admin/init_search_bot'], {queryParams: {'action': 'launchBot'}});
     });
   }
 
   launchBot() {
+    this.launchBotModal.hide();
     this.botService.launchBot(this.launchDTO.bot).subscribe(() => {
-      this.router.navigate(['/admin/test_start', this.launchDTO.bot.id], { relativeTo: this.activatedRoute });
+      this.router.navigate(['/admin/test_start', this.launchDTO.bot.id], {relativeTo: this.activatedRoute});
     });
   }
 
