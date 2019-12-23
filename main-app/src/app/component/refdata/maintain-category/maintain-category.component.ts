@@ -1,6 +1,7 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { ModalComponent } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
 import { CategoryService } from '../../../service/category.service';
@@ -17,6 +18,7 @@ export class MaintainCategoryComponent extends BaseBotComponent implements OnIni
   validationRuleSubscription: Subscription;
   categoryServiceSubscription: Subscription;
   catModel: any;
+  @ViewChild(ModalComponent) deleteCategoryModal: ModalComponent;
 
   constructor(injector: Injector, private categoryService: CategoryService, private router: Router,
     private activatedRoute: ActivatedRoute) {
@@ -101,5 +103,21 @@ export class MaintainCategoryComponent extends BaseBotComponent implements OnIni
 
   getResourceLocal(key: string) {
     return this.getResource('refData', key);
+  }
+
+  delete() {
+    this.deleteCategoryModal.hide();
+    this.categoryService.delete(this.catModel.id).subscribe(res => {
+      this.notificationService.notify('Refresh Results!', BIZ_BOTS_CONSTANTS.REFRESH_CATEGORY_SEARCH_RESULTS,
+        BIZ_BOTS_CONSTANTS.REFRESH_CATEGORY_SEARCH_RESULTS);
+    });
+  }
+
+  showDeleteModel() {
+    this.deleteCategoryModal.show();
+  }
+
+  showDeleteButton() {
+    return this.catModel.id !== null;
   }
 }

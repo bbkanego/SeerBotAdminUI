@@ -277,4 +277,19 @@ textarea {
 .custom-glyphicon {
   margin-right: 0px;
   cursor: pointer;
+  color: #eb8334;
+}
+
+.red-glyphicon {
+  margin-right: 0px;
+  cursor: pointer;
+  color: #f73100ef;
+  font-size: 20px;
+}
+
+.green-glyphicon {
+  margin-right: 0px;
+  cursor: pointer;
+  color: #0d8109da;
+  font-size: 20px;
 }

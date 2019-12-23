@@ -1,12 +1,12 @@
 import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, NgModel } from '@angular/forms';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { BaseReactiveComponent, Option, SUBSCRIBER_TYPES, CommonService } from 'my-component-library';
+import { Option, SUBSCRIBER_TYPES, ModalComponent } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
-
-import { BotService } from '../../../service/bot.service';
 import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
+import { BotService } from '../../../service/bot.service';
 import { BaseBotComponent } from '../../common/baseBot.component';
+
 
 @Component({
   selector: 'app-maintain-bot',
@@ -26,6 +26,8 @@ export class MaintainBotComponent extends BaseBotComponent implements OnInit, On
   category: Option[] = [];
   botServiceSubscription: Subscription;
   currentEditCategory: any;
+
+  @ViewChild(ModalComponent) deleteBotModal: ModalComponent;
 
   constructor(injector: Injector, private activatedRoute: ActivatedRoute,
     private botService: BotService, private router: Router) {
@@ -135,11 +137,16 @@ export class MaintainBotComponent extends BaseBotComponent implements OnInit, On
   }
 
   deleteBot() {
+    this.deleteBotModal.hide();
     this.botService.delete(this.botModel.id).subscribe(response => {
       this.botForm = null;
       this.notificationService.notify('Refresh Results!', BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS,
         BIZ_BOTS_CONSTANTS.REFRESH_BOTS_SEARCH_RESULTS);
     });
+  }
+
+  showDeleteModel() {
+    this.deleteBotModal.show();
   }
 
   cancel() {

@@ -1,4 +1,4 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment, Params } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import {
@@ -6,7 +6,8 @@ import {
   Option,
   SUBSCRIBER_TYPES,
   Notification,
-  CustomValidator
+  CustomValidator,
+  ModalComponent
 } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 import { NlpModelService } from '../../../service/nlp-model.service';
@@ -27,6 +28,7 @@ export class TrainModelComponent extends BaseBotComponent
   validationRuleSubscription: Subscription;
   viewModelSubscription: Subscription;
   currentContext: string;
+  @ViewChild(ModalComponent) deleteModelModal: ModalComponent;
 
   constructor(
     injector: Injector,
@@ -87,7 +89,9 @@ export class TrainModelComponent extends BaseBotComponent
     this.router.navigate(['/dashboard']);
   }
 
-  delete(id) {
+  delete() {
+    const id = this.trainModel.id;
+    this.deleteModelModal.hide();
     this.nlpService.delete(id).subscribe(() => {
       this.notificationService.notify(
         'Refresh Results!',
@@ -161,6 +165,10 @@ export class TrainModelComponent extends BaseBotComponent
         this.router.navigate(['/dashboard']);
       });
     }
+  }
+
+  showDeleteModel() {
+    this.deleteModelModal.show();
   }
 
   isDeleteAllowed() {

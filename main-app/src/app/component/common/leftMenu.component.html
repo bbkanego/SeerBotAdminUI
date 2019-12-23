@@ -10,11 +10,12 @@
       </a>
     </li>
     <li *ngIf="getAuthenticationService().isAdmin()">
-      <a href="#refDataSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+      <a href="#refDataSubMenu" data-toggle="collapse" (click)="trackMenu('refDataSubMenu')" aria-expanded="false"
+        class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-th-list"></i>
         {{ getResourceLocal('refData.heading')}}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
-      <ul class="collapse list-unstyled" id="refDataSubMenu">
+      <ul class="collapse list-unstyled" id="refDataSubMenu" #refDataSubMenuUl>
         <li>
           <a [routerLink]="['/ref-data/category/add/init']">{{
             getResourceLocal('refData.category.create')
@@ -68,11 +69,12 @@
       </ul>
     </li>
     <li *ngIf="getAuthenticationService().isUberAdmin()">
-      <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+      <a href="#uberAdminTasks" data-toggle="collapse" (click)="trackMenu('uberAdminTasks')" aria-expanded="false"
+        class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-king"></i>{{ getResourceLocal('admin.heading')
         }}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
-      <ul class="collapse list-unstyled" id="homeSubmenu">
+      <ul class="collapse list-unstyled" id="uberAdminTasks" #uberAdminTasksUl>
         <li>
           <a [routerLink]="['/admin/add_intent']"
             [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option1') }}</a>
@@ -108,11 +110,12 @@
       </ul>
     </li>
     <li *ngIf="getAuthenticationService().isAccountAdmin()">
-      <a href="#botsLife" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+      <a href="#botsLife" data-toggle="collapse" (click)="trackMenu('maintainIntents')" aria-expanded="false"
+        class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-user"></i>{{ getResourceLocal('maintainIntents.heading')
         }}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
-      <ul class="collapse list-unstyled" id="botsLife">
+      <ul class="collapse list-unstyled" id="botsLife" #botsLifeUl>
         <li>
           <a [routerLink]="['/admin/add_intent']"
             [queryParams]="{ action: 'custom' }">{{ getResourceLocal('maintainIntents.option1') }}</a>
@@ -132,11 +135,12 @@
       </ul>
     </li>
     <li *ngIf="getAuthenticationService().isAccountAdmin()">
-      <a href="#maintainModel" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+      <a href="#maintainModel" data-toggle="collapse" (click)="trackMenu('maintainModel')" aria-expanded="false"
+        class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-play-circle"></i>{{ getResourceLocal('maintainBots.heading')
         }}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
-      <ul class="collapse list-unstyled" id="maintainModel">
+      <ul class="collapse list-unstyled" id="maintainModel" #maintainModelUl>
         <li>
           <a [routerLink]="['/admin/add-bot']">{{
             getResourceLocal('maintainBots.option1')

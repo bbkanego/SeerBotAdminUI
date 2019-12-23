@@ -1,13 +1,12 @@
 import { Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
-import { CustomValidator, Option, SelectComponent, SUBSCRIBER_TYPES } from 'my-component-library';
+import { CustomValidator, ModalComponent, Option, SelectComponent, SUBSCRIBER_TYPES } from 'my-component-library';
 import { Subscription } from 'rxjs/Subscription';
 import { environment } from '../../../environments/frozenEnvironment';
 import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
 import { IntentService } from '../../../service/intent.service';
 import { BaseBotComponent } from '../../common/baseBot.component';
-
 
 @Component({
   selector: 'app-maintain-intents',
@@ -36,6 +35,10 @@ export class MaintainIntentsComponent extends BaseBotComponent
   currentContext = 'NONE';
   cmsContent;
   locales: Option[] = [];
+  @ViewChild(ModalComponent) deleteIntentModal: ModalComponent;
+  modalState: string;
+  deleteModalBody = 'Do you want to delete?';
+  deleteModalHeading = 'Delete Intent?';
 
   constructor(
     injector: Injector,
@@ -297,6 +300,22 @@ export class MaintainIntentsComponent extends BaseBotComponent
     return this.fileCount() === 0;
   }
 
+  delete() {
+    this.deleteIntentModal.hide();
+    const id = this.intentsModel.id;
+    this.intentService.delete(id).subscribe(res => {
+      this.notificationService.notify(
+        'Refresh Results!',
+        BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS,
+        BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS
+      );
+    });
+  }
+
+  showDeleteModel() {
+    this.deleteIntentModal.show();
+  }
+
   cancel() {
     if (this.currentAction === 'add') {
       this.router.navigate(['/dashboard']);
@@ -345,6 +364,14 @@ export class MaintainIntentsComponent extends BaseBotComponent
         return this.cmsContent.editIntent.pageHeadingCustom;
       }
     }
+  }
+
+  errorModelState($event): void {
+    this.modalState = $event;
+  }
+
+  isDeleteAllowed() {
+    return this.intentsModel.id !== null;
   }
 }
 

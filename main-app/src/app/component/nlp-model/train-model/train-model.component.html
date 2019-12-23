@@ -12,17 +12,18 @@
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
                 <app-bk-input [currentFormGroup]='trainForm' label='{{getResourceLocal("trainModel.nameLabel")}}'
-                              currentFormControlName='name'></app-bk-input>
+                  currentFormControlName='name'></app-bk-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-textarea [currentFormGroup]='trainForm' label='{{getResourceLocal("trainModel.descriptionNameLabel")}}'
-                                 currentFormControlName='description'></app-bk-textarea>
+                <app-bk-textarea [currentFormGroup]='trainForm'
+                  label='{{getResourceLocal("trainModel.descriptionNameLabel")}}' currentFormControlName='description'>
+                </app-bk-textarea>
               </div>
             </div>
             <div class='row'>
               <div class="col-sm-12">
                 <app-bk-select [currentFormGroup]='trainForm' label='{{getResourceLocal("trainModel.categoryLabel")}}'
-                               currentFormControlName='category' [options]='category'></app-bk-select>
+                  currentFormControlName='category' [options]='category'></app-bk-select>
               </div>
             </div>
           </div>
@@ -32,11 +33,9 @@
     <div class='row'>
       <div style='margin-bottom: 1em' class='col-sm-12'>
         <bk-button intent='success' [currentFormGroup]='trainForm' type='submit'
-                   label='{{getCommonResources("saveButton")}}'></bk-button>
-        <bk-button intent='warning' (click)="revert()"
-                   label='{{getCommonResources("revertButton")}}'></bk-button>
-        <bk-button intent='danger' (click)="cancel()"
-                   label='{{getCommonResources("cancelButton")}}'>
+          label='{{getCommonResources("saveButton")}}'></bk-button>
+        <bk-button intent='warning' (click)="revert()" label='{{getCommonResources("revertButton")}}'></bk-button>
+        <bk-button intent='danger' (click)="cancel()" label='{{getCommonResources("cancelButton")}}'>
         </bk-button>
       </div>
       <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
@@ -83,15 +82,31 @@
       </div>
     </div>
   </div>
+
   <div class='row'>
     <div style='margin-bottom: 1em' class='col-sm-12'>
-      <bk-button intent='success' (click)="reTrainModel(trainModel.id)"
-                 label='{{getCommonResources("reTrainButton")}}'></bk-button>
-      <bk-button *ngIf='isDeleteAllowed()'  intent='danger' (click)="delete(trainModel.id)"
-                 label='{{getCommonResources("deleteButton")}}'></bk-button>
-      <bk-button intent='warning' (click)="cancel()"
-                 label='{{getCommonResources("cancelButton")}}'>>
+      <bk-button intent='success' (click)="reTrainModel(trainModel.id)" label='{{getCommonResources("reTrainButton")}}'>
+      </bk-button>
+      <bk-button *ngIf='isDeleteAllowed()' intent='danger' (click)="showDeleteModel()"
+        label='{{getCommonResources("deleteButton")}}'></bk-button>
+      <bk-button intent='warning' (click)="cancel()" label='{{getCommonResources("cancelButton")}}'>>
       </bk-button>
     </div>
   </div>
+
+  <app-bk-custom-modal (modalState)="errorModelState($event)">
+    <div class="app-modal-header">
+      <span
+        class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal("trainModel.deleteHeading")}}
+    </div>
+    <div class="app-modal-body">
+      {{getResourceLocal("trainModel.deleteMessage")}}
+    </div>
+    <div class="app-modal-footer">
+      <bk-button intent="success" (click)='deleteModelModal.hide()' label="{{ getCommonResources('noButton') }}">
+      </bk-button>
+      <bk-button intent="danger" (click)="delete()" label="{{ getCommonResources('deleteButton') }}"></bk-button>
+    </div>
+  </app-bk-custom-modal>
+
 </div>

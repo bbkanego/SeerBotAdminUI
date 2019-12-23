@@ -53,7 +53,11 @@ export class IntentService extends BaseBotCrudService {
   }
 
   public delete(id: string): Observable<any> {
-    throw new Error('Not implemented yet.');
+    if (this.getActionContext() === 'predefined') {
+      return this.deleteRequest(environment.SAVE_PREDEF_INTENT, id);
+    } else {
+      return this.deleteRequest(environment.SAVE_CUSTOM_INTENT, id);
+    }
   }
 
   public update(model: any): Observable<any> {

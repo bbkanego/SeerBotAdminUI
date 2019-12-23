@@ -12,8 +12,8 @@
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                   (click)="selectEntryType('enterDetails')"><span
-                  class="glyphicon glyphicon-edit"> </span>{{cmsContent.addIntent.enterIntent}}</a>
+                  (click)="selectEntryType('enterDetails')"><span class="glyphicon glyphicon-edit">
+                  </span>{{cmsContent.addIntent.enterIntent}}</a>
               </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
@@ -21,16 +21,14 @@
                 <div class="row" *ngIf="selectedEntryOption === 'enterDetails'">
                   <div class="col-sm-12">
                     <app-bk-input #intentTextBox [currentFormGroup]="intentsForm"
-                                  label="{{cmsContent.addIntent.intentLabel}}"
-                                  currentFormControlName="intent"></app-bk-input>
+                      label="{{cmsContent.addIntent.intentLabel}}" currentFormControlName="intent"></app-bk-input>
                   </div>
                   <div class="col-sm-12">
                     <div formArrayName="utterances" class="row">
                       <div class="col-sm-12">
                         <span>Utterance</span>
-                        <span (click)="addUtterance()" 
-                        title="{{getResourceLocal('addIntent.addUtterance')}}"
-                        class="custom-glyphicon glyphicon glyphicon-plus-sign"></span>
+                        <span (click)="addUtterance()" title="{{getResourceLocal('addIntent.addUtterance')}}"
+                          class="green-glyphicon glyphicon glyphicon-plus-sign"></span>
                         <!-- <span *ngIf="utterances.controls.length > 1" (click)="removeLastUtterance()"
                               class="custom-glyphicon glyphicon glyphicon-remove-sign"></span> -->
                       </div>
@@ -41,12 +39,11 @@
                           <div class="col-sm-11">
                             <label class="center-block" for='utterances_utterance{{i}}'>Utterance {{i + 1}}
                               <span class="glyphicon glyphicon-asterisk icon-required"></span>
-                              <span title="{{getResourceLocal('addIntent.removeUtterance')}}" *ngIf="i !== 0 && utterances.controls.length > 1"
-                                  (click)="removeCurrentUtterance(i)"
-                                  class="custom-glyphicon glyphicon glyphicon-remove-sign"></span>
-                              <app-bk-input controlId="utterances_utterance{{i}}"
-                                            [currentFormGroup]="utteranceGrp"
-                                            currentFormControlName="utterance"></app-bk-input>
+                              <span title="{{getResourceLocal('addIntent.removeUtterance')}}"
+                                *ngIf="i !== 0 && utterances.controls.length > 1" (click)="removeCurrentUtterance(i)"
+                                class="red-glyphicon glyphicon glyphicon-remove-sign"></span>
+                              <app-bk-input controlId="utterances_utterance{{i}}" [currentFormGroup]="utteranceGrp"
+                                currentFormControlName="utterance"></app-bk-input>
                             </label>
                           </div>
                           <!-- <div class="col-sm-5">
@@ -67,15 +64,14 @@
                         <div class="row">
                           <div class="col-sm-1">&nbsp;</div>
                           <div class="col-md-11">
-                              <label class="center-block" for='responses_response{{i}}'>Response <!-- {{i + 1}} -->
-                                  <span class="glyphicon glyphicon-asterisk icon-required"></span>
-                                  <span *ngIf="i !== 0 && responses.controls.length > 1"
-                                      (click)="removeLastResponse(i)"
-                                      class="custom-glyphicon glyphicon glyphicon-remove-sign"></span>
-                                  <app-bk-textarea controlId="responses_response{{i}}"
-                                             [currentFormGroup]="responsesGrp"
-                                             currentFormControlName="response"></app-bk-textarea>
-                              </label>
+                            <label class="center-block" for='responses_response{{i}}'>Response
+                              <!-- {{i + 1}} -->
+                              <span class="glyphicon glyphicon-asterisk icon-required"></span>
+                              <span *ngIf="i !== 0 && responses.controls.length > 1" (click)="removeLastResponse(i)"
+                                class="custom-glyphicon glyphicon glyphicon-remove-sign"></span>
+                              <app-bk-textarea controlId="responses_response{{i}}" [currentFormGroup]="responsesGrp"
+                                currentFormControlName="response"></app-bk-textarea>
+                            </label>
                           </div>
                           <!-- <div class="col-md-3">
                             <app-bk-select [currentFormGroup]="responsesGrp" label="Response Type {{i + 1}}"
@@ -93,7 +89,7 @@
                   <div class="col-sm-12">
                     <div class="row">
                       <div class="col-sm-12">
-                          {{getResourceLocal('addIntent.closeMatchResponse')}}
+                        {{getResourceLocal('addIntent.closeMatchResponse')}}
                       </div>
                     </div>
 
@@ -103,8 +99,7 @@
                           <div class="col-sm-1">&nbsp;</div>
                           <div class="col-md-11">
                             <app-bk-textarea controlId="responses_response{{j}}" label="Response"
-                                             [currentFormGroup]="responsesGrp"
-                                             currentFormControlName="response"></app-bk-textarea>
+                              [currentFormGroup]="responsesGrp" currentFormControlName="response"></app-bk-textarea>
                           </div>
                           <!-- <div class="col-md-5">
                             <app-bk-select [currentFormGroup]="responsesGrp" label="Locale"
@@ -118,12 +113,12 @@
               </div>
             </div>
           </div>
-          <div class="panel panel-default" *ngIf='currentAction === "add"'>
+          <div class="panel panel-default" *ngIf='currentAction === "add" && showIntentFileUpload'>
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
-                   (click)="selectEntryType('upload')"><span
-                  class="glyphicon glyphicon-cloud-upload"> </span>{{cmsContent.addIntent.uploadIntents}}</a>
+                  (click)="selectEntryType('upload')"><span class="glyphicon glyphicon-cloud-upload">
+                  </span>{{cmsContent.addIntent.uploadIntents}}</a>
               </h4>
             </div>
             <div id="collapseTwo" class="panel-collapse collapse">
@@ -134,8 +129,8 @@
                       <label class="input-group-btn">
                         <span class="btn btn-primary">
                           Select File&nbsp;<span class="glyphicon glyphicon-asterisk icon-required"></span><input
-                          name="intentsFileUpload"
-                          (change)="fileChangeEvent($event)" #intentsFile type="file" style="display: none;">
+                            name="intentsFileUpload" (change)="fileChangeEvent($event)" #intentsFile type="file"
+                            style="display: none;">
                         </span>
                       </label>
                       <input type="text" class="form-control" #showFileName readonly>
@@ -152,8 +147,8 @@
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"
-                   (click)="selectEntryType('copy')"><span
-                  class="glyphicon glyphicon-copy"> </span>{{cmsContent.addIntent.copyIntents}}</a>
+                  (click)="selectEntryType('copy')"><span class="glyphicon glyphicon-copy">
+                  </span>{{cmsContent.addIntent.copyIntents}}</a>
               </h4>
             </div>
             <div id="collapse3" class="panel-collapse collapse">
@@ -172,18 +167,35 @@
     <div class='row'>
       <div class="col-lg-6 col-sm-12">
         <app-bk-select [currentFormGroup]="intentsForm" #selectCategory label="{{cmsContent.addIntent.categoryLabel}}"
-                       currentFormControlName="category" [options]="category"></app-bk-select>
+          currentFormControlName="category" [options]="category"></app-bk-select>
       </div>
     </div>
     <div class="row">
       <div style="margin-bottom: 1em" class="col-sm-12">
         <bk-button intent="success" type="submit" label="{{ getCommonResources('saveButton') }}"></bk-button>
-        <bk-button intent="warning" (click)="revert()" label="{{ getCommonResources('revertButton') }}"></bk-button>
-        <bk-button intent="danger" (click)="cancel()" label="{{ getCommonResources('cancelButton') }}">>
+        <bk-button intent="danger" *ngIf='isDeleteAllowed()' (click)="showDeleteModel()"
+          label="{{ getCommonResources('deleteButton') }}">
         </bk-button>
+        <bk-button intent="warning" (click)="revert()" label="{{ getCommonResources('revertButton') }}"></bk-button>
+        <bk-button intent="danger" (click)="cancel()" label="{{ getCommonResources('cancelButton') }}"></bk-button>
       </div>
       <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
     </div>
   </form>
+
+  <app-bk-custom-modal>
+    <div class="app-modal-header">
+      <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{cmsContent.editIntent.deleteHeading}}
+    </div>
+    <div class="app-modal-body">
+      {{cmsContent.editIntent.deleteMessage}}
+    </div>
+    <div class="app-modal-footer">
+      <bk-button intent="success" (click)='deleteIntentModal.hide()' label="{{ getCommonResources('noButton') }}">
+      </bk-button>
+      <bk-button intent="danger" (click)="delete()" label="{{ getCommonResources('deleteButton') }}"></bk-button>
+    </div>
+  </app-bk-custom-modal>
+
   <!-- {{intentsForm.get('mayBeIntent').value   | json}} -->
 </div>

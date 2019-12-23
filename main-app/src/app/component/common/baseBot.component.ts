@@ -1,4 +1,4 @@
-import {Directive, Injector} from '@angular/core';
+import { Directive, Injector } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   BaseReactiveComponent,
@@ -8,9 +8,11 @@ import {
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { FormGroup } from '@angular/forms';
 
-@Directive({selector: 'app-base-comp'})
+@Directive({ selector: 'app-base-comp' })
 export class BaseBotComponent extends BaseReactiveComponent {
   currentAction = 'add';
+  showIntentFileUpload = false;
+
   protected commonService: CommonService;
   constructor(injector: Injector) {
     super(injector);
