@@ -24,7 +24,7 @@ export class CategoryService extends BaseBotCrudService {
     }
 
     searchCategoryForEdit(model: any): Observable<any> {
-        return this.postRequest(environment.GET_FOR_EDIT_CATEGORY_URL, model);
+        return this.getRequest(environment.GET_FOR_EDIT_CATEGORY_URL);
     }
 
     save(model: any): Observable<any> {
