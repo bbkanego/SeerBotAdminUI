@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ElementRef, Injector, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { AccountService } from '../../service/account.service';
-import { BotAuthenticationService } from '../../service/authentication.service';
-import { BaseBotComponent } from './baseBot.component';
+import {AfterViewInit, Component, ElementRef, Injector, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {AccountService} from '../../service/account.service';
+import {BotAuthenticationService} from '../../service/authentication.service';
+import {BaseBotComponent} from './baseBot.component';
 
 @Component({
   selector: 'app-left-menu',
@@ -15,9 +15,12 @@ export class LeftMenuComponent extends BaseBotComponent implements OnInit, After
   @ViewChild('maintainModelUl') maintainModelUl: ElementRef;
   @ViewChild('uberAdminTasksUl') uberAdminTasksUl: ElementRef;
   @ViewChild('refDataSubMenuUl') refDataSubMenuUl: ElementRef;
+  @ViewChild('sideBarMenu') sideBarMenu: ElementRef;
+  @ViewChild('menuHideTrigger') menuHideTrigger: ElementRef;
+  private leftMenuShown = true;
 
   constructor(private authenticationService: BotAuthenticationService,
-    injector: Injector, private accountService: AccountService, private rendered2: Renderer2) {
+              injector: Injector, private accountService: AccountService, private rendered2: Renderer2) {
     super(injector);
   }
 
@@ -70,4 +73,17 @@ export class LeftMenuComponent extends BaseBotComponent implements OnInit, After
     this.accountService.setSessionStorageItem('currentMenu', menuName);
   }
 
+  toggleMenu() {
+    const sideBarObj = $(this.sideBarMenu.nativeElement);
+    const menuHideTriggerObj = $(this.menuHideTrigger.nativeElement);
+    if (this.leftMenuShown) {
+      sideBarObj.css('marginLeft', '-' + ($(this.sideBarMenu.nativeElement).width() - 20) + 'px');
+      menuHideTriggerObj.removeClass('glyphicon-chevron-left').addClass('glyphicon-chevron-right');
+      this.leftMenuShown = false;
+    } else {
+      sideBarObj.css('marginLeft', '0px');
+      menuHideTriggerObj.removeClass('glyphicon-chevron-right').addClass('glyphicon-chevron-left');
+      this.leftMenuShown = true;
+    }
+  }
 }

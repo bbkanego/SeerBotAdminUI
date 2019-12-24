@@ -118,6 +118,6 @@ export class MaintainCategoryComponent extends BaseBotComponent implements OnIni
   }
 
   showDeleteButton() {
-    return this.catModel.id !== null;
+    return this.catModel.id !== null && this.catModel.deleteAllowed;
   }
 }

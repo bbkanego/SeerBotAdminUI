@@ -1,6 +1,7 @@
 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-<nav id="sidebar">
-  <div class="closeTrigger">Close</div>
+<nav id="sidebar" #sideBarMenu>
+  <div class="closeTrigger"><span (click)="toggleMenu()" #menuHideTrigger class="custom-glyphicon glyphicon glyphicon-chevron-left"></span>
+  </div>
   <ul class="list-unstyled components">
     <li *ngIf="getAuthenticationService().isAdmin()">
       <a [routerLink]="['/dashboard']" data-toggle="collapse" aria-expanded="false">
