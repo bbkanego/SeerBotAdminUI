@@ -56,3 +56,10 @@ Refer the [Environments in Angular 5](https://medium.com/@onlyyprasanth/how-to-m
 1. When the user hits to index URL ie http://localhost:4300 the app tries to load the dashbaord. But before doing so the "AuthGuard" kicks in and check if the user is logged in or not. If not loggged in the user is forwarded to the '/login' URL.
    
 2. When the customer logs in, a JWT token is created and is returned back to the UI. This JWT token is saved in the browser's "session" storage. For each subsequent request thats made the JWT is sent as a "Bearer" token in the "Authorization" header.
+
+# H2 Database useful commands
+
+Drop Unique index. Normally "index" is associated with a contraint. You need to drop the index.
+```
+ALTER TABLE INTENT DROP CONSTRAINT UNQ_INTENT_PER_ACCOUNT;
+```

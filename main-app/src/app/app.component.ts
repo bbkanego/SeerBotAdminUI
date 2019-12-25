@@ -48,8 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loginSubscription = this.notificationService
       .onNotification()
       .subscribe((data: any) => {
-          if (SUBSCRIBER_TYPES.LOGIN_SUCCESS === data.subscriberType ||
-            SUBSCRIBER_TYPES.LOGOUT_SUCCESS === data.subscriberType) {
+          if (SUBSCRIBER_TYPES.LOGIN_SUCCESS === data.subscriberType) {
             if (SUBSCRIBER_TYPES.LOGIN_SUCCESS === data.subscriberType) {
               this.allBootstrapItemsFetched = false;
               this.loadResources();
