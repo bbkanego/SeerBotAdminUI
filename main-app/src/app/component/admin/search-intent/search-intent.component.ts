@@ -1,9 +1,10 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { IntentService } from '../../../service/intent.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {Component, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {IntentService} from '../../../service/intent.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
+import {ModalComponent} from "my-component-library";
 
 
 @Component({
@@ -15,6 +16,8 @@ export class SearchIntentComponent extends BaseBotComponent implements OnInit, O
   intentsResults;
   allIntents: Subscription;
   cmsContent = {};
+
+  @ViewChild(ModalComponent) deleteIntentsModal: ModalComponent;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -64,7 +67,7 @@ export class SearchIntentComponent extends BaseBotComponent implements OnInit, O
 
   editIntent(id: string) {
     this.router.navigate(['edit', id], {
-      queryParams: { action: this.intentService.getActionContext() },
+      queryParams: {action: this.intentService.getActionContext()},
       relativeTo: this.activatedRoute
     });
   }
@@ -80,5 +83,24 @@ export class SearchIntentComponent extends BaseBotComponent implements OnInit, O
 
   getResourceLocal(key: string): string {
     return this.getResource('searchIntents', key);
+  }
+
+  showDeleteAllPopup() {
+    this.deleteIntentsModal.show();
+  }
+
+  backToCriteria() {
+    const model = this.intentService.getSessionStorageItem('searchIntentsModel');
+    const intentType: string = model.intentType;
+    this.router.navigate(['/admin/start_search_intent'],
+      {queryParams: {action: intentType.toLowerCase()}});
+  }
+
+  deleteAllIntents() {
+    const model = this.intentService.getSessionStorageItem('searchIntentsModel');
+    const catCode = model.category.code;
+    this.intentService.deleteAllIntentsByCategory(catCode).subscribe(res => {
+      this.router.navigate(['/dashboard']);
+    });
   }
 }

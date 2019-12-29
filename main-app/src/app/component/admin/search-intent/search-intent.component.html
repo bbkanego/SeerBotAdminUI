@@ -6,25 +6,56 @@
       </h1>
     </div>
   </div>
+  <div class='row' *ngIf='intentsResults.length > 0'>
+    <div class='col-sm-12'>
+      <p><span class="green-glyphicon-subheading glyphicon glyphicon-list"></span>{{getResourceLocal('pageSubHeading')}}
+      </p>
+    </div>
+  </div>
   <div class='row'>
     <div class='col-sm-12'>
-      <bk-datatable [records]='intentsResults' #bkTop5Heroes smallDeviceHeader='Top 5 Heroes' pageSize='6'>
+      <bk-datatable [records]='intentsResults' #intentsResultsTable pageSize='6'>
 
-          <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col1")}}' sort='true' field='intent'>
-              <ng-template let-col='column' let-intent='rowData' 
-                      let-index='rowIndex' bkTemplate='body'>
-                <a (click)="editIntent(intent.id)">{{intent.intent}}</a>
-              </ng-template>
-            </bk-column>
-        
+        <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col1")}}' sort='true' field='intent'>
+          <ng-template let-col='column' let-intent='rowData'
+                       let-index='rowIndex' bkTemplate='body'>
+            <a (click)="editIntent(intent.id)">{{intent.intent}}</a>
+          </ng-template>
+        </bk-column>
+
         <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col3")}}' sort='true' field='category'>
-          <ng-template let-col='column' let-intent='rowData' 
-                  let-index='rowIndex' bkTemplate='body'>
+          <ng-template let-col='column' let-intent='rowData'
+                       let-index='rowIndex' bkTemplate='body'>
             {{intent.category.name}}
           </ng-template>
         </bk-column>
       </bk-datatable>
     </div>
   </div>
+  <div class='row' *ngIf='intentsResults.length > 0'>
+    <div style='margin-bottom: 1em' class='col-sm-12'>
+      <bk-button intent='danger' (click)="showDeleteAllPopup()"
+                 label='{{getCommonResources("deleteAllButton")}}'></bk-button>
+      <bk-button intent='success' (click)="backToCriteria()"
+                 label='{{getCommonResources("goBackButton")}}'>>
+      </bk-button>
+    </div>
+  </div>
 </div>
+
+<app-bk-custom-modal>
+  <div class="app-modal-header">
+    <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal('deleteAll')}}
+  </div>
+  <div class="app-modal-body">
+    {{getResourceLocal('deleteAllMessage')}}
+  </div>
+  <div class="app-modal-footer">
+    <bk-button intent="success" (click)='deleteIntentsModal.hide()' label="{{ getCommonResources('noButton') }}">
+    </bk-button>
+    <bk-button intent="danger" (click)="deleteAllIntents()"
+               label="{{ getCommonResources('deleteButton') }}"></bk-button>
+  </div>
+</app-bk-custom-modal>
+
 <router-outlet></router-outlet>

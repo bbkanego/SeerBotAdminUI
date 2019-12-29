@@ -11,7 +11,7 @@ import {BaseBotComponent} from './baseBot.component';
 export class LeftMenuComponent extends BaseBotComponent implements OnInit, AfterViewInit {
 
   currentMenu = 'none';
-  @ViewChild('botsLifeUl') botsLifeUl: ElementRef;
+  @ViewChild('maintainIntents') botsLifeUl: ElementRef;
   @ViewChild('maintainModelUl') maintainModelUl: ElementRef;
   @ViewChild('uberAdminTasksUl') uberAdminTasksUl: ElementRef;
   @ViewChild('refDataSubMenuUl') refDataSubMenuUl: ElementRef;

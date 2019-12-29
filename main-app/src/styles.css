@@ -288,8 +288,15 @@ textarea {
 }
 
 .green-glyphicon {
-  margin-right: 0px;
+  margin-right: 0;
   cursor: pointer;
   color: #0d8109da;
   font-size: 20px;
+}
+
+.green-glyphicon-subheading {
+  margin-right: 5px;
+  cursor: pointer;
+  color: #0d8109da;
+  font-size: 15px;
 }

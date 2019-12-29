@@ -1,14 +1,15 @@
 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 <nav id="sidebar" #sideBarMenu>
-  <div class="closeTrigger"><span (click)="toggleMenu()" #menuHideTrigger class="custom-glyphicon glyphicon glyphicon-chevron-left"></span>
+  <div class="hidden-xs hidden-sm closeTrigger"><span (click)="toggleMenu()" #menuHideTrigger class="custom-glyphicon glyphicon glyphicon-chevron-left"></span>
   </div>
+
   <ul class="list-unstyled components">
-    <li *ngIf="getAuthenticationService().isAdmin()">
+    <li [style.display]="getAuthenticationService().isAdmin() ? 'block': 'none'">
       <a [routerLink]="['/dashboard']" data-toggle="collapse" aria-expanded="false">
         <i class="headingLi glyphicon glyphicon-dashboard"></i>Dashboard
       </a>
     </li>
-    <li *ngIf="getAuthenticationService().isAdmin()">
+    <li [style.display]="getAuthenticationService().isAdmin() ? 'block': 'none'">
       <a href="#refDataSubMenu" data-toggle="collapse" (click)="trackMenu('refDataSubMenu')" aria-expanded="false"
         class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-th-list"></i>
@@ -67,7 +68,7 @@
         </li>
       </ul>
     </li>
-    <li *ngIf="getAuthenticationService().isUberAdmin()">
+    <li [style.display]="getAuthenticationService().isUberAdmin() ? 'block': 'none'">
       <a href="#uberAdminTasks" data-toggle="collapse" (click)="trackMenu('uberAdminTasks')" aria-expanded="false"
         class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-king"></i>{{ getResourceLocal('admin.heading')
@@ -108,13 +109,13 @@
         </li>
       </ul>
     </li>
-    <li *ngIf="getAuthenticationService().isAccountAdmin()">
+    <li [style.display]="getAuthenticationService().isAccountAdmin() ? 'block': 'none'">
       <a href="#botsLife" data-toggle="collapse" (click)="trackMenu('maintainIntents')" aria-expanded="false"
         class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-user"></i>{{ getResourceLocal('maintainIntents.heading')
         }}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
-      <ul class="collapse list-unstyled" id="botsLife" #botsLifeUl>
+      <ul class="collapse list-unstyled" id="botsLife" #maintainIntents>
         <li>
           <a [routerLink]="['/admin/add_intent']"
             [queryParams]="{ action: 'custom' }">{{ getResourceLocal('maintainIntents.option1') }}</a>
@@ -133,7 +134,7 @@
         </li>
       </ul>
     </li>
-    <li *ngIf="getAuthenticationService().isAccountAdmin()">
+    <li [style.display]="getAuthenticationService().isAccountAdmin() ? 'block': 'none'">
       <a href="#maintainModel" data-toggle="collapse" (click)="trackMenu('maintainModel')" aria-expanded="false"
         class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-play-circle"></i>{{ getResourceLocal('maintainBots.heading')
@@ -159,7 +160,7 @@
         </li>
       </ul>
     </li>
-    <li>
+    <!--<li>
       <a href="#stateMachineModel" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
         <i class="headingLi glyphicon glyphicon-play-circle"></i>Modelling<i
           class="fa fa-fw fa-angle-down pull-right"></i>
@@ -167,6 +168,6 @@
       <ul class="collapse list-unstyled" id="stateMachineModel">
         <li><a [routerLink]="['/state-machine']">Model</a></li>
       </ul>
-    </li>
+    </li>-->
   </ul>
 </nav>

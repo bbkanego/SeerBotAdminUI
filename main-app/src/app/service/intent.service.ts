@@ -1,7 +1,7 @@
-import { Injectable, Injector } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { environment } from '../environments/frozenEnvironment';
-import { BaseBotCrudService } from './baseBotCrud.service';
+import {Injectable, Injector} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {environment} from '../environments/frozenEnvironment';
+import {BaseBotCrudService} from './baseBotCrud.service';
 
 @Injectable()
 export class IntentService extends BaseBotCrudService {
@@ -94,5 +94,9 @@ export class IntentService extends BaseBotCrudService {
 
   public copyPredefinedIntents(categoryCode: string): Observable<any> {
     return this.getRequest(environment.COPY_PREDEF_INTENT + '/' + categoryCode);
+  }
+
+  public deleteAllIntentsByCategory(catCode: string): Observable<any> {
+    return this.deleteRequest(environment.SAVE_CUSTOM_INTENT + '/delete-all', catCode);
   }
 }

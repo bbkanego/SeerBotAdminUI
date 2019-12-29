@@ -67,6 +67,10 @@ export class BotService extends BaseBotCrudService {
     return this.getRequest(environment.STOP_BOT + '/' + id);
   }
 
+  public reInitBot(id: string): Observable<any> {
+    return this.getRequest(environment.RESTART_BOT + '/' + id);
+  }
+
   public restartBot(id: string): Observable<any> {
     return this.getRequest(environment.RESTART_BOT + '/' + id);
   }

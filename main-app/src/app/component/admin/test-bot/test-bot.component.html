@@ -75,14 +75,16 @@
               <bk-button
                 (onClick)="showStopBot()"
                 intent="danger"
-                label="{{ getResourceLocal('startLaunch.stopNowButton') }}"
-              ></bk-button>
+                label="{{ getResourceLocal('startLaunch.stopNowButton') }}"></bk-button>
+              <bk-button
+                (onClick)="showReInitBot()"
+                intent="warning"
+                label="{{ getResourceLocal('startLaunch.reinitializeNowButton') }}"></bk-button>
               <bk-button
                 *ngIf='!isBotLaunched()'
                 (onClick)="showLaunchBotModal()"
                 intent="success"
-                label="{{ getResourceLocal('startLaunch.launchNowButton') }}"
-              ></bk-button>
+                label="{{ getResourceLocal('startLaunch.launchNowButton') }}"></bk-button>
             </div>
           </div>
         </div>
@@ -92,7 +94,9 @@
 
   <app-bk-custom-modal #stopBotModal>
     <div class="app-modal-header">
-      <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal("startLaunch.stopBotHeading")}}
+      <span
+        class="custom-glyphicon glyphicon
+        glyphicon-exclamation-sign"></span>{{getResourceLocal("startLaunch.stopBotHeading")}}
     </div>
     <div class="app-modal-body">
       {{getResourceLocal("startLaunch.stopBotMessage")}}
@@ -100,13 +104,32 @@
     <div class="app-modal-footer">
       <bk-button intent="success" (click)='testBotModal.hide()' label="{{ getCommonResources('noButton') }}">
       </bk-button>
-      <bk-button intent="danger" (click)="stopBot()" label="{{ getCommonResources('deleteButton') }}"></bk-button>
+      <bk-button intent="danger" (click)="stopBot()"
+                 label="{{ getResourceLocal('startLaunch.stopNowButton') }}"></bk-button>
+    </div>
+  </app-bk-custom-modal>
+
+  <app-bk-custom-modal #reInitBotModal>
+    <div class="app-modal-header">
+      <span
+        class="custom-glyphicon glyphicon
+        glyphicon-exclamation-sign"></span>{{getResourceLocal("startLaunch.reInitBotHeading")}}
+    </div>
+    <div class="app-modal-body">
+      {{getResourceLocal("startLaunch.reInitBotMessage")}}
+    </div>
+    <div class="app-modal-footer">
+      <bk-button intent="success" (click)='reInitBotModal.hide()' label="{{ getCommonResources('noButton') }}">
+      </bk-button>
+      <bk-button intent="danger" (click)="reInitBot()"
+                 label="{{ getResourceLocal('startLaunch.reinitializeNowButton') }}"></bk-button>
     </div>
   </app-bk-custom-modal>
 
   <app-bk-custom-modal #launchBotModal>
     <div class="app-modal-header">
-      <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal("startLaunch.launchBotHeading")}}
+      <span
+        class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal("startLaunch.launchBotHeading")}}
     </div>
     <div class="app-modal-body">
       {{getResourceLocal("startLaunch.launchBotMessage")}}
@@ -114,7 +137,8 @@
     <div class="app-modal-footer">
       <bk-button intent="success" (click)='launchBotModal.hide()' label="{{ getCommonResources('noButton') }}">
       </bk-button>
-      <bk-button intent="danger" (click)="launchBot()" label="{{ getCommonResources('deleteButton') }}"></bk-button>
+      <bk-button intent="danger" (click)="launchBot()"
+                 label="{{ getResourceLocal('startLaunch.launchNowButton') }}"></bk-button>
     </div>
   </app-bk-custom-modal>
 

@@ -4,6 +4,12 @@
       <h1 class="page-header">{{getHeading()}}</h1>
     </div>
   </div>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <p><span class="green-glyphicon-subheading glyphicon glyphicon-plus"></span>{{getResourceLocal('addIntent.pageSubHeading')}}
+      </p>
+    </div>
+  </div>
   <form [formGroup]="intentsForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="row">
       <div class="col-sm-12">
@@ -42,6 +48,9 @@
                               <span title="{{getResourceLocal('addIntent.removeUtterance')}}"
                                 *ngIf="i !== 0 && utterances.controls.length > 1" (click)="removeCurrentUtterance(i)"
                                 class="red-glyphicon glyphicon glyphicon-remove-sign"></span>
+                              <span title="{{getResourceLocal('addIntent.removeUtterance')}}"
+                                *ngIf="i === (utterances.controls.length -1)" (click)="addUtterance()"
+                                class="green-glyphicon glyphicon glyphicon-plus-sign"></span>
                               <app-bk-input controlId="utterances_utterance{{i}}" [currentFormGroup]="utteranceGrp"
                                 currentFormControlName="utterance"></app-bk-input>
                             </label>
@@ -172,7 +181,7 @@
     </div>
     <div class="row">
       <div style="margin-bottom: 1em" class="col-sm-12">
-        <bk-button intent="success" type="submit" label="{{ getCommonResources('saveButton') }}"></bk-button>
+        <bk-button intent="success" type="submit" label="{{ getSubmitButtonLabel() }}"></bk-button>
         <bk-button intent="danger" *ngIf='isDeleteAllowed()' (click)="showDeleteModel()"
           label="{{ getCommonResources('deleteButton') }}">
         </bk-button>

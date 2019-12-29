@@ -78,6 +78,7 @@ export class TestBotComponent extends BaseBotComponent
   private uniqueClientId;
   private botId;
   @ViewChild('stopBotModal') testBotModal: ModalComponent;
+  @ViewChild('reInitBotModal') reInitBotModal: ModalComponent;
   @ViewChild('launchBotModal') launchBotModal: ModalComponent;
 
   @Input()
@@ -214,6 +215,17 @@ export class TestBotComponent extends BaseBotComponent
 
   showStopBot() {
     this.testBotModal.show();
+  }
+
+  showReInitBot() {
+    this.reInitBotModal.show();
+  }
+
+  reInitBot() {
+    this.reInitBotModal.hide();
+    this.botService.reInitBot(this.botId).subscribe(() => {
+      this.router.navigate(['/admin/search_bot/test_start/' + this.botId]);
+    });
   }
 
   showLaunchBotModal() {

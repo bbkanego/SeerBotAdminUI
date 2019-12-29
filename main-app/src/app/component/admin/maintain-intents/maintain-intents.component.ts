@@ -246,6 +246,14 @@ export class MaintainIntentsComponent extends BaseBotComponent
     // this.initComponent('');
   }
 
+  getSubmitButtonLabel() {
+    let label = this.getCommonResources('saveButton');
+    if (this.selectedEntryOption === 'copy') {
+      label = this.getResourceLocal('addIntent.copyIntents');
+    }
+    return label;
+  }
+
   onSubmit() {
     this.markFormGroupTouched(this.intentsForm);
     if (this.selectedEntryOption === 'enterDetails') {
