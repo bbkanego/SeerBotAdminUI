@@ -1,4 +1,4 @@
-import { rootEnvironment } from './environment';
+import {rootEnvironment} from './environment';
 
 const url = rootEnvironment.apiUrl;
 const envNameLocal = rootEnvironment.envName;
@@ -63,5 +63,6 @@ export const environment = Object.freeze({
   INIT_SUBSCRIPTION_URL: url + '/api/v1/subscription/init',
   INIT_PLAN_URL: url + '/api/v1/plan/init',
   PLAN_URL: url + '/api/v1/plan',
-  GET_ALL_PLAN_URL: url + '/api/v1/plan/getAll'
+  GET_ALL_PLAN_URL: url + '/api/v1/plan/getAll',
+  ALL_BOTS_TRANSACTIONS: url + '/api/v1/transactions/all-bots'
 });

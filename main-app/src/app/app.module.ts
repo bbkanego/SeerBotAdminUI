@@ -17,6 +17,7 @@ import { BotAuthenticationService } from './service/authentication.service';
 import { IntentService } from './service/intent.service';
 import { UberAdminGuard } from './guard/uberAdmin.guard';
 import { RoleService } from './service/role.service';
+import {DashboardService} from './service/dashboard.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { RoleService } from './service/role.service';
     BrowserAnimationsModule, AccountModule
   ],
   providers: [NotificationService, BotAuthenticationService, AuthenticationService,
-    CommonService, IntentService, ValidationService, RoleService,
+    CommonService, IntentService, ValidationService, RoleService, DashboardService,
     AuthGuard, LogoutGuard, UberAdminGuard, AccountService,
     { provide: 'environment', useValue: environment }],
   bootstrap: [AppComponent]

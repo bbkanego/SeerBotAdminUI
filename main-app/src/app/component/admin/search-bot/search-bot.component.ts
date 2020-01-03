@@ -1,11 +1,11 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { CommonService, NotificationService } from 'my-component-library';
-import { Subscription } from 'rxjs/Subscription';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { BotService } from '../../../service/bot.service';
-import { BaseBotComponent } from "../../common/baseBot.component";
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {BotService} from '../../../service/bot.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-search-bot',
@@ -13,8 +13,7 @@ import { BaseBotComponent } from "../../common/baseBot.component";
   styleUrls: ['./search-bot.component.css']
 })
 export class SearchBotComponent extends BaseBotComponent implements OnInit, OnDestroy {
-  botResults;
-  getAllSubscription: Subscription;
+  botResults$: Observable<any[]>;
   notificationSub: Subscription;
   searchContext = 'search_bots';
   cmsContent = {};
@@ -62,23 +61,14 @@ export class SearchBotComponent extends BaseBotComponent implements OnInit, OnDe
       this.botService.setSessionStorageItem('actionCtx', this.botService.getActionContext());
     }
 
-    this.getAllSubscription = this.botService
-      .searchBot(model)
-      .subscribe(results => {
-        this.botResults = results;
-      });
+    this.botResults$ = this.botService.searchBot(model);
   }
 
   private getAllResults() {
-    this.getAllSubscription = this.botService.getAll().subscribe(results => {
-      this.botResults = results;
-    });
+    this.botResults$ = this.botService.getAll();
   }
 
   ngOnDestroy(): void {
-    if (this.getAllSubscription) {
-      this.getAllSubscription.unsubscribe();
-    }
     if (this.notificationSub) {
       this.notificationSub.unsubscribe();
     }
@@ -93,7 +83,7 @@ export class SearchBotComponent extends BaseBotComponent implements OnInit, OnDe
     } else if (this.botService.getActionContext() === 'testBot') {
       finalPath = 'test_start';
     }
-    this.router.navigate([finalPath, id], { relativeTo: this.activatedRoute });
+    this.router.navigate([finalPath, id], {relativeTo: this.activatedRoute});
   }
 
   getHeading(): string {

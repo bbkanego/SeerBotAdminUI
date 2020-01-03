@@ -1,6 +1,7 @@
-import { Component, OnInit, Injector, ViewChild, OnDestroy } from '@angular/core';
-import { FormGroup, NgModel, FormControl } from '@angular/forms';
-import { BaseReactiveComponent, CustomFormControl } from 'my-component-library';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {BaseReactiveComponent} from 'my-component-library';
+import {Observable} from 'rxjs/Observable';
+import {DashboardService, SearchBotsTransactions} from '../../service/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,20 +10,15 @@ import { BaseReactiveComponent, CustomFormControl } from 'my-component-library';
 })
 export class DashboardComponent extends BaseReactiveComponent implements OnInit, OnDestroy {
 
-  dashboardForm: FormGroup;
+  allBotsTransaction$: Observable<any>;
 
-  validationRules;
-  @ViewChild('formDir') formObj: NgModel;
-
-  constructor(injector: Injector) {
+  constructor(injector: Injector, private dashboardService: DashboardService) {
     super(injector);
   }
 
   ngOnInit() {
-    this.dashboardForm = new FormGroup({
-      name: new CustomFormControl(),
-      description: new CustomFormControl()
-    });
+    const searchBotsTransactions: SearchBotsTransactions = {transactionMaybe: null, transactionSuccess: null};
+    this.allBotsTransaction$ = this.dashboardService.getAllBotsTransactions(searchBotsTransactions);
   }
 
   ngOnDestroy(): void {
