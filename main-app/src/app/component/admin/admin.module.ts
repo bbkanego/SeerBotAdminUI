@@ -13,6 +13,7 @@ import { LaunchBotComponent } from './launch-bot/launch-bot.component';
 import { SearchIntentCriteriaComponent } from './search-intent/search-intent-criteria.component';
 import { SearchBotCriteriaComponent } from './search-bot/search-bot-criteria.component';
 import { TestBotComponent } from './test-bot/test-bot.component';
+import {ReTrainBotComponent} from './maintain-intents/re-train-bot.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { TestBotComponent } from './test-bot/test-bot.component';
     AdminRoutingModule
   ],
   declarations: [
+    ReTrainBotComponent,
     MaintainBotComponent,
     LandingComponent,
     MaintainIntentsComponent,

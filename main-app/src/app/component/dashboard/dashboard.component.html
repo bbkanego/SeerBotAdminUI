@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header">Dashboard</h1>
+    <h1 class="page-header">{{getResourceLocal('pageHeading')}}</h1>
   </div>
   <!-- /.col-lg-12 -->
 </div>
@@ -9,7 +9,7 @@
   <div class="col-lg-8">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <i class="fa fa-bar-chart-o fa-fw"></i> Your Bot Performance
+        <i class="fa fa-bar-chart-o fa-fw"></i>{{getResourceLocal('botPerformance.heading')}}
         <div class="pull-right">
           <div class="btn-group">
             <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -17,21 +17,22 @@
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu pull-right" role="menu">
-              <li><a href="#">Action</a>
+              <li><a (click)="getDailyTransactions(null)">{{getResourceLocal('botPerformance.actions.last1Days')}}</a>
               </li>
-              <li><a href="#">Another action</a>
+              <li><a (click)="get7DaysTransactions(null)">{{getResourceLocal('botPerformance.actions.last7Days')}}</a>
               </li>
-              <li><a href="#">Something else here</a>
+              <li><a (click)="getMonthlyTransactions(null)">{{getResourceLocal('botPerformance.actions.last30Days')}}</a>
               </li>
-              <li class="divider"></li>
-              <li><a href="#">Separated link</a>
+              <li><a (click)="get6MonthlyTransactions(null)">{{getResourceLocal('botPerformance.actions.last180Days')}}</a>
+              </li>
+              <li><a (click)="getLastYearTransactions(null)">{{getResourceLocal('botPerformance.actions.last360Days')}}</a>
               </li>
             </ul>
           </div>
         </div>
       </div>
       <div class="panel-body">
-        <bk-datatable [records]='(allBotsTransaction$ | async)' #allBotsTransaction
+        <bk-datatable [records]='allBotsTransactionData' #allBotsTransaction
                       pageSize='12000'>
           <bk-column header='Bot Name' sort='true'
                      field='name'></bk-column>
@@ -44,23 +45,25 @@
           <bk-column header='Success Chats' sort='true'
                      field='name'>
             <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-              {{trans.percentageSuccess}}%
+              <a (click)="viewTransactionDetails(trans.id)">{{trans.percentageSuccess}}%</a>
             </ng-template>
           </bk-column>
           <bk-column header='Partial Success Chats' sort='true'
                      field='name'>
             <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-              {{trans.percentageMaybe}}%
+              <a (click)="viewTransactionDetails(trans.id)">{{trans.percentageMaybe}}%</a>
             </ng-template>
           </bk-column>
           <bk-column header='Failed Chats' sort='true'
                      field='name'>
             <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-              {{trans.percentageFailure}}%
+              <a (click)="viewTransactionDetails(trans.id)">{{trans.percentageFailure}}%</a>
             </ng-template>
           </bk-column>
 
         </bk-datatable>
+
+        <app-bk-chart [chartData]="chartData"></app-bk-chart>
       </div>
     </div>
   </div>

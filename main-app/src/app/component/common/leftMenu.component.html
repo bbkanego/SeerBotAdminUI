@@ -158,6 +158,10 @@
           <a [routerLink]="['/admin/init_search_bot']"
             [queryParams]="{ action: 'testBot' }">{{ getResourceLocal('maintainBots.option4') }}</a>
         </li>
+        <li>
+          <a [routerLink]="['/admin/reTrain_bot']"
+            [queryParams]="{ action: 'reTrain' }">{{ getResourceLocal('maintainBots.option5') }}</a>
+        </li>
       </ul>
     </li>
     <!--<li>

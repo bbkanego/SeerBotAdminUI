@@ -3,16 +3,42 @@ import {Injectable, Injector} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../environments/frozenEnvironment';
 
+export enum Interval {
+  MONTHLY = 'MONTHLY', DAILY = 'DAILY', LAST_30_DAYS = 'LAST_30_DAYS', LAST_7_DAYS = 'LAST_7_DAYS',
+  LAST_YEAR = 'LAST_YEAR', THIS_YEAR = 'THIS_YEAR', LAST_180_DAYS = 'LAST_180_DAYS'
+}
+
 export interface SearchBotsTransactions {
-  transactionSuccess: boolean;
-  transactionMaybe: boolean;
+  transactionSuccess?: boolean;
+  transactionMaybe?: boolean;
+  botId?: string;
+  searchInterval?: Interval;
 }
 
 @Injectable()
 export class DashboardService extends BaseBotCrudService {
 
+  private _botDetail;
+  private _allBotsTransactionData;
+
   constructor(injector: Injector) {
     super(injector);
+  }
+
+  get allBotsTransactionData() {
+    return this._allBotsTransactionData;
+  }
+
+  set allBotsTransactionData(value) {
+    this._allBotsTransactionData = value;
+  }
+
+  get botDetail() {
+    return this._botDetail;
+  }
+
+  set botDetail(value) {
+    this._botDetail = value;
   }
 
   getAllBotsTransactions(model: SearchBotsTransactions): Observable<any> {

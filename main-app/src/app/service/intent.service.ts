@@ -84,6 +84,10 @@ export class IntentService extends BaseBotCrudService {
     }
   }
 
+  public getIntentsByCategoryCode(catCode: string): Observable<any> {
+    return this.getRequest(environment.CUSTOM_SEARCH_INTENT + '/' + catCode);
+  }
+
   public searchIntents(model): Observable<any> {
     if (this.getActionContext() === 'predefined') {
       return this.postRequest(environment.SEARCH_INTENT, model);
@@ -98,5 +102,9 @@ export class IntentService extends BaseBotCrudService {
 
   public deleteAllIntentsByCategory(catCode: string): Observable<any> {
     return this.deleteRequest(environment.SAVE_CUSTOM_INTENT + '/delete-all', catCode);
+  }
+
+  public associateIntents(model: any): Observable<any> {
+    return this.postRequest(environment.SAVE_CUSTOM_INTENT + '/associateIntents', model);
   }
 }

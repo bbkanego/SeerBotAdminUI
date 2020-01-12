@@ -1,0 +1,88 @@
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-sm-12'><h1 class='page-header'>
+      {{getResourceLocal('pageHeading')}}
+    </h1></div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <p><span
+        class="green-glyphicon-subheading glyphicon glyphicon-plus"></span>{{getResourceLocal('heading')}}
+      </p>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <bk-datatable [records]='botTransactions' #botTransactionsWidget pageSize='6'>
+        <bk-column header='{{getResourceLocal("botName")}}' sort='true'
+                   field='name'></bk-column>
+        <bk-column header='{{getResourceLocal("totalChats")}}' sort='true'
+                   field='name'>
+          <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
+            {{trans.successTransactions.length + trans.failureTransactions.length + trans.maybeTransactions.length}}
+          </ng-template>
+        </bk-column>
+        <bk-column header='{{getResourceLocal("successChats")}}' sort='true'
+                   field='name'>
+          <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
+            <a (click)="manageUtteranceAndIntents(trans.id, 'success')">{{trans.percentageSuccess}}%</a>
+          </ng-template>
+        </bk-column>
+        <bk-column header='{{getResourceLocal("partialChats")}}' sort='true'
+                   field='name'>
+          <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
+            <a (click)="manageUtteranceAndIntents(trans.id, 'maybe')">{{trans.percentageMaybe}}%</a>
+          </ng-template>
+        </bk-column>
+        <bk-column header='{{getResourceLocal("failedChats")}}' sort='true'
+                   field='name'>
+          <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
+            <a (click)="manageUtteranceAndIntents(trans.id, 'failed')">{{trans.percentageFailure}}%</a>
+          </ng-template>
+        </bk-column>
+      </bk-datatable>
+    </div>
+  </div>
+
+  <div class='row' *ngIf="intentsForm">
+    <div class='col-sm-12'>
+      <p><span
+        class="green-glyphicon-subheading glyphicon glyphicon-edit"></span>{{getResourceLocal('failedHeading')}}
+      </p>
+    </div>
+  </div>
+  <form [formGroup]='intentsForm' (ngSubmit)='onSubmit()' *ngIf="intentsForm" novalidate>
+    <div class='row'>
+      <div class='col-sm-12'>
+        <div class="table-box tp-10margin">
+          <div class="content padded">
+            <div formArrayName="utteranceToIntents" class="row">
+              <div class="col-sm-12" *ngFor="let utteranceGrp of utteranceToIntents.controls; let i=index">
+                <div class="row">
+                  <div class="col-sm-8">
+                    <app-bk-input controlId="utterance{{i}}" [currentFormGroup]="utteranceGrp"
+                                  label="Utterance"
+                                  currentFormControlName="utterance"></app-bk-input>
+                  </div>
+                  <div class="col-sm-4">
+                    <app-bk-select controlId="intent{{i}}" [currentFormGroup]="utteranceGrp" label="Intent"
+                                   currentFormControlName="intentId" [options]="currentIntents"></app-bk-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <!-- {{getFormValidationErrors(botForm.controls) | json}} -->
+      <div style='margin-bottom: 1em' class='col-sm-12'>
+        <bk-button intent='success' [currentFormGroup]='intentsForm' type='submit'
+                   label='{{getCommonResources("saveButton")}}'></bk-button>
+      </div>
+      <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
+    </div>
+  </form>
+</div>
+<router-outlet></router-outlet>
