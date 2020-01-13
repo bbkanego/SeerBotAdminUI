@@ -45,19 +45,19 @@
           <bk-column header='Success Chats' sort='true'
                      field='name'>
             <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-              <a (click)="viewTransactionDetails(trans.id)">{{trans.percentageSuccess}}%</a>
+              {{trans.percentageSuccess}}%
             </ng-template>
           </bk-column>
           <bk-column header='Partial Success Chats' sort='true'
                      field='name'>
             <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-              <a (click)="viewTransactionDetails(trans.id)">{{trans.percentageMaybe}}%</a>
+              <a (click)="viewTransactionDetails(trans.id, 'maybe')">{{trans.percentageMaybe}}%</a>
             </ng-template>
           </bk-column>
           <bk-column header='Failed Chats' sort='true'
                      field='name'>
             <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-              <a (click)="viewTransactionDetails(trans.id)">{{trans.percentageFailure}}%</a>
+              <a (click)="viewTransactionDetails(trans.id, 'failed')">{{trans.percentageFailure}}%</a>
             </ng-template>
           </bk-column>
 

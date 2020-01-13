@@ -23,6 +23,7 @@ export interface BotDetail {
 export interface UtteranceToIntent {
   intentId: number;
   utterance: string;
+  matchedIntent: string;
 }
 
 export interface ReTrainBot {

@@ -63,13 +63,14 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
     };
   }
 
-  viewTransactionDetails(botId) {
+  viewTransactionDetails(botId, type) {
     this.dashboardService.botDetail = this.allBotsTransactionData.filter((bot, index, array) => {
       return bot.id === botId;
     });
     this.dashboardService.allBotsTransactionData = this.allBotsTransactionData;
 
-    this.router.navigate(['/admin/reTrain_intents']);
+    this.router.navigate(['/admin/reTrain_bot'],
+      {queryParams: {action: 'reTrain', 'botId': botId, 'type': type}});
   }
 
   getAllTransactions(botId: string) {

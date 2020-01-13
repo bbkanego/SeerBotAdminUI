@@ -1,4 +1,4 @@
-import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
@@ -7,6 +7,8 @@ import {BaseBotComponent} from '../../common/baseBot.component';
 import {DashboardService, SearchBotsTransactions} from '../../../service/dashboard.service';
 import {CustomFormControl, Option} from 'my-component-library';
 import {BotDetail, ReTrainBot, UtteranceToIntent} from '../../../model/models';
+
+declare var $;
 
 @Component({
   selector: 'app-retrain-bot',
@@ -26,6 +28,8 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
   botServiceSubscription: Subscription;
   catModel: any;
   private allBotsTransactionSubscription: Subscription;
+  matchType: string = null;
+  @ViewChild('toolTip') toolTip: ElementRef;
 
   constructor(injector: Injector, private intentService: IntentService, private dashboardService: DashboardService,
               private router: Router, private activatedRoute: ActivatedRoute) {
@@ -45,6 +49,15 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
       this.sendGetAllBotsTransactionsCall(searchBotsTransactions);
     }
     this.botDetail = this.dashboardService.botDetail;
+
+    // in case of redirect from dashboard do the below
+    this.activatedRoute.queryParams.subscribe((params) => {
+      const transactionId = +params['botId'];
+      const type = params['type'];
+      if (transactionId && type) {
+        this.manageUtteranceAndIntents(transactionId, type);
+      }
+    });
   }
 
   sendGetAllBotsTransactionsCall(searchBotsTransactions: SearchBotsTransactions) {
@@ -74,7 +87,7 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
       reTrainBot.botId = this.matchingBot.id;
       reTrainBot.categoryCode = this.matchingBot.categoryCode;
       this.intentService.associateIntents(reTrainBot).subscribe(res => {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/admin/reTrain_bot'], {queryParams: {action: 'reTrain'}});
       });
     }
   }
@@ -86,7 +99,7 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
   }
 
   cancel() {
-    this.router.navigate(['/dashboard']);
+    this.intentsForm = null;
   }
 
   getResourceLocal(key: string) {
@@ -97,6 +110,8 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
     const matchingBotArr = this.botTransactions.filter(bot => {
       return bot.id === botId;
     });
+
+    this.matchType = type;
 
     this.matchingBot = matchingBotArr[0];
 
@@ -136,32 +151,15 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
     }
 
     this.intentsForm = this.autoGenFormGroup(reTrainBot, this.validationRules);
-
-    /*this.intentsForm = new FormGroup({});
-    const formArray: FormArray = new FormArray([]);
-    this.intentsForm.addControl('utteranceToIntents', formArray);
-    if ('failed' === type) {
-      matchingBot.failureTransactions.forEach(trans => {
-        console.log('Matching trans = ' + trans);
-        this.populateFormArray(trans, formArray);
-      });
-    } else if ('success' === type) {
-      matchingBot.successTransactions.forEach(trans => {
-        console.log('Matching trans = ' + trans);
-        this.populateFormArray(trans, formArray);
-      });
-    } else if ('maybe' === type) {
-      matchingBot.maybeTransactions.forEach(trans => {
-        console.log('Matching trans = ' + trans);
-        this.populateFormArray(trans, formArray);
-      });
-    }*/
   }
 
   private populateUtteranceToIntents(trans: any[]) {
     const utteranceToIntents: UtteranceToIntent[] = [];
     trans.forEach(transaction => {
-      utteranceToIntents.push({utterance: transaction.utterance, intentId: transaction.intentId});
+      utteranceToIntents.push({
+        utterance: transaction.utterance,
+        intentId: transaction.intentId, matchedIntent: transaction.intent
+      });
     });
     return utteranceToIntents;
   }
