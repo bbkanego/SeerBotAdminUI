@@ -51,13 +51,15 @@
           <bk-column header='Partial Success Chats' sort='true'
                      field='name'>
             <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-              <a (click)="viewTransactionDetails(trans.id, 'maybe')">{{trans.percentageMaybe}}%</a>
+              <a *ngIf="trans.percentageMaybe > 0" (click)="viewTransactionDetails(trans.id, 'maybe')">{{trans.percentageMaybe}}%</a>
+              <div *ngIf="trans.percentageMaybe === 0">{{trans.percentageMaybe}}%</div>
             </ng-template>
           </bk-column>
           <bk-column header='Failed Chats' sort='true'
                      field='name'>
             <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-              <a (click)="viewTransactionDetails(trans.id, 'failed')">{{trans.percentageFailure}}%</a>
+              <a *ngIf="trans.percentageMaybe > 0" (click)="viewTransactionDetails(trans.id, 'failed')">{{trans.percentageFailure}}%</a>
+              <div *ngIf="trans.percentageMaybe === 0">{{trans.percentageFailure}}%</div>
             </ng-template>
           </bk-column>
 
