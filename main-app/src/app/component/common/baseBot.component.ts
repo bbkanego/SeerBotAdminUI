@@ -1,19 +1,16 @@
-import { Directive, Injector } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {
-  BaseReactiveComponent,
-  CommonService,
-  Option
-} from 'my-component-library';
-import { combineLatest } from 'rxjs/observable/combineLatest';
-import { FormGroup } from '@angular/forms';
+import {Directive, ElementRef, Injector} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {BaseReactiveComponent, CommonService, Option} from 'my-component-library';
+import {combineLatest} from 'rxjs/observable/combineLatest';
+import {FormGroup} from '@angular/forms';
 
-@Directive({ selector: 'app-base-comp' })
+@Directive({selector: 'app-base-comp'})
 export class BaseBotComponent extends BaseReactiveComponent {
   currentAction = 'add';
   showIntentFileUpload = false;
 
   protected commonService: CommonService;
+
   constructor(injector: Injector) {
     super(injector);
     this.commonService = injector.get(CommonService);
@@ -43,7 +40,7 @@ export class BaseBotComponent extends BaseReactiveComponent {
     const urlParams = combineLatest(
       activatedRoute.params,
       activatedRoute.queryParams,
-      (params, queryParams) => ({ ...params, ...queryParams })
+      (params, queryParams) => ({...params, ...queryParams})
     );
   }
 
@@ -67,5 +64,13 @@ export class BaseBotComponent extends BaseReactiveComponent {
       optionsObj.push(new Option(entry.code, entry.name));
     }
     return optionsObj;
+  }
+
+  protected showToast(element: ElementRef) {
+    const toastObj = $(element.nativeElement);
+    toastObj.addClass('show');
+    setTimeout(function () {
+      toastObj.removeClass('show');
+    }, 5000);
   }
 }

@@ -1,0 +1,239 @@
+<div class='row'>
+  <div class='col-sm-12'><h1 class='page-header'>
+    Help
+  </h1></div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="help-panel panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+          <h4 class="panel-title">
+            <a class="accordion-toggle" role="button" data-toggle="collapse" data-parent="#accordion"
+               href="#collapseThree"
+               aria-expanded="true" aria-controls="collapseThree">
+              <strong>What are categories?</strong>
+            </a>
+          </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            <ul class="helpUl">
+              <li>Categories allow you to define what kind of Bot you want to create.</li>
+              <li>You can use <code>existing/pre-defined</code> category to create your Bots.</li>
+              <li>If you want to create your own categories, then you can click on
+                <code><a (click)="navigateTo('/ref-data/category/add/init')">Create Category</a></code> menu
+                option and
+                create the desired category. This link can be found under <code>"Reference Data</code> section.
+              </li>
+              <li>Once a Category has been created, you can edit it as needed by clicking on
+                the <code><a (click)="navigateTo('/ref-data/category/search')">Search Category</a></code> menu
+                option.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <a class="accordion-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+               href="#collapseOne"
+               aria-expanded="false"
+               aria-controls="collapseOne">
+              <strong>All About Utterances & Intents</strong>
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <ul class="helpUl">
+              <li><code>Intents</code> define the intentions of the Human user interacting with your Bot.</li>
+              <li>Your Bot is able to understand Human interactions based on the Intents and Utterances that you
+                provide.
+              </li>
+              <li>
+                You typically define an "Intent" like <code>"GetOrder" or "CancelReservation</code> and then define
+                15-20 utterances that satisfy the intent. This can be done using
+                <code><a (click)="navigateTo('/admin/add_intent?action=custom')">Add Intents</a></code> menu
+                option.
+              </li>
+              <li>
+                <code>Utterance</code> means what the Human user will ask the Bot when they have a specific intention.
+                For example
+                when
+                the Human user wants to cancel a reservation, the user may say <code>"I want to cancel my reservation"
+                or "How can I cancel a booking</code>. You provide these typical utterance's to the Bot so that the
+                Bot can
+                determine
+                that the Human users intention is the intent <code>"CancelReservation</code>.
+              </li>
+              <li>
+                When you click on <code><a (click)="navigateTo('/admin/add_intent?action=custom')">Add
+                Intents</a></code> you will
+                need to enter the following information:
+                <ol class="helpUl">
+                  <li>The Intent Name</li>
+                  <li>
+                    Multiple utterance as required. We recommend at least 15-20 different variations of
+                    the way the Human users will ask question to the bot for the specific intent
+                  </li>
+                  <li>
+                    Provide response the bot should send back to the user when the bot understands the user's intent.
+                    You can include
+                    HTML in the response as well.
+                    <div class="bs-callout bs-callout-info">
+                      <code>Sure I can help you with that. You can reset or unlock your by clicking this
+                        link &lt;a href='http://somewebsite.com/page'&gt;Unlock Now&lt;a&gt;</code>
+                    </div>
+                  </li>
+                  <li>
+                    Provide response the bot should send back to the user when the bot partially understands the user's
+                    intent. You can include HTML in the response as well.
+                    <div class="bs-callout bs-callout-info">
+                      <code>Sorry, I do not understand. Are you looking for nut free food?|butt=Get Reservation&res=I
+                        need a reservation|butt=Specials Today
+                        &res=specials today|butt=Health Score&res=health score</code>
+                    </div>
+
+                  </li>
+                </ol>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="trainedModels">
+          <h4 class="panel-title">
+            <a class="accordion-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+               href="#trainedModelsInfo"
+               aria-expanded="false" aria-controls="trainedModelsInfo">
+              <strong>Training Models</strong>
+            </a>
+          </h4>
+        </div>
+        <div id="trainedModelsInfo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="trainedModels">
+          <div class="panel-body">
+            <ul class="helpUl">
+              <li>
+                By now you must have got a good understanding of how to define Intents, Utterances and what they are.
+              </li>
+              <li>
+                Once you are done defining the Intents and Utterance for a specific category,
+                you can now create <code>trained models.</code>
+              </li>
+              <li>
+                <code>Trained Models</code> are a dictionary that Bots use in order to understand human interactions and
+                intentions.
+              </li>
+              <li>
+                You can create <code>Trained Models</code> by clicking on the
+                link <code><a (click)="navigateTo('/model/start-train-model?action=custom')">Create Trained
+                Model</a></code>"
+              </li>
+              <li>
+                Once a <code>Trained Model</code> has been created you edit by going to
+                <code><a (click)="navigateTo('/model/search-models?action=custom')">Search Trained Models</a></code>"
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            <a class="accordion-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+               href="#collapseTwo"
+               aria-expanded="false" aria-controls="collapseTwo">
+              <strong>What are those Bots?</strong>
+            </a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            <ul class="helpUl">
+              <li>Bots are automated customer service tools that allow you to answer customer's question/queries without
+                human intervention.
+              </li>
+              <li>You can set up the Bot to involve human intervention, like forwarding the customer to a live assistant
+                based on certain
+                conditions.
+              </li>
+              <li>
+                You can define Bots for each category. Then you can train your bot to understand Intents using different
+                trained models.
+                Refer the trained model section on what they are and how you can create them.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="puttingItTogether">
+          <h4 class="panel-title">
+            <a class="accordion-toggle collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+               href="#puttingItTogetherInfo"
+               aria-expanded="false" aria-controls="collapseTwo">
+              <strong>Create a Bot from scratch</strong>
+            </a>
+          </h4>
+        </div>
+        <div id="puttingItTogetherInfo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            Now that you have a good understanding of Utterances, Intents, Trained Models and Bots, lets look at an
+            example where you can go about creating a new bot from scratch.
+            <ul class="helpUl">
+              <li>
+                <code>Step 1 - Add Category:</code> Create a new category or use an existing predefined category. You
+                can use the
+                <code><a (click)="navigateTo('/ref-data/category/add/init')">Create Category</a></code> menu option to
+                do so.
+              </li>
+              <li>
+                <code>Step 2 - Add Intents & Utterances:</code> Next add intents and utterance as required for the
+                Category.
+                You can use the menu option <code><a (click)="navigateTo('/admin/add_intent?action=custom')">Add
+                Intents</a></code> to do so.
+              </li>
+              <li>
+                <code>Step 3: - Create Model and Train:</code> Next create a new model for your category and train the
+                model using the
+                intents/utterances defined in step 2. Use menu option <code><a
+                (click)="navigateTo('/model/start-train-model?action=custom')">Add
+                Intents</a></code>
+              </li>
+              <li>
+                <code>Step 4: - Create Bot:</code> Next create a new bot for your business using menu option
+                <code><a (click)="navigateTo('/admin/add-bot')">Create Bot</a></code>
+              </li>
+              <li>
+                <code>Step 5: - Launch Bot in Test mode:</code> Using menu option
+                <code><a (click)="navigateTo('/admin/init_search_bot?action=launchBot')">Launch Bot</a></code> launch
+                your bot.
+                By default bot will launched in "Test" mode.
+              </li>
+              <li>
+                <code>Step 6: - Test Your Bot:</code> Next create a new bot for your business using menu option
+                <code><a (click)="navigateTo('/admin/init_search_bot?action=testBot')">Test Bot</a></code>
+              </li>
+              <li>
+                <code>Step 7: - Launch Bot in Production mode:</code> Once you are satisfied with the how your bot
+                performs in test mode, you can promote the Bot to "Production" mode so that you can integrate the Bot on
+                your website or app.
+                Use menu option <code><a (click)="navigateTo('/admin/init_search_bot?action=testBot')">Test
+                Bot</a></code> to do so.
+              </li>
+              <li>
+                <code>Step 8: - Monitor your Bot:</code> Next create a new bot for your business using menu option
+                <code><a (click)="navigateTo('/admin/init_search_bot?action=testBot')">Test Bot</a></code>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

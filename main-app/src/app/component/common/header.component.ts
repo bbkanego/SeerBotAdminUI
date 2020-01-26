@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {BotAuthenticationService} from '../../service/authentication.service';
-import {COMMON_CONST} from 'my-component-library';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +8,7 @@ import {COMMON_CONST} from 'my-component-library';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private authenticationService: BotAuthenticationService) {
+  constructor(private authenticationService: BotAuthenticationService, private router: Router) {
   }
 
   isLoggedIn() {
@@ -22,6 +22,10 @@ export class HeaderComponent {
 
   logout() {
     this.authenticationService.logout();
+  }
+
+  help() {
+    this.router.navigate(['/help']);
   }
 
   getLoggedInUserDetails() {

@@ -54,6 +54,11 @@ const ROUTES: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'help',
+    loadChildren: './component/help/help.module#HelpModule',
+    canActivate: [AuthGuard]
+  },
+  {
     path: '**',
     redirectTo: '/dashboard',
     pathMatch: 'full'

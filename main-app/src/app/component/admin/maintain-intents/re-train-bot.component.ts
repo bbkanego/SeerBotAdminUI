@@ -30,6 +30,7 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
   private allBotsTransactionSubscription: Subscription;
   matchType: string = null;
   @ViewChild('toolTip') toolTip: ElementRef;
+  @ViewChild('messageTrained') messageTrained: ElementRef;
 
   constructor(injector: Injector, private intentService: IntentService, private dashboardService: DashboardService,
               private router: Router, private activatedRoute: ActivatedRoute) {
@@ -88,6 +89,8 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
       reTrainBot.categoryCode = this.matchingBot.categoryCode;
       this.intentService.associateIntents(reTrainBot).subscribe(res => {
         this.router.navigate(['/admin/reTrain_bot'], {queryParams: {action: 'reTrain'}});
+        this.intentsForm = null;
+        this.showToast(this.messageTrained);
       });
     }
   }

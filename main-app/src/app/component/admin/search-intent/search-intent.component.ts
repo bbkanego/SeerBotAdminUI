@@ -1,4 +1,4 @@
-import {Component, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
@@ -18,6 +18,7 @@ export class SearchIntentComponent extends BaseBotComponent implements OnInit, O
   cmsContent = {};
 
   @ViewChild(ModalComponent) deleteIntentsModal: ModalComponent;
+  @ViewChild('intentUpdated') intentUpdated: ElementRef;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -41,6 +42,7 @@ export class SearchIntentComponent extends BaseBotComponent implements OnInit, O
         BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS
       ) {
         this.router.navigate(['/admin/search_intent']);
+        this.showToast(this.intentUpdated);
       }
     });
   }
