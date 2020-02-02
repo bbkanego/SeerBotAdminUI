@@ -5,7 +5,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {IntentService} from '../../../service/intent.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 import {DashboardService, SearchBotsTransactions} from '../../../service/dashboard.service';
-import {CustomFormControl, Option} from 'my-component-library';
+import {Option} from 'my-component-library';
 import {BotDetail, ReTrainBot, UtteranceToIntent} from '../../../model/models';
 
 declare var $;
@@ -33,7 +33,7 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
   @ViewChild('messageTrained') messageTrained: ElementRef;
 
   constructor(injector: Injector, private intentService: IntentService, private dashboardService: DashboardService,
-              private router: Router, private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute, private localRouter: Router) {
     super(injector);
   }
 
@@ -46,8 +46,7 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
 
     this.botTransactions = this.dashboardService.allBotsTransactionData;
     if (!this.botTransactions) {
-      const searchBotsTransactions: SearchBotsTransactions = {transactionMaybe: null, transactionSuccess: null};
-      this.sendGetAllBotsTransactionsCall(searchBotsTransactions);
+      this.regetTransactions();
     }
     this.botDetail = this.dashboardService.botDetail;
 
@@ -59,6 +58,11 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
         this.manageUtteranceAndIntents(transactionId, type);
       }
     });
+  }
+
+  regetTransactions() {
+    const searchBotsTransactions: SearchBotsTransactions = {transactionMaybe: null, transactionSuccess: null};
+    this.sendGetAllBotsTransactionsCall(searchBotsTransactions);
   }
 
   sendGetAllBotsTransactionsCall(searchBotsTransactions: SearchBotsTransactions) {
@@ -88,7 +92,7 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
       reTrainBot.botId = this.matchingBot.id;
       reTrainBot.categoryCode = this.matchingBot.categoryCode;
       this.intentService.associateIntents(reTrainBot).subscribe(res => {
-        this.router.navigate(['/admin/reTrain_bot'], {queryParams: {action: 'reTrain'}});
+        this.regetTransactions();
         this.intentsForm = null;
         this.showToast(this.messageTrained);
       });
@@ -134,6 +138,7 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
   protected buildOptionsLocal(referenceData): Option[] {
     const optionsObj: Option[] = [];
     optionsObj.push(new Option('_NONE_', 'None'));
+    optionsObj.push(new Option('-999999', '-- Ignore transaction --'));
     for (const entry of referenceData) {
       if (!entry.intent.includes('Maybe')) {
         optionsObj.push(new Option(entry.id, entry.intent));
@@ -159,22 +164,23 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
   private populateUtteranceToIntents(trans: any[]) {
     const utteranceToIntents: UtteranceToIntent[] = [];
     trans.forEach(transaction => {
-      utteranceToIntents.push({
-        utterance: transaction.utterance,
-        intentId: transaction.intentId, matchedIntent: transaction.intent
-      });
+      if (!transaction.resolved && !transaction.ignore) {
+        utteranceToIntents.push({
+          transactionId: transaction.id,
+          utterance: transaction.utterance,
+          intentId: transaction.intentId,
+          matchedIntent: transaction.intent
+        });
+      }
     });
     return utteranceToIntents;
   }
 
-  get utteranceToIntents(): FormArray {
-    return this.intentsForm.get('utteranceToIntents') as FormArray;
+  onCheckBoxSelected(selectedValue) {
+    console.log(selectedValue);
   }
 
-  private populateFormArray(trans, formArray: FormArray) {
-    const currentFormGroup: FormGroup = new FormGroup({});
-    currentFormGroup.addControl('utterance', new CustomFormControl(trans.utterance, null));
-    currentFormGroup.addControl('intentId', new CustomFormControl('', null));
-    formArray.push(currentFormGroup);
+  get utteranceToIntents(): FormArray {
+    return this.intentsForm.get('utteranceToIntents') as FormArray;
   }
 }

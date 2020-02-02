@@ -299,6 +299,13 @@ textarea {
   font-size: 15px;
 }
 
+.green-glyphicon-help {
+  margin-right: 5px;
+  cursor: pointer;
+  color: #0d8109da;
+  font-size: 17px;
+}
+
 .white-glyphicon {
   margin-right: 5px;
   cursor: pointer;

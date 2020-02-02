@@ -31,14 +31,16 @@
         <bk-column header='{{getResourceLocal("partialChats")}}' sort='true'
                    field='name'>
           <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-            <a *ngIf="trans.percentageMaybe > 0" (click)="manageUtteranceAndIntents(trans.id, 'maybe')">{{trans.percentageMaybe}}%</a>
+            <a *ngIf="trans.percentageMaybe > 0"
+               (click)="manageUtteranceAndIntents(trans.id, 'maybe')">{{trans.percentageMaybe}}%</a>
             <div *ngIf="trans.percentageMaybe === 0">{{trans.percentageMaybe}}%</div>
           </ng-template>
         </bk-column>
         <bk-column header='{{getResourceLocal("failedChats")}}' sort='true'
                    field='name'>
           <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-            <a *ngIf="trans.percentageMaybe > 0" (click)="manageUtteranceAndIntents(trans.id, 'failed')">{{trans.percentageFailure}}%</a>
+            <a *ngIf="trans.percentageMaybe > 0"
+               (click)="manageUtteranceAndIntents(trans.id, 'failed')">{{trans.percentageFailure}}%</a>
             <div *ngIf="trans.percentageMaybe === 0">{{trans.percentageFailure}}%</div>
           </ng-template>
         </bk-column>
@@ -64,15 +66,18 @@
   </div>
   <div class='row' *ngIf="intentsForm">
     <div class='col-sm-12'>
-      <p *ngIf="matchType === 'failed'"><span
+      <p *ngIf="matchType === 'failed' && utteranceToIntents.controls.length > 0"><span
         class="green-glyphicon-subheading glyphicon glyphicon-edit"></span>{{getResourceLocal('failedHeading')}}
       </p>
-      <p *ngIf="matchType === 'maybe'">
+      <p *ngIf="matchType === 'maybe' && utteranceToIntents.controls.length > 0">
         <span class="green-glyphicon-subheading glyphicon glyphicon-edit"></span>{{getResourceLocal('maybeHeading')}}
+      </p>
+      <p *ngIf="utteranceToIntents.controls.length === 0"><span
+        class="green-glyphicon-subheading glyphicon glyphicon-edit"></span>{{getResourceLocal('noRecordsHeading')}}
       </p>
     </div>
   </div>
-  <form [formGroup]='intentsForm' (ngSubmit)='onSubmit()' *ngIf="intentsForm" novalidate>
+  <form [formGroup]='intentsForm' (ngSubmit)='onSubmit()' *ngIf="intentsForm && utteranceToIntents.controls.length > 0" novalidate>
     <div class='row'>
       <div class='col-sm-12'>
         <div class="table-box tp-10margin">
@@ -80,6 +85,11 @@
             <div formArrayName="utteranceToIntents" class="row">
               <div class="col-sm-12" *ngFor="let utteranceGrp of utteranceToIntents.controls; let i=index">
                 <div class="row">
+                  <!--<div class="col-sm-2">
+                    <app-bk-checkbox controlId="ignoreBox{{i}}" [value]="'true'" (onClick)="onCheckBoxSelected($event)"
+                                     [currentFormGroup]="utteranceGrp" label="Ignore"
+                                     currentFormControlName="ignore"></app-bk-checkbox>
+                  </div>-->
                   <div class="col-sm-7">
                     <app-bk-input controlId="utterance{{i}}" [currentFormGroup]="utteranceGrp"
                                   label="Utterance"

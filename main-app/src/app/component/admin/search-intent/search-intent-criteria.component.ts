@@ -61,7 +61,7 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
 
     this.category = this.buildOptions(this.searchModel.referenceData.categories);
 
-    this.intentSearchForm.get('category').setValidators(CustomValidator.isSelectValid());
+    // this.intentSearchForm.get('category').setValidators(CustomValidator.isSelectValid());
   }
 
   private getSearchModel() {

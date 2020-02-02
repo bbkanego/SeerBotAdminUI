@@ -1,17 +1,29 @@
 <div class='container-fluid'>
   <div class='row'>
-    <div class='col-sm-12'><h1 class='page-header'>{{getResource('maintainModels').searchTrainedModel.pageHeading}}</h1></div>
+    <div class='col-sm-12'><h1
+      class='page-header'>{{getResource('maintainModels', 'searchTrainedModel.pageHeading')}}</h1></div>
   </div>
   <div class='row'>
     <div class='col-sm-12'>
-      <bk-datatable [records]='modelResults' #bkTop5Heroes smallDeviceHeader='Top 5 Heroes' pageSize='6'>
-        <bk-column header='{{getResource("searchBots").resultsTable.colHeaders.col1}}' sort='true' field='name'>
-            <ng-template let-col='column' let-bot='rowData' let-index='rowIndex' bkTemplate='body'>
-                <a (click)="viewModel(bot.id)">{{bot.name}}</a>
-              </ng-template>
+      <p>
+          <span
+            class="green-glyphicon-subheading glyphicon glyphicon-search"></span>{{getResource('maintainModels', 'searchTrainedModel.searchVerbiage')}}
+        <span title="Click for more details" (click)="help()"
+              class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+      </p>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <bk-datatable [records]='modelResults' pageSize='6'>
+        <bk-column header="{{getResource('searchBots', 'resultsTable.colHeaders.col1')}}" sort='true' field='name'>
+          <ng-template let-col='column' let-bot='rowData' let-index='rowIndex' bkTemplate='body'>
+            <a (click)="viewModel(bot.id)">{{bot.name}}</a>
+          </ng-template>
         </bk-column>
-        <bk-column header='{{getResource("searchBots").resultsTable.colHeaders.col3}}' sort='true' field='description'></bk-column>
-        <bk-column header='{{getResource("searchBots").resultsTable.colHeaders.col4}}' sort='true' field='category'>
+        <bk-column header='{{getResource("searchBots", "resultsTable.colHeaders.col3")}}' sort='true'
+                   field='description'></bk-column>
+        <bk-column header='{{getResource("searchBots", "resultsTable.colHeaders.col4")}}' sort='true' field='category'>
           <ng-template let-col='column' let-bot='rowData' let-index='rowIndex' bkTemplate='body'>
             {{bot.category.name}}
           </ng-template>

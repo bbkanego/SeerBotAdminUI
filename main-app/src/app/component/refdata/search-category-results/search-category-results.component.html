@@ -7,6 +7,16 @@
       </h1>
     </div>
   </div>
+  <div class='row' *ngIf="categoryResultsGetter.length > 0">
+    <div class='col-sm-12'>
+      <p>
+        <span
+          class="green-glyphicon-subheading glyphicon glyphicon-search"></span>{{getResourceLocal('maintainCategory.editCategoryVerbiage')}}
+        <span title="Click for more details" (click)="help()"
+              class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+      </p>
+    </div>
+  </div>
   <div class="row">
     <div class="col-sm-12">
       <bk-datatable
@@ -24,8 +34,8 @@
             let-col="column"
             let-category="rowData"
             let-index="rowIndex"
-            bkTemplate="body"
-          >
+            bkTemplate="body">
+
             <a (click)="editCategory(category.id)">{{ category.name }}</a>
           </ng-template>
         </bk-column>
@@ -37,5 +47,10 @@
       </bk-datatable>
     </div>
   </div>
+</div>
+<div #saveCategorySuccess class="seerToast">
+  <div class='toastImg'><span
+    class="white-glyphicon glyphicon glyphicon-check"></span></div>
+  <div class="message">{{ getCommonResources('saveSuccess')  }}</div>
 </div>
 <router-outlet></router-outlet>

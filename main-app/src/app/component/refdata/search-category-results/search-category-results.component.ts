@@ -1,4 +1,4 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import {Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
@@ -16,6 +16,7 @@ export class SearchCategoryResultsComponent extends BaseBotComponent implements 
   searchCriteriaSubscription: Subscription;
   notificationSub: Subscription;
   searchContext = 'search_category';
+  @ViewChild('saveCategorySuccess') saveCategorySuccess: ElementRef;
 
   constructor(
     private categoryService: CategoryService,
@@ -43,6 +44,7 @@ export class SearchCategoryResultsComponent extends BaseBotComponent implements 
           data.subscriberType === BIZ_BOTS_CONSTANTS.REFRESH_CATEGORY_SEARCH_RESULTS
         ) {
           this.router.navigate(['/ref-data/category/search'], {queryParams : {ts : (new Date()).getTime()}});
+          this.showToast(this.saveCategorySuccess);
         }
       });
   }

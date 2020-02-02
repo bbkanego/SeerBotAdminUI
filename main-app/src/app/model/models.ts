@@ -24,6 +24,8 @@ export interface UtteranceToIntent {
   intentId: number;
   utterance: string;
   matchedIntent: string;
+  transactionId: number;
+  ignore?: string;
 }
 
 export interface ReTrainBot {

@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Injector} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {BaseReactiveComponent, CommonService, Option} from 'my-component-library';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import {FormGroup} from '@angular/forms';
@@ -10,9 +10,11 @@ export class BaseBotComponent extends BaseReactiveComponent {
   showIntentFileUpload = false;
 
   protected commonService: CommonService;
+  private baseRouter: Router;
 
   constructor(injector: Injector) {
     super(injector);
+    this.baseRouter = injector.get(Router);
     this.commonService = injector.get(CommonService);
   }
 
@@ -72,5 +74,9 @@ export class BaseBotComponent extends BaseReactiveComponent {
     setTimeout(function () {
       toastObj.removeClass('show');
     }, 5000);
+  }
+
+  protected help() {
+    this.baseRouter.navigate(['/help']);
   }
 }

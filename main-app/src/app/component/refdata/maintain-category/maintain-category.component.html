@@ -9,6 +9,15 @@
       </h1>
     </div>
   </div>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <p><span
+        class="green-glyphicon-subheading glyphicon glyphicon-plus"></span>{{getResourceLocal('maintainCategory.createCategoryVerbiage')}}
+        <span title="Click for more details" (click)="help()"
+          class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+      </p>
+    </div>
+  </div>
   <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="row">
       <div class="col-sm-12">
@@ -17,7 +26,7 @@
             <div class="row">
               <div class="col-lg-6 col-sm-12">
                 <app-bk-input [currentFormGroup]="categoryForm" label="{{ getCommonResources('entity.name') }}"
-                  currentFormControlName="name"></app-bk-input>
+                              currentFormControlName="name"></app-bk-input>
               </div>
               <!-- <div class="col-lg-6 col-sm-12">
                 <app-bk-input
@@ -30,7 +39,8 @@
             <div class="row">
               <div class="col-sm-12">
                 <app-bk-textarea [currentFormGroup]="categoryForm"
-                  label="{{ getCommonResources('entity.description') }}" currentFormControlName="description">
+                                 label="{{ getCommonResources('entity.description') }}"
+                                 currentFormControlName="description">
                 </app-bk-textarea>
               </div>
             </div>
@@ -40,18 +50,19 @@
     </div>
     <div style="margin-bottom: 1em" class="col-sm-12">
       <bk-button intent="success" [disabled]="!categoryForm.valid" type="submit"
-        label="{{ getCommonResources('saveButton') }}"></bk-button>
+                 label="{{ getCommonResources('saveButton') }}"></bk-button>
       <bk-button intent="danger" *ngIf='showDeleteButton()' (click)="showDeleteModel()"
-        label="{{ getCommonResources('deleteButton') }}"></bk-button>
+                 label="{{ getCommonResources('deleteButton') }}"></bk-button>
       <bk-button (onClick)="revert()" intent="warning" label="{{ getCommonResources('revertButton') }}"></bk-button>
       &nbsp;<bk-button (onClick)="cancel()" intent="danger" label="{{ getCommonResources('cancelButton') }}">
-      </bk-button>
+    </bk-button>
     </div>
   </form>
 
   <app-bk-custom-modal>
     <div class="app-modal-header">
-      <span style="margin-right:5px" class="red-glyphicon glyphicon glyphicon-exclamation-sign"> </span>{{ getCommonResources('deleteHeading') }}
+      <span style="margin-right:5px"
+            class="red-glyphicon glyphicon glyphicon-exclamation-sign"> </span>{{ getCommonResources('deleteHeading') }}
     </div>
     <div class="app-modal-body">
       {{ getCommonResources('deleteMessage') }}

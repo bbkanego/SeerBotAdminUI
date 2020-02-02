@@ -6,6 +6,16 @@
       </h1>
     </div>
   </div>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <p>
+        <span
+          class="green-glyphicon-subheading glyphicon glyphicon-search"></span>{{getResource('searchIntents', 'searchVerbiage')}}
+        <span title="Click for more details" (click)="help()"
+              class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+      </p>
+    </div>
+  </div>
   <form [formGroup]="intentSearchForm" (ngSubmit)="onSubmit()"
     novalidate>
     <div class="row">
@@ -14,13 +24,21 @@
           <div class="content padded">
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]="intentSearchForm" label='{{getResource("maintainIntents", "addIntent.intentLabel")}}'
+                <app-bk-input [currentFormGroup]="intentSearchForm" label='{{getResource("searchIntents", "intentLabel")}}'
                   currentFormControlName="intentName"></app-bk-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                  <app-bk-select [currentFormGroup]="intentSearchForm" 
-                  label='{{getResource("maintainIntents", "addIntent.categoryLabel")}}' currentFormControlName='category'
+                <app-bk-input [currentFormGroup]="intentSearchForm" label='{{getResource("searchIntents", "utteranceLikeLabel")}}'
+                              currentFormControlName="utteranceLike"></app-bk-input>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-sm-12">
+                  <app-bk-select [currentFormGroup]="intentSearchForm"
+                  label='{{getResource("searchIntents", "categoryLabel")}}' currentFormControlName='category'
                   [options]='category'></app-bk-select>
+              </div>
+              <div class="col-lg-6 col-sm-12">
               </div>
             </div>
           </div>
