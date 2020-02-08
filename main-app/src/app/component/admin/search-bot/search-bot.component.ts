@@ -97,6 +97,16 @@ export class SearchBotComponent extends BaseBotComponent implements OnInit, OnDe
     }
   }
 
+  getPageVerbiage(): string {
+    if (this.botService.getActionContext() === 'editBot') {
+      return this.getResourceLocal('editBotVerbiage');
+    } else if (this.botService.getActionContext() === 'launchBot') {
+      return this.getResourceLocal('launchBotVerbiage');
+    } else if (this.botService.getActionContext() === 'testBot') {
+      return this.getResourceLocal('testBotVerbiage');
+    }
+  }
+
   getResourceLocal(key: string): string {
     return this.getResource('searchBots', key);
   }

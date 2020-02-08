@@ -121,11 +121,25 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
 
   getHeading(): string {
     if (this.currentContext === 'editBot') {
-      return this.getResource('searchBots', 'pageHeading');
+      return this.getResourceLocal('pageHeading');
     } else if (this.currentContext === 'testBot') {
-      return this.getResource('searchBots', 'pageHeadingTestBot');
+      return this.getResourceLocal('pageHeadingTestBot');
     } else if (this.currentContext === 'launchBot') {
-      return this.getResource('searchBots', 'pageHeadingLaunchBot');
+      return this.getResourceLocal('pageHeadingLaunchBot');
     }
+  }
+
+  getPageVerbiage(): string {
+    if (this.botService.getActionContext() === 'editBot') {
+      return this.getResourceLocal('editBotVerbiage');
+    } else if (this.botService.getActionContext() === 'launchBot') {
+      return this.getResourceLocal('launchBotVerbiage');
+    } else if (this.botService.getActionContext() === 'testBot') {
+      return this.getResourceLocal('testBotVerbiage');
+    }
+  }
+
+  getResourceLocal(key: string): string {
+    return this.getResource('searchBots', key);
   }
 }

@@ -24,6 +24,10 @@ export class HeaderComponent {
     this.authenticationService.logout();
   }
 
+  account() {
+    this.router.navigate(['/help']);
+  }
+
   help() {
     this.router.navigate(['/help']);
   }

@@ -4,6 +4,16 @@
       <h1 class="page-header">{{getResourceLocal('pageHeading')}}</h1>
     </div>
   </div>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <p>
+        <span
+          class="green-glyphicon-subheading glyphicon glyphicon-plus"></span>{{getResourceLocal('addBotVerbiage')}}
+        <span title="Click for more details" (click)="help()"
+              class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+      </p>
+    </div>
+  </div>
   <form [formGroup]='botForm' (ngSubmit)='onSubmit($event)' novalidate>
     <div class='row'>
       <div class='col-sm-12'>
