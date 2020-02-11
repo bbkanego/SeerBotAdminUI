@@ -20,6 +20,15 @@ export interface BotDetail {
   percentageMaybe: number;
 }
 
+export interface SeerBotAdminAccount {
+  id?: string;
+  token: string;
+  roles: [{ code: string, name: string, policies: [{ statements: [{}] }] }];
+  userName: string;
+  firstName: string;
+  lastName: string;
+}
+
 export interface UtteranceToIntent {
   intentId: number;
   utterance: string;

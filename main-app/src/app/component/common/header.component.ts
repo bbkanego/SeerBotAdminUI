@@ -25,7 +25,7 @@ export class HeaderComponent {
   }
 
   account() {
-    this.router.navigate(['/help']);
+    this.router.navigate(['/account/view-subscription']);
   }
 
   help() {

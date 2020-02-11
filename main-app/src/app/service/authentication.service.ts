@@ -3,6 +3,8 @@ import { Response } from '@angular/http';
 import { COMMON_CONST, HttpClient, Login, Notification, NotificationService, SUBSCRIBER_TYPES } from 'my-component-library';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../environments/frozenEnvironment';
+import {deprecate} from 'util';
+import {SeerBotAdminAccount} from '../model/models';
 
 @Injectable()
 export class BotAuthenticationService {
@@ -67,6 +69,10 @@ export class BotAuthenticationService {
 
   getCurrentUser() {
     return localStorage.getItem(COMMON_CONST.CURRENT_USER);
+  }
+
+  getCurrentUserObject(): SeerBotAdminAccount {
+    return JSON.parse(localStorage.getItem(COMMON_CONST.CURRENT_USER));
   }
 
   isUberAdmin() {

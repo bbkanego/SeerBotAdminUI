@@ -1,90 +1,94 @@
-import { Injectable, Injector } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { environment } from '../environments/frozenEnvironment';
-import { BaseBotCrudService } from './baseBotCrud.service';
+import {Injectable, Injector} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {environment} from '../environments/frozenEnvironment';
+import {BaseBotCrudService} from './baseBotCrud.service';
 
 @Injectable()
 export class SubscriptionService extends BaseBotCrudService {
 
-    searchCriteriaModel: any;
+  searchCriteriaModel: any;
 
-    getById(id: string): Observable<any> {
-        throw new Error('Method not implemented.');
-    }
+  getById(id: string): Observable<any> {
+    throw new Error('Method not implemented.');
+  }
 
-    getAll(): Observable<any[]> {
-        throw new Error('Method not implemented.');
-    }
+  getAll(): Observable<any[]> {
+    throw new Error('Method not implemented.');
+  }
 
-    constructor(injector: Injector) {
-        super(injector);
-    }
+  constructor(injector: Injector) {
+    super(injector);
+  }
 
-    initModel(): Observable<any> {
-        return this.getRequest(environment.INIT_SUBSCRIPTION_URL + '/person');
-    }
+  initModel(): Observable<any> {
+    return this.getRequest(environment.INIT_SUBSCRIPTION_URL + '/person');
+  }
 
-    save(model: any): Observable<any> {
-        return this.postRequest(environment.SUBSCRIPTION_URL, model);
-    }
+  getByUserName(userName: string): Observable<any> {
+    return this.getRequest(environment.INIT_SUBSCRIPTION_URL + '/' + userName);
+  }
 
-    delete(id: string): Observable<any> {
-        throw new Error('Method not implemented.');
-    }
+  save(model: any): Observable<any> {
+    return this.postRequest(environment.SUBSCRIPTION_URL, model);
+  }
 
-    initTierModel(): Observable<any> {
-        return this.getRequest(environment.INIT_TIER_URL);
-    }
+  delete(id: string): Observable<any> {
+    throw new Error('Method not implemented.');
+  }
 
-    searchTiers(): Observable<any> {
-        return this.getRequest(environment.GET_ALL_TIER_URL);
-    }
+  initTierModel(): Observable<any> {
+    return this.getRequest(environment.INIT_TIER_URL);
+  }
 
-    saveTier(model: any): Observable<any> {
-        return this.postRequest(environment.TIER_URL, model);
-    }
+  searchTiers(): Observable<any> {
+    return this.getRequest(environment.GET_ALL_TIER_URL);
+  }
 
-    deleteTier(id: string): Observable<any> {
-        return this.deleteRequest(environment.TIER_URL, id);
-    }
+  saveTier(model: any): Observable<any> {
+    return this.postRequest(environment.TIER_URL, model);
+  }
 
-    initSearchModel(): Observable<any> {
-        return this.getRequest(environment.INIT_TIER_URL);
-    }
+  deleteTier(id: string): Observable<any> {
+    return this.deleteRequest(environment.TIER_URL, id);
+  }
 
-    setSearchCriteriaModel(model) {
-        this.searchCriteriaModel = model;
-    }
+  initSearchModel(): Observable<any> {
+    return this.getRequest(environment.INIT_TIER_URL);
+  }
 
-    getSearchCriteriaModel() {
-        return this.searchCriteriaModel;
-    }
+  setSearchCriteriaModel(model) {
+    this.searchCriteriaModel = model;
+  }
 
-    update(model: any): Observable<any> {
-        return this.postRequest(environment.SAVE_CATEGORY_URL, model);
-    }
+  getSearchCriteriaModel() {
+    return this.searchCriteriaModel;
+  }
 
-    getTierById(id: string): Observable<any> {
-        return this.getRequest(environment.TIER_URL + '/' + id);
-    }
+  update(model: any): Observable<any> {
+    return this.postRequest(environment.SAVE_CATEGORY_URL, model);
+  }
 
-    initPlanModel(): Observable<any> {
-        return this.getRequest(environment.INIT_PLAN_URL);
-    }
+  getTierById(id: string): Observable<any> {
+    return this.getRequest(environment.TIER_URL + '/' + id);
+  }
 
-    getAllPlans(): Observable<any> {
-        return this.getRequest(environment.GET_ALL_PLAN_URL);
-    }
+  initPlanModel(): Observable<any> {
+    return this.getRequest(environment.INIT_PLAN_URL);
+  }
 
-    savePlan(model: any): Observable<any> {
-        return this.postRequest(environment.PLAN_URL, model);
-    }
+  getAllPlans(): Observable<any> {
+    return this.getRequest(environment.GET_ALL_PLAN_URL);
+  }
 
-    deletePlan(id: string): Observable<any> {
-        return this.deleteRequest(environment.PLAN_URL, id);
-    }
+  savePlan(model: any): Observable<any> {
+    return this.postRequest(environment.PLAN_URL, model);
+  }
 
-    getPlanById(id: string): Observable<any> {
-        return this.getRequest(environment.PLAN_URL + '/' + id);
-    }
+  deletePlan(id: string): Observable<any> {
+    return this.deleteRequest(environment.PLAN_URL, id);
+  }
+
+  getPlanById(id: string): Observable<any> {
+    return this.getRequest(environment.PLAN_URL + '/' + id);
+  }
 }
