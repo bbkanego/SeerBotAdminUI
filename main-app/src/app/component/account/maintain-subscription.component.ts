@@ -6,6 +6,14 @@ import {BaseBotComponent} from '../common/baseBot.component';
 import {SubscriptionService} from '../../service/subscription.service';
 import {BotAuthenticationService} from '../../service/authentication.service';
 import {SeerBotAdminAccount} from '../../model/models';
+import {FormGroup} from '@angular/forms';
+
+export interface ChangePassword {
+  passwordCapture: string;
+  passwordCaptureReenter: string;
+  userName?: string;
+}
+
 
 @Component({
   selector: 'app-maintain-subscription',
@@ -18,6 +26,11 @@ export class MaintainSubscriptionComponent extends BaseBotComponent implements O
 
   category: Option[] = [];
   botServiceSubscription: Subscription;
+  showChangePassword = true;
+  passwordChangeSuccess = false;
+  changePasswordForm: FormGroup;
+  private validationRuleSubscription: Subscription;
+  private validationRules: any;
 
   constructor(injector: Injector, private activatedRoute: ActivatedRoute,
               private authenticationService: BotAuthenticationService,
@@ -39,6 +52,7 @@ export class MaintainSubscriptionComponent extends BaseBotComponent implements O
       if (path.indexOf('view-subscription') > -1) {
         this.loadSubscription(path);
         this.enableBackButton();
+        this.createChangePasswordForm();
       }
     });
   }
@@ -57,5 +71,43 @@ export class MaintainSubscriptionComponent extends BaseBotComponent implements O
 
   getResourceLocal(key) {
     return this.getResource('maintainAccount', key);
+  }
+
+  showChangePasswordWidgets() {
+    this.showChangePassword = false;
+    this.createForm();
+  }
+
+  createChangePasswordForm() {
+    this.validationRuleSubscription = this.validationService
+      .getValidationRuleMetadata('validateChangePassword').subscribe(rules => {
+        this.validationRules = rules;
+        this.createForm();
+      });
+  }
+
+  private createForm() {
+    const changePasswordModel: ChangePassword = {passwordCapture: '', passwordCaptureReenter: ''};
+    this.changePasswordForm = this.autoGenFormGroup(changePasswordModel, this.validationRules);
+  }
+
+  cancelChangePassword() {
+    this.showChangePassword = true;
+  }
+
+  onSubmit() {
+    if (this.changePasswordForm.valid) {
+      const changePasswordForm: ChangePassword = this.changePasswordForm.value;
+      const account: SeerBotAdminAccount = this.authenticationService.getCurrentUserObject();
+      changePasswordForm.userName = account.userName;
+      this.subscriptionService.changePassword(changePasswordForm).subscribe(res => {
+        if (res.success) {
+          this.passwordChangeSuccess = true;
+          setTimeout(() => {
+            this.passwordChangeSuccess = false;
+          }, 10000);
+        }
+      });
+    }
   }
 }

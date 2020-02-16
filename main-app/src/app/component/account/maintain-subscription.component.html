@@ -1,7 +1,171 @@
 <div class='row'>
   <div class='col-sm-12'><h1 class='page-header'>
-    {{getResourceLocal('pageHeading')}}
+    {{getResourceLocal('maintainSubscription.pageHeading')}}
   </h1></div>
 </div>
 
-{{seerBotAdminAccount}}
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel-group" id="accordion1">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          {{getResourceLocal('maintainSubscription.accountDetails')}}
+        </div>
+        <div class="panel-collapse collapse in table-box">
+          <div class="panel-body content padded">
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="row">
+                  <div class="form-group col-sm-4 displayHeader">
+                    {{ getResourceLocal('userName') }}:
+                  </div>
+                  <div class="form-group col-md-8 col-sm-12">
+                    {{seerBotAdminAccount.userName}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <div class="row">
+                  <div class="form-group col-sm-4 displayHeader">
+                    {{ getResourceLocal('realm') }}:
+                  </div>
+                  <div class="form-group col-md-8 col-sm-12">
+                    {{seerBotAdminAccount.realm}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="row">
+                  <div class="form-group col-sm-4 displayHeader">
+                    {{ getResourceLocal('firstName') }}:
+                  </div>
+                  <div class="form-group col-md-8 col-sm-12">
+                    {{seerBotAdminAccount.owner.firstName}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <div class="row">
+                  <div class="form-group col-sm-4 displayHeader">
+                    {{ getResourceLocal('lastName') }}:
+                  </div>
+                  <div class="form-group col-md-8 col-sm-12">
+                    {{seerBotAdminAccount.owner.lastName}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12" *ngIf="showChangePassword === true">
+                <bk-button intent="success" type="button" (click)='showChangePasswordWidgets()'
+                           label="Change Password"></bk-button>
+              </div>
+              <div class="col-sm-12" *ngIf="showChangePassword === false">
+                <form [formGroup]='changePasswordForm' (ngSubmit)='onSubmit()' novalidate>
+                  <div class='row'>
+                    <div class='col-sm-1'></div>
+                    <div class='col-sm-10 panel panel-default'>
+                      <div class='row'>
+                        <div class='col-sm-12'>
+                          <div class="table-box tp-10margin">
+                            <div class="content padded">
+                              <div class='row' *ngIf="passwordChangeSuccess">
+                                <div class="col-sm-12">
+                                  <div class="alert alert-success">
+                                    {{getResourceLocal('passwordChangedSuccess')}}
+                                  </div>
+                                </div>
+                              </div>
+                              <div class='row'>
+                                <div class="col-lg-6 col-sm-12">
+                                  <app-bk-input inputType="password" [currentFormGroup]='changePasswordForm'
+                                                label='{{getResourceLocal("password")}}'
+                                                currentFormControlName='passwordCapture'></app-bk-input>
+                                </div>
+                                <div class="col-lg-6 col-sm-12">
+                                  <app-bk-input inputType="password" [currentFormGroup]='changePasswordForm'
+                                                label='{{getResourceLocal("passwordRenter")}}'
+                                                currentFormControlName='passwordCaptureReenter'></app-bk-input>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class='row'>
+                        <div style='margin-bottom: 1em' class='col-sm-12'>
+                          <bk-button intent='success' [currentFormGroup]='changePasswordForm' type='submit'
+                                     label='{{getResourceLocal("changePasswordButton")}}'></bk-button>
+                          <bk-button intent='danger' (click)="cancelChangePassword()"
+                                     label='{{getCommonResources("cancelButton")}}'>>
+                          </bk-button>
+                        </div>
+                        <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
+                      </div>
+                    </div>
+                    <div class='col-sm-1'></div>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel-group" id="accordion2">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          {{getResourceLocal('roles')}}
+        </div>
+        <div class="panel-collapse collapse in table-box">
+          <div class="panel-body content padded">
+            <div class="row" *ngFor="let role of seerBotAdminAccount.roles; let i=index">
+              <div class="col-sm-12">
+                <div class="row">
+                  <div class="form-group col-sm-1 displayHeader">
+                    {{ getResourceLocal('role') }}:
+                  </div>
+                  <div class="form-group col-sm-11">
+                    {{role.description}}
+                  </div>
+                </div>
+                <ng-template ngFor let-policy [ngForOf]="role.policies">
+                  <ng-template ngFor let-statement [ngForOf]="policy.statements">
+                    <div class="row">
+                      <div class="form-group col-sm-1">
+                      </div>
+                      <div class="form-group col-sm-1 displayHeader">
+                        {{ getResourceLocal('entity') }}:
+                      </div>
+                      <div class="form-group col-md-3 col-sm-12">
+                        {{statement.resource.description}}
+                      </div>
+                      <div class="form-group col-sm-2 displayHeader">
+                        {{ getResourceLocal('access') }}:
+                      </div>
+                      <div class="form-group col-md-5 col-sm-12">
+                        <ng-template ngFor let-action [ngForOf]="statement.actions">
+                          {{action.name}},
+                        </ng-template>
+                      </div>
+                    </div>
+                  </ng-template>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

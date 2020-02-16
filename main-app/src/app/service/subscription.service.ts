@@ -2,6 +2,7 @@ import {Injectable, Injector} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {environment} from '../environments/frozenEnvironment';
 import {BaseBotCrudService} from './baseBotCrud.service';
+import {ChangePassword} from '../component/account/maintain-subscription.component';
 
 @Injectable()
 export class SubscriptionService extends BaseBotCrudService {
@@ -25,7 +26,7 @@ export class SubscriptionService extends BaseBotCrudService {
   }
 
   getByUserName(userName: string): Observable<any> {
-    return this.getRequest(environment.INIT_SUBSCRIPTION_URL + '/' + userName);
+    return this.getRequest(environment.SUBSCRIPTION_BY_USERNAME_URL + '/' + userName);
   }
 
   save(model: any): Observable<any> {
@@ -90,5 +91,9 @@ export class SubscriptionService extends BaseBotCrudService {
 
   getPlanById(id: string): Observable<any> {
     return this.getRequest(environment.PLAN_URL + '/' + id);
+  }
+
+  changePassword(changePassword: ChangePassword): Observable<any> {
+    return this.postRequest(environment.ACCT_URL + '/changePassword', changePassword);
   }
 }
