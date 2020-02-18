@@ -80,14 +80,19 @@
                               </div>
                               <div class='row'>
                                 <div class="col-lg-6 col-sm-12">
-                                  <app-bk-input inputType="password" [currentFormGroup]='changePasswordForm'
-                                                label='{{getResourceLocal("password")}}'
+                                  <app-bk-input inputType="password"
+                                                [currentFormGroup]='changePasswordForm'
+                                                label='{{getResourceLocal("password")}}' #passwordCapture
                                                 currentFormControlName='passwordCapture'></app-bk-input>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
-                                  <app-bk-input inputType="password" [currentFormGroup]='changePasswordForm'
-                                                label='{{getResourceLocal("passwordRenter")}}'
+                                  <app-bk-input inputType="password"
+                                                [currentFormGroup]='changePasswordForm'
+                                                label='{{getResourceLocal("passwordRenter")}}' #passwordCaptureReenter
                                                 currentFormControlName='passwordCaptureReenter'></app-bk-input>
+                                  <div class="errorMessage" *ngIf="changePasswordForm.hasError('notSame')">
+                                    Does not match
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -97,9 +102,10 @@
                       <div class='row'>
                         <div style='margin-bottom: 1em' class='col-sm-12'>
                           <bk-button intent='success' [currentFormGroup]='changePasswordForm' type='submit'
+                                     [disabled]='!changePasswordForm.valid'
                                      label='{{getResourceLocal("changePasswordButton")}}'></bk-button>
                           <bk-button intent='danger' (click)="cancelChangePassword()"
-                                     label='{{getCommonResources("cancelButton")}}'>>
+                                     label='{{getCommonResources("doneButton")}}'>>
                           </bk-button>
                         </div>
                         <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>

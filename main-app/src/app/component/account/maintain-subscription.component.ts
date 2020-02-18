@@ -1,4 +1,4 @@
-import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
 import {Option} from 'my-component-library';
 import {Subscription} from 'rxjs/Subscription';
@@ -31,6 +31,11 @@ export class MaintainSubscriptionComponent extends BaseBotComponent implements O
   changePasswordForm: FormGroup;
   private validationRuleSubscription: Subscription;
   private validationRules: any;
+  @ViewChild('passwordCaptureReenter')
+  private passwordCaptureReenter: ElementRef;
+  @ViewChild('passwordCapture')
+  private passwordCapture: ElementRef;
+  showPasswordError = false;
 
   constructor(injector: Injector, private activatedRoute: ActivatedRoute,
               private authenticationService: BotAuthenticationService,
@@ -87,8 +92,13 @@ export class MaintainSubscriptionComponent extends BaseBotComponent implements O
   }
 
   private createForm() {
-    const changePasswordModel: ChangePassword = {passwordCapture: '', passwordCaptureReenter: ''};
+    const account: SeerBotAdminAccount = this.authenticationService.getCurrentUserObject();
+    const changePasswordModel: ChangePassword = {
+      passwordCapture: null,
+      passwordCaptureReenter: null, userName: account.userName
+    };
     this.changePasswordForm = this.autoGenFormGroup(changePasswordModel, this.validationRules);
+    this.changePasswordForm.setValidators(MaintainSubscriptionComponent.checkPasswords);
   }
 
   cancelChangePassword() {
@@ -109,5 +119,11 @@ export class MaintainSubscriptionComponent extends BaseBotComponent implements O
         }
       });
     }
+  }
+
+  static checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+    const pass = group.controls.passwordCapture.value;
+    const confirmPass = group.controls.passwordCaptureReenter.value;
+    return pass === confirmPass ? null : { notSame: true };
   }
 }
