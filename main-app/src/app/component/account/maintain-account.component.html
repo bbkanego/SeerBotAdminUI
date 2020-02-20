@@ -12,32 +12,34 @@
           <div class="content">
             <div class='panel panel-default'>
               <div class="panel-heading"><span
-                  class="custom-glyphicon glyphicon glyphicon-user"></span>&nbsp;{{getResourceLocal('personInfoHeading')}}
+                class="custom-glyphicon glyphicon glyphicon-user"></span>&nbsp;{{getResourceLocal('personInfoHeading')}}
               </div>
               <div class="panel-body">
                 <div class='row'>
 
                   <div class="col-sm-6" [formGroup]='accountOwner'>
                     <app-bk-input [currentFormGroup]='accountOwner' label='{{getResourceLocal("firstName")}}'
-                      currentFormControlName='firstName'></app-bk-input>
+                                  currentFormControlName='firstName'></app-bk-input>
                   </div>
                   <div class="col-sm-6">
                     <app-bk-input [currentFormGroup]='accountOwner' label='{{getResourceLocal("lastName")}}'
-                      currentFormControlName='lastName'></app-bk-input>
+                                  currentFormControlName='lastName'></app-bk-input>
                   </div>
                 </div>
                 <div class='row'>
                   <div class="col-sm-6">
                     <app-bk-input [currentFormGroup]="accountForm" label='{{getResourceLocal("userName")}}'
-                      currentFormControlName='userName'></app-bk-input>
+                                  currentFormControlName='userName'></app-bk-input>
                   </div>
                   <div class="col-sm-3">
                     <app-bk-input inputType='password' [currentFormGroup]="accountForm"
-                      label='{{getResourceLocal("password")}}' currentFormControlName='passwordCapture'></app-bk-input>
+                                  label='{{getResourceLocal("password")}}'
+                                  currentFormControlName='passwordCapture'></app-bk-input>
                   </div>
                   <div class="col-sm-3">
                     <app-bk-input inputType='password' [currentFormGroup]="accountForm"
-                      label='{{getResourceLocal("passwordRenter")}}' currentFormControlName='passwordCaptureReenter'>
+                                  label='{{getResourceLocal("passwordRenter")}}'
+                                  currentFormControlName='passwordCaptureReenter'>
                     </app-bk-input>
                     <div class="errorMessage" *ngIf="accountForm.hasError('notSame')">
                       Does not match
@@ -47,7 +49,7 @@
                 <div class='row'>
                   <div class="col-sm-6">
                     <app-bk-input [currentFormGroup]="accountForm" label='{{getResourceLocal("realm")}}'
-                      currentFormControlName='realm'></app-bk-input>
+                                  currentFormControlName='realm'></app-bk-input>
                   </div>
                   <div class="col-sm-6">
                   </div>
@@ -99,7 +101,7 @@
           <div class="content">
             <div class='panel panel-default'>
               <div class="panel-heading"><span
-                  class="custom-glyphicon glyphicon glyphicon-folder-close"></span>&nbsp;{{getResourceLocal('planDetailsHeading')}}
+                class="custom-glyphicon glyphicon glyphicon-folder-close"></span>&nbsp;{{getResourceLocal('planDetailsHeading')}}
               </div>
               <div class="panel-body">
                 <div class='row'>
@@ -109,10 +111,10 @@
                     </app-bk-input> -->
 
                     <app-bk-select [options]='plans' (onSelect)='onPlanSelect($event)'
-                      [currentFormGroup]="accountDetailForm" label='{{getResourceLocal("selectPlans")}}'
-                      currentFormControlName='membershipPlanCode'></app-bk-select>
+                                   [currentFormGroup]="accountDetailForm" label='{{getResourceLocal("selectPlans")}}'
+                                   currentFormControlName='membershipPlanCode'></app-bk-select>
                   </div>
-                  <div class="col-sm-6" #planDetails>
+                  <div class="col-sm-4" #planDetails>
                     <div class="panel-group" id="accordion" *ngIf='planDetailsObj.price'>
                       <div class="panel panel-default">
                         <div class="panel-heading">
@@ -121,27 +123,37 @@
                         <div id="collapseOne" class="panel-collapse collapse in table-box">
                           <div class="panel-body content padded">
                             <div class="row">
-                              <div class="form-group col-md-2 col-sm-12 displayHeader">
+                              <div class="col-sm-12">
+                                <p>
+                                  <span
+                                    class="green-glyphicon-subheading glyphicon glyphicon-search"></span>{{getSubscriptionLabels('plan.planVerbiage')}}
+                                  <span title="Click for more details" (click)="help()"
+                                        class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+                                </p>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="form-group col-md-4 col-sm-12 displayHeader">
                                 {{ getSubscriptionLabels('plan.price') }}:
                               </div>
-                              <div class="form-group col-md-10 col-sm-12">
-                                {{ planDetailsObj?.price }}
+                              <div class="form-group col-md-6 col-sm-12">
+                                {{ planDetailsObj?.price }}&nbsp;{{ getCommonResources('usd') }}
                               </div>
                             </div>
                             <div class="row">
-                              <div class="form-group col-md-2 col-sm-12 displayHeader">
+                              <div class="form-group col-md-4 col-sm-12 displayHeader">
                                 {{ getSubscriptionLabels('plan.duration') }}:
                               </div>
-                              <div class="form-group col-md-10 col-sm-12">
-                                {{ planDetailsObj?.duration }}
+                              <div class="form-group col-md-6 col-sm-12">
+                                {{ planDetailsObj?.duration }}&nbsp;{{ getCommonResources('day') }}
                               </div>
                             </div>
                             <div class="row">
-                              <div class="form-group col-md-2 col-sm-12 displayHeader">
+                              <div class="form-group col-md-4 col-sm-12 displayHeader">
                                 {{ getSubscriptionLabels('tier.maxTransactions') }}:
                               </div>
-                              <div class="form-group col-md-10 col-sm-12">
-                                {{ planDetailsObj?.tier?.maxTransactions }}
+                              <div class="form-group col-md-6 col-sm-12">
+                                {{ planDetailsObj?.tier?.maxTransactions }}&nbsp;{{ getSubscriptionLabels('tier.perMinute') }}
                               </div>
                             </div>
                           </div>
@@ -162,7 +174,7 @@
       <div class='col-sm-2'></div>
       <div style='margin-bottom: 1em' class='col-sm-8 text-center'>
         <bk-button intent='success' [disabled]='!accountDetailForm.valid' type='submit'
-          label='{{getSubmitButtonLabel()}}'>
+                   label='{{getSubmitButtonLabel()}}'>
         </bk-button>
         <bk-button (onClick)='revert()' intent='warning' label='{{getResource("commonMessages", "revertButton")}}'>
         </bk-button>

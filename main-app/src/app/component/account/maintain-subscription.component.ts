@@ -23,6 +23,7 @@ export interface ChangePassword {
 export class MaintainSubscriptionComponent extends BaseBotComponent implements OnInit, OnDestroy {
 
   private seerBotAdminAccount: SeerBotAdminAccount;
+  private subscription;
 
   category: Option[] = [];
   botServiceSubscription: Subscription;
@@ -47,7 +48,8 @@ export class MaintainSubscriptionComponent extends BaseBotComponent implements O
     this.currentAction = 'add';
     const account: SeerBotAdminAccount = this.authenticationService.getCurrentUserObject();
     this.botServiceSubscription = this.subscriptionService.getByUserName(account.userName).subscribe((model) => {
-      this.seerBotAdminAccount = model;
+      this.seerBotAdminAccount = model.subscription.owner;
+      this.subscription = model.subscription;
     });
   }
 

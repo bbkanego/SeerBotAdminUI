@@ -62,7 +62,7 @@ export const environment = Object.freeze({
   GET_ALL_TIER_URL: url + '/api/v1/tier/getAll',
   SUBSCRIPTION_URL: url + '/api/v1/subscription',
   INIT_SUBSCRIPTION_URL: url + '/api/v1/subscription/init',
-  SUBSCRIPTION_BY_USERNAME_URL: url + '/api/v1/account/username',
+  SUBSCRIPTION_BY_USERNAME_URL: url + '/api/v1/subscription',
   INIT_PLAN_URL: url + '/api/v1/plan/init',
   PLAN_URL: url + '/api/v1/plan',
   GET_ALL_PLAN_URL: url + '/api/v1/plan/getAll',
