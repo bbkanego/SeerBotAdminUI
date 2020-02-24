@@ -1,8 +1,9 @@
 import {Directive, ElementRef, Injector} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BaseReactiveComponent, CommonService, Option} from 'my-component-library';
+import {BaseReactiveComponent, CommonService, DynamicModalComponent, PopoutComponent, Option} from 'my-component-library';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import {FormGroup} from '@angular/forms';
+import {HelpComponent} from "../help/help.component";
 
 @Directive({selector: 'app-base-comp'})
 export class BaseBotComponent extends BaseReactiveComponent {
@@ -77,6 +78,10 @@ export class BaseBotComponent extends BaseReactiveComponent {
   }
 
   protected help() {
-    this.baseRouter.navigate(['/help']);
+    const eventData = {
+      extraData: {modalHeader: "Help", height: 500, width: 1000},
+      component: HelpComponent
+    };
+    this.notificationService.notifyAny(eventData, PopoutComponent.SHOW_POPOUT, PopoutComponent.SHOW_POPOUT);
   }
 }

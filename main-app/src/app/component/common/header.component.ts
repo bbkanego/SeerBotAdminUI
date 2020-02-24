@@ -1,23 +1,21 @@
-import {Component} from '@angular/core';
+import {Component, Injector} from '@angular/core';
 import {BotAuthenticationService} from '../../service/authentication.service';
 import {Router} from '@angular/router';
+import {BaseBotComponent} from "./baseBot.component";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
-  constructor(private authenticationService: BotAuthenticationService, private router: Router) {
+export class HeaderComponent extends BaseBotComponent {
+  constructor(private authenticationService: BotAuthenticationService, private router: Router,
+              private injector: Injector) {
+    super(injector);
   }
 
   isLoggedIn() {
     return this.authenticationService.isLoggedIn();
-  }
-
-  onClick(event: Event) {
-    $('#sidebar').toggleClass('active');
-    $(event.target).toggleClass('active');
   }
 
   logout() {
@@ -26,10 +24,6 @@ export class HeaderComponent {
 
   account() {
     this.router.navigate(['/account/view-subscription']);
-  }
-
-  help() {
-    this.router.navigate(['/help']);
   }
 
   getLoggedInUserDetails() {
