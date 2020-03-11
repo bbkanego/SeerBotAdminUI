@@ -1,16 +1,17 @@
-<div class="container" *ngIf="loginModel">
+<div class="container" *ngIf="loginModel"
+     [ngStyle]="{'background-image': 'url(../../../assets/images/loginPageBG.jpeg)', height: '100%', width: '100%'}">
   <div class="row loginbox">
     <div class="col-sm-4">
     </div>
     <div class="col-sm-4 table-box">
       <div class="panel panel-default">
-        <div class="panel-heading">Login</div>
+        <div class="panel-heading">{{getCommonResources('login.heading')}}</div>
         <div class="panel-body">
           <div *ngIf="loginFailed == true" class="alert alert-warning">
-            <strong>Login Failed!</strong>
+            <strong>{{getCommonResources('login.loginFailure')}}</strong>
           </div>
           <div *ngIf="logoutSuccess == true" class="alert alert-success">
-            <strong>Logout Success!</strong>
+            <strong>{{getCommonResources('login.loginSuccess')}}</strong>
           </div>
           <form #userForm="ngForm">
             <div class="form-group">
@@ -36,12 +37,12 @@
             <a class='actionLink' (click)="signUp()">No Account? Sign up now!</a>
           </div> -->
           <div class="tp-10margin">
-            <div>
-              This is a demo application built on top of Angular4, RESTful API, Websockets and deployed on AWS.
+            <div class="text-center">
+              &copy;&nbsp;{{getCommonResources('login.copyright')}}
             </div>
-            <div class="tp-10margin">
+            <!--<div class="tp-10margin">
               You can login using "admin/12345678" user name and password.
-            </div>
+            </div>-->
           </div>
         </div>
       </div>

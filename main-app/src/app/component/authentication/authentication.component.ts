@@ -1,22 +1,24 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Injector} from '@angular/core';
 import {Router} from '@angular/router';
 import {BotAuthenticationService} from '../../service/authentication.service';
 import {NotificationService, Login} from 'my-component-library';
 import {SUBSCRIBER_TYPES} from 'my-component-library';
+import {BaseBotComponent} from "../common/baseBot.component";
 
 @Component({
   'selector': 'app-bkauthenticate',
   'styleUrls': ['./authentication.component.css'],
   'templateUrl': './authentication.component.html'
 })
-export class AuthenticationComponent implements OnInit, OnDestroy {
+export class AuthenticationComponent extends BaseBotComponent implements OnInit, OnDestroy {
   loginModel: Login;
   loginFailed = false;
   logoutSuccess = false;
   private sub: any;
 
-  constructor(private authenticationService: BotAuthenticationService,
-              private router: Router, private notificationService: NotificationService) {
+  constructor(private injector: Injector, private router: Router,
+              private authenticationService: BotAuthenticationService) {
+    super(injector);
   }
 
   ngOnDestroy(): void {

@@ -43,9 +43,9 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
     const dataSets: ChartDataSet[] = [{
       label: '',
       backgroundColor: ['#66cc00', '#ff4000', '#ffff00'],
-      data: [(successTransactionsCount / totalNumOfTransactions) * 100,
-        (failureTransactionsCount / totalNumOfTransactions) * 100,
-        (partialTransactionsCount / totalNumOfTransactions) * 100]
+      data: [Math.round((successTransactionsCount / totalNumOfTransactions) * 100),
+        Math.round((failureTransactionsCount / totalNumOfTransactions) * 100),
+        Math.round((partialTransactionsCount / totalNumOfTransactions) * 100)]
     } as ChartDataSet];
 
     const chartOptions = {
