@@ -63,8 +63,8 @@ export class BotAuthenticationService {
 
   logout(): void {
     localStorage.removeItem(COMMON_CONST.CURRENT_USER);
-    this.notificationService.notify('Logout was a success', SUBSCRIBER_TYPES.LOGOUT_SUCCESS,
-      SUBSCRIBER_TYPES.LOGOUT_SUCCESS);
+    /*this.notificationService.notify('Logout was a success', SUBSCRIBER_TYPES.LOGOUT_SUCCESS,
+      SUBSCRIBER_TYPES.LOGOUT_SUCCESS);*/
   }
 
   getCurrentUser() {

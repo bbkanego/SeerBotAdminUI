@@ -8,6 +8,8 @@
     <div class='col-sm-12'>
       <p><span
         class="green-glyphicon-subheading glyphicon glyphicon-plus"></span>{{getResourceLocal('heading')}}
+        <span title="Click for more details" (click)="help()"
+              class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
       </p>
     </div>
   </div>
@@ -77,7 +79,8 @@
       </p>
     </div>
   </div>
-  <form [formGroup]='intentsForm' (ngSubmit)='onSubmit()' *ngIf="intentsForm && utteranceToIntents.controls.length > 0" novalidate>
+  <form [formGroup]='intentsForm' (ngSubmit)='onSubmit()' *ngIf="intentsForm && utteranceToIntents.controls.length > 0"
+        novalidate>
     <div class='row'>
       <div class='col-sm-12'>
         <div class="table-box tp-10margin">

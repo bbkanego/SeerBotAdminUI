@@ -21,11 +21,14 @@
               </li>
               <li><a (click)="get7DaysTransactions(null)">{{getResourceLocal('botPerformance.actions.last7Days')}}</a>
               </li>
-              <li><a (click)="getMonthlyTransactions(null)">{{getResourceLocal('botPerformance.actions.last30Days')}}</a>
+              <li><a
+                (click)="getMonthlyTransactions(null)">{{getResourceLocal('botPerformance.actions.last30Days')}}</a>
               </li>
-              <li><a (click)="get6MonthlyTransactions(null)">{{getResourceLocal('botPerformance.actions.last180Days')}}</a>
+              <li><a
+                (click)="get6MonthlyTransactions(null)">{{getResourceLocal('botPerformance.actions.last180Days')}}</a>
               </li>
-              <li><a (click)="getLastYearTransactions(null)">{{getResourceLocal('botPerformance.actions.last360Days')}}</a>
+              <li><a
+                (click)="getLastYearTransactions(null)">{{getResourceLocal('botPerformance.actions.last360Days')}}</a>
               </li>
             </ul>
           </div>
@@ -51,22 +54,29 @@
           <bk-column header='Partial Success Chats' sort='true'
                      field='name'>
             <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-              <a *ngIf="trans.percentageMaybe > 0" (click)="viewTransactionDetails(trans.id, 'maybe')">{{trans.percentageMaybe}}%</a>
+              <a *ngIf="trans.percentageMaybe > 0"
+                 (click)="viewTransactionDetails(trans.id, 'maybe')">{{trans.percentageMaybe}}%</a>
               <div *ngIf="trans.percentageMaybe === 0">{{trans.percentageMaybe}}%</div>
             </ng-template>
           </bk-column>
           <bk-column header='Failed Chats' sort='true'
                      field='name'>
             <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-              <a *ngIf="trans.percentageMaybe > 0" (click)="viewTransactionDetails(trans.id, 'failed')">{{trans.percentageFailure}}%</a>
+              <a *ngIf="trans.percentageMaybe > 0"
+                 (click)="viewTransactionDetails(trans.id, 'failed')">{{trans.percentageFailure}}%</a>
               <div *ngIf="trans.percentageMaybe === 0">{{trans.percentageFailure}}%</div>
             </ng-template>
           </bk-column>
 
         </bk-datatable>
 
-        <app-bk-chart [chartData]="chartData"></app-bk-chart>
-        {{chartData | json}}
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+            <app-bk-chart *ngIf="chartData" #chartComponent [chartData]="chartData"></app-bk-chart>
+          </div>
+          <div class="col-sm-2"></div>
+        </div>
       </div>
     </div>
   </div>

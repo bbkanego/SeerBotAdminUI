@@ -1,9 +1,8 @@
-import {Component, OnInit, OnDestroy, Injector} from '@angular/core';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {BotAuthenticationService} from '../../service/authentication.service';
-import {NotificationService, Login} from 'my-component-library';
-import {SUBSCRIBER_TYPES} from 'my-component-library';
-import {BaseBotComponent} from "../common/baseBot.component";
+import {Login, SUBSCRIBER_TYPES} from 'my-component-library';
+import {BaseBotComponent} from '../common/baseBot.component';
 
 @Component({
   'selector': 'app-bkauthenticate',

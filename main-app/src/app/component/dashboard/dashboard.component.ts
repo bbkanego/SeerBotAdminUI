@@ -1,5 +1,5 @@
-import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
-import {ChartData, ChartDataSet} from 'my-component-library';
+import {Component, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChartComponent, ChartData, ChartDataSet} from 'my-component-library';
 import {Observable} from 'rxjs/Observable';
 import {DashboardService, Interval, SearchBotsTransactions} from '../../service/dashboard.service';
 import {BaseBotComponent} from '../common/baseBot.component';
@@ -16,6 +16,8 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
   allBotsTransaction$: Observable<any>;
   allBotsTransactionData: any[];
   allBotsTransactionSubscription: Subscription;
+  @ViewChild('chartComponent') chartComponent: ChartComponent;
+  currentInterval = 'NONE';
 
   chartData: ChartData;
 
@@ -28,7 +30,6 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
   }
 
   private drawChart() {
-
     let successTransactionsCount = 0;
     let failureTransactionsCount = 0;
     let partialTransactionsCount = 0;
@@ -38,9 +39,9 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
       failureTransactionsCount += botTrans.failureTransactions.length;
       partialTransactionsCount += botTrans.maybeTransactions.length;
     });
-    totalNumOfTransactions = successTransactionsCount + failureTransactionsCount + totalNumOfTransactions;
+    totalNumOfTransactions = successTransactionsCount + failureTransactionsCount + partialTransactionsCount;
 
-    const dataSets: ChartDataSet[] = [{
+    let dataSets: ChartDataSet[] = [{
       label: '',
       backgroundColor: ['#66cc00', '#ff4000', '#ffff00'],
       data: [Math.round((successTransactionsCount / totalNumOfTransactions) * 100),
@@ -51,7 +52,7 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
     const chartOptions = {
       title: {
         display: true,
-        text: 'Bot Performance (Last Month)'
+        text: this.getResourceLocal('botPerformance.headingAll') + ' (' + this.currentInterval + ')'
       }
     };
 
@@ -61,6 +62,15 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
       dataSets: dataSets,
       options: chartOptions
     };
+
+    if (totalNumOfTransactions === 0) {
+      dataSets = null;
+      this.chartData = null;
+    }
+
+    // console.log(JSON.stringify(this.chartData));
+
+    this.chartComponent.reInit(this.chartData);
   }
 
   viewTransactionDetails(botId, type) {
@@ -78,6 +88,7 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
     if (botId) {
       searchBotsTransactions.botId = botId;
     }
+    this.currentInterval = 'All Time';
     this.sendGetAllBotsTransactionsCall(searchBotsTransactions);
   }
 
@@ -87,6 +98,7 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
       searchBotsTransactions.botId = botId;
     }
     searchBotsTransactions.searchInterval = Interval.DAILY;
+    this.currentInterval = Interval.DAILY.toString();
     this.sendGetAllBotsTransactionsCall(searchBotsTransactions);
   }
 
@@ -96,6 +108,7 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
       searchBotsTransactions.botId = botId;
     }
     searchBotsTransactions.searchInterval = Interval.LAST_7_DAYS;
+    this.currentInterval = Interval.LAST_7_DAYS.toString();
     this.sendGetAllBotsTransactionsCall(searchBotsTransactions);
   }
 
@@ -105,6 +118,7 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
       searchBotsTransactions.botId = botId;
     }
     searchBotsTransactions.searchInterval = Interval.LAST_30_DAYS;
+    this.currentInterval = Interval.LAST_30_DAYS.toString();
     this.sendGetAllBotsTransactionsCall(searchBotsTransactions);
   }
 
@@ -114,6 +128,7 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
       searchBotsTransactions.botId = botId;
     }
     searchBotsTransactions.searchInterval = Interval.LAST_180_DAYS;
+    this.currentInterval = Interval.LAST_180_DAYS.toString();
     this.sendGetAllBotsTransactionsCall(searchBotsTransactions);
   }
 
@@ -123,6 +138,7 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
       searchBotsTransactions.botId = botId;
     }
     searchBotsTransactions.searchInterval = Interval.LAST_YEAR;
+    this.currentInterval = Interval.LAST_YEAR.toString();
     this.sendGetAllBotsTransactionsCall(searchBotsTransactions);
   }
 
