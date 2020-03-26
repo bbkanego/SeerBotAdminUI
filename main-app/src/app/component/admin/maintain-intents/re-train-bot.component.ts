@@ -183,4 +183,8 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
   get utteranceToIntents(): FormArray {
     return this.intentsForm.get('utteranceToIntents') as FormArray;
   }
+
+  localHelp() {
+    this.help();
+  }
 }

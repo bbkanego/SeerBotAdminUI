@@ -20,6 +20,11 @@ export interface BotDetail {
   percentageMaybe: number;
 }
 
+export interface Owner {
+  firstName: string;
+  lastName: string;
+}
+
 export interface SeerBotAdminAccount {
   id?: string;
   token: string;
@@ -27,6 +32,8 @@ export interface SeerBotAdminAccount {
   userName: string;
   firstName: string;
   lastName: string;
+  realm: string;
+  owner: Owner;
 }
 
 export interface UtteranceToIntent {

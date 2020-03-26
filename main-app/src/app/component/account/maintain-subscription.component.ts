@@ -22,8 +22,8 @@ export interface ChangePassword {
 })
 export class MaintainSubscriptionComponent extends BaseBotComponent implements OnInit, OnDestroy {
 
-  private seerBotAdminAccount: SeerBotAdminAccount;
-  private subscription;
+  seerBotAdminAccount: SeerBotAdminAccount;
+  subscription;
 
   category: Option[] = [];
   botServiceSubscription: Subscription;

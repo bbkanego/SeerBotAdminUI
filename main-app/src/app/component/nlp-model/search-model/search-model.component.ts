@@ -45,4 +45,8 @@ export class SearchModelComponent extends BaseBotComponent implements OnInit {
     return this.commonService.cmsContent[context];
   }
 
+  localHelp() {
+    this.help();
+  }
+
 }
