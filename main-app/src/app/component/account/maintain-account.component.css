@@ -1,0 +1,36 @@
+.well-platinum {
+  background: #f3f5eb;
+  border: 2px solid #111111;
+}
+
+.well-gold {
+  background: #ffdd99;
+  border: 2px solid #111111;
+}
+
+.well-silver {
+  background: #b3d9ff;
+  border: 2px solid #111111;
+}
+
+.well-bronze {
+  background: #ffb366;
+  border: 2px solid #111111;
+}
+
+.well-selected {
+  border: 6px solid #111111;
+  margin-top: 15px;
+}
+
+.planHeading {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.heading {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.well-unselected {}

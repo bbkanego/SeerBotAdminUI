@@ -9,3 +9,16 @@
     <router-outlet (activate)="onActivate($event)" (deactivate)="onDeactivate($event)"></router-outlet>
   </div>
 </div>
+
+<app-bk-custom-modal #commonAppModal>
+  <div class="app-modal-header">
+    <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{customModalData.header}}
+  </div>
+  <div class="app-modal-body">
+    {{customModalData.bodyMessage}}
+  </div>
+  <div class="app-modal-footer">
+    <bk-button intent="success" (click)='commonAppModal.hide()' label="{{ customModalData.buttonOk }}">
+    </bk-button>
+  </div>
+</app-bk-custom-modal>

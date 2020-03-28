@@ -1,9 +1,16 @@
-import { Component, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
-import { Router } from '@angular/router';
-import { CommonService, NotificationService, SUBSCRIBER_TYPES } from 'my-component-library';
-import { Subscription } from 'rxjs/Subscription';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {CommonService, ModalComponent, Notification, NotificationService, SUBSCRIBER_TYPES} from 'my-component-library';
+import {Subscription} from 'rxjs/Subscription';
 
-import { BotAuthenticationService } from './service/authentication.service';
+import {BotAuthenticationService} from './service/authentication.service';
+import {BIZ_BOTS_CONSTANTS} from './model/Constants';
+
+export interface CommonModalModel {
+  header: string;
+  bodyMessage: string;
+  buttonOk: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -16,16 +23,29 @@ export class AppComponent implements OnInit, OnDestroy {
   loginSubscription: Subscription;
   private allBootstrapItemsFetched = false;
 
+  customModalData: CommonModalModel = {header: '', bodyMessage: '', buttonOk: ''};
+
+  @ViewChild('commonAppModal') commonAppModal: ModalComponent;
+  private showCommonModalSubscription: Subscription;
+
   constructor(
     private authenticationService: BotAuthenticationService,
     private notificationService: NotificationService,
     private router: Router,
     private commonService: CommonService
-  ) {}
+  ) {
+  }
 
-  onActivate(eventObj) {}
+  onActivate(eventObj) {
+  }
 
-  onDeactivate(eventObj) {}
+  onDeactivate(eventObj) {
+  }
+
+  private showCustomModal(modalData: CommonModalModel) {
+    this.customModalData = modalData;
+    this.commonAppModal.show();
+  }
 
   private loadResources() {
     this.commonService.getCmsContent();
@@ -47,7 +67,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.loginSubscription = this.notificationService
       .onNotification()
-      .subscribe((data: any) => {
+      .subscribe((data: Notification) => {
           if (SUBSCRIBER_TYPES.LOGIN_SUCCESS === data.subscriberType) {
             if (SUBSCRIBER_TYPES.LOGIN_SUCCESS === data.subscriberType) {
               this.allBootstrapItemsFetched = false;
@@ -57,10 +77,18 @@ export class AppComponent implements OnInit, OnDestroy {
             this.showNetworkErrorDialog(data);
           } else if (SUBSCRIBER_TYPES.FORCE_LOGOUT === data.subscriberType) {
             this.logout();
+          } else if (BIZ_BOTS_CONSTANTS.SHOW_COMMON_MODEL === data.subscriberType) {
+            const modalData = data.message as CommonModalModel;
+            this.showCustomModal(modalData);
           }
         },
         error => console.log(error)
       );
+
+    this.showCommonModalSubscription = this.notificationService.onNotification()
+      .subscribe((data: Notification) => {
+
+      })
   }
 
   showNetworkErrorDialog(error) {

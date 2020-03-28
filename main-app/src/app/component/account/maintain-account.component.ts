@@ -1,10 +1,10 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Option, SUBSCRIBER_TYPES } from 'my-component-library';
-import { Subscription } from 'rxjs/Subscription';
-import { AccountService } from '../../service/account.service';
-import { BaseBotComponent } from '../common/baseBot.component';
+import {Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FormArray, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Option, SUBSCRIBER_TYPES} from 'my-component-library';
+import {Subscription} from 'rxjs/Subscription';
+import {AccountService} from '../../service/account.service';
+import {BaseBotComponent} from '../common/baseBot.component';
 
 @Component({
   selector: 'app-maintain-acct',
@@ -25,10 +25,15 @@ export class MaintainAccountComponent extends BaseBotComponent
   validationRuleSubscription: Subscription;
   planDetailsObj: any = {};
 
+  @ViewChild('wellBronze') wellBronze: ElementRef;
+  @ViewChild('wellPlatinum') wellPlatinum: ElementRef;
+  @ViewChild('wellGold') wellGold: ElementRef;
+  @ViewChild('wellSilver') wellSilver: ElementRef;
+
   static checkPasswords(group: FormGroup) { // here we have the 'passwords' group
     const pass = group.controls.passwordCapture.value;
     const confirmPass = group.controls.passwordCaptureReenter.value;
-    return pass === confirmPass ? null : { notSame: true };
+    return pass === confirmPass ? null : {notSame: true};
   }
 
   constructor(
@@ -87,6 +92,12 @@ export class MaintainAccountComponent extends BaseBotComponent
     }
   }
 
+  selectPlan(planCode: string, event) {
+    $('.well').removeClass('well-selected').addClass('well-unselected');
+    $(event.target).parents('.well').addClass('well-selected').removeClass('well-unselected');
+    this.accountDetailForm.get('membershipPlanCode').setValue(planCode);
+  }
+
   private createForm(): void {
     this.accountDetailForm = this.autoGenFormGroup(
       this.accountModel,
@@ -139,6 +150,12 @@ export class MaintainAccountComponent extends BaseBotComponent
         }
       });
     }
+  }
+
+  getMembershipPlan(membershipPlanCode: string) {
+    const selectedPlan = this.accountModel.referenceData.plans
+      .filter(plan => plan.code === membershipPlanCode);
+    return selectedPlan[0];
   }
 
   onPlanSelect(event) {
