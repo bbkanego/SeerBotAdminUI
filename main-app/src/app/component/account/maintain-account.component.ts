@@ -94,7 +94,12 @@ export class MaintainAccountComponent extends BaseBotComponent
 
   selectPlan(planCode: string, event) {
     $('.well').removeClass('well-selected').addClass('well-unselected');
-    $(event.target).parents('.well').addClass('well-selected').removeClass('well-unselected');
+    $('button.selectPlanButton').text('Select Plan').removeClass('selectedPlanButton')
+      .removeClass('btn-lg').removeClass('active').addClass('btn-success');
+    const buttonObj = $(event.target);
+    buttonObj.text('Selected').addClass('selectedPlanButton').removeClass('btn-success')
+      .addClass('btn-lg').addClass('active');
+    buttonObj.parents('.well').addClass('well-selected').removeClass('well-unselected');
     this.accountDetailForm.get('membershipPlanCode').setValue(planCode);
   }
 

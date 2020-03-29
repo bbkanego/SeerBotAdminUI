@@ -33,4 +33,9 @@
   font-weight: bold;
 }
 
+button.selectedPlanButton {
+  background-color: #000;
+  color: #fff;
+}
+
 .well-unselected {}
