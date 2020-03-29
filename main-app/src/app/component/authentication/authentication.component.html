@@ -5,13 +5,13 @@
     </div>
     <div class="col-sm-4 table-box">
       <div class="panel panel-default">
-        <div class="panel-heading">{{getCommonResources('login.heading')}}</div>
+        <div class="panel-heading">{{getCommonResourcesLocal('heading')}}</div>
         <div class="panel-body">
           <div *ngIf="loginFailed == true" class="alert alert-warning">
-            <strong>{{getCommonResources('login.loginFailure')}}</strong>
+            <strong>{{getCommonResourcesLocal('loginFailure')}}</strong>
           </div>
           <div *ngIf="logoutSuccess == true" class="alert alert-success">
-            <strong>{{getCommonResources('login.loginSuccess')}}</strong>
+            <strong>{{getCommonResourcesLocal('loginSuccess')}}</strong>
           </div>
           <form #userForm="ngForm">
             <div class="form-group">
@@ -28,21 +28,14 @@
               </label>
             </div>
             <div class="form-group text-center">
-              <!-- <button type="submit" (click)="login()" class="btn btn-success">Login</button> -->
               <bk-button type='submit' (onClick)='login()' intent='success' label='Login'></bk-button>
               <bk-button type='button' (onClick)='createAccount()' intent='warning' label='Create Account'></bk-button>
             </div>
           </form>
-          <!-- <div class="text-center">
-            <a class='actionLink' (click)="signUp()">No Account? Sign up now!</a>
-          </div> -->
           <div class="tp-10margin">
             <div class="text-center">
-              &copy;&nbsp;{{getCommonResources('login.copyright')}}
+              &copy;&nbsp;{{getCommonResourcesLocal('copyright')}}
             </div>
-            <!--<div class="tp-10margin">
-              You can login using "admin/12345678" user name and password.
-            </div>-->
           </div>
         </div>
       </div>

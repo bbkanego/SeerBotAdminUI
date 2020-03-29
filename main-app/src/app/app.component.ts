@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs/Subscription';
 
 import {BotAuthenticationService} from './service/authentication.service';
 import {BIZ_BOTS_CONSTANTS} from './model/Constants';
+import {BotAdminCommonService} from './service/common.service';
 
 export interface CommonModalModel {
   header: string;
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private authenticationService: BotAuthenticationService,
+    private botAdminCommonService: BotAdminCommonService,
     private notificationService: NotificationService,
     private router: Router,
     private commonService: CommonService
@@ -88,11 +90,15 @@ export class AppComponent implements OnInit, OnDestroy {
     this.showCommonModalSubscription = this.notificationService.onNotification()
       .subscribe((data: Notification) => {
 
-      })
+      });
   }
 
   showNetworkErrorDialog(error) {
-    // this.networkErrorDialog.visible = true;
+    const commonModalModel: CommonModalModel = {
+      header: 'Network Error',
+      bodyMessage: 'There was a problem connecting to the server. Please try later.', buttonOk: 'OK'
+    };
+    this.botAdminCommonService.showCommonModal(commonModalModel);
   }
 
   isLoggedIn() {

@@ -2,16 +2,61 @@
   <div class="col-sm-12">
     <div class="help-panel panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="accountHelp">
+          <h4 class="panel-title">
+            <a class="accordion-toggle" role="button" data-toggle="collapse" data-parent="#accordion"
+               href="#accountHelpDetails"
+               aria-expanded="true" aria-controls="accountHelpDetails">
+              <strong>Plan Details</strong>
+            </a>
+          </h4>
+        </div>
+        <div id="accountHelpDetails" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            <ul class="helpUl">
+              <li><code>Monthly Platinum</code>:<br/>
+                <ul>
+                  <li>This plan is the for high traffic websites.</li>
+                  <li>Maximum transactions/hits allowed are 500 per minute</li>
+                  <li>You will be billed $50 monthly (30 days)</li>
+                </ul>
+              </li>
+              <li><code>Monthly Gold</code>:<br/>
+                <ul>
+                  <li>This plan is the for high traffic websites.</li>
+                  <li>Maximum transactions/hits allowed are 300 per minute</li>
+                  <li>You will be billed $30 monthly (30 days)</li>
+                </ul>
+              </li>
+              <li><code>Monthly Silver</code>:<br/>
+                <ul>
+                  <li>This plan is the for high traffic websites.</li>
+                  <li>Maximum transactions/hits allowed are 200 per minute</li>
+                  <li>You will be billed $20 monthly (30 days)</li>
+                </ul>
+              </li>
+              <li><code>Monthly Bronze</code>:<br/>
+                <ul>
+                  <li>This plan is the for high traffic websites.</li>
+                  <li>Maximum transactions/hits allowed are 100 per minute</li>
+                  <li>You will be billed $10 monthly (30 days)</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingThree">
           <h4 class="panel-title">
             <a class="accordion-toggle" role="button" data-toggle="collapse" data-parent="#accordion"
                href="#collapseThree"
-               aria-expanded="true" aria-controls="collapseThree">
+               aria-expanded="false" aria-controls="collapseThree">
               <strong>What are categories?</strong>
             </a>
           </h4>
         </div>
-        <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
           <div class="panel-body">
             <ul class="helpUl">
               <li>Categories allow you to define what kind of Bot you want to create.</li>
@@ -258,7 +303,8 @@
                 them at all. The BotAdmin app will track this on a per bot basis.
               </li>
               <li>Using this information you can retrain your bots. You can analyze what your bots did not understand or
-                was able to partially understand. Then make a decision if you want to ignore those customer utternances or
+                was able to partially understand. Then make a decision if you want to ignore those customer utternances
+                or
                 do you want the bot to learn and understand them for future interactions.
               </li>
               <li>

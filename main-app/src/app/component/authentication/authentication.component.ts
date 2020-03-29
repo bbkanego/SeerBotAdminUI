@@ -4,6 +4,12 @@ import {BotAuthenticationService} from '../../service/authentication.service';
 import {Login, SUBSCRIBER_TYPES} from 'my-component-library';
 import {BaseBotComponent} from '../common/baseBot.component';
 
+// instead of getting the labels from the server, put them here in case of network error
+const LoginLabels = {
+  heading: 'Login to SeerGab', loginSuccess: 'Logout Success!',
+  loginFailure: 'Logout Failed!', copyright: '2020 SeerSense, LLC'
+};
+
 @Component({
   'selector': 'app-bkauthenticate',
   'styleUrls': ['./authentication.component.css'],
@@ -59,5 +65,9 @@ export class AuthenticationComponent extends BaseBotComponent implements OnInit,
 
   signUp(): void {
     this.router.navigate(['/account/signup']);
+  }
+
+  getCommonResourcesLocal(key) {
+    return LoginLabels[key];
   }
 }
