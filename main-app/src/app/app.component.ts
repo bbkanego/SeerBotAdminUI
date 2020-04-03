@@ -82,6 +82,8 @@ export class AppComponent implements OnInit, OnDestroy {
           } else if (BIZ_BOTS_CONSTANTS.SHOW_COMMON_MODEL === data.subscriberType) {
             const modalData = data.message as CommonModalModel;
             this.showCustomModal(modalData);
+          } else if (SUBSCRIBER_TYPES.ERROR_500 === data.subscriberType) {
+            this.showError500ErrorDialog(data);
           }
         },
         error => console.log(error)
@@ -97,6 +99,14 @@ export class AppComponent implements OnInit, OnDestroy {
     const commonModalModel: CommonModalModel = {
       header: 'Network Error',
       bodyMessage: 'There was a problem connecting to the server. Please try later.', buttonOk: 'OK'
+    };
+    this.botAdminCommonService.showCommonModal(commonModalModel);
+  }
+
+  showError500ErrorDialog(data) {
+    const commonModalModel: CommonModalModel = {
+      header: 'Something Went Wrong',
+      bodyMessage: data.message.errorMessage, buttonOk: 'OK'
     };
     this.botAdminCommonService.showCommonModal(commonModalModel);
   }

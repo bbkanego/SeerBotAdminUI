@@ -1,4 +1,4 @@
-import {Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Option, SUBSCRIBER_TYPES} from 'my-component-library';
@@ -9,6 +9,7 @@ import {BaseBotComponent} from '../common/baseBot.component';
 @Component({
   selector: 'app-maintain-acct',
   templateUrl: './maintain-account.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./maintain-account.component.css']
 })
 export class MaintainAccountComponent extends BaseBotComponent
@@ -98,7 +99,7 @@ export class MaintainAccountComponent extends BaseBotComponent
       .removeClass('btn-lg').removeClass('active').addClass('btn-success');
     const buttonObj = $(event.target);
     buttonObj.text('Selected').addClass('selectedPlanButton').removeClass('btn-success')
-      .addClass('btn-lg').addClass('active');
+      .addClass('btn-lg');
     buttonObj.parents('.well').addClass('well-selected').removeClass('well-unselected');
     this.accountDetailForm.get('membershipPlanCode').setValue(planCode);
   }

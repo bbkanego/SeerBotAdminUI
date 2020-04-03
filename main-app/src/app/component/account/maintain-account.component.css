@@ -33,9 +33,25 @@
   font-weight: bold;
 }
 
-button.selectedPlanButton {
+.selectedPlanButton {
   background-color: #000;
   color: #fff;
 }
 
-.well-unselected {}
+.selectedPlanButton:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.selectedPlanButton:active {
+  background-color: #000;
+  color: #fff;
+}
+
+.selectedPlanButton:focus {
+  background-color: #000;
+  color: #fff;
+}
+
+.well-unselected {
+}
