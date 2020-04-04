@@ -3,78 +3,77 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
-  entry: {
-    'seer-chat-bootstrap': './public/javascript/seer-chat-bootstrap.js',
-    'seer-chat': './public/javascript/seer-chat.js',
-  },
-  output: {
-    filename: '[name].min.js',
-    path: path.resolve(__dirname, 'public/javascript'),
-  },
-  module: {
-    rules: [{
-        test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
+    entry: {
+        'seer-chat-bootstrap': './public/javascript/seer-chat-bootstrap.js',
+    },
+    output: {
+        filename: '[name].min.js',
+        path: path.resolve(__dirname, 'public/javascript'),
+    },
+    module: {
+        rules: [{
+            test: /\.m?js$/,
+            exclude: /(node_modules|bower_components)/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/preset-env'],
+                },
+            },
         },
-      },
-      {
-        test: /\.css$/,
-        use: ['css-loader', 'style-loader', 'postcss-loader'],
-      },
-      {
-        test: /\.(png|jpg|gif)$/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 8192,
-          },
-        }, ],
-      },
-      {
-        test: /\.(svg)$/,
-        use: [{
-            loader: 'url-loader',
-            options: {
-              limit: 8192,
+            {
+                test: /\.css$/,
+                use: ['css-loader', 'style-loader', 'postcss-loader'],
             },
-          },
-          {
-            loader: 'svgo-loader',
-            options: {
-              plugins: [{
-                  removeTitle: true
-                },
-                {
-                  convertColors: {
-                    shorthex: false
-                  }
-                },
-                {
-                  convertPathData: false
-                },
-              ],
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 8192,
+                    },
+                },],
             },
-          },
+            {
+                test: /\.(svg)$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        limit: 8192,
+                    },
+                },
+                    {
+                        loader: 'svgo-loader',
+                        options: {
+                            plugins: [{
+                                removeTitle: true
+                            },
+                                {
+                                    convertColors: {
+                                        shorthex: false
+                                    }
+                                },
+                                {
+                                    convertPathData: false
+                                },
+                            ],
+                        },
+                    },
+                ],
+            },
         ],
-      },
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: '../html/seer-chat.html',
+            template: './template/seer-chat-template.html',
+            title: 'Seer Chat',
+        }),
+        new CompressionPlugin({
+            algorithm: 'gzip',
+            test: /\.js$|\.css$|\.html$/,
+            threshold: 50,
+            minRatio: 0.8,
+        }),
     ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      filename: '../html/seer-chat.html',
-      template: './template/seer-chat-template.html',
-      title: 'Seer Chat',
-    }),
-    new CompressionPlugin({
-      algorithm: 'gzip',
-      test: /\.js$|\.css$|\.html$/,
-      threshold: 50,
-      minRatio: 0.8,
-    }),
-  ],
 };
