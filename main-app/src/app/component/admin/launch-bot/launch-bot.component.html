@@ -4,7 +4,7 @@
       <h1 class="page-header">{{ getPageHeader() }}</h1>
     </div>
   </div>
-  <div class="row" >
+  <div class="row">
     <div class="col-sm-12">
       <div class="table-box tp-10margin">
         <div class="content padded">
@@ -14,9 +14,9 @@
             </div>
           </div>
           <form *ngIf="launchDTO.bot.status.code === 'DRAFT'"
-            [formGroup]="launchForm"
-            (ngSubmit)="launchNow($event)"
-            novalidate>
+                [formGroup]="launchForm"
+                (ngSubmit)="launchNow()"
+                novalidate>
             <div class="row" *ngIf="context === 'startLaunch'">
               <div class="col-lg-6 col-sm-12">
                 <div class="row">
@@ -76,23 +76,12 @@
         *ngIf="launchDTO.bot.status.code === 'DRAFT'"
         type="button"
         (click)="testNow()"
-        label="{{getResourceLocal('startLaunch.testNow')}}"
-      ></bk-button>
-      <!-- <bk-button
-        intent="success"
-        [disabled]="isDisabled()"
-        *ngIf="launchDTO.bot.status.code === 'TESTING'"
-        type="button"
-        (click)="launchNow()"
-        [label]="createButtonLabel"
-      ></bk-button> -->
-      <!-- <bk-button intent='warning' *ngIf='context === "launched"' (click)='restartNow()' label='Restart'></bk-button>
-      <bk-button intent='danger' *ngIf='context === "launched"' (click)='stopNow()' label='Stop'></bk-button> -->
+        label="{{getResourceLocal('startLaunch.testNow')}}"></bk-button>
+
       <bk-button
         intent="danger"
         (click)="cancel()"
-        label="{{ getCancelButtonLabel() }}"
-      ></bk-button>
+        label="{{ getCancelButtonLabel() }}"></bk-button>
     </div>
   </div>
 </div>

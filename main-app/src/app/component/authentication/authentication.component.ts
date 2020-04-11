@@ -6,8 +6,8 @@ import {BaseBotComponent} from '../common/baseBot.component';
 
 // instead of getting the labels from the server, put them here in case of network error
 const LoginLabels = {
-  heading: 'Login to SeerGab', loginSuccess: 'Logout Success!',
-  loginFailure: 'Logout Failed!', copyright: '2020 SeerSense, LLC'
+  heading: 'Login to SeerGab', logoutSuccess: 'Logout Success!',
+  loginFailure: 'Login failed! Username/Password not found', copyright: '2020 SeerSense, LLC'
 };
 
 @Component({
@@ -36,16 +36,17 @@ export class AuthenticationComponent extends BaseBotComponent implements OnInit,
       (data: any) => {
         if (SUBSCRIBER_TYPES.LOGIN_SUCCESS === data.subscriberType) {
           this.router.navigate(['/dashboard']);
-        } else if (SUBSCRIBER_TYPES.LOGIN_FAILED === data.subscriberType) {
+        } else if (SUBSCRIBER_TYPES.LOGIN_FAILED === data.subscriberType
+          || SUBSCRIBER_TYPES.FORCE_LOGOUT === data.subscriberType) {
           this.loginFailed = true;
           setTimeout(() => {
             this.loginFailed = false;
-          }, 2000);
+          }, 4000);
         } else if (SUBSCRIBER_TYPES.LOGOUT_SUCCESS === data.subscriberType) {
           this.logoutSuccess = true;
           setTimeout(() => {
             this.logoutSuccess = false;
-          }, 2000);
+          }, 4000);
         }
       }, error => console.log(error)
     );

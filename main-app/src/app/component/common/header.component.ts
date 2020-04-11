@@ -30,4 +30,13 @@ export class HeaderComponent extends BaseBotComponent {
     const loggedInUser: any = JSON.parse(this.authenticationService.getCurrentUser());
     return loggedInUser.firstName + ' ' + loggedInUser.lastName;
   }
+
+  /**
+   * This will hide and show the menu on mobile devices.
+   * @param event
+   */
+  onMenuClick(event: Event) {
+    $('#sidebar').toggleClass('active');
+    $(event.target).toggleClass('active');
+  }
 }
