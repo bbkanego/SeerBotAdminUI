@@ -2,5 +2,5 @@
 export const rootEnvironment = {
   production: true,
   envName: 'prod',
-  apiUrl: 'http://admin.seersense.com/botadmin'
+  apiUrl: 'https://gabadmin.seersense.com/botadmin'
 };
