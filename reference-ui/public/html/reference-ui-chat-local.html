@@ -14,8 +14,22 @@
         min-width: 300px;
         height: 500px;
         overflow: hidden;
-        z-index: 4;
+        z-index: 40000;
         background-color: transparent;
+      }
+
+      @media (max-width: 768px){
+        #chat-iframe-target {
+          width:80%;
+          height:60vh;
+        }
+      }
+
+      @media (max-width: 992px){
+        #chat-iframe-target{
+          width:80%;
+          height:60vh;
+        }
       }
     </style>
   </head>
@@ -24,9 +38,8 @@
       <h1>Opulant Inc.</h1>
       <div>This is a test!</div>
     </div>
-    <div id="chat-iframe-target" class="chat_window">
-      <!--Chat iframe will be loaded here. This div should be absolute and styles should be provided to the customer-->
-    </div>
+    <!--<div id="chat-iframe-target" class="chat_window">
+    </div>-->
     <!--<script>
       var SEER_CHAT_config = {
         targetDivId: 'chat-iframe-target',
@@ -35,11 +48,10 @@
         chatButtonLabel: 'Talk To Us!'
       };
     </script>-->
-    <script type="text/javascript" src="http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js"></script>
     <!--script type="text/javascript" src="http://gabadmin.seersense.com/assets/bootstrap/seer-chat-bootstrap.min.js"></script-->
     <script>
       window.SEER_CHAT_SETUP.initialize({
-        targetDivId: 'chat-iframe-target',
         chatBotUrl: 'http://localhost:4330',
         chatWindowHeading: 'Test Window',
         chatButtonLabel: 'Talk To Us!',
