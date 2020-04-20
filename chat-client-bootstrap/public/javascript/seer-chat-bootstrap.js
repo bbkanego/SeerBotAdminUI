@@ -99,7 +99,8 @@ window.SEER_CHAT_SETUP = (function() {
 
     const iframe = document.createElement('iframe');
     iframe.sandbox = 'allow-same-origin allow-scripts allow-forms allow-popups';
-    iframe.src = internalConf.chatBotUrl;
+    iframe.src = internalConf.chatBotUrl + '/index.html?rand=' + (new Date()).getTime();
+    iframe.name = '\'' + (new Date()).getTime() + '\'';
     if (externalConf.collapsed) {
       iframe.setAttribute('style', iframeHiddenStyle);
     } else {
@@ -112,7 +113,7 @@ window.SEER_CHAT_SETUP = (function() {
     iframe.width = '100%';
     iframe.height = '100%';
     iframe.title = 'Seer Chat';
-    iframe.id = 'seerChatIdTypeIframe';
+    iframe.id = 'seerChatIdTypeIframe_' + (new Date()).getTime();
 
     targetDivObj.appendChild(iframe);
 
