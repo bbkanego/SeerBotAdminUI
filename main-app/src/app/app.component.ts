@@ -106,7 +106,7 @@ export class AppComponent implements OnInit, OnDestroy {
   showError500ErrorDialog(data) {
     const commonModalModel: CommonModalModel = {
       header: 'Something Went Wrong',
-      bodyMessage: data.message.errorMessage, buttonOk: 'OK'
+      bodyMessage: data.message.errorMessage || data.message.message, buttonOk: 'OK'
     };
     this.botAdminCommonService.showCommonModal(commonModalModel);
   }

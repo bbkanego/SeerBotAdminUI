@@ -34,3 +34,12 @@
   cursor: inherit;
   display: block;
 }
+
+.readOnlyIntentInfo {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.intentLabel {
+  font-weight: bold;
+}

@@ -28,8 +28,11 @@
               <div class="panel-body content padded">
                 <div class="row" *ngIf="selectedEntryOption === 'enterDetails'">
                   <div class="col-sm-12">
-                    <app-bk-input #intentTextBox [currentFormGroup]="intentsForm"
+                    <app-bk-input #intentTextBox [currentFormGroup]="intentsForm" *ngIf='!isDeleteAllowed()'
                       label="{{cmsContent.addIntent.intentLabel}}" currentFormControlName="intent"></app-bk-input>
+                    <div *ngIf='isDeleteAllowed()' class="readOnlyIntentInfo">
+                      <span class="intentLabel">{{cmsContent.addIntent.intentLabel}}: {{intentsForm.get('intent').value}}</span>
+                    </div>
                   </div>
                   <div class="col-sm-12">
                     <div formArrayName="utterances" class="row">
