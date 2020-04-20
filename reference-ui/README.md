@@ -28,11 +28,19 @@ http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js
 3. Next the customer defines config object:
    ```
    var SEER_CHAT_config = {
+        // the customer needs to create a DIV on the 
+        // UI with id 'chat-iframe-target'
         targetDivId: 'chat-iframe-target',
+        // this should point to where the chat client will 
+        // be downloaded from. This can be local URL when 
+        // testing or static S3 location
         chatBotUrl: 'http://localhost:4320',
+        // this is chat window heading
         chatWindowHeading: 'Test Window',
+        // this is the button name
         chatButtonLabel: 'Talk To Us!',
-        botId: '<A Guide provided when the customer creates the bot>',
+        botId: '<A GUID provided when the customer creates the bot>',
+        // the API URL that will be called by Chat client.
         chatAPIUrl: '<Url to Chat API provided during setup>'
     }
    ```
@@ -76,7 +84,8 @@ http://localhost:3003/load-chat/javascript/seer-chat-bootstrap.js
 ### **Starting the Server (express based) and Chatbot (Spring boot)**
 
 1. First make sure chatbot service is running by running the Intellij config: SeerLogicsSharedBot:local-8099
-   When starting the SharedBot make sure that you pass -- "-seerchat.allowedOrigins=http://localhost:4330" as JVM arg.
+   Before starting the SharedBot make sure that "http://localhost:3004" 
+   is populated in "ALLOWED_ORIGINS" column in "LAUNCH_INFO" table.
 
 2. Start the chatbot angular client. Go to the dir:
    ```
