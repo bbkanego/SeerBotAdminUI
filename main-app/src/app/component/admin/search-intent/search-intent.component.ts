@@ -74,6 +74,13 @@ export class SearchIntentComponent extends BaseBotComponent implements OnInit, O
     });
   }
 
+  addIntent() {
+    this.router.navigate(['add'], {
+      queryParams: {action: 'fromEdit'},
+      relativeTo: this.activatedRoute
+    });
+  }
+
   getHeading(): string {
     const localCms = this.cmsContent['searchIntents'];
     if (this.intentService.getActionContext() === 'predefined') {

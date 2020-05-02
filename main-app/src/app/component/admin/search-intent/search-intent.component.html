@@ -41,9 +41,10 @@
     <div style='margin-bottom: 1em' class='col-sm-12'>
       <bk-button intent='danger' (click)="showDeleteAllPopup()"
                  label='{{getCommonResources("deleteAllButton")}}'></bk-button>
-      <bk-button intent='success' (click)="backToCriteria()"
-                 label='{{getCommonResources("goBackButton")}}'>>
-      </bk-button>
+      <bk-button intent='success' (click)="addIntent()"
+                 label='{{getResourceLocal("addIntent")}}'></bk-button>
+      <bk-button intent='warning' (click)="backToCriteria()"
+                 label='{{getCommonResources("goBackButton")}}'></bk-button>
     </div>
   </div>
 </div>

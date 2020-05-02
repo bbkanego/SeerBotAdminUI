@@ -17,6 +17,14 @@ body {
   margin-top: 0.75em;
 }
 
+.btm-20margin {
+  margin-bottom: 1.5em;
+}
+
+.btm-10margin {
+  margin-bottom: 0.75em;
+}
+
 .errorMessage {
   color: red;
   margin-bottom: 1rem;
@@ -202,6 +210,12 @@ div.table-box .displayHeader {
 
 label {
   font-weight: 400 !important;
+  color: #000;
+}
+
+.labelSpan {
+  font-weight: bold;
+  font-size: 1em;
   color: #000;
 }
 

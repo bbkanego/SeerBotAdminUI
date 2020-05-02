@@ -36,7 +36,7 @@
                   </div>
                   <div class="col-sm-12">
                     <div formArrayName="utterances" class="row">
-                      <div class="col-sm-12">
+                      <div class="col-sm-12" *ngIf="canAddUtterance()">
                         <span>Utterance</span>
                         <span (click)="addUtterance()" title="{{getResourceLocal('addIntent.addUtterance')}}"
                           class="green-glyphicon glyphicon glyphicon-plus-sign"></span>
@@ -44,7 +44,7 @@
                               class="custom-glyphicon glyphicon glyphicon-remove-sign"></span> -->
                       </div>
                       <div class="col-sm-12" *ngFor="let utteranceGrp of utterances.controls; let i=index">
-                        <div class="row">
+                        <div class="row" *ngIf="canAddUtterance()">
                           <div class="col-sm-1" style="text-align: right">
                           </div>
                           <div class="col-sm-11">
@@ -180,8 +180,9 @@
     </div>
     <div class='row'>
       <div class="col-lg-6 col-sm-12">
-        <app-bk-select [currentFormGroup]="intentsForm" #selectCategory label="{{cmsContent.addIntent.categoryLabel}}"
+        <app-bk-select *ngIf="!isDeleteAllowed()" [currentFormGroup]="intentsForm" #selectCategory label="{{cmsContent.addIntent.categoryLabel}}"
           currentFormControlName="category" [options]="category"></app-bk-select>
+        <div class="btm-20margin" *ngIf="isDeleteAllowed()"><span class="labelSpan">{{cmsContent.addIntent.categoryLabel}}:</span> {{intentsModel.category.name}}</div>
       </div>
     </div>
     <div class="row">
@@ -211,5 +212,7 @@
     </div>
   </app-bk-custom-modal>
 
-  <!-- {{intentsForm.get('mayBeIntent').value   | json}} -->
+<!--
+  {{intentsForm.get('category').value   | json}}
+-->
 </div>

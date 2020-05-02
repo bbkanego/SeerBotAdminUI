@@ -55,7 +55,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
       this.validationRules
     );
     this.intentsForm.get('category').setValidators(CustomValidator.isSelectValid());
-    if (this.currentAction === 'add') {
+    if (this.currentAction.indexOf('add') > -1) {
       this.addUtterance();
       this.addResponse();
     }
@@ -137,6 +137,11 @@ export class MaintainIntentsComponent extends BaseBotComponent
           this.currentAction = 'edit';
           const id = this.activatedRoute.snapshot.paramMap.get('id');
           this.editUtterance(path, id);
+        } else if (path.indexOf('add') > -1) {
+          if (qParams.action === 'fromEdit') {
+            this.currentAction = 'addFromEdit'
+          }
+          this.loadIntentsForm(path);
         }
       });
     });
@@ -225,9 +230,8 @@ export class MaintainIntentsComponent extends BaseBotComponent
     }
   }
 
-  private submitEachEntryForm() {
-    const finalModel = this.intentsForm.value;
-    this.intentService.save(finalModel).subscribe(res => {
+  private submitEachEntryForm(intentModel) {
+    this.intentService.save(intentModel).subscribe(res => {
       if (this.currentAction === 'add') {
         this.router.navigate(['/dashboard']);
       } else {
@@ -262,9 +266,10 @@ export class MaintainIntentsComponent extends BaseBotComponent
         const targetCat = this.intentsModel.referenceData.categories.filter(
           element => element.code === selectedCat
         );
-        this.intentsForm.get('category').setValue(targetCat[0]);
-
-        this.submitEachEntryForm();
+        // this.intentsForm.get('category').setValue(targetCat[0]);
+        const intentModel = this.intentsForm.value;
+        intentModel.category = targetCat[0];
+        this.submitEachEntryForm(intentModel);
       }
     } else if (this.selectedEntryOption === 'upload') {
       this.submitMultiPartForm();
@@ -359,7 +364,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
   }
 
   getHeading() {
-    if (this.currentAction === 'add') {
+    if (this.currentAction === 'add' || this.currentAction === 'addFromEdit') {
       if (this.currentContext === 'predefined') {
         return this.cmsContent.addIntent.pageHeadingPredefined;
       } else {
@@ -380,6 +385,10 @@ export class MaintainIntentsComponent extends BaseBotComponent
 
   isDeleteAllowed() {
     return this.intentsModel.id !== null;
+  }
+
+  canAddUtterance() {
+    return this.intentsModel.intent !== 'DoNotUnderstandIntent' && this.intentsModel.intent !== 'Initiate';
   }
 }
 

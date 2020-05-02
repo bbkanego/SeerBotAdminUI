@@ -103,6 +103,10 @@ const routes: Routes = [
       {
         path: 'edit/:id',
         component: MaintainIntentsComponent
+      },
+      {
+        path: 'add',
+        component: MaintainIntentsComponent
       }
     ]
   },

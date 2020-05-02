@@ -98,7 +98,8 @@ window.SEER_CHAT_SETUP = (function() {
     emptyNode(targetDivObj);
 
     const iframe = document.createElement('iframe');
-    iframe.sandbox = 'allow-same-origin allow-scripts allow-forms allow-popups';
+    iframe.sandbox = 'allow-top-navigation-by-user-activation ' +
+        'allow-top-navigation allow-same-origin allow-scripts allow-forms allow-popups';
     iframe.src = internalConf.chatBotUrl + '/index.html?rand=' + (new Date()).getTime();
     iframe.name = '\'' + (new Date()).getTime() + '\'';
     if (externalConf.collapsed) {
