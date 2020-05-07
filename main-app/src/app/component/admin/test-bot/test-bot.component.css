@@ -65,8 +65,9 @@
 }
 
 .messages .message .left .avatar {
-  background-color: #f5886e;
+  background-color: #000000;
   float: left;
+  background-image: url("../../../../assets/img/icons8-bot-64.png");
 }
 
 .messages .message .left .text_wrapper {

@@ -30,6 +30,7 @@ import {HelpModule} from './component/help/help.module';
 import {BotAdminCommonService} from './service/common.service';
 import {InterceptHttpInterceptor} from './interceptor/httpconfig.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {NoCacheHeadersInterceptor} from './interceptor/noCacheHeader.interceptor';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
     CommonService, BotAdminCommonService, IntentService, ValidationService, RoleService, DashboardService,
     AuthGuard, LogoutGuard, UberAdminGuard, AccountService, SubscriptionService,
     {provide: 'environment', useValue: environment},
-    {provide: HTTP_INTERCEPTORS, useClass: InterceptHttpInterceptor, multi: true}],
+    {provide: HTTP_INTERCEPTORS, useClass: InterceptHttpInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: NoCacheHeadersInterceptor, multi: true}],
   bootstrap: [AppComponent],
   entryComponents: [HelpComponent]
 })

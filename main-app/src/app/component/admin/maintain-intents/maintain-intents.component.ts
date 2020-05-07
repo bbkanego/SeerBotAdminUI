@@ -235,7 +235,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
       if (this.currentAction === 'add') {
         this.router.navigate(['/dashboard']);
       } else {
-        this.intentsForm = null;
+        // this.intentsForm = null;
         this.notificationService.notify(
           'Refresh Results!',
           BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS,
