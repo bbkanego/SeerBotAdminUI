@@ -138,11 +138,10 @@ a {
   margin-left: -50px;
 }
 
-.dottedHr {
-  width: 80%;
-  color: black;
-  height: 1px;
-  background-color: black;
+hr.dottedHr {
+  width: 100%;
+  border-top: 1px dashed #bdbdbd;
+  margin-bottom: 15px;
 }
 
 /*CSS table box*/
@@ -287,7 +286,7 @@ textarea {
 }
 
 .custom-glyphicon {
-  margin-right: 0px;
+  margin-right: 5px;
   cursor: pointer;
   color: #eb8334;
 }

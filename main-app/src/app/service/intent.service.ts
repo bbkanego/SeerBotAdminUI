@@ -3,6 +3,14 @@ import {Observable} from 'rxjs/Observable';
 import {environment} from '../environments/frozenEnvironment';
 import {BaseBotCrudService} from './baseBotCrud.service';
 
+export interface CopyIntents {
+  intentName?: string;
+  sourceCategoryCode?: string;
+  sourceCategoryTypeCode?: string;
+  targetCategoryCode?: string;
+  targetIntentName?: string;
+}
+
 @Injectable()
 export class IntentService extends BaseBotCrudService {
   private allIntents;
@@ -96,8 +104,8 @@ export class IntentService extends BaseBotCrudService {
     }
   }
 
-  public copyPredefinedIntents(categoryCode: string): Observable<any> {
-    return this.getRequest(environment.COPY_PREDEF_INTENT + '/' + categoryCode);
+  public copyPredefinedIntents(copyIntents: CopyIntents): Observable<any> {
+    return this.postRequest(environment.COPY_PREDEF_INTENT, copyIntents);
   }
 
   public deleteAllIntentsByCategory(catCode: string): Observable<any> {

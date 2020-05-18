@@ -29,7 +29,7 @@ export const environment = Object.freeze({
   INIT_CUSTOM_INTENTS: url + '/api/v1/custom-intent/init',
   SAVE_CUSTOM_INTENT: url + '/api/v1/custom-intent',
   GET_CUSTOM_INTENT: url + '/api/v1/custom-intent',
-  COPY_PREDEF_INTENT: url + '/api/v1/custom-intent/copy-standard-intents',
+  COPY_PREDEF_INTENT: url + '/api/v1/custom-intent/copy-intents',
   UPLOAD_CUSTOM_INTENT: url + '/api/v1/custom-intent/upload',
   GET_ALL_CMS_CONTENT: url + '/api/cms/all-content',
   START_LAUNCH_BOT: url + '/api/v1/chatbot/launch/start',

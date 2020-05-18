@@ -5,7 +5,7 @@ import { CustomValidator, ModalComponent, Option, SelectComponent, SUBSCRIBER_TY
 import { Subscription } from 'rxjs/Subscription';
 import { environment } from '../../../environments/frozenEnvironment';
 import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { IntentService } from '../../../service/intent.service';
+import {CopyIntents, IntentService} from '../../../service/intent.service';
 import { BaseBotComponent } from '../../common/baseBot.component';
 
 @Component({
@@ -280,6 +280,7 @@ export class MaintainIntentsComponent extends BaseBotComponent
 
   private copyPredefinedIntents() {
     const selectedCat = this.selectCategory.selectWidget.nativeElement.value;
+    const copyIntentsModel: CopyIntents = {sourceCategoryCode: selectedCat, sourceCategoryTypeCode: 'PREDEFINED'};
     this.intentService.copyPredefinedIntents(selectedCat).subscribe(() => {
       this.router.navigate(['/dashboard']);
     });
