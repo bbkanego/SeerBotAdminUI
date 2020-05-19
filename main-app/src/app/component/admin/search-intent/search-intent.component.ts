@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
 import {CopyIntents, IntentService} from '../../../service/intent.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
-import {CustomValidator, ModalComponent, Option} from 'my-component-library';
+import {CustomFormControl, CustomValidator, ModalComponent, Option} from 'my-component-library';
 import {FormGroup, Validators} from '@angular/forms';
 
 
@@ -59,9 +59,10 @@ export class SearchIntentComponent extends BaseBotComponent implements OnInit, O
     this.intentCopyForm = this.autoGenFormGroup(
       this.intentsCopyModel, []
     );
-    this.intentCopyForm.get('sourceCategoryCode').setValidators(Validators.required);
+    const sourceCategoryCodeControl: CustomFormControl = this.intentCopyForm.get('sourceCategoryCode') as CustomFormControl;
+    sourceCategoryCodeControl.setValidators(Validators.required);
     // the below is required for the red asterik to show up
-    this.intentCopyForm.get('sourceCategoryCode').validationRules['required'] = true;
+    sourceCategoryCodeControl.validationRules['required'] = true;
     this.category = this.buildOptions(this.getSearchIntentsModel().referenceData.categories);
   }
 
