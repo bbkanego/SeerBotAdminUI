@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { COMMON_CONST, HttpClient, Login, Notification, NotificationService, SUBSCRIBER_TYPES } from 'my-component-library';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { environment } from '../environments/frozenEnvironment';
 import {deprecate} from 'util';
 import {SeerBotAdminAccount} from '../model/models';

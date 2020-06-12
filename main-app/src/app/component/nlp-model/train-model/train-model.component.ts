@@ -9,7 +9,7 @@ import {
   CustomValidator,
   ModalComponent
 } from 'my-component-library';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { NlpModelService } from '../../../service/nlp-model.service';
 import { BaseBotComponent } from '../../common/baseBot.component';
 import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';

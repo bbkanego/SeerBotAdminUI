@@ -1,7 +1,7 @@
 import {Directive, ElementRef, Injector} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BaseReactiveComponent, CommonService, DynamicModalComponent, PopoutComponent, Option} from 'my-component-library';
-import {combineLatest} from 'rxjs/observable/combineLatest';
+import {combineLatest} from 'rxjs';
 import {FormGroup} from '@angular/forms';
 import {HelpComponent} from "../help/help.component";
 

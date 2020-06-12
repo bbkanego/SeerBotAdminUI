@@ -1,7 +1,7 @@
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, UrlSegment, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
 import { ResourceService } from '../../../service/resource.service';
 import { BaseBotComponent } from '../../common/baseBot.component';

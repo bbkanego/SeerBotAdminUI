@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {CommonService, ModalComponent, Notification, NotificationService, SUBSCRIBER_TYPES} from 'my-component-library';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 import {BotAuthenticationService} from './service/authentication.service';
 import {BIZ_BOTS_CONSTANTS} from './model/Constants';

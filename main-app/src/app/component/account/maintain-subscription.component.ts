@@ -1,7 +1,7 @@
 import {Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
 import {Option} from 'my-component-library';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {BaseBotComponent} from '../common/baseBot.component';
 import {SubscriptionService} from '../../service/subscription.service';
 import {BotAuthenticationService} from '../../service/authentication.service';

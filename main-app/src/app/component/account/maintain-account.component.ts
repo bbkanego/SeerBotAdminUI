@@ -2,7 +2,7 @@ import {Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild, ViewEncap
 import {FormArray, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Option, SUBSCRIBER_TYPES} from 'my-component-library';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {AccountService} from '../../service/account.service';
 import {BaseBotComponent} from '../common/baseBot.component';
 

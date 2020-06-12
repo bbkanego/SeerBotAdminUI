@@ -7,9 +7,9 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {_throw} from 'rxjs/observable/throw';
+import {throwError as _throw} from 'rxjs';
 import {BotAdminCommonService} from '../service/common.service';
 import {CommonModalModel} from '../app.component';
 

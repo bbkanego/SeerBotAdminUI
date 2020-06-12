@@ -2,7 +2,7 @@ import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core
 import { FormGroup, NgModel } from '@angular/forms';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { Option, SUBSCRIBER_TYPES, ModalComponent } from 'my-component-library';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
 import { BotService } from '../../../service/bot.service';
 import { BaseBotComponent } from '../../common/baseBot.component';

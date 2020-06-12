@@ -1,7 +1,7 @@
 import {Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {IntentService} from '../../../service/intent.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 import {DashboardService, SearchBotsTransactions} from '../../../service/dashboard.service';

@@ -28,7 +28,7 @@ import {
   TableChatComponentComponent,
   TextChat2ComponentComponent
 } from 'my-component-library';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {BotService} from '../../../service/bot.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 

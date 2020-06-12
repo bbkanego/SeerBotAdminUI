@@ -1,9 +1,9 @@
 import {Component, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ChartComponent, ChartData, ChartDataSet} from 'my-component-library';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {DashboardService, Interval, SearchBotsTransactions} from '../../service/dashboard.service';
 import {BaseBotComponent} from '../common/baseBot.component';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 import { CustomValidator, Option, SUBSCRIBER_TYPES } from 'my-component-library';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { BotService } from '../../../service/bot.service';
 import { BaseBotComponent } from '../../common/baseBot.component';
 

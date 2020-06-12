@@ -1,11 +1,11 @@
 import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
 import {BotService} from '../../../service/bot.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-search-bot',

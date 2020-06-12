@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { BaseBotCrudService } from './baseBotCrud.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { environment } from '../environments/frozenEnvironment';
 
 @Injectable()

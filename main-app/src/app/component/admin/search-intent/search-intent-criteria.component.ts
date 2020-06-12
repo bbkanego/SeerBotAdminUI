@@ -4,7 +4,7 @@ import { ActivatedRoute, UrlSegment, Router, Params } from '@angular/router';
 import { IntentService } from '../../../service/intent.service';
 import { BaseBotComponent } from '../../common/baseBot.component';
 import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-intent-criteria',

@@ -2,7 +2,7 @@ import { Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@
 import { FormArray, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 import { CustomValidator, ModalComponent, Option, SelectComponent, SUBSCRIBER_TYPES } from 'my-component-library';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { environment } from '../../../environments/frozenEnvironment';
 import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
 import {CopyIntents, IntentService} from '../../../service/intent.service';
