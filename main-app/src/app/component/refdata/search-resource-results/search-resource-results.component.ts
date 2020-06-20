@@ -1,9 +1,9 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { ResourceService } from '../../../service/resource.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {ResourceService} from '../../../service/resource.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-search-resource-results',
@@ -42,14 +42,6 @@ export class SearchResourceResultsComponent extends BaseBotComponent implements 
       });
   }
 
-  private searchResources() {
-    this.searchCriteriaSubscription = this.resourceService
-      .searchResource()
-      .subscribe(results => {
-        this.resourceResults = results;
-      });
-  }
-
   ngOnDestroy(): void {
     if (this.searchCriteriaSubscription) {
       this.searchCriteriaSubscription.unsubscribe();
@@ -67,6 +59,14 @@ export class SearchResourceResultsComponent extends BaseBotComponent implements 
 
   getResourceLocal(key: string): string {
     return this.getResource('refData', key);
+  }
+
+  private searchResources() {
+    this.searchCriteriaSubscription = this.resourceService
+      .searchResource()
+      .subscribe(results => {
+        this.resourceResults = results;
+      });
   }
 
 }

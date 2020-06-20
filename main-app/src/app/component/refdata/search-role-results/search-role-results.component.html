@@ -9,15 +9,15 @@
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <bk-datatable [records]="roleResults" #bkTop5Heroes smallDeviceHeader="{{ getCommonResources('resultsHeading') }}"
-        pageSize="6">
-        <bk-column header="{{ getCommonResources('entity.name') }}" sort="true" field="code">
-          <ng-template let-col="column" let-role="rowData" let-index="rowIndex" bkTemplate="body">
+      <bk-datatable #bkTop5Heroes [records]="roleResults" pageSize="6"
+                    smallDeviceHeader="{{ getCommonResources('resultsHeading') }}">
+        <bk-column field="code" header="{{ getCommonResources('entity.name') }}" sort="true">
+          <ng-template bkTemplate="body" let-col="column" let-index="rowIndex" let-role="rowData">
             <a (click)="editRole(role.id)">{{ role.role }}</a>
           </ng-template>
         </bk-column>
-        <bk-column header="{{ getCommonResources('entity.code') }}" sort="true" field="code"></bk-column>
-        <bk-column header="{{ getCommonResources('entity.description') }}" sort="true" field="description"></bk-column>
+        <bk-column field="code" header="{{ getCommonResources('entity.code') }}" sort="true"></bk-column>
+        <bk-column field="description" header="{{ getCommonResources('entity.description') }}" sort="true"></bk-column>
       </bk-datatable>
     </div>
   </div>

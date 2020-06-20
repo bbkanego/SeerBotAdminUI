@@ -1,7 +1,7 @@
 import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {BotAuthenticationService} from '../../service/authentication.service';
-import {Login, SUBSCRIBER_TYPES} from 'my-component-library';
+import {Login, SUBSCRIBER_TYPES} from 'seerlogics-ngui-components';
 import {BaseBotComponent} from '../common/baseBot.component';
 
 // instead of getting the labels from the server, put them here in case of network error

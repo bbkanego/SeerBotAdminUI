@@ -1,8 +1,7 @@
-import { CrudService } from 'my-component-library';
-import { Injectable, Injector } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from '../environments/frozenEnvironment';
-import { BaseBotCrudService } from './baseBotCrud.service';
+import {Injectable, Injector} from '@angular/core';
+import {Observable} from 'rxjs';
+import {environment} from '../environments/frozenEnvironment';
+import {BaseBotCrudService} from './baseBotCrud.service';
 
 @Injectable()
 export class NlpModelService extends BaseBotCrudService {

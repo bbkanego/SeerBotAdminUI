@@ -7,42 +7,42 @@
       </h1>
     </div>
   </div>
-  <div class='row' *ngIf="categoryResultsGetter.length > 0">
+  <div *ngIf="categoryResultsGetter.length > 0" class='row'>
     <div class='col-sm-12'>
       <p>
         <span
           class="green-glyphicon-subheading glyphicon glyphicon-search"></span>{{getResourceLocal('maintainCategory.editCategoryVerbiage')}}
-        <span title="Click for more details" (click)="help()"
-              class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+        <span (click)="help()" class="green-glyphicon-help glyphicon glyphicon-question-sign"
+              title="Click for more details"></span>
       </p>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12">
       <bk-datatable
-        [records]="categoryResultsGetter"
         #bkTop5Heroes
-        smallDeviceHeader="{{ getCommonResources('resultsHeading') }}"
+        [records]="categoryResultsGetter"
         pageSize="6"
+        smallDeviceHeader="{{ getCommonResources('resultsHeading') }}"
       >
         <bk-column
+          field="name"
           header="{{ getCommonResources('entity.name')  }}"
           sort="true"
-          field="name"
         >
           <ng-template
-            let-col="column"
+            bkTemplate="body"
             let-category="rowData"
-            let-index="rowIndex"
-            bkTemplate="body">
+            let-col="column"
+            let-index="rowIndex">
 
             <a (click)="editCategory(category.id)">{{ category.name }}</a>
           </ng-template>
         </bk-column>
         <bk-column
+          field="description"
           header="{{ getCommonResources('entity.description')  }}"
           sort="true"
-          field="description"
         ></bk-column>
       </bk-datatable>
     </div>

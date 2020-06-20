@@ -8,41 +8,41 @@
     <div class='col-sm-12'>
       <p><span
         class="green-glyphicon-subheading glyphicon glyphicon-plus"></span>{{getResourceLocal('heading')}}
-        <span title="Click for more details" (click)="localHelp()"
-              class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+        <span (click)="localHelp()" class="green-glyphicon-help glyphicon glyphicon-question-sign"
+              title="Click for more details"></span>
       </p>
     </div>
   </div>
   <div class='row'>
     <div class='col-sm-12'>
-      <bk-datatable [records]='botTransactions' #botTransactionsWidget pageSize='6'>
-        <bk-column header='{{getResourceLocal("botName")}}' sort='true'
-                   field='name'></bk-column>
-        <bk-column header='{{getResourceLocal("totalChats")}}' sort='true'
-                   field='name'>
-          <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
+      <bk-datatable #botTransactionsWidget [records]='botTransactions' pageSize='6'>
+        <bk-column field='name' header='{{getResourceLocal("botName")}}'
+                   sort='true'></bk-column>
+        <bk-column field='name' header='{{getResourceLocal("totalChats")}}'
+                   sort='true'>
+          <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
             {{trans.successTransactions.length + trans.failureTransactions.length + trans.maybeTransactions.length}}
           </ng-template>
         </bk-column>
-        <bk-column header='{{getResourceLocal("successChats")}}' sort='true'
-                   field='name'>
-          <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
+        <bk-column field='name' header='{{getResourceLocal("successChats")}}'
+                   sort='true'>
+          <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
             {{trans.percentageSuccess}}%
           </ng-template>
         </bk-column>
-        <bk-column header='{{getResourceLocal("partialChats")}}' sort='true'
-                   field='name'>
-          <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-            <a *ngIf="trans.percentageMaybe > 0"
-               (click)="manageUtteranceAndIntents(trans.id, 'maybe')">{{trans.percentageMaybe}}%</a>
+        <bk-column field='name' header='{{getResourceLocal("partialChats")}}'
+                   sort='true'>
+          <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
+            <a (click)="manageUtteranceAndIntents(trans.id, 'maybe')"
+               *ngIf="trans.percentageMaybe > 0">{{trans.percentageMaybe}}%</a>
             <div *ngIf="trans.percentageMaybe === 0">{{trans.percentageMaybe}}%</div>
           </ng-template>
         </bk-column>
-        <bk-column header='{{getResourceLocal("failedChats")}}' sort='true'
-                   field='name'>
-          <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-            <a *ngIf="trans.percentageFailure > 0"
-               (click)="manageUtteranceAndIntents(trans.id, 'failed')">{{trans.percentageFailure}}%</a>
+        <bk-column field='name' header='{{getResourceLocal("failedChats")}}'
+                   sort='true'>
+          <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
+            <a (click)="manageUtteranceAndIntents(trans.id, 'failed')"
+               *ngIf="trans.percentageFailure > 0">{{trans.percentageFailure}}%</a>
             <div *ngIf="trans.percentageFailure === 0">{{trans.percentageFailure}}%</div>
           </ng-template>
         </bk-column>
@@ -56,7 +56,7 @@
     <div class="message">Save Successful...</div>
   </div>
 
-  <div class='row' *ngIf="intentsForm">
+  <div *ngIf="intentsForm" class='row'>
     <div class='col-sm-12'>
       <h1 *ngIf="matchType === 'maybe'" class='page-header'>
         {{getResourceLocal('partialChatsHeading')}}
@@ -66,7 +66,7 @@
       </h1>
     </div>
   </div>
-  <div class='row' *ngIf="intentsForm">
+  <div *ngIf="intentsForm" class='row'>
     <div class='col-sm-12'>
       <p *ngIf="matchType === 'failed' && utteranceToIntents.controls.length > 0"><span
         class="green-glyphicon-subheading glyphicon glyphicon-edit"></span>{{getResourceLocal('failedHeading')}}
@@ -79,14 +79,14 @@
       </p>
     </div>
   </div>
-  <form [formGroup]='intentsForm' (ngSubmit)='onSubmit()' *ngIf="intentsForm && utteranceToIntents.controls.length > 0"
+  <form (ngSubmit)='onSubmit()' *ngIf="intentsForm && utteranceToIntents.controls.length > 0" [formGroup]='intentsForm'
         novalidate>
     <div class='row'>
       <div class='col-sm-12'>
         <div class="table-box tp-10margin">
           <div class="content padded">
-            <div formArrayName="utteranceToIntents" class="row">
-              <div class="col-sm-12" *ngFor="let utteranceGrp of utteranceToIntents.controls; let i=index">
+            <div class="row" formArrayName="utteranceToIntents">
+              <div *ngFor="let utteranceGrp of utteranceToIntents.controls; let i=index" class="col-sm-12">
                 <div class="row">
                   <!--<div class="col-sm-2">
                     <app-bk-checkbox controlId="ignoreBox{{i}}" [value]="'true'" (onClick)="onCheckBoxSelected($event)"
@@ -94,13 +94,13 @@
                                      currentFormControlName="ignore"></app-bk-checkbox>
                   </div>-->
                   <div class="col-sm-7">
-                    <app-bk-input controlId="utterance{{i}}" [currentFormGroup]="utteranceGrp"
-                                  label="Utterance"
-                                  currentFormControlName="utterance"></app-bk-input>
+                    <app-bk-input [currentFormGroup]="utteranceGrp" controlId="utterance{{i}}"
+                                  currentFormControlName="utterance"
+                                  label="Utterance"></app-bk-input>
                   </div>
                   <div class="col-sm-3">
-                    <app-bk-select controlId="intent{{i}}" [currentFormGroup]="utteranceGrp" label="Intent"
-                                   currentFormControlName="intentId" [options]="currentIntents"></app-bk-select>
+                    <app-bk-select [currentFormGroup]="utteranceGrp" [options]="currentIntents" controlId="intent{{i}}"
+                                   currentFormControlName="intentId" label="Intent"></app-bk-select>
                   </div>
                   <div class="col-sm-2">
                     <label>Matched Against</label>
@@ -115,13 +115,13 @@
     </div>
     <div class='row'>
       <!-- {{getFormValidationErrors(botForm.controls) | json}} -->
-      <div style='margin-bottom: 1em' class='col-sm-12'>
-        <bk-button intent='success' [currentFormGroup]='intentsForm' type='submit'
-                   label='{{getCommonResources("saveButton")}}'></bk-button>
-        <bk-button intent='danger' type='button' (click)="cancel()"
-                   label='{{getCommonResources("cancelButton")}}'></bk-button>
+      <div class='col-sm-12' style='margin-bottom: 1em'>
+        <bk-button [currentFormGroup]='intentsForm' intent='success' label='{{getCommonResources("saveButton")}}'
+                   type='submit'></bk-button>
+        <bk-button (click)="cancel()" intent='danger' label='{{getCommonResources("cancelButton")}}'
+                   type='button'></bk-button>
       </div>
-      <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
+      <div [innerHTML]="getCommonResources('requiredIndicator')" class="col-sm-12"></div>
     </div>
   </form>
 </div>

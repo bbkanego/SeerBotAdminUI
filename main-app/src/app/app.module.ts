@@ -2,12 +2,15 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  AuthenticationService,
+  AuthenticationService, ButtonModule, ChartModule,
   CommonService,
-  CommonUtilsModule,
+  ErrorMessagesModule,
+  LoaderModule,
+  ModalModule,
   NotificationService,
+  PopoutModule,
   ValidationService
-} from 'my-component-library';
+} from 'seerlogics-ngui-components';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AccountModule} from './component/account/account.module';
@@ -37,7 +40,8 @@ import {NoCacheHeadersInterceptor} from './interceptor/noCacheHeader.interceptor
     AppComponent
   ],
   imports: [
-    BrowserModule, CommonComponentModule, CommonUtilsModule, DashboardModule,
+    BrowserModule, CommonComponentModule, DashboardModule, LoaderModule, ModalModule, PopoutModule,
+    ErrorMessagesModule, ButtonModule,
     AppRoutingModule, AuthenticationModule, StripeGWModule, HttpClientModule,
     BrowserAnimationsModule, AccountModule, HelpModule
   ],

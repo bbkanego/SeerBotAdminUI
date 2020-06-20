@@ -1,10 +1,10 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { ActionService } from '../../../service/action.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {ActionService} from '../../../service/action.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-action',
@@ -20,7 +20,7 @@ export class ActionComponent extends BaseBotComponent implements OnInit, OnDestr
   actionModel: any;
 
   constructor(injector: Injector, private actionService: ActionService, private router: Router,
-    private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute) {
     super(injector);
   }
 
@@ -36,32 +36,6 @@ export class ActionComponent extends BaseBotComponent implements OnInit, OnDestr
         this.initActionCategory();
       }
     });
-  }
-
-  private initActionCategory() {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.validationRuleSubscription = this.validationService
-      .getValidationRuleMetadata('validateActionRule').subscribe(rules => {
-        this.validationRules = rules;
-        this.actionSubscription = this.actionService.getById(id).subscribe((model) => {
-          this.createForm(model);
-        });
-      });
-  }
-
-  private initActionModel() {
-    this.validationRuleSubscription = this.validationService.
-      getValidationRuleMetadata('validateActionRule').subscribe(rules => {
-        this.validationRules = rules;
-        this.actionSubscription = this.actionService.initModel().subscribe((model) => {
-          this.createForm(model);
-        });
-      });
-  }
-
-  private createForm(model: any) {
-    this.actionModel = model;
-    this.actionForm = this.autoGenFormGroup(this.actionModel, this.validationRules);
   }
 
   ngOnDestroy(): void {
@@ -99,9 +73,9 @@ export class ActionComponent extends BaseBotComponent implements OnInit, OnDestr
   delete(id: string) {
     this.actionService.delete(id).subscribe(() => {
       this.actionForm = null;
-      
+
       this.notificationService.notify('Refresh Results!', BIZ_BOTS_CONSTANTS.REFRESH_ACTIONS_SEARCH_RESULTS,
-            BIZ_BOTS_CONSTANTS.REFRESH_ACTIONS_SEARCH_RESULTS);
+        BIZ_BOTS_CONSTANTS.REFRESH_ACTIONS_SEARCH_RESULTS);
     });
   }
 
@@ -111,6 +85,31 @@ export class ActionComponent extends BaseBotComponent implements OnInit, OnDestr
 
   getResourceLocal(key: string) {
     return this.getResource('refData', key);
+  }
+
+  private initActionCategory() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.validationRuleSubscription = this.validationService
+      .getValidationRuleMetadata('validateActionRule').subscribe(rules => {
+        this.validationRules = rules;
+        this.actionSubscription = this.actionService.getById(id).subscribe((model) => {
+          this.createForm(model);
+        });
+      });
+  }
+
+  private initActionModel() {
+    this.validationRuleSubscription = this.validationService.getValidationRuleMetadata('validateActionRule').subscribe(rules => {
+      this.validationRules = rules;
+      this.actionSubscription = this.actionService.initModel().subscribe((model) => {
+        this.createForm(model);
+      });
+    });
+  }
+
+  private createForm(model: any) {
+    this.actionModel = model;
+    this.actionForm = this.autoGenFormGroup(this.actionModel, this.validationRules);
   }
 
 }

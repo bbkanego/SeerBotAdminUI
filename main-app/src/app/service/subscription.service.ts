@@ -9,16 +9,16 @@ export class SubscriptionService extends BaseBotCrudService {
 
   searchCriteriaModel: any;
 
+  constructor(injector: Injector) {
+    super(injector);
+  }
+
   getById(id: string): Observable<any> {
     throw new Error('Method not implemented.');
   }
 
   getAll(): Observable<any[]> {
     throw new Error('Method not implemented.');
-  }
-
-  constructor(injector: Injector) {
-    super(injector);
   }
 
   initModel(): Observable<any> {

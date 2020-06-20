@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import { COMMON_CONST, HttpClient, Login, Notification, NotificationService, SUBSCRIBER_TYPES } from 'my-component-library';
-import { Observable } from 'rxjs';
-import { environment } from '../environments/frozenEnvironment';
-import {deprecate} from 'util';
+import {Injectable} from '@angular/core';
+import {Response} from '@angular/http';
+import {COMMON_CONST, HttpClientHelper, Login, Notification, NotificationService, SUBSCRIBER_TYPES} from 'seerlogics-ngui-components';
+import {Observable} from 'rxjs';
+import {environment} from '../environments/frozenEnvironment';
 import {SeerBotAdminAccount} from '../model/models';
+import {map} from 'rxjs/operators';
+import {HttpResponse} from '@angular/common/http';
 
 @Injectable()
 export class BotAuthenticationService {
 
-  constructor(private httpClient: HttpClient, private notificationService: NotificationService) {
+  constructor(private httpClient: HttpClientHelper, private notificationService: NotificationService) {
 
   }
 
@@ -20,10 +21,10 @@ export class BotAuthenticationService {
    * @returns {IDisposable|Subscription}
    */
   login(user: Login): any {
-    return this.postRequest(environment.LOGIN_URL, { 'userName': user.username, 'password': user.password })
-      // get the response and call .json() to get the JSON data
-      // .map((res:Response) => res.json())
-      .subscribe((res: Response) => {
+    return this.postRequest(environment.LOGIN_URL, {'userName': user.username, 'password': user.password})
+    // get the response and call .json() to get the JSON data
+    // .map((res:Response) => res.json())
+      .subscribe((res: any) => {
         // var payload = res.json();
         const authorization = res['token'];
         const roles = res['roles'];
@@ -49,12 +50,6 @@ export class BotAuthenticationService {
       });
     // ...errors if any
     // .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-  }
-
-  protected postRequest(url: string, model: any) {
-    return this.httpClient.post(url, JSON.stringify(model))
-      .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   isLoggedIn() {
@@ -100,33 +95,6 @@ export class BotAuthenticationService {
       });
     }
     return false;
-  }
-
-  private findMatchingStatement(resource) {
-    const allRoles: any[] = JSON.parse(this.getCurrentUser()).roles;
-    let found = null;
-    for (const role of allRoles) {
-      const policies: any[] = role.policies;
-      if (!policies) { return null; }
-      for (const policy of policies) {
-        const statements = policy.statements;
-        for (const statement of statements) {
-          if (statement.resource === resource) {
-            found = statement;
-            break;
-          }
-        }
-        if (found) { break; }
-      }
-      if (found) { break; }
-    }
-    return found;
-  }
-
-  private canDoAction(resource, action: string): boolean {
-    const statement = this.findMatchingStatement(resource);
-    if (!statement) { return false; }
-    return statement['actions'].indexOf(action) > -1;
   }
 
   canEditBot() {
@@ -187,5 +155,45 @@ export class BotAuthenticationService {
 
   canDoAll() {
     return this.findMatchingStatement('All') !== null;
+  }
+
+  protected postRequest(url: string, model: any) {
+    return this.httpClient.post(url, JSON.stringify(model)).pipe(
+      map((res: HttpResponse<any>) => res.body));
+  }
+
+  private findMatchingStatement(resource) {
+    const allRoles: any[] = JSON.parse(this.getCurrentUser()).roles;
+    let found = null;
+    for (const role of allRoles) {
+      const policies: any[] = role.policies;
+      if (!policies) {
+        return null;
+      }
+      for (const policy of policies) {
+        const statements = policy.statements;
+        for (const statement of statements) {
+          if (statement.resource === resource) {
+            found = statement;
+            break;
+          }
+        }
+        if (found) {
+          break;
+        }
+      }
+      if (found) {
+        break;
+      }
+    }
+    return found;
+  }
+
+  private canDoAction(resource, action: string): boolean {
+    const statement = this.findMatchingStatement(resource);
+    if (!statement) {
+      return false;
+    }
+    return statement['actions'].indexOf(action) > -1;
   }
 }

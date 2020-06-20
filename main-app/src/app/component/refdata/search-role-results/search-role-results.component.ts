@@ -1,9 +1,9 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { RoleService } from '../../../service/role.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {RoleService} from '../../../service/role.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-search-role-results',
@@ -35,16 +35,8 @@ export class SearchRoleResultsComponent extends BaseBotComponent implements OnIn
       .onNotification()
       .subscribe((data: any) => {
         if (data.subscriberType === BIZ_BOTS_CONSTANTS.REFRESH_ROLE_SEARCH_RESULTS) {
-          this.router.navigate(['/ref-data/role/search'],  {queryParams : {ts : (new Date()).getTime()}});
+          this.router.navigate(['/ref-data/role/search'], {queryParams: {ts: (new Date()).getTime()}});
         }
-      });
-  }
-
-  private searchRoles() {
-    this.searchCriteriaSubscription = this.roleService
-      .getAll()
-      .subscribe(results => {
-        this.roleResults = results;
       });
   }
 
@@ -65,6 +57,14 @@ export class SearchRoleResultsComponent extends BaseBotComponent implements OnIn
 
   getResourceLocal(key: string): string {
     return this.getResource('refData', key);
+  }
+
+  private searchRoles() {
+    this.searchCriteriaSubscription = this.roleService
+      .getAll()
+      .subscribe(results => {
+        this.roleResults = results;
+      });
   }
 
 }

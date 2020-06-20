@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { StateMachineComponent } from './model/state-machine-model.component';
-import { StateMachineRoutingModule } from './state-machine.routing';
-import { StateMachineService } from '../../service/stateMachineModel.service';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {StateMachineComponent} from './model/state-machine-model.component';
+import {StateMachineRoutingModule} from './state-machine.routing';
+import {StateMachineService} from '../../service/stateMachineModel.service';
 
 @NgModule({
   declarations: [StateMachineComponent],
@@ -10,4 +10,5 @@ import { StateMachineService } from '../../service/stateMachineModel.service';
   exports: [StateMachineComponent],
   providers: [StateMachineService]
 })
-export class StateMachineModule {}
+export class StateMachineModule {
+}

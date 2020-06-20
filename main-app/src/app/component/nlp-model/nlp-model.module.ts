@@ -5,12 +5,12 @@ import {NlpModelRoutingModule} from './nlp-model-routing.module';
 import {NlpModelService} from '../../service/nlp-model.service';
 import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
-import {CommonUtilsModule} from 'my-component-library';
+import {ButtonModule, DataTableModule, InputModule} from 'seerlogics-ngui-components';
 
 @NgModule({
-  imports:[NlpModelRoutingModule, CommonModule, ReactiveFormsModule, CommonUtilsModule],
+  imports: [NlpModelRoutingModule, CommonModule, ReactiveFormsModule, DataTableModule, ButtonModule, InputModule],
   declarations: [TrainModelComponent, SearchModelComponent],
-  providers:[NlpModelService]
+  providers: [NlpModelService]
 })
 export class NlpModelModule {
 

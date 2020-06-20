@@ -8,23 +8,23 @@
       <p>
           <span
             class="green-glyphicon-subheading glyphicon glyphicon-search"></span>{{getResource('maintainModels', 'searchTrainedModel.searchVerbiage')}}
-        <span title="Click for more details" (click)="localHelp()"
-              class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+        <span (click)="localHelp()" class="green-glyphicon-help glyphicon glyphicon-question-sign"
+              title="Click for more details"></span>
       </p>
     </div>
   </div>
   <div class='row'>
     <div class='col-sm-12'>
       <bk-datatable [records]='modelResults' pageSize='6'>
-        <bk-column header="{{getResource('searchBots', 'resultsTable.colHeaders.col1')}}" sort='true' field='name'>
-          <ng-template let-col='column' let-bot='rowData' let-index='rowIndex' bkTemplate='body'>
+        <bk-column field='name' header="{{getResource('searchBots', 'resultsTable.colHeaders.col1')}}" sort='true'>
+          <ng-template bkTemplate='body' let-bot='rowData' let-col='column' let-index='rowIndex'>
             <a (click)="viewModel(bot.id)">{{bot.name}}</a>
           </ng-template>
         </bk-column>
-        <bk-column header='{{getResource("searchBots", "resultsTable.colHeaders.col3")}}' sort='true'
-                   field='description'></bk-column>
-        <bk-column header='{{getResource("searchBots", "resultsTable.colHeaders.col4")}}' sort='true' field='category'>
-          <ng-template let-col='column' let-bot='rowData' let-index='rowIndex' bkTemplate='body'>
+        <bk-column field='description' header='{{getResource("searchBots", "resultsTable.colHeaders.col3")}}'
+                   sort='true'></bk-column>
+        <bk-column field='category' header='{{getResource("searchBots", "resultsTable.colHeaders.col4")}}' sort='true'>
+          <ng-template bkTemplate='body' let-bot='rowData' let-col='column' let-index='rowIndex'>
             {{bot.category.name}}
           </ng-template>
         </bk-column>

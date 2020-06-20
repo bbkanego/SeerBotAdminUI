@@ -1,16 +1,16 @@
 .editModel {
-    border: 1px solid #000;
-    border-radius: 1%;
-    margin: 20px;
+  border: 1px solid #000;
+  border-radius: 1%;
+  margin: 20px;
 }
 
 .propertiesPanel {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 260px;
-    z-index: 10;
-    border-left: 1px solid #ccc;
-    overflow: auto;
-  }
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 260px;
+  z-index: 10;
+  border-left: 1px solid #ccc;
+  overflow: auto;
+}

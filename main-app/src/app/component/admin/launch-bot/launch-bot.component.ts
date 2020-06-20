@@ -1,11 +1,11 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { CustomValidator, Option } from 'my-component-library';
-import { Subscription } from 'rxjs';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { BotService } from '../../../service/bot.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {CustomValidator, Option} from 'seerlogics-ngui-components';
+import {Subscription} from 'rxjs';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {BotService} from '../../../service/bot.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 
 @Component({
@@ -42,21 +42,6 @@ export class LaunchBotComponent extends BaseBotComponent
     });
   }
 
-  private createForm(): void {
-    this.launchForm = this.autoGenFormGroup(
-      this.launchDTO,
-      this.validationRules
-    );
-
-    this.trainedModels = [];
-    this.trainedModels.push(new Option('_NONE_', 'None'));
-    for (const entry of this.launchDTO.referenceData.trainedModels) {
-      this.trainedModels.push(new Option(entry.id, entry.name));
-    }
-
-    this.launchForm.get('trainedModelId').setValidators(CustomValidator.isSelectValid());
-  }
-
   onSelectHandler(event) {
     const value = event.target.value;
     console.log('selected value = ' + value);
@@ -67,7 +52,7 @@ export class LaunchBotComponent extends BaseBotComponent
     this.context = 'startLaunch';
     this.createButtonLabel = this.commonService.cmsContent[
       'launchBot'
-    ].startLaunch.launchNowButton;
+      ].startLaunch.launchNowButton;
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.validationRuleSubscription = this.validationService
       .getValidationRuleMetadata('validateLaunchBotRule')
@@ -138,7 +123,7 @@ export class LaunchBotComponent extends BaseBotComponent
           this.launchDTO.bot = botRes.bot;
           this.botAccessUrl = botRes.url1;
           this.context = 'test';
-          this.router.navigate(['/admin/test_start', botRes.bot.id], { relativeTo: this.activatedRoute });
+          this.router.navigate(['/admin/test_start', botRes.bot.id], {relativeTo: this.activatedRoute});
           this.trainedModelSelectValue = 'NONE';
         });
     }
@@ -169,7 +154,7 @@ export class LaunchBotComponent extends BaseBotComponent
 
   cancel() {
     this.context = null;
-    this.router.navigate(['../../'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../../'], {relativeTo: this.activatedRoute});
   }
 
   getPageHeader() {
@@ -204,5 +189,20 @@ export class LaunchBotComponent extends BaseBotComponent
 
   getResourceLocal(key: string) {
     return this.getResource('launchBot', key);
+  }
+
+  private createForm(): void {
+    this.launchForm = this.autoGenFormGroup(
+      this.launchDTO,
+      this.validationRules
+    );
+
+    this.trainedModels = [];
+    this.trainedModels.push(new Option('_NONE_', 'None'));
+    for (const entry of this.launchDTO.referenceData.trainedModels) {
+      this.trainedModels.push(new Option(entry.id, entry.name));
+    }
+
+    this.launchForm.get('trainedModelId').setValidators(CustomValidator.isSelectValid());
   }
 }

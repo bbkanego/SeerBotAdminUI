@@ -6,7 +6,7 @@
       </h1>
     </div>
   </div>
-  <div class='row' *ngIf='intentsResults.length > 0'>
+  <div *ngIf='intentsResults.length > 0' class='row'>
     <div class='col-sm-12'>
       <p><span class="green-glyphicon-subheading glyphicon glyphicon-list"></span>{{getResourceLocal('pageSubHeading')}}
       </p>
@@ -19,19 +19,19 @@
   </div>
   <div class='row'>
     <div class='col-sm-12'>
-      <bk-datatable [records]='intentsResults' [noResultsFoundHeader]="noResultsFoundMessage" #intentsResultsTable
+      <bk-datatable #intentsResultsTable [noResultsFoundHeader]="noResultsFoundMessage" [records]='intentsResults'
                     pageSize='6'>
 
-        <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col1")}}' sort='true' field='intent'>
-          <ng-template let-col='column' let-intent='rowData'
-                       let-index='rowIndex' bkTemplate='body'>
+        <bk-column field='intent' header='{{getResourceLocal("resultsTable.colHeaders.col1")}}' sort='true'>
+          <ng-template bkTemplate='body' let-col='column'
+                       let-index='rowIndex' let-intent='rowData'>
             <a (click)="editIntent(intent.id)">{{intent.intent}}</a>
           </ng-template>
         </bk-column>
 
-        <bk-column header='{{getResourceLocal("resultsTable.colHeaders.col3")}}' sort='true' field='category'>
-          <ng-template let-col='column' let-intent='rowData'
-                       let-index='rowIndex' bkTemplate='body'>
+        <bk-column field='category' header='{{getResourceLocal("resultsTable.colHeaders.col3")}}' sort='true'>
+          <ng-template bkTemplate='body' let-col='column'
+                       let-index='rowIndex' let-intent='rowData'>
             {{intent.category.name}}
           </ng-template>
         </bk-column>
@@ -39,15 +39,15 @@
     </div>
   </div>
   <div class='row'>
-    <div style='margin-bottom: 1em' class='col-sm-12'>
+    <div class='col-sm-12' style='margin-bottom: 1em'>
       <hr class='dottedHr'/>
-      <bk-button intent='danger' (click)="showDeleteAllPopup()" *ngIf='intentsResults.length > 0'
+      <bk-button (click)="showDeleteAllPopup()" *ngIf='intentsResults.length > 0' intent='danger'
                  label='{{getCommonResources("deleteAllButton")}}'></bk-button>
-      <bk-button intent='success' (click)="addIntent()"
+      <bk-button (click)="addIntent()" intent='success'
                  label='{{getResourceLocal("addIntent")}}'></bk-button>
-      <bk-button intent='danger' (click)="showCopyIntentsPopup()" *ngIf='intentsResults.length == 0'
+      <bk-button (click)="showCopyIntentsPopup()" *ngIf='intentsResults.length == 0' intent='danger'
                  label='{{getResourceLocal("copyIntents")}}'></bk-button>
-      <bk-button intent='warning' (click)="backToCriteria()"
+      <bk-button (click)="backToCriteria()" intent='warning'
                  label='{{getCommonResources("goBackButton")}}'></bk-button>
     </div>
   </div>
@@ -61,9 +61,9 @@
     {{getResourceLocal('deleteAllMessage')}}
   </div>
   <div class="app-modal-footer">
-    <bk-button intent="success" (click)='deleteIntentsModal.hide()' label="{{ getCommonResources('noButton') }}">
+    <bk-button (click)='deleteIntentsModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
     </bk-button>
-    <bk-button intent="danger" (click)="deleteAllIntents()"
+    <bk-button (click)="deleteAllIntents()" intent="danger"
                label="{{ getCommonResources('deleteButton') }}"></bk-button>
   </div>
 </app-bk-custom-modal>
@@ -72,24 +72,25 @@
   <div class="app-modal-header">
     <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal('copyIntents')}}
   </div>
-    <div class="app-modal-body">
-      <form [formGroup]="intentCopyForm" (ngSubmit)="copyIntents()"
-            novalidate>
+  <div class="app-modal-body">
+    <form (ngSubmit)="copyIntents()" [formGroup]="intentCopyForm"
+          novalidate>
       <div class="row">
         <div class="col-sm-12">
           <div class="table-box">
             <div class="content padded">
               <div class="row">
                 <div class="col-sm-12 btm-10margin">
-                  <span class="labelSpan">{{getResourceLocal('currentBotCategory')}}:</span> {{getSearchIntentsModel().category.name}}
+                  <span class="labelSpan">{{getResourceLocal('currentBotCategory')}}
+                    :</span> {{getSearchIntentsModel().category.name}}
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-12">
                   <app-bk-select [currentFormGroup]="intentCopyForm"
-                                 label='{{getResource("searchIntents", "categoryLabel")}}'
+                                 [options]='category'
                                  currentFormControlName='sourceCategoryCode'
-                                 [options]='category'></app-bk-select>
+                                 label='{{getResource("searchIntents", "categoryLabel")}}'></app-bk-select>
                 </div>
                 <div class="col-lg-6 col-sm-12">
                 </div>
@@ -98,15 +99,15 @@
           </div>
         </div>
       </div>
-        <div class="row">
-          <div class="col-sm-12">
-            <bk-button intent="warning" (click)='hideCopyIntentsPopup()' label="{{ getCommonResources('noButton') }}">
-            </bk-button>
-            <bk-button intent="success" type='submit' label="{{ getResourceLocal('copyIntents') }}"></bk-button>
-          </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <bk-button (click)='hideCopyIntentsPopup()' intent="warning" label="{{ getCommonResources('noButton') }}">
+          </bk-button>
+          <bk-button intent="success" label="{{ getResourceLocal('copyIntents') }}" type='submit'></bk-button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
+  </div>
 </app-bk-custom-modal>
 
 <router-outlet></router-outlet>

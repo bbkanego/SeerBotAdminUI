@@ -16,7 +16,7 @@
 
 .closeTrigger {
   position: absolute;
-  bottom:5px;
+  bottom: 5px;
   right: 5px;
 }
 
@@ -47,6 +47,7 @@
   display: block;
   color: #fff;
 }
+
 #sidebar ul li a:hover {
   color: #333;
   background: #fff;
@@ -110,6 +111,7 @@ a.article, a.article:hover {
     margin-top: 15px;
     /*transform: rotateY(90deg);*/
   }
+
   #sidebar.active {
     margin-left: 0;
     transform: none;

@@ -10,29 +10,29 @@
   <div class="row">
     <div class="col-sm-12">
       <bk-datatable
-        [records]="actionResults"
         #bkTop5Heroes
-        smallDeviceHeader="Top 5 Heroes"
+        [records]="actionResults"
         pageSize="6"
+        smallDeviceHeader="Top 5 Heroes"
       >
         <bk-column
+          field="code"
           header="{{ getCommonResources('entity.name') }}"
           sort="true"
-          field="code"
         >
           <ng-template
-            let-col="column"
-            let-action="rowData"
-            let-index="rowIndex"
             bkTemplate="body"
+            let-action="rowData"
+            let-col="column"
+            let-index="rowIndex"
           >
             <a (click)="editAction(action.id)">{{ action.name }}</a>
           </ng-template>
         </bk-column>
         <bk-column
+          field="description"
           header="{{ getCommonResources('entity.description') }}"
           sort="true"
-          field="description"
         ></bk-column>
       </bk-datatable>
     </div>

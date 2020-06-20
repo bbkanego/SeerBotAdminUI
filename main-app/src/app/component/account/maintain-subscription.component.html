@@ -58,12 +58,12 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-sm-12" *ngIf="showChangePassword === true">
-                <bk-button intent="success" type="button" (click)='showChangePasswordWidgets()'
-                           label="Change Password"></bk-button>
+              <div *ngIf="showChangePassword === true" class="col-sm-12">
+                <bk-button (click)='showChangePasswordWidgets()' intent="success" label="Change Password"
+                           type="button"></bk-button>
               </div>
-              <div class="col-sm-12" *ngIf="showChangePassword === false">
-                <form [formGroup]='changePasswordForm' (ngSubmit)='onSubmit()' novalidate>
+              <div *ngIf="showChangePassword === false" class="col-sm-12">
+                <form (ngSubmit)='onSubmit()' [formGroup]='changePasswordForm' novalidate>
                   <div class='row'>
                     <div class='col-sm-1'></div>
                     <div class='col-sm-10 panel panel-default'>
@@ -71,7 +71,7 @@
                         <div class='col-sm-12'>
                           <div class="table-box tp-10margin">
                             <div class="content padded">
-                              <div class='row' *ngIf="passwordChangeSuccess">
+                              <div *ngIf="passwordChangeSuccess" class='row'>
                                 <div class="col-sm-12">
                                   <div class="alert alert-success">
                                     {{getResourceLocal('passwordChangedSuccess')}}
@@ -80,17 +80,17 @@
                               </div>
                               <div class='row'>
                                 <div class="col-lg-6 col-sm-12">
-                                  <app-bk-input inputType="password"
+                                  <app-bk-input #passwordCapture
                                                 [currentFormGroup]='changePasswordForm'
-                                                label='{{getResourceLocal("password")}}' #passwordCapture
-                                                currentFormControlName='passwordCapture'></app-bk-input>
+                                                currentFormControlName='passwordCapture' inputType="password"
+                                                label='{{getResourceLocal("password")}}'></app-bk-input>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
-                                  <app-bk-input inputType="password"
+                                  <app-bk-input #passwordCaptureReenter
                                                 [currentFormGroup]='changePasswordForm'
-                                                label='{{getResourceLocal("passwordRenter")}}' #passwordCaptureReenter
-                                                currentFormControlName='passwordCaptureReenter'></app-bk-input>
-                                  <div class="errorMessage" *ngIf="changePasswordForm.hasError('notSame')">
+                                                currentFormControlName='passwordCaptureReenter' inputType="password"
+                                                label='{{getResourceLocal("passwordRenter")}}'></app-bk-input>
+                                  <div *ngIf="changePasswordForm.hasError('notSame')" class="errorMessage">
                                     Does not match
                                   </div>
                                 </div>
@@ -100,15 +100,15 @@
                         </div>
                       </div>
                       <div class='row'>
-                        <div style='margin-bottom: 1em' class='col-sm-12'>
-                          <bk-button intent='success' [currentFormGroup]='changePasswordForm' type='submit'
-                                     [disabled]='!changePasswordForm.valid'
-                                     label='{{getResourceLocal("changePasswordButton")}}'></bk-button>
-                          <bk-button intent='danger' (click)="cancelChangePassword()"
+                        <div class='col-sm-12' style='margin-bottom: 1em'>
+                          <bk-button [currentFormGroup]='changePasswordForm' [disabled]='!changePasswordForm.valid' intent='success'
+                                     label='{{getResourceLocal("changePasswordButton")}}'
+                                     type='submit'></bk-button>
+                          <bk-button (click)="cancelChangePassword()" intent='danger'
                                      label='{{getCommonResources("doneButton")}}'>>
                           </bk-button>
                         </div>
-                        <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
+                        <div [innerHTML]="getCommonResources('requiredIndicator')" class="col-sm-12"></div>
                       </div>
                     </div>
                     <div class='col-sm-1'></div>
@@ -132,7 +132,7 @@
         </div>
         <div class="panel-collapse collapse in table-box">
           <div class="panel-body content padded">
-            <div class="row" *ngFor="let role of seerBotAdminAccount.roles; let i=index">
+            <div *ngFor="let role of seerBotAdminAccount.roles; let i=index" class="row">
               <div class="col-sm-12">
                 <div class="row">
                   <div class="form-group col-sm-1 displayHeader">
@@ -142,8 +142,8 @@
                     {{role.description}}
                   </div>
                 </div>
-                <ng-template ngFor let-policy [ngForOf]="role.policies">
-                  <ng-template ngFor let-statement [ngForOf]="policy.statements">
+                <ng-template [ngForOf]="role.policies" let-policy ngFor>
+                  <ng-template [ngForOf]="policy.statements" let-statement ngFor>
                     <div class="row">
                       <div class="form-group col-sm-1">
                       </div>
@@ -157,7 +157,7 @@
                         {{ getResourceLocal('access') }}:
                       </div>
                       <div class="form-group col-md-5 col-sm-12">
-                        <ng-template ngFor let-action [ngForOf]="statement.actions">
+                        <ng-template [ngForOf]="statement.actions" let-action ngFor>
                           {{action.name}},
                         </ng-template>
                       </div>

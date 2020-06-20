@@ -1,11 +1,11 @@
-import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, NgModel } from '@angular/forms';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { Option, SUBSCRIBER_TYPES, ModalComponent } from 'my-component-library';
-import { Subscription } from 'rxjs';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { BotService } from '../../../service/bot.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {Component, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FormGroup, NgModel} from '@angular/forms';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {ModalComponent, Option, SUBSCRIBER_TYPES} from 'seerlogics-ngui-components';
+import {Subscription} from 'rxjs';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {BotService} from '../../../service/bot.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 
 @Component({
@@ -16,54 +16,19 @@ import { BaseBotComponent } from '../../common/baseBot.component';
 export class MaintainBotComponent extends BaseBotComponent implements OnInit, OnDestroy {
 
   botForm: FormGroup;
-  private botModel;
-  private validationRules;
-
   @ViewChild('formDir') formObj: NgModel;
   createButtonLabel = 'Create Bot';
   validationRuleSubscription: Subscription;
-
   category: Option[] = [];
   botServiceSubscription: Subscription;
   currentEditCategory: any;
-
   @ViewChild(ModalComponent) deleteBotModal: ModalComponent;
+  private botModel;
+  private validationRules;
 
   constructor(injector: Injector, private activatedRoute: ActivatedRoute,
-    private botService: BotService, private router: Router) {
+              private botService: BotService, private router: Router) {
     super(injector);
-  }
-
-  private createForm(): void {
-    this.botForm = this.autoGenFormGroup(
-      this.botModel,
-      this.validationRules
-    );
-  }
-
-  private initAddBot(path) {
-    this.currentAction = 'add';
-    this.validationRuleSubscription = this.validationService
-      .getValidationRuleMetadata('validateBotRule').subscribe(rules => {
-        this.validationRules = rules;
-        this.botServiceSubscription = this.botService.initModelByType('chat_bot').subscribe((model) => {
-          this.botModel = model;
-          this.initComponent(path);
-        });
-      });
-  }
-
-  private editBot() {
-    this.currentAction = 'edit';
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.validationRuleSubscription = this.validationService
-      .getValidationRuleMetadata('validateBotRule').subscribe(rules => {
-        this.validationRules = rules;
-        this.botServiceSubscription = this.botService.getById(id).subscribe((model) => {
-          this.botModel = model;
-          this.initComponent('');
-        });
-      });
   }
 
   ngOnInit() {
@@ -78,33 +43,6 @@ export class MaintainBotComponent extends BaseBotComponent implements OnInit, On
     });
   }
 
-  private initComponent(path: string): void {
-    if (this.currentAction === 'edit') {
-      this.currentEditCategory = this.botModel.category;
-      this.botModel.category = null;
-      this.createForm();
-      // need this when we reset the form!
-      this.botModel.category = this.currentEditCategory;
-    } else {
-      this.createForm();
-    }
-
-    this.category = [];
-    this.category.push(new Option('', 'None'));
-    for (const entry of this.botModel.referenceData.categories) {
-      this.category.push(new Option(entry.code, entry.name));
-    }
-
-    if (this.currentEditCategory != null) {
-      this.botForm.get('category').setValue(this.currentEditCategory.code);
-    }
-
-    if (this.currentAction === 'edit') {
-      this.notificationService.notifyAny(this.botForm, SUBSCRIBER_TYPES.FORM_GROUP_RESET,
-        SUBSCRIBER_TYPES.FORM_GROUP_RESET);
-    }
-  }
-
   ngOnDestroy(): void {
     if (this.botServiceSubscription) {
       this.botServiceSubscription.unsubscribe();
@@ -117,7 +55,8 @@ export class MaintainBotComponent extends BaseBotComponent implements OnInit, On
   onSubmit(eventObj) {
     this.markFormGroupTouched(this.botForm);
 
-    if (this.botForm.invalid) { } else {
+    if (this.botForm.invalid) {
+    } else {
       const selectedCat = this.botForm.get('category').value;
       const targetCat = this.botModel.referenceData.categories.filter(element => element.code === selectedCat);
       this.botForm.get('category').setValue(targetCat[0]);
@@ -175,6 +114,65 @@ export class MaintainBotComponent extends BaseBotComponent implements OnInit, On
 
   isDeleteAllowed() {
     return this.botModel.id !== null;
+  }
+
+  private createForm(): void {
+    this.botForm = this.autoGenFormGroup(
+      this.botModel,
+      this.validationRules
+    );
+  }
+
+  private initAddBot(path) {
+    this.currentAction = 'add';
+    this.validationRuleSubscription = this.validationService
+      .getValidationRuleMetadata('validateBotRule').subscribe(rules => {
+        this.validationRules = rules;
+        this.botServiceSubscription = this.botService.initModelByType('chat_bot').subscribe((model) => {
+          this.botModel = model;
+          this.initComponent(path);
+        });
+      });
+  }
+
+  private editBot() {
+    this.currentAction = 'edit';
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.validationRuleSubscription = this.validationService
+      .getValidationRuleMetadata('validateBotRule').subscribe(rules => {
+        this.validationRules = rules;
+        this.botServiceSubscription = this.botService.getById(id).subscribe((model) => {
+          this.botModel = model;
+          this.initComponent('');
+        });
+      });
+  }
+
+  private initComponent(path: string): void {
+    if (this.currentAction === 'edit') {
+      this.currentEditCategory = this.botModel.category;
+      this.botModel.category = null;
+      this.createForm();
+      // need this when we reset the form!
+      this.botModel.category = this.currentEditCategory;
+    } else {
+      this.createForm();
+    }
+
+    this.category = [];
+    this.category.push(new Option('', 'None'));
+    for (const entry of this.botModel.referenceData.categories) {
+      this.category.push(new Option(entry.code, entry.name));
+    }
+
+    if (this.currentEditCategory != null) {
+      this.botForm.get('category').setValue(this.currentEditCategory.code);
+    }
+
+    if (this.currentAction === 'edit') {
+      this.notificationService.notifyAny(this.botForm, SUBSCRIBER_TYPES.FORM_GROUP_RESET,
+        SUBSCRIBER_TYPES.FORM_GROUP_RESET);
+    }
   }
 
 }

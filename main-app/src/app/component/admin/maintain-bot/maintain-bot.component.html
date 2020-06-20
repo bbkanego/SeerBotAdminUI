@@ -1,4 +1,4 @@
-<div class='container-fluid' *ngIf='botForm'>
+<div *ngIf='botForm' class='container-fluid'>
   <div class="row">
     <div class="col-sm-12">
       <h1 class="page-header">{{getResourceLocal('pageHeading')}}</h1>
@@ -9,34 +9,34 @@
       <p>
         <span
           class="green-glyphicon-subheading glyphicon glyphicon-plus"></span>{{getResourceLocal('addBotVerbiage')}}
-        <span title="Click for more details" (click)="help()"
-              class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+        <span (click)="help()" class="green-glyphicon-help glyphicon glyphicon-question-sign"
+              title="Click for more details"></span>
       </p>
     </div>
   </div>
-  <form [formGroup]='botForm' (ngSubmit)='onSubmit($event)' novalidate>
+  <form (ngSubmit)='onSubmit($event)' [formGroup]='botForm' novalidate>
     <div class='row'>
       <div class='col-sm-12'>
         <div class="table-box tp-10margin">
           <div class="content padded">
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]='botForm' label='{{getResourceLocal("nameLabel")}}'
-                  currentFormControlName='name'></app-bk-input>
+                <app-bk-input [currentFormGroup]='botForm' currentFormControlName='name'
+                              label='{{getResourceLocal("nameLabel")}}'></app-bk-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]='botForm' label='{{getResourceLocal("displayNameLabel")}}'
-                  currentFormControlName='displayName'></app-bk-input>
+                <app-bk-input [currentFormGroup]='botForm' currentFormControlName='displayName'
+                              label='{{getResourceLocal("displayNameLabel")}}'></app-bk-input>
               </div>
             </div>
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-select [currentFormGroup]='botForm' label='{{getResourceLocal("categoryLabel")}}'
-                  currentFormControlName='category' [options]='category'></app-bk-select>
+                <app-bk-select [currentFormGroup]='botForm' [options]='category'
+                               currentFormControlName='category' label='{{getResourceLocal("categoryLabel")}}'></app-bk-select>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-textarea [currentFormGroup]='botForm' label='{{getResourceLocal("descriptionLabel")}}'
-                  currentFormControlName='description'></app-bk-textarea>
+                <app-bk-textarea [currentFormGroup]='botForm' currentFormControlName='description'
+                                 label='{{getResourceLocal("descriptionLabel")}}'></app-bk-textarea>
               </div>
             </div>
           </div>
@@ -45,15 +45,15 @@
     </div>
     <div class='row'>
       <!-- {{getFormValidationErrors(botForm.controls) | json}} -->
-      <div style='margin-bottom: 1em' class='col-sm-12'>
-        <bk-button intent='success' [currentFormGroup]='botForm' type='submit'
-          label='{{getCommonResources("saveButton")}}'></bk-button>
-        <bk-button intent='danger' *ngIf='isDeleteAllowed()' (click)="showDeleteModel()"
-          label='{{getCommonResources("deleteButton")}}'></bk-button>
-        <bk-button intent='warning' (click)="revert()" label='{{getCommonResources("revertButton")}}'></bk-button>
-        <bk-button intent='danger' (click)="cancel()" label='{{getCommonResources("cancelButton")}}'>></bk-button>
+      <div class='col-sm-12' style='margin-bottom: 1em'>
+        <bk-button [currentFormGroup]='botForm' intent='success' label='{{getCommonResources("saveButton")}}'
+                   type='submit'></bk-button>
+        <bk-button (click)="showDeleteModel()" *ngIf='isDeleteAllowed()' intent='danger'
+                   label='{{getCommonResources("deleteButton")}}'></bk-button>
+        <bk-button (click)="revert()" intent='warning' label='{{getCommonResources("revertButton")}}'></bk-button>
+        <bk-button (click)="cancel()" intent='danger' label='{{getCommonResources("cancelButton")}}'>></bk-button>
       </div>
-      <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
+      <div [innerHTML]="getCommonResources('requiredIndicator')" class="col-sm-12"></div>
     </div>
     <!-- {{botForm.valid}}
     {{botForm.value | json}} -->
@@ -64,12 +64,12 @@
       <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal("deleteHeading")}}
     </div>
     <div class="app-modal-body">
-        {{getResourceLocal("deleteMessage")}}
+      {{getResourceLocal("deleteMessage")}}
     </div>
     <div class="app-modal-footer">
-      <bk-button intent="success" (click)='deleteBotModal.hide()' label="{{ getCommonResources('noButton') }}">
+      <bk-button (click)='deleteBotModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
       </bk-button>
-      <bk-button intent="danger" (click)="deleteBot()" label="{{ getCommonResources('deleteButton') }}"></bk-button>
+      <bk-button (click)="deleteBot()" intent="danger" label="{{ getCommonResources('deleteButton') }}"></bk-button>
     </div>
   </app-bk-custom-modal>
 </div>

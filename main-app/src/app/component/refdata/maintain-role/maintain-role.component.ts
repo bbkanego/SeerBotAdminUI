@@ -1,11 +1,11 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { CustomFormControl } from 'my-component-library';
-import { Subscription } from 'rxjs';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { RoleService } from '../../../service/role.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {CustomFormControl} from 'seerlogics-ngui-components';
+import {Subscription} from 'rxjs';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {RoleService} from '../../../service/role.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-maintain-role',
@@ -24,7 +24,7 @@ export class MaintainRoleComponent extends BaseBotComponent implements OnInit, O
   multiSelectStartValues: any[] = [];
 
   constructor(injector: Injector, private roleService: RoleService, private router: Router,
-    private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute) {
     super(injector);
   }
 
@@ -43,48 +43,6 @@ export class MaintainRoleComponent extends BaseBotComponent implements OnInit, O
         this.currentAction = 'edit';
         this.initEditRole();
       }
-    });
-  }
-
-  private initEditRole() {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.validationRuleSubscription = this.validationService
-      .getValidationRuleMetadata('validateRoleRule').subscribe(rules => {
-        this.validationRules = rules;
-        this.botServiceSubscription = this.roleService.getById(id).subscribe((model) => {
-          this.createForm(model);
-        });
-      });
-      /* this.roleModel.policies.forEach((policy) => {
-        this.multiSelectStartValues.push(policy.code);
-      }); */
-  }
-
-  private addSelectPolicy() {
-    const policiesControl = new CustomFormControl(null, Validators.required);
-    policiesControl.validationRules['required'] = true;
-    this.roleForm.addControl('selectPolicies', policiesControl);
-  }
-
-  private initRoleModel() {
-    this.validationRuleSubscription = this.validationService.
-      getValidationRuleMetadata('validateRoleRule').subscribe(rules => {
-        this.validationRules = rules;
-        this.botServiceSubscription = this.roleService.initModel().subscribe((model) => {
-          this.createForm(model);
-        });
-      });
-  }
-
-  private createForm(model: any) {
-    this.multiSelectStartValues = [];
-    this.roleModel = model;
-    this.roleForm = this.autoGenFormGroup(this.roleModel, this.validationRules);
-    this.addSelectPolicy();
-    this.policyOptions = this.buildOptions(this.roleModel.referenceData['policies']);
-
-    this.roleModel.policies.forEach((policy) => {
-        this.multiSelectStartValues.push({value: policy.code, label: policy.name});
     });
   }
 
@@ -146,6 +104,47 @@ export class MaintainRoleComponent extends BaseBotComponent implements OnInit, O
 
   getResourceLocal(key: string) {
     return this.getResource('refData', key);
+  }
+
+  private initEditRole() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.validationRuleSubscription = this.validationService
+      .getValidationRuleMetadata('validateRoleRule').subscribe(rules => {
+        this.validationRules = rules;
+        this.botServiceSubscription = this.roleService.getById(id).subscribe((model) => {
+          this.createForm(model);
+        });
+      });
+    /* this.roleModel.policies.forEach((policy) => {
+      this.multiSelectStartValues.push(policy.code);
+    }); */
+  }
+
+  private addSelectPolicy() {
+    const policiesControl = new CustomFormControl(null, Validators.required);
+    policiesControl.validationRules['required'] = true;
+    this.roleForm.addControl('selectPolicies', policiesControl);
+  }
+
+  private initRoleModel() {
+    this.validationRuleSubscription = this.validationService.getValidationRuleMetadata('validateRoleRule').subscribe(rules => {
+      this.validationRules = rules;
+      this.botServiceSubscription = this.roleService.initModel().subscribe((model) => {
+        this.createForm(model);
+      });
+    });
+  }
+
+  private createForm(model: any) {
+    this.multiSelectStartValues = [];
+    this.roleModel = model;
+    this.roleForm = this.autoGenFormGroup(this.roleModel, this.validationRules);
+    this.addSelectPolicy();
+    this.policyOptions = this.buildOptions(this.roleModel.referenceData['policies']);
+
+    this.roleModel.policies.forEach((policy) => {
+      this.multiSelectStartValues.push({value: policy.code, label: policy.name});
+    });
   }
 
 }

@@ -1,18 +1,12 @@
-import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment, Params } from '@angular/router';
-import { FormGroup } from '@angular/forms';
-import {
-  BaseReactiveComponent,
-  Option,
-  SUBSCRIBER_TYPES,
-  Notification,
-  CustomValidator,
-  ModalComponent
-} from 'my-component-library';
-import { Subscription } from 'rxjs';
-import { NlpModelService } from '../../../service/nlp-model.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
+import {Component, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Params, Router, UrlSegment} from '@angular/router';
+import {FormGroup} from '@angular/forms';
+import {CustomValidator, ModalComponent, Notification, SUBSCRIBER_TYPES} from 'seerlogics-ngui-components';
+import {Subscription} from 'rxjs';
+import {NlpModelService} from '../../../service/nlp-model.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+
 @Component({
   selector: 'app-train-model',
   templateUrl: './train-model.component.html',
@@ -22,13 +16,13 @@ export class TrainModelComponent extends BaseBotComponent
   implements OnInit, OnDestroy {
   trainModel: any;
   trainForm: FormGroup;
-  private validationRules;
   currentAction = 'start';
   category = [];
   validationRuleSubscription: Subscription;
   viewModelSubscription: Subscription;
   currentContext: string;
   @ViewChild(ModalComponent) deleteModelModal: ModalComponent;
+  private validationRules;
 
   constructor(
     injector: Injector,
@@ -37,21 +31,6 @@ export class TrainModelComponent extends BaseBotComponent
     private router: Router
   ) {
     super(injector);
-  }
-
-  private createForm(): void {
-    this.trainForm = this.autoGenFormGroup(
-      this.trainModel,
-      this.validationRules
-    );
-    this.trainForm.get('category').setValidators(CustomValidator.isSelectValid());
-  }
-
-  private initComponent(): void {
-    this.createForm();
-
-    // prepare the drop downs.
-    this.category = this.buildOptions(this.trainModel.referenceData.categories);
   }
 
   ngOnInit() {
@@ -137,21 +116,6 @@ export class TrainModelComponent extends BaseBotComponent
     }
   }
 
-  private startTrain() {
-    this.currentAction = 'add';
-    this.validationRuleSubscription = this.validationService
-      .getValidationRuleMetadata('validateTrainModelRule')
-      .subscribe(rules => {
-        this.validationRules = rules;
-        this.viewModelSubscription = this.nlpService
-          .initModel()
-          .subscribe(model => {
-            this.trainModel = model;
-            this.initComponent();
-          });
-      });
-  }
-
   onSubmit(event) {
     this.markFormGroupTouched(this.trainForm);
     if (this.trainForm.valid) {
@@ -173,5 +137,35 @@ export class TrainModelComponent extends BaseBotComponent
 
   isDeleteAllowed() {
     return this.trainModel.deleteAllowed;
+  }
+
+  private createForm(): void {
+    this.trainForm = this.autoGenFormGroup(
+      this.trainModel,
+      this.validationRules
+    );
+    this.trainForm.get('category').setValidators(CustomValidator.isSelectValid());
+  }
+
+  private initComponent(): void {
+    this.createForm();
+
+    // prepare the drop downs.
+    this.category = this.buildOptions(this.trainModel.referenceData.categories);
+  }
+
+  private startTrain() {
+    this.currentAction = 'add';
+    this.validationRuleSubscription = this.validationService
+      .getValidationRuleMetadata('validateTrainModelRule')
+      .subscribe(rules => {
+        this.validationRules = rules;
+        this.viewModelSubscription = this.nlpService
+          .initModel()
+          .subscribe(model => {
+            this.trainModel = model;
+            this.initComponent();
+          });
+      });
   }
 }

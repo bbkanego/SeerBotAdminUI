@@ -1,12 +1,12 @@
-<div class="container-fluid" *ngIf="actionForm">
+<div *ngIf="actionForm" class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
       <h1 class="page-header">
-        {{ actionModel.id === null ? getResourceLocal('maintainAction.pageHeadingCreate'): getResourceLocal('maintainAction.pageHeadingEdit') }}
+        {{ actionModel.id === null ? getResourceLocal('maintainAction.pageHeadingCreate') : getResourceLocal('maintainAction.pageHeadingEdit') }}
       </h1>
     </div>
   </div>
-  <form [formGroup]="actionForm" (ngSubmit)="onSubmit()" novalidate>
+  <form (ngSubmit)="onSubmit()" [formGroup]="actionForm" novalidate>
     <div class="row">
       <div class="col-sm-12">
         <div class="table-box">
@@ -15,8 +15,8 @@
               <div class="col-lg-6 col-sm-12">
                 <app-bk-input
                   [currentFormGroup]="actionForm"
-                  label="{{ getCommonResources('entity.name') }}"
                   currentFormControlName="name"
+                  label="{{ getCommonResources('entity.name') }}"
                 ></app-bk-input>
               </div>
               <!-- div class="col-lg-6 col-sm-12">
@@ -31,8 +31,8 @@
               <div class="col-sm-12">
                 <app-bk-textarea
                   [currentFormGroup]="actionForm"
-                  label="{{ getCommonResources('entity.description') }}"
                   currentFormControlName="description"
+                  label="{{ getCommonResources('entity.description') }}"
                 ></app-bk-textarea>
               </div>
             </div>
@@ -40,12 +40,12 @@
         </div>
       </div>
     </div>
-    <div style="margin-bottom: 1em" class="col-sm-12">
+    <div class="col-sm-12" style="margin-bottom: 1em">
       <bk-button
-        intent="success"
         [disabled]="!actionForm.valid"
-        type="submit"
+        intent="success"
         label="{{ getCommonResources('saveButton') }}"
+        type="submit"
       ></bk-button>
       <bk-button
         (onClick)="revert()"
@@ -53,10 +53,10 @@
         label="{{ getCommonResources('revertButton') }}"
       ></bk-button
       >&nbsp;<bk-button
-        (onClick)="cancel()"
-        intent="danger"
-        label="{{ getCommonResources('cancelButton') }}"
-      ></bk-button>
+      (onClick)="cancel()"
+      intent="danger"
+      label="{{ getCommonResources('cancelButton') }}"
+    ></bk-button>
     </div>
   </form>
 </div>

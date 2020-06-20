@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CommonModalModel} from '../app.component';
-import {NotificationService} from 'my-component-library';
+import {NotificationService} from 'seerlogics-ngui-components';
 import {BIZ_BOTS_CONSTANTS} from '../model/Constants';
 
 @Injectable()

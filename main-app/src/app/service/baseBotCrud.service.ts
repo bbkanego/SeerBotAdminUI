@@ -1,4 +1,4 @@
-import { CrudService } from 'my-component-library';
+import {CrudService} from 'seerlogics-ngui-components';
 
 export abstract class BaseBotCrudService extends CrudService<any> {
   private actionContext: string;

@@ -1,9 +1,9 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { ActionService } from '../../../service/action.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {ActionService} from '../../../service/action.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-search-action-results',
@@ -41,14 +41,6 @@ export class SearchActionResultsComponent extends BaseBotComponent implements On
       });
   }
 
-  private searchActions() {
-    this.searchResultsSubscription = this.actionService
-      .getAll()
-      .subscribe(results => {
-        this.actionResults = results;
-      });
-  }
-
   ngOnDestroy(): void {
     if (this.searchResultsSubscription) {
       this.searchResultsSubscription.unsubscribe();
@@ -59,10 +51,18 @@ export class SearchActionResultsComponent extends BaseBotComponent implements On
   }
 
   editAction(id: string) {
-    this.router.navigate(['edit', id], { relativeTo: this.activatedRoute });
+    this.router.navigate(['edit', id], {relativeTo: this.activatedRoute});
   }
 
   getResourceLocal(key: string): string {
     return this.getResource('refData', key);
+  }
+
+  private searchActions() {
+    this.searchResultsSubscription = this.actionService
+      .getAll()
+      .subscribe(results => {
+        this.actionResults = results;
+      });
   }
 }

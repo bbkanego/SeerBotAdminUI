@@ -1,10 +1,10 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
-import { CustomValidator, Option, SUBSCRIBER_TYPES } from 'my-component-library';
-import { Subscription } from 'rxjs';
-import { BotService } from '../../../service/bot.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {ActivatedRoute, Params, Router, UrlSegment} from '@angular/router';
+import {CustomValidator, Option, SUBSCRIBER_TYPES} from 'seerlogics-ngui-components';
+import {Subscription} from 'rxjs';
+import {BotService} from '../../../service/bot.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 
 @Component({
@@ -43,39 +43,6 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
         }
       });
     });
-  }
-
-  private initSearchModel() {
-    this.validationRuleSubscription = this.validationService
-      .getValidationRuleMetadata('validateSearchBotsRule')
-      .subscribe(rules => {
-        this.validationRules = rules;
-        this.getSearchModel();
-      });
-  }
-
-  private createForm() {
-    this.botSearchForm = this.autoGenFormGroup(
-      this.searchModel,
-      this.validationRules
-    );
-
-    this.category = [];
-    this.category.push(new Option('_NONE_', 'None'));
-    for (const entry of this.searchModel.referenceData.category) {
-      this.category.push(new Option(entry.code, entry.name));
-    }
-
-    this.botSearchForm.get('category').setValidators(CustomValidator.isSelectValid());
-  }
-
-  private getSearchModel() {
-    this.botSubscription = this.botService
-      .getSearchBotModel()
-      .subscribe(model => {
-        this.searchModel = model;
-        this.createForm();
-      });
   }
 
   ngOnDestroy(): void {
@@ -141,5 +108,38 @@ export class SearchBotCriteriaComponent extends BaseBotComponent
 
   getResourceLocal(key: string): string {
     return this.getResource('searchBots', key);
+  }
+
+  private initSearchModel() {
+    this.validationRuleSubscription = this.validationService
+      .getValidationRuleMetadata('validateSearchBotsRule')
+      .subscribe(rules => {
+        this.validationRules = rules;
+        this.getSearchModel();
+      });
+  }
+
+  private createForm() {
+    this.botSearchForm = this.autoGenFormGroup(
+      this.searchModel,
+      this.validationRules
+    );
+
+    this.category = [];
+    this.category.push(new Option('_NONE_', 'None'));
+    for (const entry of this.searchModel.referenceData.category) {
+      this.category.push(new Option(entry.code, entry.name));
+    }
+
+    this.botSearchForm.get('category').setValidators(CustomValidator.isSelectValid());
+  }
+
+  private getSearchModel() {
+    this.botSubscription = this.botService
+      .getSearchBotModel()
+      .subscribe(model => {
+        this.searchModel = model;
+        this.createForm();
+      });
   }
 }

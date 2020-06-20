@@ -31,12 +31,6 @@ export class SearchModelComponent extends BaseBotComponent implements OnInit {
     });
   }
 
-  private getAllResults() {
-    this.nlpService.getAll().subscribe(results => {
-      this.modelResults = results;
-    });
-  }
-
   viewModel(id) {
     this.localRouter.navigate(['./view/' + id], {relativeTo: this.activatedRoute});
   }
@@ -47,6 +41,12 @@ export class SearchModelComponent extends BaseBotComponent implements OnInit {
 
   localHelp() {
     this.help();
+  }
+
+  private getAllResults() {
+    this.nlpService.getAll().subscribe(results => {
+      this.modelResults = results;
+    });
   }
 
 }

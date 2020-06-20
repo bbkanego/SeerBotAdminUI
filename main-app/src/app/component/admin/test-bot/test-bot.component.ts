@@ -12,7 +12,6 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {Response} from '@angular/http';
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
 import {UUID} from 'angular2-uuid';
 import * as $ from 'jquery';
@@ -20,17 +19,19 @@ import {
   BaseDynamicComponent,
   ChatData,
   ConfirmChatComponent,
-  HttpClient,
+  HttpClientHelper,
   ModalComponent,
   Notification,
   OptionsChatComponent,
   StompService,
   TableChatComponentComponent,
   TextChat2ComponentComponent
-} from 'my-component-library';
+} from 'seerlogics-ngui-components';
 import {Subscription} from 'rxjs';
 import {BotService} from '../../../service/bot.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
+import {HttpResponse} from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
 /**
  * https://bootsnipp.com/snippets/ZlkBn
@@ -64,9 +65,23 @@ export class TestBotComponent extends BaseBotComponent
   messageListContainer: ElementRef;
   @ViewChild('messageList', {read: ViewContainerRef})
   messageList: ViewContainerRef;
+  @ViewChild('stopBotModal') testBotModal: ModalComponent;
+  @ViewChild('reInitBotModal') reInitBotModal: ModalComponent;
+  @ViewChild('launchBotModal') launchBotModal: ModalComponent;
+  @Input()
+  hostUrl: string;
+  @Input()
+  subscriptionUrl: string;
+  chatMessages: ChatData[] = [];
+  componentRef: ComponentRef<{}>;
+  readonly DEFAULT_EXTERNAL_CONFIG = {
+    loadCollapsed: false
+  };
+  readonly INTERNAL_CONFIG = {
+    defaultNetworkTimeout: 30000
+  };
   private dynamicComponentMap: Map<number, ComponentRef<{}>> = new Map();
   private dynamicComponentCount = 0;
-
   private stompSubscription: any;
   private headers = {};
   private chatSessionId;
@@ -77,43 +92,24 @@ export class TestBotComponent extends BaseBotComponent
   private messageSide = 'left';
   private uniqueClientId;
   private botId;
-  @ViewChild('stopBotModal') testBotModal: ModalComponent;
-  @ViewChild('reInitBotModal') reInitBotModal: ModalComponent;
-  @ViewChild('launchBotModal') launchBotModal: ModalComponent;
-
-  @Input()
-  hostUrl: string;
-  @Input()
-  subscriptionUrl: string;
-  chatMessages: ChatData[] = new Array();
-
-  constructor(
-    injector: Injector,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private botService: BotService,
-    private httpClient: HttpClient,
-    private stomp: StompService,
-    private componentFactoryResolver: ComponentFactoryResolver
-  ) {
-    super(injector);
-  }
-
   private DYNAMIC_COMPONENTS = {
     text: TextChat2ComponentComponent,
     table: TableChatComponentComponent,
     confirmAction: ConfirmChatComponent,
     options: OptionsChatComponent
   };
-  componentRef: ComponentRef<{}>;
 
-  readonly DEFAULT_EXTERNAL_CONFIG = {
-    loadCollapsed: false
-  };
-
-  readonly INTERNAL_CONFIG = {
-    defaultNetworkTimeout: 30000
-  };
+  constructor(
+    injector: Injector,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private botService: BotService,
+    private httpClient: HttpClientHelper,
+    private stomp: StompService,
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) {
+    super(injector);
+  }
 
   ngOnInit() {
     this.activatedRoute.url.subscribe((urlSegment: UrlSegment[]) => {
@@ -256,45 +252,6 @@ export class TestBotComponent extends BaseBotComponent
     return this.commonService.cmsContent['launchBot'].launched.botLaunchedMessage;
   }
 
-  private deleteChildComponent(eventObj: Notification) {
-    const childComponent: ComponentRef<{}> = this.dynamicComponentMap.get(
-      +eventObj.message
-    );
-    childComponent.destroy();
-    this.dynamicComponentMap.delete(+eventObj.message);
-  }
-
-  private performYesNoAction(eventObj: Notification) {
-    if (this.clickedColumn && eventObj.message.response === 'yes') {
-      this.sendMessageGeneral(
-        eventObj.message.messageJSON.yesResponse +
-        '|' +
-        this.clickedColumn.clickItemId,
-        false
-      );
-      this.clickedColumn = null;
-    } else if (this.clickedColumn && eventObj.message.response === 'no') {
-      this.sendMessageGeneral(eventObj.message.messageJSON.noResponse, false);
-      this.clickedColumn = null;
-    }
-  }
-
-  private clickAndSendResponse(eventObj: Notification) {
-    this.clickedColumn = eventObj.message;
-    const message: ChatData = {
-      id: null,
-      message: eventObj.message.clickResponse,
-      chatSessionId: this.chatSessionId,
-      accountId: null,
-      previousChatId: this.previousChatId,
-      currentSessionId: this.currentSessionId,
-      uniqueClientId: this.uniqueClientId,
-      response: '',
-      authCode: this.botUniqueId,
-    };
-    this.sendPostMessage(this.botAccessUrl, message);
-  }
-
   sendPingMessage() {
     this.initiateMessageSent = true;
     const message: ChatData = {
@@ -345,31 +302,6 @@ export class TestBotComponent extends BaseBotComponent
     this.sendPostMessage(this.botAccessUrl, message);
   }
 
-  private sendPostMessage(botAccessUrl: string, message: {}) {
-    const inputHeaders = [
-      {
-        name: 'Access-Control-Allow-Credentials',
-        value: 'true'
-      },
-      {
-        name: 'X-Customer-Origin',
-        value: this.botAllowedOrigin
-      },
-      {
-        name: 'X-Bot-Id',
-        value: this.botUniqueId
-      }
-    ];
-
-    this.httpClient
-      .post(botAccessUrl, JSON.stringify(message), inputHeaders)
-      .map((res: Response) => res.json())
-      .subscribe(data => {
-        this.chatBox.nativeElement.value = '';
-        this.handleResponse(data);
-      });
-  }
-
   connect() {
     this.stomp.startConnect().then(() => {
       this.stomp.done('init');
@@ -380,20 +312,6 @@ export class TestBotComponent extends BaseBotComponent
       );
       this.sendPingMessage();
     });
-  }
-
-  // response
-  private handleResponse(data: ChatData) {
-    // console.log('data received = ' + JSON.stringify(data));
-    this.chatMessages.push(data);
-    this.appendChatResponse(data);
-    this.chatSessionId = data.chatSessionId;
-    this.previousChatId = data.id;
-    this.currentSessionId = data.currentSessionId;
-    this.scrollToTheBottom = true;
-    if (this.chatBox) {
-      this.chatBox.nativeElement.focus();
-    }
   }
 
   ngAfterViewChecked() {
@@ -443,6 +361,102 @@ export class TestBotComponent extends BaseBotComponent
       this.processConfirmAction(messageJSON, data);
     } else if (messageJSON.widget === 'options') {
       this.processOptionsAction(messageJSON, data);
+    }
+  }
+
+  onKeydownEvent(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+      this.sendMessage();
+    }
+  }
+
+  getResourceLocal(key: string) {
+    return this.getResource('launchBot', key);
+  }
+
+  isBotLaunched() {
+    return this.launchDTO.bot.status.code === 'LAUNCHED';
+  }
+
+  isBotInTesting() {
+    return this.launchDTO.bot.status.code === 'TESTING';
+  }
+
+  private deleteChildComponent(eventObj: Notification) {
+    const childComponent: ComponentRef<{}> = this.dynamicComponentMap.get(
+      +eventObj.message
+    );
+    childComponent.destroy();
+    this.dynamicComponentMap.delete(+eventObj.message);
+  }
+
+  private performYesNoAction(eventObj: Notification) {
+    if (this.clickedColumn && eventObj.message.response === 'yes') {
+      this.sendMessageGeneral(
+        eventObj.message.messageJSON.yesResponse +
+        '|' +
+        this.clickedColumn.clickItemId,
+        false
+      );
+      this.clickedColumn = null;
+    } else if (this.clickedColumn && eventObj.message.response === 'no') {
+      this.sendMessageGeneral(eventObj.message.messageJSON.noResponse, false);
+      this.clickedColumn = null;
+    }
+  }
+
+  private clickAndSendResponse(eventObj: Notification) {
+    this.clickedColumn = eventObj.message;
+    const message: ChatData = {
+      id: null,
+      message: eventObj.message.clickResponse,
+      chatSessionId: this.chatSessionId,
+      accountId: null,
+      previousChatId: this.previousChatId,
+      currentSessionId: this.currentSessionId,
+      uniqueClientId: this.uniqueClientId,
+      response: '',
+      authCode: this.botUniqueId,
+    };
+    this.sendPostMessage(this.botAccessUrl, message);
+  }
+
+  private sendPostMessage(botAccessUrl: string, message: {}) {
+    const inputHeaders = [
+      {
+        name: 'Access-Control-Allow-Credentials',
+        value: 'true'
+      },
+      {
+        name: 'X-Customer-Origin',
+        value: this.botAllowedOrigin
+      },
+      {
+        name: 'X-Bot-Id',
+        value: this.botUniqueId
+      }
+    ];
+
+    this.httpClient
+      .post(botAccessUrl, JSON.stringify(message), inputHeaders).pipe(
+      map((res: HttpResponse<any>) => res.body()))
+      .subscribe(data => {
+        this.chatBox.nativeElement.value = '';
+        this.handleResponse(data);
+      });
+  }
+
+  // response
+  private handleResponse(data: ChatData) {
+    // console.log('data received = ' + JSON.stringify(data));
+    this.chatMessages.push(data);
+    this.appendChatResponse(data);
+    this.chatSessionId = data.chatSessionId;
+    this.previousChatId = data.id;
+    this.currentSessionId = data.currentSessionId;
+    this.scrollToTheBottom = true;
+    if (this.chatBox) {
+      this.chatBox.nativeElement.focus();
     }
   }
 
@@ -501,23 +515,5 @@ export class TestBotComponent extends BaseBotComponent
         this.componentRef
       );
     }
-  }
-
-  onKeydownEvent(event: KeyboardEvent) {
-    if (event.keyCode === 13) {
-      this.sendMessage();
-    }
-  }
-
-  getResourceLocal(key: string) {
-    return this.getResource('launchBot', key);
-  }
-
-  isBotLaunched() {
-    return this.launchDTO.bot.status.code === 'LAUNCHED';
-  }
-
-  isBotInTesting() {
-    return this.launchDTO.bot.status.code === 'TESTING';
   }
 }

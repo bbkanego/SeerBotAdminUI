@@ -1,9 +1,9 @@
-import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { CategoryService } from '../../../service/category.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {CategoryService} from '../../../service/category.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-search-category-criteria',
@@ -30,10 +30,6 @@ export class SearchCategoryCriteriaComponent extends BaseBotComponent implements
         this.initComponent();
       });
     });
-  }
-
-  private initComponent() {
-    this.categorySearchForm = this.autoGenFormGroup(this.categoryModel, this.validationRules);
   }
 
   onSubmit() {
@@ -64,6 +60,10 @@ export class SearchCategoryCriteriaComponent extends BaseBotComponent implements
 
   cancel() {
     this.router.navigate(['/dashboard']);
+  }
+
+  private initComponent() {
+    this.categorySearchForm = this.autoGenFormGroup(this.categoryModel, this.validationRules);
   }
 
 }

@@ -1,10 +1,11 @@
 import {Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
-import {Option, SUBSCRIBER_TYPES} from 'my-component-library';
+import {Option, SUBSCRIBER_TYPES} from 'seerlogics-ngui-components';
 import {Subscription} from 'rxjs';
 import {AccountService} from '../../service/account.service';
 import {BaseBotComponent} from '../common/baseBot.component';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-maintain-acct',
@@ -31,18 +32,18 @@ export class MaintainAccountComponent extends BaseBotComponent
   @ViewChild('wellGold') wellGold: ElementRef;
   @ViewChild('wellSilver') wellSilver: ElementRef;
 
-  static checkPasswords(group: FormGroup) { // here we have the 'passwords' group
-    const pass = group.controls.passwordCapture.value;
-    const confirmPass = group.controls.passwordCaptureReenter.value;
-    return pass === confirmPass ? null : {notSame: true};
-  }
-
   constructor(
     injector: Injector,
     private router: Router,
     private accountService: AccountService
   ) {
     super(injector);
+  }
+
+  static checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+    const pass = group.controls.passwordCapture.value;
+    const confirmPass = group.controls.passwordCaptureReenter.value;
+    return pass === confirmPass ? null : {notSame: true};
   }
 
   ngOnInit(): void {
@@ -104,37 +105,6 @@ export class MaintainAccountComponent extends BaseBotComponent
     this.accountDetailForm.get('membershipPlanCode').setValue(planCode);
   }
 
-  private createForm(): void {
-    this.accountDetailForm = this.autoGenFormGroup(
-      this.accountModel,
-      this.validationRules
-    );
-    this.accountForm = this.accountDetailForm.get('account') as FormGroup;
-    this.accountForm.setValidators(MaintainAccountComponent.checkPasswords);
-    this.accountOwner = this.accountForm.get('owner') as FormGroup;
-    this.contactModes = this.accountOwner.get('contactModes') as FormArray;
-
-    this.plans = this.buildOptions(this.accountModel.referenceData.plans);
-  }
-
-  private initComponent(): void {
-    if (this.currentAction === 'edit') {
-      this.createForm();
-    } else {
-      this.createForm();
-    }
-
-    // this.roles = this.buildOptions(this.accountModel.referenceData.roles);
-
-    if (this.currentAction === 'edit') {
-      this.notificationService.notifyAny(
-        this.accountForm,
-        SUBSCRIBER_TYPES.FORM_GROUP_RESET,
-        SUBSCRIBER_TYPES.FORM_GROUP_RESET
-      );
-    }
-  }
-
   getResourceLocal(key: string): string {
     return this.getResource('maintainAccount', key);
   }
@@ -176,5 +146,36 @@ export class MaintainAccountComponent extends BaseBotComponent
       this.planDetailsObj = {};
     }
 
+  }
+
+  private createForm(): void {
+    this.accountDetailForm = this.autoGenFormGroup(
+      this.accountModel,
+      this.validationRules
+    );
+    this.accountForm = this.accountDetailForm.get('account') as FormGroup;
+    this.accountForm.setValidators(MaintainAccountComponent.checkPasswords);
+    this.accountOwner = this.accountForm.get('owner') as FormGroup;
+    this.contactModes = this.accountOwner.get('contactModes') as FormArray;
+
+    this.plans = this.buildOptions(this.accountModel.referenceData.plans);
+  }
+
+  private initComponent(): void {
+    if (this.currentAction === 'edit') {
+      this.createForm();
+    } else {
+      this.createForm();
+    }
+
+    // this.roles = this.buildOptions(this.accountModel.referenceData.roles);
+
+    if (this.currentAction === 'edit') {
+      this.notificationService.notifyAny(
+        this.accountForm,
+        SUBSCRIBER_TYPES.FORM_GROUP_RESET,
+        SUBSCRIBER_TYPES.FORM_GROUP_RESET
+      );
+    }
   }
 }

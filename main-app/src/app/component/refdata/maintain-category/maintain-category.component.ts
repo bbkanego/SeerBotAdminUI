@@ -1,11 +1,11 @@
-import { Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
-import { ModalComponent } from 'my-component-library';
-import { Subscription } from 'rxjs';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
-import { CategoryService } from '../../../service/category.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {Component, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
+import {ModalComponent} from 'seerlogics-ngui-components';
+import {Subscription} from 'rxjs';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
+import {CategoryService} from '../../../service/category.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-maintain-category',
@@ -21,7 +21,7 @@ export class MaintainCategoryComponent extends BaseBotComponent implements OnIni
   @ViewChild(ModalComponent) deleteCategoryModal: ModalComponent;
 
   constructor(injector: Injector, private categoryService: CategoryService, private router: Router,
-    private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute) {
     super(injector);
   }
 
@@ -37,32 +37,6 @@ export class MaintainCategoryComponent extends BaseBotComponent implements OnIni
         this.initEditCategory();
       }
     });
-  }
-
-  private initEditCategory() {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.validationRuleSubscription = this.validationService
-      .getValidationRuleMetadata('validateCategoryRule').subscribe(rules => {
-        this.validationRules = rules;
-        this.categoryServiceSubscription = this.categoryService.getById(id).subscribe((model) => {
-          this.createForm(model);
-        });
-      });
-  }
-
-  private initCategoryModel() {
-    this.validationRuleSubscription = this.validationService.
-      getValidationRuleMetadata('validateCategoryRule').subscribe(rules => {
-        this.validationRules = rules;
-        this.categoryServiceSubscription = this.categoryService.initModel().subscribe((model) => {
-          this.createForm(model);
-        });
-      });
-  }
-
-  private createForm(model: any) {
-    this.catModel = model;
-    this.categoryForm = this.autoGenFormGroup(this.catModel, this.validationRules);
   }
 
   ngOnDestroy(): void {
@@ -119,5 +93,30 @@ export class MaintainCategoryComponent extends BaseBotComponent implements OnIni
 
   showDeleteButton() {
     return this.catModel.id !== null && this.catModel.deleteAllowed;
+  }
+
+  private initEditCategory() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.validationRuleSubscription = this.validationService
+      .getValidationRuleMetadata('validateCategoryRule').subscribe(rules => {
+        this.validationRules = rules;
+        this.categoryServiceSubscription = this.categoryService.getById(id).subscribe((model) => {
+          this.createForm(model);
+        });
+      });
+  }
+
+  private initCategoryModel() {
+    this.validationRuleSubscription = this.validationService.getValidationRuleMetadata('validateCategoryRule').subscribe(rules => {
+      this.validationRules = rules;
+      this.categoryServiceSubscription = this.categoryService.initModel().subscribe((model) => {
+        this.createForm(model);
+      });
+    });
+  }
+
+  private createForm(model: any) {
+    this.catModel = model;
+    this.categoryForm = this.autoGenFormGroup(this.catModel, this.validationRules);
   }
 }

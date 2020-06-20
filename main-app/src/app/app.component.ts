@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {CommonService, ModalComponent, Notification, NotificationService, SUBSCRIBER_TYPES} from 'my-component-library';
+import {CommonService, ModalComponent, Notification, NotificationService, SUBSCRIBER_TYPES} from 'seerlogics-ngui-components';
 import {Subscription} from 'rxjs';
 
 import {BotAuthenticationService} from './service/authentication.service';
@@ -22,11 +22,9 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
   showAuthenticatedItems: boolean;
   loginSubscription: Subscription;
-  private allBootstrapItemsFetched = false;
-
   customModalData: CommonModalModel = {header: '', bodyMessage: '', buttonOk: ''};
-
   @ViewChild('commonAppModal') commonAppModal: ModalComponent;
+  private allBootstrapItemsFetched = false;
   private showCommonModalSubscription: Subscription;
 
   constructor(
@@ -42,20 +40,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onDeactivate(eventObj) {
-  }
-
-  private showCustomModal(modalData: CommonModalModel) {
-    this.customModalData = modalData;
-    this.commonAppModal.show();
-  }
-
-  private loadResources() {
-    this.commonService.getCmsContent();
-    if (this.isLoggedIn()) {
-      this.showAuthenticatedItems = true;
-      this.commonService.getMessages();
-      this.allBootstrapItemsFetched = true;
-    }
   }
 
   ngOnInit(): void {
@@ -123,6 +107,20 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.loginSubscription) {
       this.loginSubscription.unsubscribe();
+    }
+  }
+
+  private showCustomModal(modalData: CommonModalModel) {
+    this.customModalData = modalData;
+    this.commonAppModal.show();
+  }
+
+  private loadResources() {
+    this.commonService.getCmsContent();
+    if (this.isLoggedIn()) {
+      this.showAuthenticatedItems = true;
+      this.commonService.getMessages();
+      this.allBootstrapItemsFetched = true;
     }
   }
 }

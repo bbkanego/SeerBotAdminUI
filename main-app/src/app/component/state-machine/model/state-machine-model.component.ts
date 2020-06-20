@@ -1,28 +1,9 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  OnDestroy,
-  AfterContentInit
-} from '@angular/core';
-import { StateMachineService } from '../../../service/stateMachineModel.service';
-import {
-  Http,
-  Response,
-  ResponseContentType,
-  RequestOptions
-} from '@angular/http';
-import {
-  Modeler,
-  OriginalPropertiesProvider,
-  PropertiesPanelModule,
-  InjectionNames,
-  OriginalPaletteProvider
-} from '../bpmn-js/bpmn-js';
+import {AfterContentInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {StateMachineService} from '../../../service/stateMachineModel.service';
+import {Http, RequestOptions, ResponseContentType} from '@angular/http';
+import {InjectionNames, Modeler, OriginalPaletteProvider} from '../bpmn-js/bpmn-js';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
-import { CustomPropsProvider } from './props-provider/CustomPropsProvider';
-import { CustomPaletteProvider } from './props-provider/CustomPaletteProvider';
+import {CustomPaletteProvider} from './props-provider/CustomPaletteProvider';
 
 const customModdle = {
   name: 'customModdle',
@@ -57,17 +38,17 @@ const customModdle = {
 })
 export class StateMachineComponent
   implements OnInit, AfterContentInit, OnDestroy {
+  @ViewChild('editModel') editModel: ElementRef;
+  @ViewChild('properties') properties: ElementRef;
   private modeler: BpmnModeler;
+  private diagramXML = '../../../../assets/diagram/newDiagram.bpmn';
+  private viewer;
 
   constructor(
     private stateMachineService: StateMachineService,
     private localHttp: Http
-  ) {}
-  private diagramXML = '../../../../assets/diagram/newDiagram.bpmn';
-
-  private viewer;
-  @ViewChild('editModel') editModel: ElementRef;
-  @ViewChild('properties') properties: ElementRef;
+  ) {
+  }
 
   ngOnInit(): void {
     this.modeler = new Modeler({
@@ -79,7 +60,7 @@ export class StateMachineComponent
             OriginalPaletteProvider
           ]
         },
-        { [InjectionNames.paletteProvider]: ['type', CustomPaletteProvider] }
+        {[InjectionNames.paletteProvider]: ['type', CustomPaletteProvider]}
       ]
     });
 
@@ -104,7 +85,8 @@ export class StateMachineComponent
     }
   }
 
-  ngAfterContentInit(): void {}
+  ngAfterContentInit(): void {
+  }
 
   ngOnDestroy(): void {
     // destroy BpmnJS instance

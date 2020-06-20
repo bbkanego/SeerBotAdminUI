@@ -5,7 +5,7 @@ import {Subscription} from 'rxjs';
 import {IntentService} from '../../../service/intent.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 import {DashboardService, SearchBotsTransactions} from '../../../service/dashboard.service';
-import {Option} from 'my-component-library';
+import {Option} from 'seerlogics-ngui-components';
 import {BotDetail, ReTrainBot, UtteranceToIntent} from '../../../model/models';
 
 declare var $;
@@ -27,14 +27,18 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
   validationRuleSubscription: Subscription;
   botServiceSubscription: Subscription;
   catModel: any;
-  private allBotsTransactionSubscription: Subscription;
   matchType: string = null;
   @ViewChild('toolTip') toolTip: ElementRef;
   @ViewChild('messageTrained') messageTrained: ElementRef;
+  private allBotsTransactionSubscription: Subscription;
 
   constructor(injector: Injector, private intentService: IntentService, private dashboardService: DashboardService,
               private activatedRoute: ActivatedRoute, private localRouter: Router) {
     super(injector);
+  }
+
+  get utteranceToIntents(): FormArray {
+    return this.intentsForm.get('utteranceToIntents') as FormArray;
   }
 
   ngOnInit() {
@@ -135,6 +139,14 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
     }
   }
 
+  onCheckBoxSelected(selectedValue) {
+    console.log(selectedValue);
+  }
+
+  localHelp() {
+    this.help();
+  }
+
   protected buildOptionsLocal(referenceData): Option[] {
     const optionsObj: Option[] = [];
     optionsObj.push(new Option('_NONE_', 'None'));
@@ -174,17 +186,5 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
       }
     });
     return utteranceToIntents;
-  }
-
-  onCheckBoxSelected(selectedValue) {
-    console.log(selectedValue);
-  }
-
-  get utteranceToIntents(): FormArray {
-    return this.intentsForm.get('utteranceToIntents') as FormArray;
-  }
-
-  localHelp() {
-    this.help();
   }
 }

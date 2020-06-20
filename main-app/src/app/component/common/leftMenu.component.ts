@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, Injector, OnInit, Renderer2, ViewC
 import {AccountService} from '../../service/account.service';
 import {BotAuthenticationService} from '../../service/authentication.service';
 import {BaseBotComponent} from './baseBot.component';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-left-menu',

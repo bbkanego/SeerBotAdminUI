@@ -1,17 +1,10 @@
-import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-  HttpResponse
-} from '@angular/common/http';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, throwError as _throw} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {throwError as _throw} from 'rxjs';
 import {BotAdminCommonService} from '../service/common.service';
 import {CommonModalModel} from '../app.component';
+import {UtilsService} from 'seerlogics-ngui-components';
 
 @Injectable()
 export class InterceptHttpInterceptor implements HttpInterceptor {
@@ -23,6 +16,11 @@ export class InterceptHttpInterceptor implements HttpInterceptor {
 
     if (!request.headers.has('Content-Type')) {
       request = request.clone({headers: request.headers.set('Content-Type', 'application/json')});
+    }
+
+    const currentUser = JSON.parse(UtilsService.getCurrentUser());
+    if (currentUser && currentUser.token) {
+      request = request.clone({headers: request.headers.set('Authorization', 'Bearer ' + currentUser.token)});
     }
 
     request = request.clone({headers: request.headers.set('Accept', 'application/json')});

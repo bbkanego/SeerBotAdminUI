@@ -15,23 +15,21 @@ export interface SearchBotsTransactions {
   searchInterval?: Interval;
 }
 
+export interface TransactionData {
+  successTransactions?: [],
+  failureTransactions?: [],
+  maybeTransactions?: [],
+  id?: string
+}
+
 @Injectable()
 export class DashboardService extends BaseBotCrudService {
-
-  private _botDetail;
-  private _allBotsTransactionData;
 
   constructor(injector: Injector) {
     super(injector);
   }
 
-  get allBotsTransactionData() {
-    return this._allBotsTransactionData;
-  }
-
-  set allBotsTransactionData(value) {
-    this._allBotsTransactionData = value;
-  }
+  private _botDetail;
 
   get botDetail() {
     return this._botDetail;
@@ -39,6 +37,16 @@ export class DashboardService extends BaseBotCrudService {
 
   set botDetail(value) {
     this._botDetail = value;
+  }
+
+  private _allBotsTransactionData;
+
+  get allBotsTransactionData() {
+    return this._allBotsTransactionData;
+  }
+
+  set allBotsTransactionData(value) {
+    this._allBotsTransactionData = value;
   }
 
   getAllBotsTransactions(model: SearchBotsTransactions): Observable<any> {

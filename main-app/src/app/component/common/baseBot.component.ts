@@ -1,9 +1,10 @@
 import {Directive, ElementRef, Injector} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BaseReactiveComponent, CommonService, DynamicModalComponent, PopoutComponent, Option} from 'my-component-library';
+import {BaseReactiveComponent, CommonService, Option, PopoutComponent} from 'seerlogics-ngui-components';
 import {combineLatest} from 'rxjs';
 import {FormGroup} from '@angular/forms';
-import {HelpComponent} from "../help/help.component";
+import {HelpComponent} from '../help/help.component';
+import * as $ from 'jquery';
 
 @Directive({selector: 'app-base-comp'})
 export class BaseBotComponent extends BaseReactiveComponent {
@@ -79,7 +80,7 @@ export class BaseBotComponent extends BaseReactiveComponent {
 
   protected help() {
     const eventData = {
-      extraData: {modalHeader: "Help", height: 500, width: 1000},
+      extraData: {modalHeader: 'Help', height: 500, width: 1000},
       component: HelpComponent
     };
     this.notificationService.notifyAny(eventData, PopoutComponent.SHOW_POPOUT, PopoutComponent.SHOW_POPOUT);

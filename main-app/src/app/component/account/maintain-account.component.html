@@ -1,10 +1,10 @@
-<div class='container-fluid' *ngIf='accountForm'>
+<div *ngIf='accountForm' class='container-fluid'>
   <div class="row">
     <div class="col-sm-12">
       <h1 class="page-header">{{getResourceLocal('createAccount')}}</h1>
     </div>
   </div>
-  <form [formGroup]='accountDetailForm' (ngSubmit)='onSubmit()' novalidate>
+  <form (ngSubmit)='onSubmit()' [formGroup]='accountDetailForm' novalidate>
     <div class="row">
       <div class="col-sm-1"></div>
       <div class="col-sm-10">
@@ -13,41 +13,41 @@
             <div class='panel panel-default'>
               <div class="panel-heading heading"><span
                 class="custom-glyphicon glyphicon glyphicon-folder-close"></span>&nbsp;{{getResourceLocal('planDetailsHeading')}}
-                <span title="Click for more details" (click)="help()"
-                      class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+                <span (click)="help()" class="green-glyphicon-help glyphicon glyphicon-question-sign"
+                      title="Click for more details"></span>
               </div>
               <div class="panel-body">
                 <div class="row">
                   <div class="col-sm-12 col-md-3">
-                    <div class="well text-center well-platinum" #wellPlatinum>
+                    <div #wellPlatinum class="well text-center well-platinum">
                       <ng-container
                         *ngTemplateOutlet="planDetailsTemplate;
                         context: {$implicit: getMembershipPlan(plans[1].value), planObject: plans[1]}"></ng-container>
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-3">
-                    <div class="well text-center well-gold" #wellGold>
+                    <div #wellGold class="well text-center well-gold">
                       <ng-container
                         *ngTemplateOutlet="planDetailsTemplate;
                         context: {$implicit: getMembershipPlan(plans[2].value), planObject: plans[2]}"></ng-container>
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-3 ">
-                    <div class="well text-center well-silver" #wellSilver>
+                    <div #wellSilver class="well text-center well-silver">
                       <ng-container
                         *ngTemplateOutlet="planDetailsTemplate;
                         context: {$implicit: getMembershipPlan(plans[3].value), planObject: plans[3]}"></ng-container>
                     </div>
                   </div>
                   <div class="col-sm-12 col-md-3">
-                    <div class="well text-center well-bronze" #wellBronze>
+                    <div #wellBronze class="well text-center well-bronze">
                       <ng-container
                         *ngTemplateOutlet="planDetailsTemplate;
                         context: {$implicit: getMembershipPlan(plans[4].value), planObject: plans[4]}"></ng-container>
                     </div>
                   </div>
                 </div>
-                <ng-template #planDetailsTemplate let-templateObj let-planObjectLocal="planObject">
+                <ng-template #planDetailsTemplate let-planObjectLocal="planObject" let-templateObj>
                   <div class="row">
                     <div class="col-sm-12">
                       <p class="planHeading">
@@ -78,7 +78,8 @@
                     </div>
                   </div>
                   <div class="row">
-                    <bk-button (onClick)="selectPlan(planObjectLocal.value, $event)" class="selectPlanButton" intent='success'
+                    <bk-button (onClick)="selectPlan(planObjectLocal.value, $event)" class="selectPlanButton"
+                               intent='success'
                                label='{{getResourceLocal("selectPlans")}}'>
                     </bk-button>
                   </div>
@@ -90,7 +91,7 @@
       </div>
       <div class="col-sm-1"></div>
     </div>
-    <div class="row" *ngIf="accountDetailForm.get('membershipPlanCode').value !== null">
+    <div *ngIf="accountDetailForm.get('membershipPlanCode').value !== null" class="row">
       <div class='col-sm-1'></div>
       <div class='col-sm-10'>
         <div class="table-box">
@@ -102,39 +103,39 @@
               <div class="panel-body">
                 <div class='row'>
 
-                  <div class="col-sm-6" [formGroup]='accountOwner'>
-                    <app-bk-input [currentFormGroup]='accountOwner' label='{{getResourceLocal("firstName")}}'
-                                  currentFormControlName='firstName'></app-bk-input>
+                  <div [formGroup]='accountOwner' class="col-sm-6">
+                    <app-bk-input [currentFormGroup]='accountOwner' currentFormControlName='firstName'
+                                  label='{{getResourceLocal("firstName")}}'></app-bk-input>
                   </div>
                   <div class="col-sm-6">
-                    <app-bk-input [currentFormGroup]='accountOwner' label='{{getResourceLocal("lastName")}}'
-                                  currentFormControlName='lastName'></app-bk-input>
+                    <app-bk-input [currentFormGroup]='accountOwner' currentFormControlName='lastName'
+                                  label='{{getResourceLocal("lastName")}}'></app-bk-input>
                   </div>
                 </div>
                 <div class='row'>
                   <div class="col-sm-6">
-                    <app-bk-input [currentFormGroup]="accountForm" label='{{getResourceLocal("userName")}}'
-                                  currentFormControlName='userName'></app-bk-input>
+                    <app-bk-input [currentFormGroup]="accountForm" currentFormControlName='userName'
+                                  label='{{getResourceLocal("userName")}}'></app-bk-input>
                   </div>
                   <div class="col-sm-3">
-                    <app-bk-input inputType='password' [currentFormGroup]="accountForm"
-                                  label='{{getResourceLocal("password")}}'
-                                  currentFormControlName='passwordCapture'></app-bk-input>
+                    <app-bk-input [currentFormGroup]="accountForm" currentFormControlName='passwordCapture'
+                                  inputType='password'
+                                  label='{{getResourceLocal("password")}}'></app-bk-input>
                   </div>
                   <div class="col-sm-3">
-                    <app-bk-input inputType='password' [currentFormGroup]="accountForm"
-                                  label='{{getResourceLocal("passwordRenter")}}'
-                                  currentFormControlName='passwordCaptureReenter'>
+                    <app-bk-input [currentFormGroup]="accountForm" currentFormControlName='passwordCaptureReenter'
+                                  inputType='password'
+                                  label='{{getResourceLocal("passwordRenter")}}'>
                     </app-bk-input>
-                    <div class="errorMessage" *ngIf="accountForm.hasError('notSame')">
+                    <div *ngIf="accountForm.hasError('notSame')" class="errorMessage">
                       Does not match
                     </div>
                   </div>
                 </div>
                 <div class='row'>
                   <div class="col-sm-6">
-                    <app-bk-input [currentFormGroup]="accountForm" label='{{getResourceLocal("realm")}}'
-                                  currentFormControlName='realm'></app-bk-input>
+                    <app-bk-input [currentFormGroup]="accountForm" currentFormControlName='realm'
+                                  label='{{getResourceLocal("realm")}}'></app-bk-input>
                   </div>
                   <div class="col-sm-6">
                   </div>
@@ -179,11 +180,11 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="accountDetailForm.get('membershipPlanCode').value !== null">
+    <div *ngIf="accountDetailForm.get('membershipPlanCode').value !== null" class="row">
       <div class='col-sm-2'></div>
-      <div style='margin-bottom: 1em' class='col-sm-8 text-center'>
-        <bk-button intent='success' [disabled]='!accountDetailForm.valid' type='submit'
-                   label='{{getSubmitButtonLabel()}}'>
+      <div class='col-sm-8 text-center' style='margin-bottom: 1em'>
+        <bk-button [disabled]='!accountDetailForm.valid' intent='success' label='{{getSubmitButtonLabel()}}'
+                   type='submit'>
         </bk-button>
         <bk-button (onClick)='revert()' intent='warning' label='{{getResource("commonMessages", "revertButton")}}'>
         </bk-button>

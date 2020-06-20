@@ -1,48 +1,48 @@
-<div class="container-fluid" *ngIf="planForm">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1 class="page-header">
-                {{ getResourceLocal('pageHeading') }}
-            </h1>
-        </div>
+<div *ngIf="planForm" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="page-header">
+        {{ getResourceLocal('pageHeading') }}
+      </h1>
     </div>
-    <form [formGroup]="planForm" (ngSubmit)="onSubmit()" novalidate>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="table-box">
-                    <div class="content padded">
-                        <div class="row">
-                            <div class="col-lg-6 col-sm-12">
-                                <app-bk-input [currentFormGroup]="planForm" label="{{ getResourceLocal('name') }}"
-                                    currentFormControlName="name"></app-bk-input>
-                            </div>
-                            <div class="col-lg-6 col-sm-12">
-                                <app-bk-textarea [currentFormGroup]="planForm" label="{{
+  </div>
+  <form (ngSubmit)="onSubmit()" [formGroup]="planForm" novalidate>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-box">
+          <div class="content padded">
+            <div class="row">
+              <div class="col-lg-6 col-sm-12">
+                <app-bk-input [currentFormGroup]="planForm" currentFormControlName="name"
+                              label="{{ getResourceLocal('name') }}"></app-bk-input>
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <app-bk-textarea [currentFormGroup]="planForm" currentFormControlName="description" label="{{
                                                     getResourceLocal('description')
-                                                  }}" currentFormControlName="description"></app-bk-textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 col-sm-12">
-                                <app-bk-select [currentFormGroup]="planForm" label="{{ getResourceLocal('tier') }}"
-                                    [options]='tiersOptions'
-                                    currentFormControlName="tierCode"></app-bk-select>
-                            </div>
-                            <div class="col-lg-6 col-sm-12">
-                                <app-bk-input [currentFormGroup]="planForm" 
-                                label="{{getResourceLocal('price')}}" currentFormControlName="price"></app-bk-input>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                                  }}"></app-bk-textarea>
+              </div>
             </div>
+            <div class="row">
+              <div class="col-lg-6 col-sm-12">
+                <app-bk-select [currentFormGroup]="planForm" [options]='tiersOptions'
+                               currentFormControlName="tierCode"
+                               label="{{ getResourceLocal('tier') }}"></app-bk-select>
+              </div>
+              <div class="col-lg-6 col-sm-12">
+                <app-bk-input [currentFormGroup]="planForm"
+                              currentFormControlName="price" label="{{getResourceLocal('price')}}"></app-bk-input>
+              </div>
+            </div>
+          </div>
         </div>
-        <div style="margin-bottom: 1em" class="col-sm-12">
-            <bk-button intent="success" [disabled]="!planForm.valid" type="submit"
-                label="{{getCommonResources('saveButton')}}"></bk-button>
-            <bk-button (onClick)="revert()" intent="warning" label="{{getCommonResources('revertButton')}}"></bk-button>
-            &nbsp;<bk-button (onClick)="cancel()" intent="danger" label="{{getCommonResources('cancelButton')}}">
-            </bk-button>
-        </div>
-    </form>
+      </div>
+    </div>
+    <div class="col-sm-12" style="margin-bottom: 1em">
+      <bk-button [disabled]="!planForm.valid" intent="success" label="{{getCommonResources('saveButton')}}"
+                 type="submit"></bk-button>
+      <bk-button (onClick)="revert()" intent="warning" label="{{getCommonResources('revertButton')}}"></bk-button>
+      &nbsp;<bk-button (onClick)="cancel()" intent="danger" label="{{getCommonResources('cancelButton')}}">
+    </bk-button>
+    </div>
+  </form>
 </div>

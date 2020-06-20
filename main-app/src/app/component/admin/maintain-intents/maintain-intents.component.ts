@@ -1,12 +1,12 @@
-import { Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
-import { CustomValidator, ModalComponent, Option, SelectComponent, SUBSCRIBER_TYPES } from 'my-component-library';
-import { Subscription } from 'rxjs';
-import { environment } from '../../../environments/frozenEnvironment';
-import { BIZ_BOTS_CONSTANTS } from '../../../model/Constants';
+import {Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {FormArray, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Params, Router, UrlSegment} from '@angular/router';
+import {CustomValidator, ModalComponent, Option, SelectorComponent, SUBSCRIBER_TYPES} from 'seerlogics-ngui-components';
+import {Subscription} from 'rxjs';
+import {environment} from '../../../environments/frozenEnvironment';
+import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
 import {CopyIntents, IntentService} from '../../../service/intent.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
+import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
   selector: 'app-maintain-intents',
@@ -20,15 +20,12 @@ export class MaintainIntentsComponent extends BaseBotComponent
   intentsModel;
   category: Option[] = [];
   responseTypes: Option[] = [];
-  private intentsSubscription: Subscription;
-  private validationRuleSubscription: Subscription;
   validationRules: any;
-  private currentEditCategory = null;
   @ViewChild('intentsFile') intentsFile: ElementRef;
   @ViewChild('showFileName') showFileName: ElementRef;
   @ViewChild('utteranceTextBox') utteranceTextBox: ElementRef;
   @ViewChild('intentTextBox') intentTextBox: ElementRef;
-  @ViewChild('selectCategory') selectCategory: SelectComponent;
+  @ViewChild('selectCategory') selectCategory: SelectorComponent;
   selectedEntryOption = 'enterDetails';
   problemWithUpload = false;
   showRadioOptions = true;
@@ -39,6 +36,9 @@ export class MaintainIntentsComponent extends BaseBotComponent
   modalState: string;
   deleteModalBody = 'Do you want to delete?';
   deleteModalHeading = 'Delete Intent?';
+  private intentsSubscription: Subscription;
+  private validationRuleSubscription: Subscription;
+  private currentEditCategory = null;
 
   constructor(
     injector: Injector,
@@ -49,79 +49,20 @@ export class MaintainIntentsComponent extends BaseBotComponent
     super(injector);
   }
 
-  private createForm() {
-    this.intentsForm = this.autoGenFormGroup(
-      this.intentsModel,
-      this.validationRules
-    );
-    this.intentsForm.get('category').setValidators(CustomValidator.isSelectValid());
-    if (this.currentAction.indexOf('add') > -1) {
-      this.addUtterance();
-      this.addResponse();
-    }
+  get utterances(): FormArray {
+    return this.intentsForm.get('utterances') as FormArray;
   }
 
-  private initComponent(path: string): void {
-    if (this.currentAction === 'edit') {
-      this.showRadioOptions = false;
-      this.currentEditCategory = this.intentsModel.category;
-      this.intentsModel.category = null;
-      this.createForm();
-      // need this when we reset the form!
-      this.intentsModel.category = this.currentEditCategory;
-    } else {
-      this.createForm();
-    }
-
-    this.category = this.buildOptions(
-      this.intentsModel.referenceData.categories
-    );
-    this.responseTypes = this.buildOptions(
-      this.intentsModel.referenceData.responseTypes
-    );
-    this.locales = this.buildOptions(this.intentsModel.referenceData.locales);
-
-    if (this.currentEditCategory != null) {
-      this.intentsForm.get('category').setValue(this.currentEditCategory.code);
-    }
-
-    this.currentFormGroup = this.intentsForm;
-
-    if (this.currentAction === 'edit') {
-      this.notificationService.notifyAny(
-        this.intentsForm,
-        SUBSCRIBER_TYPES.FORM_GROUP_RESET,
-        SUBSCRIBER_TYPES.FORM_GROUP_RESET
-      );
-    }
+  get responses(): FormArray {
+    return this.intentsForm.get('responses') as FormArray;
   }
 
-  private loadIntentsForm(path) {
-    this.validationRuleSubscription = this.validationService
-      .getValidationRuleMetadata('validateIntentRule')
-      .subscribe(rules => {
-        this.validationRules = rules;
-        this.intentsSubscription = this.intentService
-          .initModel()
-          .subscribe(model => {
-            this.intentsModel = model;
-            this.initComponent(path);
-          });
-      });
-  }
-
-  private editUtterance(path, id) {
-    this.validationRuleSubscription = this.validationService
-      .getValidationRuleMetadata('validateIntentRule')
-      .subscribe(rules => {
-        this.validationRules = rules;
-        this.intentsSubscription = this.intentService
-          .getById(id)
-          .subscribe(model => {
-            this.intentsModel = model;
-            this.initComponent(path);
-          });
-      });
+  get mayBeIntentResponses(): FormArray {
+    const mayBeResponses: FormArray = this.getMayBeIntentFormGroup().get('responses') as FormArray;
+    for (const mayBeResponse of mayBeResponses.controls) {
+      mayBeResponse.get('locale').setValue('en'); // .setValidators(CustomValidator.isSelectValid());
+    }
+    return mayBeResponses;
   }
 
   ngOnInit() {
@@ -139,16 +80,12 @@ export class MaintainIntentsComponent extends BaseBotComponent
           this.editUtterance(path, id);
         } else if (path.indexOf('add') > -1) {
           if (qParams.action === 'fromEdit') {
-            this.currentAction = 'addFromEdit'
+            this.currentAction = 'addFromEdit';
           }
           this.loadIntentsForm(path);
         }
       });
     });
-  }
-
-  get utterances(): FormArray {
-    return this.intentsForm.get('utterances') as FormArray;
   }
 
   getUtteranceGroup(intent: IntentUtterance): FormGroup {
@@ -179,20 +116,8 @@ export class MaintainIntentsComponent extends BaseBotComponent
     return responses;
   }
 
-  get responses(): FormArray {
-    return this.intentsForm.get('responses') as FormArray;
-  }
-
   getMayBeIntentFormGroup(): FormGroup {
     return this.intentsForm.get('mayBeIntent') as FormGroup;
-  }
-
-  get mayBeIntentResponses(): FormArray {
-    const mayBeResponses: FormArray = this.getMayBeIntentFormGroup().get('responses') as FormArray;
-    for (const mayBeResponse of mayBeResponses.controls) {
-      mayBeResponse.get('locale').setValue('en'); // .setValidators(CustomValidator.isSelectValid());
-    }
-    return mayBeResponses;
   }
 
   addUtterance() {
@@ -230,21 +155,6 @@ export class MaintainIntentsComponent extends BaseBotComponent
     }
   }
 
-  private submitEachEntryForm(intentModel) {
-    this.intentService.save(intentModel).subscribe(res => {
-      if (this.currentAction === 'add') {
-        this.router.navigate(['/dashboard']);
-      } else {
-        // this.intentsForm = null;
-        this.notificationService.notify(
-          'Refresh Results!',
-          BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS,
-          BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS
-        );
-      }
-    });
-  }
-
   selectEntryType(type) {
     this.selectedEntryOption = type;
     // this.initComponent('');
@@ -275,31 +185,6 @@ export class MaintainIntentsComponent extends BaseBotComponent
       this.submitMultiPartForm();
     } else if (this.selectedEntryOption === 'copy') {
       this.copyPredefinedIntents();
-    }
-  }
-
-  private copyPredefinedIntents() {
-    const selectedCat = this.selectCategory.selectWidget.nativeElement.value;
-    const copyIntentsModel: CopyIntents = {sourceCategoryCode: selectedCat, sourceCategoryTypeCode: 'PREDEFINED'};
-    this.intentService.copyPredefinedIntents(selectedCat).subscribe(() => {
-      this.router.navigate(['/dashboard']);
-    });
-  }
-
-  private submitMultiPartForm() {
-    const intentsFile: FileList = this.intentsFile.nativeElement.files;
-    if (intentsFile.length > 0) {
-      const formData = new FormData();
-      const selectedCat = this.selectCategory.selectWidget.nativeElement.value;
-      formData.append('intentsData', intentsFile[0], intentsFile[0].name);
-      formData.append('category', selectedCat);
-      this.intentService.saveMultiPart(formData).subscribe((response: any) => {
-        if (response === true) {
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.problemWithUpload = true;
-        }
-      });
     }
   }
 
@@ -390,6 +275,121 @@ export class MaintainIntentsComponent extends BaseBotComponent
 
   canAddUtterance() {
     return this.intentsModel.intent !== 'DoNotUnderstandIntent' && this.intentsModel.intent !== 'Initiate';
+  }
+
+  private createForm() {
+    this.intentsForm = this.autoGenFormGroup(
+      this.intentsModel,
+      this.validationRules
+    );
+    this.intentsForm.get('category').setValidators(CustomValidator.isSelectValid());
+    if (this.currentAction.indexOf('add') > -1) {
+      this.addUtterance();
+      this.addResponse();
+    }
+  }
+
+  private initComponent(path: string): void {
+    if (this.currentAction === 'edit') {
+      this.showRadioOptions = false;
+      this.currentEditCategory = this.intentsModel.category;
+      this.intentsModel.category = null;
+      this.createForm();
+      // need this when we reset the form!
+      this.intentsModel.category = this.currentEditCategory;
+    } else {
+      this.createForm();
+    }
+
+    this.category = this.buildOptions(
+      this.intentsModel.referenceData.categories
+    );
+    this.responseTypes = this.buildOptions(
+      this.intentsModel.referenceData.responseTypes
+    );
+    this.locales = this.buildOptions(this.intentsModel.referenceData.locales);
+
+    if (this.currentEditCategory != null) {
+      this.intentsForm.get('category').setValue(this.currentEditCategory.code);
+    }
+
+    this.currentFormGroup = this.intentsForm;
+
+    if (this.currentAction === 'edit') {
+      this.notificationService.notifyAny(
+        this.intentsForm,
+        SUBSCRIBER_TYPES.FORM_GROUP_RESET,
+        SUBSCRIBER_TYPES.FORM_GROUP_RESET
+      );
+    }
+  }
+
+  private loadIntentsForm(path) {
+    this.validationRuleSubscription = this.validationService
+      .getValidationRuleMetadata('validateIntentRule')
+      .subscribe(rules => {
+        this.validationRules = rules;
+        this.intentsSubscription = this.intentService
+          .initModel()
+          .subscribe(model => {
+            this.intentsModel = model;
+            this.initComponent(path);
+          });
+      });
+  }
+
+  private editUtterance(path, id) {
+    this.validationRuleSubscription = this.validationService
+      .getValidationRuleMetadata('validateIntentRule')
+      .subscribe(rules => {
+        this.validationRules = rules;
+        this.intentsSubscription = this.intentService
+          .getById(id)
+          .subscribe(model => {
+            this.intentsModel = model;
+            this.initComponent(path);
+          });
+      });
+  }
+
+  private submitEachEntryForm(intentModel) {
+    this.intentService.save(intentModel).subscribe(res => {
+      if (this.currentAction === 'add') {
+        this.router.navigate(['/dashboard']);
+      } else {
+        // this.intentsForm = null;
+        this.notificationService.notify(
+          'Refresh Results!',
+          BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS,
+          BIZ_BOTS_CONSTANTS.REFRESH_INTENTS_SEARCH_RESULTS
+        );
+      }
+    });
+  }
+
+  private copyPredefinedIntents() {
+    const selectedCat = this.selectCategory.selectWidget.nativeElement.value;
+    const copyIntentsModel: CopyIntents = {sourceCategoryCode: selectedCat, sourceCategoryTypeCode: 'PREDEFINED'};
+    this.intentService.copyPredefinedIntents(selectedCat).subscribe(() => {
+      this.router.navigate(['/dashboard']);
+    });
+  }
+
+  private submitMultiPartForm() {
+    const intentsFile: FileList = this.intentsFile.nativeElement.files;
+    if (intentsFile.length > 0) {
+      const formData = new FormData();
+      const selectedCat = this.selectCategory.selectWidget.nativeElement.value;
+      formData.append('intentsData', intentsFile[0], intentsFile[0].name);
+      formData.append('category', selectedCat);
+      this.intentService.saveMultiPart(formData).subscribe((response: any) => {
+        if (response === true) {
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.problemWithUpload = true;
+        }
+      });
+    }
   }
 }
 

@@ -1,12 +1,14 @@
-import { Injectable, Injector } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from '../environments/frozenEnvironment';
-import { BaseBotCrudService } from './baseBotCrud.service';
+import {Injectable, Injector} from '@angular/core';
+import {Observable} from 'rxjs';
+import {environment} from '../environments/frozenEnvironment';
+import {BaseBotCrudService} from './baseBotCrud.service';
 
 
 export class LaunchBot {
-  constructor(private bot: any, private trainedModelId: number) {}
+  constructor(private bot: any, private trainedModelId: number) {
+  }
 }
+
 @Injectable()
 export class BotService extends BaseBotCrudService {
   private searchBotCriteriaModel: any;

@@ -1,4 +1,4 @@
-<div class="container-fluid" *ngIf="context && launchDTO">
+<div *ngIf="context && launchDTO" class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
       <h1 class="page-header">{{ getPageHeader() }}</h1>
@@ -11,7 +11,7 @@
           <div class="panel-heading">
             {{getResourceLocal('startLaunch.pageSubsectionHeading')}}
           </div>
-          <div id="collapseOne" class="panel-collapse collapse in table-box">
+          <div class="panel-collapse collapse in table-box" id="collapseOne">
             <div class="panel-body content padded">
               <div class="row">
                 <div class="form-group col-md-2 col-sm-12 displayHeader">
@@ -57,10 +57,10 @@
               {{ getHeader() }}
             </div>
           </div>
-          <div class="form-group" *ngIf="isBotLaunched()">
+          <div *ngIf="isBotLaunched()" class="form-group">
             {{ getResourceLocal('launched.botUniqueIdUse') }}
           </div>
-          <div class="row" *ngIf="isBotLaunched()">
+          <div *ngIf="isBotLaunched()" class="row">
             <div class="col-sm-12">
               <dl class="dl-horizontal">
                 <dt>{{ getResourceLocal('launched.botUniqueId') }}:</dt>
@@ -81,8 +81,8 @@
                 intent="warning"
                 label="{{ getResourceLocal('startLaunch.reinitializeNowButton') }}"></bk-button>
               <bk-button
-                *ngIf='!isBotLaunched()'
                 (onClick)="showLaunchBotModal()"
+                *ngIf='!isBotLaunched()'
                 intent="success"
                 label="{{ getResourceLocal('startLaunch.launchNowButton') }}"></bk-button>
             </div>
@@ -102,9 +102,9 @@
       {{getResourceLocal("startLaunch.stopBotMessage")}}
     </div>
     <div class="app-modal-footer">
-      <bk-button intent="success" (click)='testBotModal.hide()' label="{{ getCommonResources('noButton') }}">
+      <bk-button (click)='testBotModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
       </bk-button>
-      <bk-button intent="danger" (click)="stopBot()"
+      <bk-button (click)="stopBot()" intent="danger"
                  label="{{ getResourceLocal('startLaunch.stopNowButton') }}"></bk-button>
     </div>
   </app-bk-custom-modal>
@@ -119,9 +119,9 @@
       {{getResourceLocal("startLaunch.reInitBotMessage")}}
     </div>
     <div class="app-modal-footer">
-      <bk-button intent="success" (click)='reInitBotModal.hide()' label="{{ getCommonResources('noButton') }}">
+      <bk-button (click)='reInitBotModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
       </bk-button>
-      <bk-button intent="danger" (click)="reInitBot()"
+      <bk-button (click)="reInitBot()" intent="danger"
                  label="{{ getResourceLocal('startLaunch.reinitializeNowButton') }}"></bk-button>
     </div>
   </app-bk-custom-modal>
@@ -135,9 +135,9 @@
       {{getResourceLocal("startLaunch.launchBotMessage")}}
     </div>
     <div class="app-modal-footer">
-      <bk-button intent="success" (click)='launchBotModal.hide()' label="{{ getCommonResources('noButton') }}">
+      <bk-button (click)='launchBotModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
       </bk-button>
-      <bk-button intent="danger" (click)="launchBot()"
+      <bk-button (click)="launchBot()" intent="danger"
                  label="{{ getResourceLocal('startLaunch.launchNowButton') }}"></bk-button>
     </div>
   </app-bk-custom-modal>
@@ -153,17 +153,17 @@
           </div>
           <div class="title">Chat</div>
         </div>
-        <ul class="messages" #messageListContainer>
+        <ul #messageListContainer class="messages">
           <li #messageList></li>
         </ul>
         <div class="bottom_wrapper clearfix">
           <div class="input-group">
             <input
-              type="text"
-              class="form-control message_input"
-              (keydown)="onKeydownEvent($event)"
               #chatbox
-              placeholder="{{ getResourceLocal('startLaunch.typeYourMessage') }}"/>
+              (keydown)="onKeydownEvent($event)"
+              class="form-control message_input"
+              placeholder="{{ getResourceLocal('startLaunch.typeYourMessage') }}"
+              type="text"/>
             <span class="input-group-btn">
               <button
                 (click)="sendMessage()"

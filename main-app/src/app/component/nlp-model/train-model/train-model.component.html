@@ -1,4 +1,4 @@
-<div class='container-fluid' *ngIf='trainForm'>
+<div *ngIf='trainForm' class='container-fluid'>
   <div class="row">
     <div class="col-sm-12">
       <h1 class="page-header">{{getResourceLocal('trainModel.pageHeading')}}</h1>
@@ -9,31 +9,32 @@
       <p>
         <span
           class="green-glyphicon-subheading glyphicon glyphicon-plus"></span>{{getResourceLocal('trainModel.createTrainedModel')}}
-        <span title="Click for more details" (click)="help()"
-              class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+        <span (click)="help()" class="green-glyphicon-help glyphicon glyphicon-question-sign"
+              title="Click for more details"></span>
       </p>
     </div>
   </div>
-  <form [formGroup]='trainForm' (ngSubmit)='onSubmit($event)' novalidate>
+  <form (ngSubmit)='onSubmit($event)' [formGroup]='trainForm' novalidate>
     <div class='row'>
       <div class='col-sm-12'>
         <div class="table-box tp-10margin">
           <div class="content padded">
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]='trainForm' label='{{getResourceLocal("trainModel.nameLabel")}}'
-                  currentFormControlName='name'></app-bk-input>
+                <app-bk-input [currentFormGroup]='trainForm' currentFormControlName='name'
+                              label='{{getResourceLocal("trainModel.nameLabel")}}'></app-bk-input>
               </div>
               <div class="col-lg-6 col-sm-12">
                 <app-bk-textarea [currentFormGroup]='trainForm'
-                  label='{{getResourceLocal("trainModel.descriptionNameLabel")}}' currentFormControlName='description'>
+                                 currentFormControlName='description'
+                                 label='{{getResourceLocal("trainModel.descriptionNameLabel")}}'>
                 </app-bk-textarea>
               </div>
             </div>
             <div class='row'>
               <div class="col-sm-12 col-lg-6">
-                <app-bk-select [currentFormGroup]='trainForm' label='{{getResourceLocal("trainModel.categoryLabel")}}'
-                  currentFormControlName='category' [options]='category'></app-bk-select>
+                <app-bk-select [currentFormGroup]='trainForm' [options]='category'
+                               currentFormControlName='category' label='{{getResourceLocal("trainModel.categoryLabel")}}'></app-bk-select>
               </div>
               <div class="col-sm-12 col-lg-6"></div>
             </div>
@@ -42,20 +43,20 @@
       </div>
     </div>
     <div class='row'>
-      <div style='margin-bottom: 1em' class='col-sm-12'>
-        <bk-button intent='success' [currentFormGroup]='trainForm' type='submit'
-          label='{{getCommonResources("saveButton")}}'></bk-button>
-        <bk-button intent='warning' (click)="revert()" label='{{getCommonResources("revertButton")}}'></bk-button>
-        <bk-button intent='danger' (click)="cancel()" label='{{getCommonResources("cancelButton")}}'>
+      <div class='col-sm-12' style='margin-bottom: 1em'>
+        <bk-button [currentFormGroup]='trainForm' intent='success' label='{{getCommonResources("saveButton")}}'
+                   type='submit'></bk-button>
+        <bk-button (click)="revert()" intent='warning' label='{{getCommonResources("revertButton")}}'></bk-button>
+        <bk-button (click)="cancel()" intent='danger' label='{{getCommonResources("cancelButton")}}'>
         </bk-button>
       </div>
-      <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
+      <div [innerHTML]="getCommonResources('requiredIndicator')" class="col-sm-12"></div>
     </div>
     <!-- {{botForm.valid}}
     {{botForm.value | json}} -->
   </form>
 </div>
-<div class='container-fluid' *ngIf='trainModel && currentAction === "edit"'>
+<div *ngIf='trainModel && currentAction === "edit"' class='container-fluid'>
   <div class="row">
     <div class="col-sm-12">
       <h1 class="page-header">{{getResourceLocal('trainModel.pageHeading')}}</h1>
@@ -95,12 +96,12 @@
   </div>
 
   <div class='row'>
-    <div style='margin-bottom: 1em' class='col-sm-12'>
-      <bk-button intent='success' (click)="reTrainModel(trainModel.id)" label='{{getCommonResources("reTrainButton")}}'>
+    <div class='col-sm-12' style='margin-bottom: 1em'>
+      <bk-button (click)="reTrainModel(trainModel.id)" intent='success' label='{{getCommonResources("reTrainButton")}}'>
       </bk-button>
-      <bk-button *ngIf='isDeleteAllowed()' intent='danger' (click)="showDeleteModel()"
-        label='{{getCommonResources("deleteButton")}}'></bk-button>
-      <bk-button intent='warning' (click)="cancel()" label='{{getCommonResources("cancelButton")}}'>>
+      <bk-button (click)="showDeleteModel()" *ngIf='isDeleteAllowed()' intent='danger'
+                 label='{{getCommonResources("deleteButton")}}'></bk-button>
+      <bk-button (click)="cancel()" intent='warning' label='{{getCommonResources("cancelButton")}}'>>
       </bk-button>
     </div>
   </div>
@@ -114,9 +115,9 @@
       {{getResourceLocal("trainModel.deleteMessage")}}
     </div>
     <div class="app-modal-footer">
-      <bk-button intent="success" (click)='deleteModelModal.hide()' label="{{ getCommonResources('noButton') }}">
+      <bk-button (click)='deleteModelModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
       </bk-button>
-      <bk-button intent="danger" (click)="delete()" label="{{ getCommonResources('deleteButton') }}"></bk-button>
+      <bk-button (click)="delete()" intent="danger" label="{{ getCommonResources('deleteButton') }}"></bk-button>
     </div>
   </app-bk-custom-modal>
 

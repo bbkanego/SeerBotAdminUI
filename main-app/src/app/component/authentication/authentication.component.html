@@ -1,5 +1,5 @@
-<div class="container" *ngIf="loginModel"
-     [ngStyle]="{'background-image': 'url(../../../assets/images/loginPageBG.jpeg)', height: '100%', width: '100%'}">
+<div *ngIf="loginModel" [ngStyle]="{'background-image': 'url(../../../assets/images/loginPageBG.jpeg)', height: '100%', width: '100%'}"
+     class="container">
   <div class="row loginbox">
     <div class="col-sm-4">
     </div>
@@ -15,21 +15,21 @@
           </div>
           <form #userForm="ngForm">
             <div class="form-group">
-              <label for="username" class="center-block">
-                <input type="text" class="form-control" placeholder="Username" name="username" id="username"
-                       [(ngModel)]="loginModel.username"
-                       required>
+              <label class="center-block" for="username">
+                <input [(ngModel)]="loginModel.username" class="form-control" id="username" name="username" placeholder="Username"
+                       required
+                       type="text">
               </label>
             </div>
             <div class="form-group">
-              <label for="password" class="center-block">
-                <input type="password" class="form-control" placeholder="Password" name="password" id="password"
-                       [(ngModel)]="loginModel.password" required>
+              <label class="center-block" for="password">
+                <input [(ngModel)]="loginModel.password" class="form-control" id="password" name="password" placeholder="Password"
+                       required type="password">
               </label>
             </div>
             <div class="form-group text-center">
-              <bk-button type='submit' (onClick)='login()' intent='success' label='Login'></bk-button>
-              <bk-button type='button' (onClick)='createAccount()' intent='warning' label='Create Account'></bk-button>
+              <bk-button (onClick)='login()' intent='success' label='Login' type='submit'></bk-button>
+              <bk-button (onClick)='createAccount()' intent='warning' label='Create Account' type='button'></bk-button>
             </div>
           </form>
           <div class="tp-10margin">

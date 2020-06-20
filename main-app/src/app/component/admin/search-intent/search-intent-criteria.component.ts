@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit, Injector } from '@angular/core';
-import { CustomValidator, Option, SUBSCRIBER_TYPES } from 'my-component-library';
-import { ActivatedRoute, UrlSegment, Router, Params } from '@angular/router';
-import { IntentService } from '../../../service/intent.service';
-import { BaseBotComponent } from '../../common/baseBot.component';
-import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {Option, SUBSCRIBER_TYPES} from 'seerlogics-ngui-components';
+import {ActivatedRoute, Params, Router, UrlSegment} from '@angular/router';
+import {IntentService} from '../../../service/intent.service';
+import {BaseBotComponent} from '../../common/baseBot.component';
+import {FormGroup} from '@angular/forms';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-search-intent-criteria',
@@ -42,35 +42,6 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
         }
       });
     });
-  }
-
-  private initSearchModel() {
-    this.validationRuleSubscription = this.validationService
-      .getValidationRuleMetadata('validateSearchIntentRule')
-      .subscribe(rules => {
-        this.validationRules = rules;
-        this.getSearchModel();
-      });
-  }
-
-  private createForm() {
-    this.intentSearchForm = this.autoGenFormGroup(
-      this.searchModel,
-      this.validationRules
-    );
-
-    this.category = this.buildOptions(this.searchModel.referenceData.categories);
-
-    // this.intentSearchForm.get('category').setValidators(CustomValidator.isSelectValid());
-  }
-
-  private getSearchModel() {
-    this.intentSubscription = this.intentService
-      .getSearchIntentsModel()
-      .subscribe(model => {
-        this.searchModel = model;
-        this.createForm();
-      });
   }
 
   ngOnDestroy(): void {
@@ -117,5 +88,34 @@ export class SearchIntentCriteriaComponent extends BaseBotComponent
     } else {
       return this.getResource('searchIntents', 'pageHeadingCustom');
     }
+  }
+
+  private initSearchModel() {
+    this.validationRuleSubscription = this.validationService
+      .getValidationRuleMetadata('validateSearchIntentRule')
+      .subscribe(rules => {
+        this.validationRules = rules;
+        this.getSearchModel();
+      });
+  }
+
+  private createForm() {
+    this.intentSearchForm = this.autoGenFormGroup(
+      this.searchModel,
+      this.validationRules
+    );
+
+    this.category = this.buildOptions(this.searchModel.referenceData.categories);
+
+    // this.intentSearchForm.get('category').setValidators(CustomValidator.isSelectValid());
+  }
+
+  private getSearchModel() {
+    this.intentSubscription = this.intentService
+      .getSearchIntentsModel()
+      .subscribe(model => {
+        this.searchModel = model;
+        this.createForm();
+      });
   }
 }

@@ -1,4 +1,4 @@
-<div class="container-fluid" *ngIf="context && launchDTO">
+<div *ngIf="context && launchDTO" class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
       <h1 class="page-header">{{ getPageHeader() }}</h1>
@@ -13,11 +13,11 @@
               {{ getHeader() }}
             </div>
           </div>
-          <form *ngIf="launchDTO.bot.status.code === 'DRAFT'"
+          <form (ngSubmit)="launchNow()"
+                *ngIf="launchDTO.bot.status.code === 'DRAFT'"
                 [formGroup]="launchForm"
-                (ngSubmit)="launchNow()"
                 novalidate>
-            <div class="row" *ngIf="context === 'startLaunch'">
+            <div *ngIf="context === 'startLaunch'" class="row">
               <div class="col-lg-6 col-sm-12">
                 <div class="row">
                   <div class="form-group col-lg-3 col-sm-12 displayHeader">
@@ -46,18 +46,18 @@
                 <div class="row">
                   <div class="form-group col-lg-6 displayHeader">
                     <app-bk-select
-                      label="{{ getResourceLocal('startLaunch.trainedModel') }}"
-                      [currentFormGroup]="launchForm"
                       (onSelect)="onSelectHandler($event)"
-                      currentFormControlName="trainedModelId"
+                      [currentFormGroup]="launchForm"
                       [options]="trainedModels"
+                      currentFormControlName="trainedModelId"
+                      label="{{ getResourceLocal('startLaunch.trainedModel') }}"
                     ></app-bk-select>
                   </div>
                   <div class="form-group col-lg-6 displayHeader">
                     <app-bk-input
                       [currentFormGroup]="launchForm"
-                      label="{{getResourceLocal('startLaunch.allowedOrigin')}}"
                       currentFormControlName="allowedOrigins"
+                      label="{{getResourceLocal('startLaunch.allowedOrigin')}}"
                     ></app-bk-input>
                   </div>
                 </div>
@@ -69,18 +69,18 @@
     </div>
   </div>
   <div class="row">
-    <div style="margin-bottom: 1em" class="col-sm-12">
+    <div class="col-sm-12" style="margin-bottom: 1em">
       <bk-button
-        intent="success"
-        [disabled]="isDisabled()"
-        *ngIf="launchDTO.bot.status.code === 'DRAFT'"
-        type="button"
         (click)="testNow()"
-        label="{{getResourceLocal('startLaunch.testNow')}}"></bk-button>
+        *ngIf="launchDTO.bot.status.code === 'DRAFT'"
+        [disabled]="isDisabled()"
+        intent="success"
+        label="{{getResourceLocal('startLaunch.testNow')}}"
+        type="button"></bk-button>
 
       <bk-button
-        intent="danger"
         (click)="cancel()"
+        intent="danger"
         label="{{ getCancelButtonLabel() }}"></bk-button>
     </div>
   </div>

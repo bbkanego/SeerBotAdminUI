@@ -1,4 +1,4 @@
-<div class="container-fluid" *ngIf="categorySearchForm">
+<div *ngIf="categorySearchForm" class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
       <h1 class="page-header">
@@ -11,14 +11,14 @@
       <p>
         <span
           class="green-glyphicon-subheading glyphicon glyphicon-plus"></span>{{getResourceLocal('maintainCategory.editCategoryVerbiage')}}
-        <span title="Click for more details" (click)="help()"
-              class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+        <span (click)="help()" class="green-glyphicon-help glyphicon glyphicon-question-sign"
+              title="Click for more details"></span>
       </p>
     </div>
   </div>
   <form
-    [formGroup]="categorySearchForm"
     (ngSubmit)="onSubmit()"
+    [formGroup]="categorySearchForm"
     novalidate
   >
     <div class="row">
@@ -29,17 +29,17 @@
               <div class="col-lg-6 col-sm-12">
                 <app-bk-input
                   [currentFormGroup]="categorySearchForm"
-                  label="{{ getCommonResources('entity.name') }}"
                   currentFormControlName="name"
+                  label="{{ getCommonResources('entity.name') }}"
                 ></app-bk-input>
               </div>
               <div class="col-lg-6 col-sm-12">
                 <app-bk-input
                   [currentFormGroup]="categorySearchForm"
+                  currentFormControlName="code"
                   label="{{
                     getCommonResources('entity.code')
                   }}"
-                  currentFormControlName="code"
                 ></app-bk-input>
               </div>
             </div>
@@ -47,12 +47,12 @@
         </div>
       </div>
     </div>
-    <div style="margin-bottom: 1em" class="col-sm-12">
+    <div class="col-sm-12" style="margin-bottom: 1em">
       <bk-button
-        intent="success"
         [disabled]="!categorySearchForm.valid"
-        type="submit"
+        intent="success"
         label="{{getCommonResources('searchButton')}}"
+        type="submit"
       ></bk-button
       >
       <bk-button

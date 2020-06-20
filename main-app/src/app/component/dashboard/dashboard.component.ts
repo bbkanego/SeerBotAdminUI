@@ -1,9 +1,8 @@
 import {Component, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ChartComponent, ChartData, ChartDataSet} from 'my-component-library';
-import {Observable} from 'rxjs';
-import {DashboardService, Interval, SearchBotsTransactions} from '../../service/dashboard.service';
+import {ChartComponent, ChartData, ChartDataSet} from 'seerlogics-ngui-components';
+import {Observable, Subscription} from 'rxjs';
+import {DashboardService, Interval, SearchBotsTransactions, TransactionData} from '../../service/dashboard.service';
 import {BaseBotComponent} from '../common/baseBot.component';
-import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 
 @Component({
@@ -14,7 +13,7 @@ import {Router} from '@angular/router';
 export class DashboardComponent extends BaseBotComponent implements OnInit, OnDestroy {
 
   allBotsTransaction$: Observable<any>;
-  allBotsTransactionData: any[];
+  allBotsTransactionData: any[] = [];
   allBotsTransactionSubscription: Subscription;
   @ViewChild('chartComponent') chartComponent: ChartComponent;
   currentInterval = 'NONE';
@@ -29,52 +28,8 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
     this.getAllTransactions(null);
   }
 
-  private drawChart() {
-    let successTransactionsCount = 0;
-    let failureTransactionsCount = 0;
-    let partialTransactionsCount = 0;
-    let totalNumOfTransactions = 0;
-    this.allBotsTransactionData.forEach(botTrans => {
-      successTransactionsCount += botTrans.successTransactions.length;
-      failureTransactionsCount += botTrans.failureTransactions.length;
-      partialTransactionsCount += botTrans.maybeTransactions.length;
-    });
-    totalNumOfTransactions = successTransactionsCount + failureTransactionsCount + partialTransactionsCount;
-
-    let dataSets: ChartDataSet[] = [{
-      label: '',
-      backgroundColor: ['#66cc00', '#ff4000', '#ffff00'],
-      data: [Math.round((successTransactionsCount / totalNumOfTransactions) * 100),
-        Math.round((failureTransactionsCount / totalNumOfTransactions) * 100),
-        Math.round((partialTransactionsCount / totalNumOfTransactions) * 100)]
-    } as ChartDataSet];
-
-    const chartOptions = {
-      title: {
-        display: true,
-        text: this.getResourceLocal('botPerformance.headingAll') + ' (' + this.currentInterval + ')'
-      }
-    };
-
-    this.chartData = {
-      type: 'doughnut',
-      labels: ['Success', 'Failure', 'Close Match'],
-      dataSets: dataSets,
-      options: chartOptions
-    };
-
-    if (totalNumOfTransactions === 0) {
-      dataSets = null;
-      this.chartData = null;
-    }
-
-    // console.log(JSON.stringify(this.chartData));
-
-    this.chartComponent.reInit(this.chartData);
-  }
-
   viewTransactionDetails(botId, type) {
-    this.dashboardService.botDetail = this.allBotsTransactionData.filter((bot, index, array) => {
+    this.dashboardService.botDetail = this.allBotsTransactionData.filter((bot:TransactionData, index, array) => {
       return bot.id === botId;
     });
     this.dashboardService.allBotsTransactionData = this.allBotsTransactionData;
@@ -158,6 +113,50 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
 
   getResourceLocal(key: string) {
     return this.getResource('dashboard', key);
+  }
+
+  private drawChart() {
+    let successTransactionsCount = 0;
+    let failureTransactionsCount = 0;
+    let partialTransactionsCount = 0;
+    let totalNumOfTransactions = 0;
+    this.allBotsTransactionData.forEach((botTrans: TransactionData) => {
+      successTransactionsCount += botTrans.successTransactions.length;
+      failureTransactionsCount += botTrans.failureTransactions.length;
+      partialTransactionsCount += botTrans.maybeTransactions.length;
+    });
+    totalNumOfTransactions = successTransactionsCount + failureTransactionsCount + partialTransactionsCount;
+
+    let dataSets: ChartDataSet[] = [{
+      label: '',
+      backgroundColor: ['#66cc00', '#ff4000', '#ffff00'],
+      data: [Math.round((successTransactionsCount / totalNumOfTransactions) * 100),
+        Math.round((failureTransactionsCount / totalNumOfTransactions) * 100),
+        Math.round((partialTransactionsCount / totalNumOfTransactions) * 100)]
+    } as ChartDataSet];
+
+    const chartOptions = {
+      title: {
+        display: true,
+        text: this.getResourceLocal('botPerformance.headingAll') + ' (' + this.currentInterval + ')'
+      }
+    };
+
+    this.chartData = {
+      type: 'doughnut',
+      labels: ['Success', 'Failure', 'Close Match'],
+      dataSets: dataSets,
+      options: chartOptions
+    };
+
+    if (totalNumOfTransactions === 0) {
+      dataSets = null;
+      this.chartData = null;
+    }
+
+    // console.log(JSON.stringify(this.chartData));
+
+    this.chartComponent.reInit(this.chartData);
   }
 
 }

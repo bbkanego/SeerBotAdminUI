@@ -1,4 +1,4 @@
-<div class="container-fluid" *ngIf="policyForm">
+<div *ngIf="policyForm" class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
       <h1 class="page-header">
@@ -6,7 +6,7 @@
       </h1>
     </div>
   </div>
-  <form [formGroup]="policyForm" (ngSubmit)="onSubmit()" novalidate>
+  <form (ngSubmit)="onSubmit()" [formGroup]="policyForm" novalidate>
     <div class="row">
       <div class="col-sm-12">
         <div class="table-box">
@@ -15,8 +15,8 @@
               <div class="col-lg-6 col-sm-12">
                 <app-bk-input
                   [currentFormGroup]="policyForm"
-                  label="{{ getCommonResources('entity.name') }}"
                   currentFormControlName="name"
+                  label="{{ getCommonResources('entity.name') }}"
                 ></app-bk-input>
               </div>
             </div>
@@ -24,8 +24,8 @@
               <div class="col-sm-12">
                 <app-bk-textarea
                   [currentFormGroup]="policyForm"
-                  label="{{ getCommonResources('entity.description') }}"
                   currentFormControlName="description"
+                  label="{{ getCommonResources('entity.description') }}"
                 ></app-bk-textarea>
               </div>
             </div>
@@ -35,43 +35,43 @@
               </div>
             </div>
             <div
-              class="row"
-              *ngFor="let statement of statements.controls; let i = index">
+              *ngFor="let statement of statements.controls; let i = index"
+              class="row">
               <div class="col-lg-1 col-sm-12">
-                <span *ngIf="statements.controls.length > 0"
-                      (click)="addStatement()"
+                <span (click)="addStatement()"
+                      *ngIf="statements.controls.length > 0"
                       class="custom-glyphicon glyphicon glyphicon-plus-sign"></span>
-                <span *ngIf="i !== 0 && statements.controls.length > 0"
-                  (click)="removeCurrentStatement(i)"
-                  class="custom-glyphicon glyphicon glyphicon-remove-sign"></span>
+                <span (click)="removeCurrentStatement(i)"
+                      *ngIf="i !== 0 && statements.controls.length > 0"
+                      class="custom-glyphicon glyphicon glyphicon-remove-sign"></span>
               </div>
               <div class="col-lg-4 col-sm-12">
                 <app-bk-select
-                  [currentFormGroup]="statement"
-                  label="{{ getResourceLocal('maintainPolicy.resource') }}"
-                  [options]="resourcesOptions"
                   (onSelect)="processResourceSelection($event, statement)"
+                  [currentFormGroup]="statement"
+                  [options]="resourcesOptions"
                   currentFormControlName="resourceCode"
+                  label="{{ getResourceLocal('maintainPolicy.resource') }}"
                 ></app-bk-select>
               </div>
               <div class="col-lg-4 col-sm-12">
                 <app-bk-select
                   [currentFormGroup]="statement"
-                  label="{{ getResourceLocal('maintainPolicy.effect') }}"
                   [options]="effectsOptions"
-                  
                   currentFormControlName="effect"
+
+                  label="{{ getResourceLocal('maintainPolicy.effect') }}"
                 ></app-bk-select>
               </div>
               <div class="col-lg-3 col-sm-12">
                 <app-bk-multi-select
-                  [currentFormGroup]="statement"
-                  controlId="multiSelectCategoryId"
                   (onSelect)="processSelectedValues($event, statement)"
+                  [currentFormGroup]="statement"
                   [options]="actionsOptions"
                   [startingValues]='multiSelectStartValuesArray[i]'
-                  label="{{ getResourceLocal('maintainPolicy.action') }}"
+                  controlId="multiSelectCategoryId"
                   currentFormControlName="selectActions"
+                  label="{{ getResourceLocal('maintainPolicy.action') }}"
                 >
                 </app-bk-multi-select>
               </div>
@@ -80,23 +80,24 @@
         </div>
       </div>
     </div>
-    <div style="margin-bottom: 1em" class="col-sm-12">
+    <div class="col-sm-12" style="margin-bottom: 1em">
       <bk-button
-        intent="success"
         [disabled]="!policyForm.valid"
-        type="submit"
+        intent="success"
         label="{{ getCommonResources('saveButton') }}"
+        type="submit"
       ></bk-button
-      ><bk-button
+      >
+      <bk-button
         (onClick)="revert()"
         intent="warning"
         label="{{ getCommonResources('revertButton') }}"
       ></bk-button
       >&nbsp;<bk-button
-        (onClick)="cancel()"
-        intent="danger"
-        label="{{ getCommonResources('cancelButton') }}"
-      ></bk-button>
+      (onClick)="cancel()"
+      intent="danger"
+      label="{{ getCommonResources('cancelButton') }}"
+    ></bk-button>
     </div>
   </form>
 </div>

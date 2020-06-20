@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthenticationComponent } from './component/authentication/authentication.component';
-import { DashboardComponent } from './component/dashboard/dashboard.component';
-import { AuthGuard } from './guard/auth.guard';
-import { LogoutGuard } from './guard/logout.guard';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthenticationComponent} from './component/authentication/authentication.component';
+import {DashboardComponent} from './component/dashboard/dashboard.component';
+import {AuthGuard} from './guard/auth.guard';
+import {LogoutGuard} from './guard/logout.guard';
 
 const ROUTES: Routes = [
   {
@@ -18,33 +18,33 @@ const ROUTES: Routes = [
   },
   {
     path: 'account',
-    loadChildren: './component/account/account.module#AccountModule'
+    loadChildren: () => import('./component/account/account.module').then(m => m.AccountModule)
   },
   {
     path: 'admin',
-    loadChildren: './component/admin/admin.module#AdminModule',
+    loadChildren: () => import('./component/admin/admin.module').then(m => m.AdminModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'ref-data',
-    loadChildren: './component/refdata/refdata.module#RefDataModule',
+    loadChildren: () => import('./component/refdata/refdata.module').then(m => m.RefDataModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'model',
-    loadChildren: './component/nlp-model/nlp-model.module#NlpModelModule',
+    loadChildren: () => import('./component/nlp-model/nlp-model.module').then(m => m.NlpModelModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'state-machine',
     loadChildren:
-      './component/state-machine/state-machine.module#StateMachineModule',
+      () => import('./component/state-machine/state-machine.module').then(m => m.StateMachineModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'subscription',
     loadChildren:
-      './component/subscription/subscription.module#SubscriptionModule',
+      () => import('./component/subscription/subscription.module').then(m => m.SubscriptionModule),
     canActivate: [AuthGuard]
   },
   {
@@ -69,10 +69,11 @@ const ROUTES: Routes = [
   imports: [
     RouterModule.forRoot(
       ROUTES,
-      { onSameUrlNavigation: 'reload' } // , { enableTracing: true } // <-- debugging purposes only
+      {onSameUrlNavigation: 'reload'} // , { enableTracing: true } // <-- debugging purposes only
     )
   ],
   // imports:[RouterModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules})], -- allows preloading of lazy modules
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

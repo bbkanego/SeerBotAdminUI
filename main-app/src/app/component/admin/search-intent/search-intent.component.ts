@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs';
 import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
 import {CopyIntents, IntentService} from '../../../service/intent.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
-import {CustomFormControl, CustomValidator, ModalComponent, Option} from 'my-component-library';
+import {CustomFormControl, ModalComponent, Option} from 'seerlogics-ngui-components';
 import {FormGroup, Validators} from '@angular/forms';
 
 
@@ -14,7 +14,7 @@ import {FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./search-intent.component.css']
 })
 export class SearchIntentComponent extends BaseBotComponent implements OnInit, OnDestroy {
-  intentsResults;
+  intentsResults: [] = [];
   allIntents: Subscription;
   intentCopyForm: FormGroup;
   category: Option[] = [];
@@ -22,8 +22,8 @@ export class SearchIntentComponent extends BaseBotComponent implements OnInit, O
   cmsContent = {};
   noResultsFoundMessage = 'No results were found. You can "Add New" intents or copy existing from predefined Bots';
 
-  @ViewChild("deleteIntentsModalComp") deleteIntentsModal: ModalComponent;
-  @ViewChild("copyIntentsModalComp") copyIntentsModal: ModalComponent;
+  @ViewChild('deleteIntentsModalComp') deleteIntentsModal: ModalComponent;
+  @ViewChild('copyIntentsModalComp') copyIntentsModal: ModalComponent;
   @ViewChild('intentUpdated') intentUpdated: ElementRef;
 
   constructor(
@@ -55,33 +55,8 @@ export class SearchIntentComponent extends BaseBotComponent implements OnInit, O
     this.createIntentsCopyForm();
   }
 
-  private createIntentsCopyForm() {
-    this.intentCopyForm = this.autoGenFormGroup(
-      this.intentsCopyModel, []
-    );
-    const sourceCategoryCodeControl: CustomFormControl = this.intentCopyForm.get('sourceCategoryCode') as CustomFormControl;
-    sourceCategoryCodeControl.setValidators(Validators.required);
-    // the below is required for the red asterik to show up
-    sourceCategoryCodeControl.validationRules['required'] = true;
-    this.category = this.buildOptions(this.getSearchIntentsModel().referenceData.categories);
-  }
-
   getSearchIntentsModel() {
     return this.intentService.getSessionStorageItem('searchIntentsModel');
-  }
-
-  private searchIntents(model) {
-    if (!model) {
-      model = this.getSearchIntentsModel();
-    } else {
-      this.intentService.setSessionStorageItem('searchIntentsModel', model);
-    }
-    this.allIntents = this.intentService
-      .searchIntents(model)
-      .subscribe(results => {
-        this.intentsResults = results;
-        this.intentService.setAllIntents(this.intentsResults);
-      });
   }
 
   ngOnDestroy(): void {
@@ -174,5 +149,30 @@ export class SearchIntentComponent extends BaseBotComponent implements OnInit, O
     /*this.intentService.deleteAllIntentsByCategory(catCode).subscribe(res => {
       this.router.navigate(['/dashboard']);
     });*/
+  }
+
+  private createIntentsCopyForm() {
+    this.intentCopyForm = this.autoGenFormGroup(
+      this.intentsCopyModel, []
+    );
+    const sourceCategoryCodeControl: CustomFormControl = this.intentCopyForm.get('sourceCategoryCode') as CustomFormControl;
+    sourceCategoryCodeControl.setValidators(Validators.required);
+    // the below is required for the red asterik to show up
+    sourceCategoryCodeControl.validationRules['required'] = true;
+    this.category = this.buildOptions(this.getSearchIntentsModel().referenceData.categories);
+  }
+
+  private searchIntents(model) {
+    if (!model) {
+      model = this.getSearchIntentsModel();
+    } else {
+      this.intentService.setSessionStorageItem('searchIntentsModel', model);
+    }
+    this.allIntents = this.intentService
+      .searchIntents(model)
+      .subscribe(results => {
+        this.intentsResults = results;
+        this.intentService.setAllIntents(this.intentsResults);
+      });
   }
 }

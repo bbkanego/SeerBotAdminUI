@@ -26,9 +26,11 @@
 #sidebarCollapse span:first-of-type {
   transform: rotate(45deg) translate(2px, 2px);
 }
+
 #sidebarCollapse span:nth-of-type(2) {
   opacity: 0;
 }
+
 #sidebarCollapse span:last-of-type {
   transform: rotate(-45deg) translate(1px, -1px);
 }
@@ -65,15 +67,19 @@
     opacity: 1;
     margin: 5px auto;
   }
+
   #sidebarCollapse.active span {
     margin: 0 auto;
   }
+
   #sidebarCollapse.active span:first-of-type {
     transform: rotate(45deg) translate(2px, 2px);
   }
+
   #sidebarCollapse.active span:nth-of-type(2) {
     opacity: 0;
   }
+
   #sidebarCollapse.active span:last-of-type {
     transform: rotate(-45deg) translate(1px, -1px);
   }
@@ -99,7 +105,7 @@
     background-size: contain;
     width: 180px;
     height: 70px;
-    top:0;
+    top: 0;
     left: 50px;
   }
 }
@@ -107,13 +113,13 @@
 /* /*Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .logo {
-      position: absolute;
+    position: absolute;
     background-image: url(../../../assets/images/logo.png);
     background-repeat: no-repeat;
     background-size: contain;
     width: 180px;
     height: 70px;
-    top:0;
+    top: 0;
     left: 0;
     cursor: pointer;
   }
@@ -122,13 +128,13 @@
 /*Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {
   .logo {
-      position: absolute;
+    position: absolute;
     background-image: url(../../../assets/images/logo.png);
     background-repeat: no-repeat;
     background-size: contain;
     width: 180px;
     height: 70px;
-    top:0;
+    top: 0;
     left: 0;
     cursor: pointer;
   }

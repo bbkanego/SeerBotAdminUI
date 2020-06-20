@@ -1,4 +1,4 @@
-<div class="container-fluid" *ngIf='botSearchForm'>
+<div *ngIf='botSearchForm' class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
       <h1 class="page-header">
@@ -11,12 +11,12 @@
       <p>
         <span
           class="green-glyphicon-subheading glyphicon glyphicon-search"></span>{{getPageVerbiage()}}
-        <span title="Click for more details" (click)="help()"
-              class="green-glyphicon-help glyphicon glyphicon-question-sign"></span>
+        <span (click)="help()" class="green-glyphicon-help glyphicon glyphicon-question-sign"
+              title="Click for more details"></span>
       </p>
     </div>
   </div>
-  <form [formGroup]="botSearchForm" (ngSubmit)="onSubmit()"
+  <form (ngSubmit)="onSubmit()" [formGroup]="botSearchForm"
         novalidate>
     <div class="row">
       <div class="col-sm-12">
@@ -25,21 +25,21 @@
             <div class="row">
               <div class="col-lg-6 col-sm-12">
                 <app-bk-input [currentFormGroup]="botSearchForm"
-                              label='{{getResource("maintainBot", "addBot.nameLabel")}}'
-                              currentFormControlName="name"></app-bk-input>
+                              currentFormControlName="name"
+                              label='{{getResource("maintainBot", "addBot.nameLabel")}}'></app-bk-input>
               </div>
               <div class="col-lg-6 col-sm-12">
                 <app-bk-input [currentFormGroup]="botSearchForm"
-                              label='{{getResource("maintainBot", "addBot.displayNameLabel")}}'
-                              currentFormControlName="displayName"></app-bk-input>
+                              currentFormControlName="displayName"
+                              label='{{getResource("maintainBot", "addBot.displayNameLabel")}}'></app-bk-input>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 col-sm-12">
                 <app-bk-select [currentFormGroup]='botSearchForm'
-                               label='{{getResource("maintainBot", "addBot.categoryLabel")}}'
+                               [options]='category'
                                currentFormControlName='category'
-                               [options]='category'></app-bk-select>
+                               label='{{getResource("maintainBot", "addBot.categoryLabel")}}'></app-bk-select>
               </div>
               <div class="col-lg-6 col-sm-12">
                 <!-- <app-bk-input [currentFormGroup]="botSearchForm" label='{{getResource("maintainBot", "addBot.descriptionLabel")}}'
@@ -51,16 +51,16 @@
       </div>
     </div>
     <div class='row'>
-      <div style='margin-bottom: 1em' class='col-sm-12'>
-        <bk-button intent='success' [currentFormGroup]='formDir' type='submit'
-                   label='{{getCommonResources("searchButton")}}'></bk-button>
-        <bk-button intent='warning' (click)="revert()"
+      <div class='col-sm-12' style='margin-bottom: 1em'>
+        <bk-button [currentFormGroup]='formDir' intent='success' label='{{getCommonResources("searchButton")}}'
+                   type='submit'></bk-button>
+        <bk-button (click)="revert()" intent='warning'
                    label='{{getCommonResources("resetButton")}}'></bk-button>
-        <bk-button intent='danger' (click)="cancel()"
+        <bk-button (click)="cancel()" intent='danger'
                    label='{{getCommonResources("cancelButton")}}'>>
         </bk-button>
       </div>
-      <div class="col-sm-12" [innerHTML]="getCommonResources('requiredIndicator')"></div>
+      <div [innerHTML]="getCommonResources('requiredIndicator')" class="col-sm-12"></div>
     </div>
   </form>
   <!--{{botSearchForm.value | json}}-->

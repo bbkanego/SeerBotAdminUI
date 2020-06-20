@@ -10,43 +10,43 @@
   <div class="row">
     <div class="col-sm-12">
       <bk-datatable
-        [records]="policyResults"
         #searchPolicyResultsTable
-        smallDeviceHeader="{{ getCommonResources('resultsHeading') }}"
+        [records]="policyResults"
         pageSize="6"
+        smallDeviceHeader="{{ getCommonResources('resultsHeading') }}"
       >
         <bk-column
+          field="name"
           header="{{ getCommonResources('entity.name') }}"
           sort="true"
-          field="name"
-        >
-        <ng-template
-        let-col="column"
-        let-policyRow="rowData"
-        let-index="rowIndex"
-        bkTemplate="body"
-        >
-          <a (click)='editPolicy(policyRow.id)'>{{policyRow.name}}</a>
-      </ng-template>
-      </bk-column>
-        <bk-column
-          header="{{ getCommonResources('entity.description') }}"
-          sort="true"
-          field="description"
-        ></bk-column>
-        <bk-column
-          header="{{ getResourceLocal('maintainPolicy.statementHeading') }}"
-          sort="true"
-          field="statements"
         >
           <ng-template
-            let-col="column"
-            let-policyRow="rowData"
-            let-index="rowIndex"
             bkTemplate="body"
+            let-col="column"
+            let-index="rowIndex"
+            let-policyRow="rowData"
+          >
+            <a (click)='editPolicy(policyRow.id)'>{{policyRow.name}}</a>
+          </ng-template>
+        </bk-column>
+        <bk-column
+          field="description"
+          header="{{ getCommonResources('entity.description') }}"
+          sort="true"
+        ></bk-column>
+        <bk-column
+          field="statements"
+          header="{{ getResourceLocal('maintainPolicy.statementHeading') }}"
+          sort="true"
+        >
+          <ng-template
+            bkTemplate="body"
+            let-col="column"
+            let-index="rowIndex"
+            let-policyRow="rowData"
           >
             <div *ngFor="let statement of policyRow.statements; let i = index">
-              {{statement.resource.name}} [{{statement.effect}}] 
+              {{statement.resource.name}} [{{statement.effect}}]
               [<span *ngFor="let action of statement.actions; let j = index">{{action.name}},</span>]
             </div>
           </ng-template>

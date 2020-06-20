@@ -1,167 +1,168 @@
 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-<nav id="sidebar" #sideBarMenu>
-  <div class="hidden-xs hidden-sm closeTrigger"><span (click)="toggleMenu()"
-                                                      #menuHideTrigger class="custom-glyphicon glyphicon glyphicon-chevron-left"></span>
+<nav #sideBarMenu id="sidebar">
+  <div class="hidden-xs hidden-sm closeTrigger"><span #menuHideTrigger
+                                                      (click)="toggleMenu()"
+                                                      class="custom-glyphicon glyphicon glyphicon-chevron-left"></span>
   </div>
 
   <ul class="list-unstyled components">
     <li [style.display]="getAuthenticationService().isAdmin() ? 'block': 'none'">
-      <a [routerLink]="['/dashboard']" data-toggle="collapse" aria-expanded="false">
+      <a [routerLink]="['/dashboard']" aria-expanded="false" data-toggle="collapse">
         <i class="headingLi glyphicon glyphicon-dashboard"></i>Dashboard
       </a>
     </li>
     <li [style.display]="getAuthenticationService().isAdmin() ? 'block': 'none'">
-      <a href="#refDataSubMenu" data-toggle="collapse" (click)="trackMenu('refDataSubMenu')" aria-expanded="false"
-        class="dropdown-toggle">
+      <a (click)="trackMenu('refDataSubMenu')" aria-expanded="false" class="dropdown-toggle" data-toggle="collapse"
+         href="#refDataSubMenu">
         <i class="headingLi glyphicon glyphicon-th-list"></i>
         {{ getResourceLocal('refData.heading')}}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
-      <ul class="collapse list-unstyled" id="refDataSubMenu" #refDataSubMenuUl>
+      <ul #refDataSubMenuUl class="collapse list-unstyled" id="refDataSubMenu">
         <li>
           <a [routerLink]="['/ref-data/category/add/init']">{{
             getResourceLocal('refData.category.create')
-          }}</a>
+            }}</a>
         </li>
         <li>
           <a [routerLink]="['/ref-data/category/search']">{{
-              getResourceLocal('refData.category.search')
+            getResourceLocal('refData.category.search')
             }}</a>
         </li>
         <li *ngIf="getAuthenticationService().isUberAdmin()">
           <a [routerLink]="['/ref-data/action/add/init']">{{
             getResourceLocal('refData.action.create')
-          }}</a>
+            }}</a>
         </li>
         <li *ngIf="getAuthenticationService().isUberAdmin()">
           <a [routerLink]="['/ref-data/action/search']">{{
             getResourceLocal('refData.action.search')
-          }}</a>
+            }}</a>
         </li>
         <li *ngIf="getAuthenticationService().isUberAdmin()">
           <a [routerLink]="['/ref-data/resource/add/init']">{{
             getResourceLocal('refData.resource.create')
-          }}</a>
+            }}</a>
         </li>
         <li *ngIf="getAuthenticationService().isUberAdmin()">
           <a [routerLink]="['/ref-data/resource/search']">{{
             getResourceLocal('refData.resource.search')
-          }}</a>
+            }}</a>
         </li>
         <li *ngIf="getAuthenticationService().isUberAdmin()">
           <a [routerLink]="['/ref-data/policy/add/init']">{{
             getResourceLocal('refData.policy.create')
-          }}</a>
+            }}</a>
         </li>
         <li *ngIf="getAuthenticationService().isUberAdmin()">
           <a [routerLink]="['/ref-data/policy/search']">{{
             getResourceLocal('refData.policy.search')
-          }}</a>
+            }}</a>
         </li>
         <li *ngIf="getAuthenticationService().isUberAdmin()">
           <a [routerLink]="['/ref-data/role/add/init']">{{
             getResourceLocal('refData.role.create')
-          }}</a>
+            }}</a>
         </li>
         <li *ngIf="getAuthenticationService().isUberAdmin()">
           <a [routerLink]="['/ref-data/role/search']">{{
             getResourceLocal('refData.role.search')
-          }}</a>
+            }}</a>
         </li>
       </ul>
     </li>
     <li [style.display]="getAuthenticationService().isUberAdmin() ? 'block': 'none'">
-      <a href="#uberAdminTasks" data-toggle="collapse" (click)="trackMenu('uberAdminTasks')" aria-expanded="false"
-        class="dropdown-toggle">
+      <a (click)="trackMenu('uberAdminTasks')" aria-expanded="false" class="dropdown-toggle" data-toggle="collapse"
+         href="#uberAdminTasks">
         <i class="headingLi glyphicon glyphicon-king"></i>{{ getResourceLocal('admin.heading')
         }}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
-      <ul class="collapse list-unstyled" id="uberAdminTasks" #uberAdminTasksUl>
+      <ul #uberAdminTasksUl class="collapse list-unstyled" id="uberAdminTasks">
         <li>
-          <a [routerLink]="['/admin/add_intent']"
-            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option1') }}</a>
+          <a [queryParams]="{ action: 'predefined' }"
+             [routerLink]="['/admin/add_intent']">{{ getResourceLocal('admin.option1') }}</a>
         </li>
         <li>
-          <a [routerLink]="['/admin/start_search_intent']"
-            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option2') }}</a>
+          <a [queryParams]="{ action: 'predefined' }"
+             [routerLink]="['/admin/start_search_intent']">{{ getResourceLocal('admin.option2') }}</a>
         </li>
         <li>
-          <a [routerLink]="['/model/start-train-model']"
-            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option3') }}</a>
+          <a [queryParams]="{ action: 'predefined' }"
+             [routerLink]="['/model/start-train-model']">{{ getResourceLocal('admin.option3') }}</a>
         </li>
         <li>
-          <a [routerLink]="['/model/search-models']"
-            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option4') }}</a>
+          <a [queryParams]="{ action: 'predefined' }"
+             [routerLink]="['/model/search-models']">{{ getResourceLocal('admin.option4') }}</a>
         </li>
         <li>
-          <a [routerLink]="['/subscription/add-tier']"
-            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option5') }}</a>
+          <a [queryParams]="{ action: 'predefined' }"
+             [routerLink]="['/subscription/add-tier']">{{ getResourceLocal('admin.option5') }}</a>
         </li>
         <li>
-          <a [routerLink]="['/subscription/search-tier']"
-            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option6') }}</a>
+          <a [queryParams]="{ action: 'predefined' }"
+             [routerLink]="['/subscription/search-tier']">{{ getResourceLocal('admin.option6') }}</a>
         </li>
         <li>
-          <a [routerLink]="['/subscription/add-plan']"
-            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option7') }}</a>
+          <a [queryParams]="{ action: 'predefined' }"
+             [routerLink]="['/subscription/add-plan']">{{ getResourceLocal('admin.option7') }}</a>
         </li>
         <li>
-          <a [routerLink]="['/subscription/search-plan']"
-            [queryParams]="{ action: 'predefined' }">{{ getResourceLocal('admin.option8') }}</a>
+          <a [queryParams]="{ action: 'predefined' }"
+             [routerLink]="['/subscription/search-plan']">{{ getResourceLocal('admin.option8') }}</a>
         </li>
       </ul>
     </li>
     <li [style.display]="getAuthenticationService().isAccountAdmin() ? 'block': 'none'">
-      <a href="#botsLife" data-toggle="collapse" (click)="trackMenu('maintainIntents')" aria-expanded="false"
-        class="dropdown-toggle">
+      <a (click)="trackMenu('maintainIntents')" aria-expanded="false" class="dropdown-toggle" data-toggle="collapse"
+         href="#botsLife">
         <i class="headingLi glyphicon glyphicon-user"></i>{{ getResourceLocal('maintainIntents.heading')
         }}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
-      <ul class="collapse list-unstyled" id="botsLife" #maintainIntents>
+      <ul #maintainIntents class="collapse list-unstyled" id="botsLife">
         <!--<li>
           <a [routerLink]="['/admin/add_intent']"
             [queryParams]="{ action: 'custom' }">{{ getResourceLocal('maintainIntents.option1') }}</a>
         </li>-->
         <li>
-          <a [routerLink]="['/admin/start_search_intent']"
-            [queryParams]="{ action: 'custom' }">{{ getResourceLocal('maintainIntents.option2') }}</a>
+          <a [queryParams]="{ action: 'custom' }"
+             [routerLink]="['/admin/start_search_intent']">{{ getResourceLocal('maintainIntents.option2') }}</a>
         </li>
         <li>
-          <a [routerLink]="['/model/start-train-model']"
-            [queryParams]="{ action: 'custom' }">{{ getResourceLocal('maintainIntents.option3') }}</a>
+          <a [queryParams]="{ action: 'custom' }"
+             [routerLink]="['/model/start-train-model']">{{ getResourceLocal('maintainIntents.option3') }}</a>
         </li>
         <li>
-          <a [routerLink]="['/model/search-models']"
-            [queryParams]="{ action: 'custom' }">{{ getResourceLocal('maintainIntents.option4') }}</a>
+          <a [queryParams]="{ action: 'custom' }"
+             [routerLink]="['/model/search-models']">{{ getResourceLocal('maintainIntents.option4') }}</a>
         </li>
       </ul>
     </li>
     <li [style.display]="getAuthenticationService().isAccountAdmin() ? 'block': 'none'">
-      <a href="#maintainModel" data-toggle="collapse" (click)="trackMenu('maintainModel')" aria-expanded="false"
-        class="dropdown-toggle">
+      <a (click)="trackMenu('maintainModel')" aria-expanded="false" class="dropdown-toggle" data-toggle="collapse"
+         href="#maintainModel">
         <i class="headingLi glyphicon glyphicon-play-circle"></i>{{ getResourceLocal('maintainBots.heading')
         }}<i class="fa fa-fw fa-angle-down pull-right"></i>
       </a>
-      <ul class="collapse list-unstyled" id="maintainModel" #maintainModelUl>
+      <ul #maintainModelUl class="collapse list-unstyled" id="maintainModel">
         <li>
           <a [routerLink]="['/admin/add-bot']">{{
             getResourceLocal('maintainBots.option1')
-          }}</a>
+            }}</a>
         </li>
         <li>
-          <a [routerLink]="['/admin/init_search_bot']"
-            [queryParams]="{ action: 'editBot' }">{{ getResourceLocal('maintainBots.option2') }}</a>
+          <a [queryParams]="{ action: 'editBot' }"
+             [routerLink]="['/admin/init_search_bot']">{{ getResourceLocal('maintainBots.option2') }}</a>
         </li>
         <li>
-          <a [routerLink]="['/admin/init_search_bot']"
-            [queryParams]="{ action: 'launchBot' }">{{ getResourceLocal('maintainBots.option3') }}</a>
+          <a [queryParams]="{ action: 'launchBot' }"
+             [routerLink]="['/admin/init_search_bot']">{{ getResourceLocal('maintainBots.option3') }}</a>
         </li>
         <li>
-          <a [routerLink]="['/admin/init_search_bot']"
-            [queryParams]="{ action: 'testBot' }">{{ getResourceLocal('maintainBots.option4') }}</a>
+          <a [queryParams]="{ action: 'testBot' }"
+             [routerLink]="['/admin/init_search_bot']">{{ getResourceLocal('maintainBots.option4') }}</a>
         </li>
         <li>
-          <a [routerLink]="['/admin/reTrain_bot']"
-            [queryParams]="{ action: 'reTrain' }">{{ getResourceLocal('maintainBots.option5') }}</a>
+          <a [queryParams]="{ action: 'reTrain' }"
+             [routerLink]="['/admin/reTrain_bot']">{{ getResourceLocal('maintainBots.option5') }}</a>
         </li>
       </ul>
     </li>

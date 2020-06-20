@@ -1,4 +1,4 @@
-import { IPalette, IPaletteProvider } from '../../bpmn-js/bpmn-js';
+import {IPalette, IPaletteProvider} from '../../bpmn-js/bpmn-js';
 
 // https://raw.githubusercontent.com/narve/angular-bpmn/master/src/app/props-provider/CustomPaletteProvider.ts
 export class CustomPaletteProvider implements IPaletteProvider {

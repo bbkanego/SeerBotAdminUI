@@ -1,11 +1,10 @@
 import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, UrlSegment} from '@angular/router';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
 import {BotService} from '../../../service/bot.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-search-bot',
@@ -51,23 +50,6 @@ export class SearchBotComponent extends BaseBotComponent implements OnInit, OnDe
       });
   }
 
-  private searchBots(model) {
-
-    if (!model) {
-      model = this.botService.getSessionStorageItem('searchBotModel');
-      this.botService.setActionContext(this.botService.getSessionStorageItem('actionCtx'));
-    } else {
-      this.botService.setSessionStorageItem('searchBotModel', model);
-      this.botService.setSessionStorageItem('actionCtx', this.botService.getActionContext());
-    }
-
-    this.botResults$ = this.botService.searchBot(model);
-  }
-
-  private getAllResults() {
-    this.botResults$ = this.botService.getAll();
-  }
-
   ngOnDestroy(): void {
     if (this.notificationSub) {
       this.notificationSub.unsubscribe();
@@ -109,5 +91,22 @@ export class SearchBotComponent extends BaseBotComponent implements OnInit, OnDe
 
   getResourceLocal(key: string): string {
     return this.getResource('searchBots', key);
+  }
+
+  private searchBots(model) {
+
+    if (!model) {
+      model = this.botService.getSessionStorageItem('searchBotModel');
+      this.botService.setActionContext(this.botService.getSessionStorageItem('actionCtx'));
+    } else {
+      this.botService.setSessionStorageItem('searchBotModel', model);
+      this.botService.setSessionStorageItem('actionCtx', this.botService.getActionContext());
+    }
+
+    this.botResults$ = this.botService.searchBot(model);
+  }
+
+  private getAllResults() {
+    this.botResults$ = this.botService.getAll();
   }
 }

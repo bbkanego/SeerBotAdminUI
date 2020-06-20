@@ -1,7 +1,8 @@
 import {Component, Injector} from '@angular/core';
 import {BotAuthenticationService} from '../../service/authentication.service';
 import {Router} from '@angular/router';
-import {BaseBotComponent} from "./baseBot.component";
+import {BaseBotComponent} from './baseBot.component';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-header',
