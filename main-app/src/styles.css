@@ -242,6 +242,8 @@ textarea {
 .btn-success,
 .btn-danger {
   font-size: 1em !important;
+  margin-right: 5px;
+  border: 2px solid #000 !important
 }
 
 /* Tooltip */
@@ -477,3 +479,8 @@ textarea {
 }
 
 /* Pure JS and CSS Toasts ^^^^^^^^^^^^^^^^^^^ */
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: #fff !important;
+}

@@ -4,12 +4,12 @@ import {Observable, throwError as _throw} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {BotAdminCommonService} from '../service/common.service';
 import {CommonModalModel} from '../app.component';
-import {UtilsService} from 'seerlogics-ngui-components';
+import {NotificationService, SUBSCRIBER_TYPES, UtilsService} from 'seerlogics-ngui-components';
 
 @Injectable()
 export class InterceptHttpInterceptor implements HttpInterceptor {
 
-  constructor(private botAdminCommonService: BotAdminCommonService) {
+  constructor(private botAdminCommonService: BotAdminCommonService, private notificationService: NotificationService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -38,6 +38,11 @@ export class InterceptHttpInterceptor implements HttpInterceptor {
           reason: error && error.error && error.error.reason ? error.error.reason : '',
           status: error.status
         };
+
+        if (data.status === 401) {
+          this.notificationService.notify('Session Expired', 'Session Expired',
+            SUBSCRIBER_TYPES.FORCE_LOGOUT);
+        }
 
         if (data.status === 400) {
           const commonModalData: CommonModalModel = {header: 'Test', bodyMessage: data.reason, buttonOk: 'Close'};

@@ -118,6 +118,8 @@ export class ReTrainBotComponent extends BaseBotComponent implements OnInit, OnD
   }
 
   manageUtteranceAndIntents(botId, type: string) {
+    if (!this.botTransactions) return;
+
     const matchingBotArr = this.botTransactions.filter(bot => {
       return bot.id === botId;
     });

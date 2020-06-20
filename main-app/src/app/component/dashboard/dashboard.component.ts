@@ -29,7 +29,7 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
   }
 
   viewTransactionDetails(botId, type) {
-    this.dashboardService.botDetail = this.allBotsTransactionData.filter((bot:TransactionData, index, array) => {
+    this.dashboardService.botDetail = this.allBotsTransactionData.filter((bot: TransactionData, index, array) => {
       return bot.id === botId;
     });
     this.dashboardService.allBotsTransactionData = this.allBotsTransactionData;
@@ -155,8 +155,9 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
     }
 
     // console.log(JSON.stringify(this.chartData));
-
-    this.chartComponent.reInit(this.chartData);
+    if (this.chartComponent) {
+      this.chartComponent.reInit(this.chartData);
+    }
   }
 
 }
