@@ -2,7 +2,15 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
-import {ButtonModule, DataTableModule, InputModule, ModalModule} from 'seerlogics-ngui-components';
+import {
+  ButtonModule,
+  DataTableModule,
+  InputModule,
+  ModalModule,
+  MultiSelectModule,
+  SelectorModule,
+  TextareaModule
+} from 'seerlogics-ngui-components';
 import {ActionService} from '../../service/action.service';
 import {CategoryService} from '../../service/category.service';
 import {PolicyService} from '../../service/policy.service';
@@ -22,8 +30,8 @@ import {SearchRoleResultsComponent} from './search-role-results/search-role-resu
 
 @NgModule({
   imports: [
-    CommonModule, ReactiveFormsModule, RouterModule, DataTableModule, ModalModule,
-    ButtonModule, InputModule, RefDataRoutingModule
+    CommonModule, ReactiveFormsModule, RouterModule, DataTableModule, ModalModule, TextareaModule,
+    ButtonModule, InputModule, RefDataRoutingModule, SelectorModule, MultiSelectModule
   ],
   providers: [CategoryService, ActionService, ResourceService, PolicyService],
   declarations: [MaintainCategoryComponent, SearchCategoryResultsComponent,

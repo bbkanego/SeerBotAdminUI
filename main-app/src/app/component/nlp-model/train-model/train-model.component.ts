@@ -1,4 +1,4 @@
-import {Component, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, Injector, OnDestroy, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {ActivatedRoute, Params, Router, UrlSegment} from '@angular/router';
 import {FormGroup} from '@angular/forms';
 import {CustomValidator, ModalComponent, Notification, SUBSCRIBER_TYPES} from 'seerlogics-ngui-components';
@@ -13,7 +13,7 @@ import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
   styleUrls: ['./train-model.component.css']
 })
 export class TrainModelComponent extends BaseBotComponent
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy, AfterViewInit {
   trainModel: any;
   trainForm: FormGroup;
   currentAction = 'start';
@@ -21,7 +21,7 @@ export class TrainModelComponent extends BaseBotComponent
   validationRuleSubscription: Subscription;
   viewModelSubscription: Subscription;
   currentContext: string;
-  @ViewChild(ModalComponent) deleteModelModal: ModalComponent;
+  @ViewChild("trainModelModal", {static: false}) deleteModelModal: ModalComponent;
   private validationRules;
 
   constructor(
@@ -31,6 +31,10 @@ export class TrainModelComponent extends BaseBotComponent
     private router: Router
   ) {
     super(injector);
+  }
+
+  ngAfterViewInit(): void {
+    this.deleteModelModal.hide();
   }
 
   ngOnInit() {

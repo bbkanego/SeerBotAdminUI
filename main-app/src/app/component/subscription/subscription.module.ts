@@ -2,7 +2,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
-import {ButtonModule, DataTableModule, InputModule} from 'seerlogics-ngui-components';
+import {ButtonModule, DataTableModule, InputModule, SelectorModule, TextareaModule} from 'seerlogics-ngui-components';
 import {SubscriptionRoutingModule} from './subscription-router.module';
 import {MaintainTierComponent} from './tier/maintainTier.component';
 import {SearchTierResultsComponent} from './tier/searchTierResults.component';
@@ -14,7 +14,7 @@ import {SearchPlansComponent} from './plan/searchPlans.component';
   declarations: [MaintainTierComponent, MaintainPlanComponent,
     SearchTierResultsComponent, SearchPlansComponent],
   imports: [CommonModule, SubscriptionRoutingModule, ReactiveFormsModule,
-    RouterModule, ButtonModule, InputModule, DataTableModule],
+    RouterModule, ButtonModule, InputModule, DataTableModule, TextareaModule, SelectorModule],
   exports: [],
   providers: [SubscriptionService],
 })

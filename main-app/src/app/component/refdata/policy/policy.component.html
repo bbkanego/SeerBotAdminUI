@@ -19,9 +19,7 @@
                   label="{{ getCommonResources('entity.name') }}"
                 ></app-bk-input>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
+              <div class="col-lg-6 col-sm-12">
                 <app-bk-textarea
                   [currentFormGroup]="policyForm"
                   currentFormControlName="description"
@@ -46,6 +44,7 @@
                       class="custom-glyphicon glyphicon glyphicon-remove-sign"></span>
               </div>
               <div class="col-lg-4 col-sm-12">
+
                 <app-bk-select
                   (onSelect)="processResourceSelection($event, statement)"
                   [currentFormGroup]="statement"

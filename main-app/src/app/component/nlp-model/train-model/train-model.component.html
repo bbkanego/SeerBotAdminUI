@@ -105,20 +105,19 @@
       </bk-button>
     </div>
   </div>
+</div>
 
-  <app-bk-custom-modal (modalState)="errorModelState($event)">
-    <div class="app-modal-header">
+<app-bk-custom-modal #trainModelModal>
+  <div class="app-modal-header">
       <span
         class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal("trainModel.deleteHeading")}}
-    </div>
-    <div class="app-modal-body">
-      {{getResourceLocal("trainModel.deleteMessage")}}
-    </div>
-    <div class="app-modal-footer">
-      <bk-button (click)='deleteModelModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
-      </bk-button>
-      <bk-button (click)="delete()" intent="danger" label="{{ getCommonResources('deleteButton') }}"></bk-button>
-    </div>
-  </app-bk-custom-modal>
-
-</div>
+  </div>
+  <div class="app-modal-body">
+    {{getResourceLocal("trainModel.deleteMessage")}}
+  </div>
+  <div class="app-modal-footer">
+    <bk-button (click)='deleteModelModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
+    </bk-button>
+    <bk-button (click)="delete()" intent="danger" label="{{ getCommonResources('deleteButton') }}"></bk-button>
+  </div>
+</app-bk-custom-modal>
