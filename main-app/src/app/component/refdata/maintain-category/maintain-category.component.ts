@@ -18,7 +18,7 @@ export class MaintainCategoryComponent extends BaseBotComponent implements OnIni
   validationRuleSubscription: Subscription;
   categoryServiceSubscription: Subscription;
   catModel: any;
-  @ViewChild("mainCategoryModal") deleteCategoryModal: ModalComponent;
+  @ViewChild('mainCategoryModal') deleteCategoryModal: ModalComponent;
 
   constructor(injector: Injector, private categoryService: CategoryService, private router: Router,
               private activatedRoute: ActivatedRoute) {

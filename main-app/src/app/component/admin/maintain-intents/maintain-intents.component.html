@@ -58,7 +58,8 @@
                                     class="red-glyphicon glyphicon glyphicon-remove-sign"
                                     title="{{getResourceLocal('addIntent.removeUtterance')}}"></span>
                               <span (click)="addUtterance()"
-                                    *ngIf="i === (utterances.controls.length -1)" class="green-glyphicon glyphicon glyphicon-plus-sign"
+                                    *ngIf="i === (utterances.controls.length -1)"
+                                    class="green-glyphicon glyphicon glyphicon-plus-sign"
                                     title="{{getResourceLocal('addIntent.removeUtterance')}}"></span>
                               <app-bk-input [currentFormGroup]="utteranceGrp" controlId="utterances_utterance{{i}}"
                                             currentFormControlName="utterance"></app-bk-input>
@@ -148,7 +149,8 @@
                       <label class="input-group-btn">
                         <span class="btn btn-primary">
                           Select File&nbsp;<span class="glyphicon glyphicon-asterisk icon-required"></span><input
-                          #intentsFile (change)="fileChangeEvent($event)" name="intentsFileUpload" style="display: none;"
+                          #intentsFile (change)="fileChangeEvent($event)" name="intentsFileUpload"
+                          style="display: none;"
                           type="file">
                         </span>
                       </label>
@@ -194,7 +196,7 @@
     </div>
     <div class="row">
       <div class="col-sm-12" style="margin-bottom: 1em">
-        <bk-button intent="success" label="{{ getSubmitButtonLabel() }}" type="submit"></bk-button>
+        <bk-button [disabled]="!intentsForm.valid" intent="success" label="{{ getSubmitButtonLabel() }}" type="submit"></bk-button>
         <bk-button (click)="showDeleteModel()" *ngIf='isDeleteAllowed()' intent="danger"
                    label="{{ getCommonResources('deleteButton') }}">
         </bk-button>

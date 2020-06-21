@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Response} from '@angular/http';
 import {COMMON_CONST, HttpClientHelper, Login, Notification, NotificationService, SUBSCRIBER_TYPES} from 'seerlogics-ngui-components';
-import {Observable} from 'rxjs';
 import {environment} from '../environments/frozenEnvironment';
 import {SeerBotAdminAccount} from '../model/models';
 import {map} from 'rxjs/operators';

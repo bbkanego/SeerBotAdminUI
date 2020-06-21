@@ -2,7 +2,8 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  AuthenticationService, ButtonModule, ChartModule,
+  AuthenticationService,
+  ButtonModule,
   CommonService,
   ErrorMessagesModule,
   LoaderModule,

@@ -1,6 +1,14 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ButtonModule, DataTableModule, InputModule, ModalModule, SelectorModule, StompService} from 'seerlogics-ngui-components';
+import {
+  ButtonModule,
+  DataTableModule,
+  InputModule,
+  ModalModule,
+  SelectorModule,
+  StompService,
+  TextareaModule
+} from 'seerlogics-ngui-components';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaintainBotComponent} from './maintain-bot/maintain-bot.component';
 import {AdminRoutingModule} from './admin-routing.module';
@@ -21,7 +29,10 @@ import {ReTrainBotComponent} from './maintain-intents/re-train-bot.component';
     InputModule,
     SelectorModule,
     ButtonModule,
-    DataTableModule, ModalModule,
+    DataTableModule,
+    ModalModule,
+    TextareaModule,
+    SelectorModule,
     FormsModule,
     ReactiveFormsModule,
     AdminRoutingModule

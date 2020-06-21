@@ -101,7 +101,8 @@
                       </div>
                       <div class='row'>
                         <div class='col-sm-12' style='margin-bottom: 1em'>
-                          <bk-button [currentFormGroup]='changePasswordForm' [disabled]='!changePasswordForm.valid' intent='success'
+                          <bk-button [currentFormGroup]='changePasswordForm' [disabled]='!changePasswordForm.valid'
+                                     intent='success'
                                      label='{{getResourceLocal("changePasswordButton")}}'
                                      type='submit'></bk-button>
                           <bk-button (click)="cancelChangePassword()" intent='danger'

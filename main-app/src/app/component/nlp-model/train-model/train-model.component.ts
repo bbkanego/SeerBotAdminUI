@@ -1,4 +1,4 @@
-import {Component, Injector, OnDestroy, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import {AfterViewInit, Component, Injector, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router, UrlSegment} from '@angular/router';
 import {FormGroup} from '@angular/forms';
 import {CustomValidator, ModalComponent, Notification, SUBSCRIBER_TYPES} from 'seerlogics-ngui-components';
@@ -21,7 +21,7 @@ export class TrainModelComponent extends BaseBotComponent
   validationRuleSubscription: Subscription;
   viewModelSubscription: Subscription;
   currentContext: string;
-  @ViewChild("trainModelModal", {static: false}) deleteModelModal: ModalComponent;
+  @ViewChild('trainModelModal', {static: false}) deleteModelModal: ModalComponent;
   private validationRules;
 
   constructor(

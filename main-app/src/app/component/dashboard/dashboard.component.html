@@ -12,7 +12,7 @@
         <i class="fa fa-bar-chart-o fa-fw"></i>{{getResourceLocal('botPerformance.heading')}}
         <div class="pull-right">
           <div class="btn-group">
-            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+            <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" type="button">
               Actions
               <span class="caret"></span>
             </button>
@@ -35,35 +35,35 @@
         </div>
       </div>
       <div class="panel-body">
-        <bk-datatable [records]='allBotsTransactionData' #allBotsTransaction
+        <bk-datatable #allBotsTransaction [records]='allBotsTransactionData'
                       pageSize='12000'>
-          <bk-column header='Bot Name' sort='true'
-                     field='name'></bk-column>
-          <bk-column header='Total #of Chats' sort='true'
-                     field='name'>
-            <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
+          <bk-column field='name' header='Bot Name'
+                     sort='true'></bk-column>
+          <bk-column field='name' header='Total #of Chats'
+                     sort='true'>
+            <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
               {{trans.successTransactions.length + trans.failureTransactions.length + trans.maybeTransactions.length}}
             </ng-template>
           </bk-column>
-          <bk-column header='Success Chats' sort='true'
-                     field='name'>
-            <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
+          <bk-column field='name' header='Success Chats'
+                     sort='true'>
+            <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
               {{trans.percentageSuccess}}%
             </ng-template>
           </bk-column>
-          <bk-column header='Partial Success Chats' sort='true'
-                     field='name'>
-            <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-              <a *ngIf="trans.percentageMaybe > 0"
-                 (click)="viewTransactionDetails(trans.id, 'maybe')">{{trans.percentageMaybe}}%</a>
+          <bk-column field='name' header='Partial Success Chats'
+                     sort='true'>
+            <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
+              <a (click)="viewTransactionDetails(trans.id, 'maybe')"
+                 *ngIf="trans.percentageMaybe > 0">{{trans.percentageMaybe}}%</a>
               <div *ngIf="trans.percentageMaybe === 0">{{trans.percentageMaybe}}%</div>
             </ng-template>
           </bk-column>
-          <bk-column header='Failed Chats' sort='true'
-                     field='name'>
-            <ng-template let-col='column' let-trans='rowData' let-index='rowIndex' bkTemplate='body'>
-              <a *ngIf="trans.percentageFailure > 0"
-                 (click)="viewTransactionDetails(trans.id, 'failed')">{{trans.percentageFailure}}%</a>
+          <bk-column field='name' header='Failed Chats'
+                     sort='true'>
+            <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
+              <a (click)="viewTransactionDetails(trans.id, 'failed')"
+                 *ngIf="trans.percentageFailure > 0">{{trans.percentageFailure}}%</a>
               <div *ngIf="trans.percentageFailure === 0">{{trans.percentageFailure}}%</div>
             </ng-template>
           </bk-column>
@@ -73,7 +73,7 @@
         <div class="row">
           <div class="col-sm-2"></div>
           <div class="col-sm-8">
-            <app-bk-chart *ngIf="chartData" #chartComponent [chartData]="chartData"></app-bk-chart>
+            <app-bk-chart #chartComponent *ngIf="chartData" [chartData]="chartData"></app-bk-chart>
           </div>
           <div class="col-sm-2"></div>
         </div>

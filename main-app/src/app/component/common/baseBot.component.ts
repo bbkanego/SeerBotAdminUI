@@ -25,7 +25,9 @@ export class BaseBotComponent extends BaseReactiveComponent {
   }
 
   getResource(context: string, key: string) {
-    if (this.commonService.cmsContent === null) return;
+    if (this.commonService.cmsContent === null) {
+      return;
+    }
 
     const resources = this.commonService.cmsContent[context];
     if (key.indexOf('.') !== -1) {
