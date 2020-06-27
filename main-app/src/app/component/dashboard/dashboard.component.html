@@ -73,7 +73,7 @@
         <div class="row">
           <div class="col-sm-2"></div>
           <div class="col-sm-8">
-            <app-bk-chart #chartComponent *ngIf="chartData" [chartData]="chartData"></app-bk-chart>
+            <app-bk-chart #chartComponent *ngIf="chartData" (onClick)="displayDetails($event)" [chartData]="chartData"></app-bk-chart>
           </div>
           <div class="col-sm-2"></div>
         </div>

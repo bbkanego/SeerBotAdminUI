@@ -160,4 +160,8 @@ export class DashboardComponent extends BaseBotComponent implements OnInit, OnDe
     }
   }
 
+  displayDetails(details) {
+    alert(JSON.stringify(details[0]));
+  }
+
 }
