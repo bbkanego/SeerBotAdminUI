@@ -6,7 +6,7 @@ import {BaseBotComponent} from '../common/baseBot.component';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'seeradmin-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })

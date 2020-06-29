@@ -17,30 +17,30 @@
           <div class="content padded">
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input
+                <seer-input
                   [currentFormGroup]="roleForm"
                   currentFormControlName="role"
                   label="{{ getCommonResources('entity.name') }}"
-                ></app-bk-input>
+                ></seer-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input
+                <seer-input
                   [currentFormGroup]="roleForm"
                   currentFormControlName="code"
                   label="{{ getCommonResources('entity.code') }}"
-                ></app-bk-input>
+                ></seer-input>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-textarea
+                <seer-textarea
                   [currentFormGroup]="roleForm"
                   currentFormControlName="description"
                   label="{{ getCommonResources('entity.description') }}"
-                ></app-bk-textarea>
+                ></seer-textarea>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-multi-select
+                <seer-multi-select
                   (onSelect)="processSelectedValues($event)"
                   [currentFormGroup]="roleForm"
                   [options]="policyOptions"
@@ -48,7 +48,7 @@
                   controlId="multiSelectCategoryId"
                   currentFormControlName="selectPolicies"
                   label="{{ getResourceLocal('maintainRole.policy') }}"
-                ></app-bk-multi-select>
+                ></seer-multi-select>
               </div>
             </div>
           </div>
@@ -56,23 +56,23 @@
       </div>
     </div>
     <div class="col-sm-12" style="margin-bottom: 1em">
-      <bk-button
+      <seer-button
         [disabled]="!roleForm.valid"
         intent="success"
         label="{{ getCommonResources('saveButton') }}"
         type="submit"
-      ></bk-button
+      ></seer-button
       >
-      <bk-button
+      <seer-button
         (onClick)="revert()"
         intent="warning"
         label="{{ getCommonResources('revertButton') }}"
-      ></bk-button
-      >&nbsp;<bk-button
+      ></seer-button
+      >&nbsp;<seer-button
       (onClick)="cancel()"
       intent="danger"
       label="{{ getCommonResources('cancelButton') }}"
-    ></bk-button>
+    ></seer-button>
     </div>
   </form>
 </div>

@@ -8,7 +8,7 @@ import {BaseBotComponent} from '../common/baseBot.component';
 import * as $ from 'jquery';
 
 @Component({
-  selector: 'app-maintain-acct',
+  selector: 'seeradmin-maintain-acct',
   templateUrl: './maintain-account.component.html',
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./maintain-account.component.css']

@@ -7,7 +7,7 @@ import {BotService} from '../../../service/bot.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-search-bot',
+  selector: 'seeradmin-search-bot',
   templateUrl: './search-bot.component.html',
   styleUrls: ['./search-bot.component.css']
 })

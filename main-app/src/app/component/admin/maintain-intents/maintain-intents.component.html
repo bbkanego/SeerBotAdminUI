@@ -29,9 +29,9 @@
               <div class="panel-body content padded">
                 <div *ngIf="selectedEntryOption === 'enterDetails'" class="row">
                   <div class="col-sm-12">
-                    <app-bk-input #intentTextBox *ngIf='!isDeleteAllowed()' [currentFormGroup]="intentsForm"
+                    <seer-input #intentTextBox *ngIf='!isDeleteAllowed()' [currentFormGroup]="intentsForm"
                                   currentFormControlName="intent"
-                                  label="{{cmsContent.addIntent.intentLabel}}"></app-bk-input>
+                                  label="{{cmsContent.addIntent.intentLabel}}"></seer-input>
                     <div *ngIf='isDeleteAllowed()' class="readOnlyIntentInfo">
                       <span class="intentLabel">{{cmsContent.addIntent.intentLabel}}
                         : {{intentsForm.get('intent').value}}</span>
@@ -61,13 +61,13 @@
                                     *ngIf="i === (utterances.controls.length -1)"
                                     class="green-glyphicon glyphicon glyphicon-plus-sign"
                                     title="{{getResourceLocal('addIntent.removeUtterance')}}"></span>
-                              <app-bk-input [currentFormGroup]="utteranceGrp" controlId="utterances_utterance{{i}}"
-                                            currentFormControlName="utterance"></app-bk-input>
+                              <seer-input [currentFormGroup]="utteranceGrp" controlId="utterances_utterance{{i}}"
+                                            currentFormControlName="utterance"></seer-input>
                             </label>
                           </div>
                           <!-- <div class="col-sm-5">
-                            <app-bk-select [currentFormGroup]="utteranceGrp" label="Locale {{i + 1}}"
-                                           currentFormControlName="locale" [options]="locales"></app-bk-select>
+                            <seer-select [currentFormGroup]="utteranceGrp" label="Locale {{i + 1}}"
+                                           currentFormControlName="locale" [options]="locales"></seer-select>
                           </div> -->
                         </div>
                       </div>
@@ -88,18 +88,18 @@
                               <span class="glyphicon glyphicon-asterisk icon-required"></span>
                               <span (click)="removeLastResponse(i)" *ngIf="i !== 0 && responses.controls.length > 1"
                                     class="custom-glyphicon glyphicon glyphicon-remove-sign"></span>
-                              <app-bk-textarea [currentFormGroup]="responsesGrp" controlId="responses_response{{i}}"
-                                               currentFormControlName="response"></app-bk-textarea>
+                              <seer-textarea [currentFormGroup]="responsesGrp" controlId="responses_response{{i}}"
+                                               currentFormControlName="response"></seer-textarea>
                             </label>
                           </div>
                           <!-- <div class="col-md-3">
-                            <app-bk-select [currentFormGroup]="responsesGrp" label="Response Type {{i + 1}}"
+                            <seer-select [currentFormGroup]="responsesGrp" label="Response Type {{i + 1}}"
                                            currentFormControlName="responseType"
-                                           [options]="responseTypes"></app-bk-select>
+                                           [options]="responseTypes"></seer-select>
                           </div> -->
                           <!-- <div class="col-md-5">
-                            <app-bk-select [currentFormGroup]="responsesGrp" label="Locale {{i + 1}}"
-                                           currentFormControlName="locale" [options]="locales"></app-bk-select>
+                            <seer-select [currentFormGroup]="responsesGrp" label="Locale {{i + 1}}"
+                                           currentFormControlName="locale" [options]="locales"></seer-select>
                           </div> -->
                         </div>
                       </div>
@@ -117,13 +117,13 @@
                         <div class="row">
                           <div class="col-sm-1">&nbsp;</div>
                           <div class="col-md-11">
-                            <app-bk-textarea [currentFormGroup]="responsesGrp" controlId="responses_response{{j}}"
+                            <seer-textarea [currentFormGroup]="responsesGrp" controlId="responses_response{{j}}"
                                              currentFormControlName="response"
-                                             label="Response"></app-bk-textarea>
+                                             label="Response"></seer-textarea>
                           </div>
                           <!-- <div class="col-md-5">
-                            <app-bk-select [currentFormGroup]="responsesGrp" label="Locale"
-                                           currentFormControlName="locale" [options]="locales"></app-bk-select>
+                            <seer-select [currentFormGroup]="responsesGrp" label="Locale"
+                                           currentFormControlName="locale" [options]="locales"></seer-select>
                           </div> -->
                         </div>
                       </div>
@@ -187,27 +187,27 @@
     </div>
     <div class='row'>
       <div class="col-lg-6 col-sm-12">
-        <app-bk-select #selectCategory *ngIf="!isDeleteAllowed()" [currentFormGroup]="intentsForm"
+        <seer-select #selectCategory *ngIf="!isDeleteAllowed()" [currentFormGroup]="intentsForm"
                        [options]="category"
-                       currentFormControlName="category" label="{{cmsContent.addIntent.categoryLabel}}"></app-bk-select>
+                       currentFormControlName="category" label="{{cmsContent.addIntent.categoryLabel}}"></seer-select>
         <div *ngIf="isDeleteAllowed()" class="btm-20margin"><span
           class="labelSpan">{{cmsContent.addIntent.categoryLabel}}:</span> {{intentsModel.category.name}}</div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12" style="margin-bottom: 1em">
-        <bk-button [disabled]="!intentsForm.valid" intent="success" label="{{ getSubmitButtonLabel() }}" type="submit"></bk-button>
-        <bk-button (click)="showDeleteModel()" *ngIf='isDeleteAllowed()' intent="danger"
+        <seer-button [disabled]="!intentsForm.valid" intent="success" label="{{ getSubmitButtonLabel() }}" type="submit"></seer-button>
+        <seer-button (click)="showDeleteModel()" *ngIf='isDeleteAllowed()' intent="danger"
                    label="{{ getCommonResources('deleteButton') }}">
-        </bk-button>
-        <bk-button (click)="revert()" intent="warning" label="{{ getCommonResources('revertButton') }}"></bk-button>
-        <bk-button (click)="cancel()" intent="danger" label="{{ getCommonResources('doneButton') }}"></bk-button>
+        </seer-button>
+        <seer-button (click)="revert()" intent="warning" label="{{ getCommonResources('revertButton') }}"></seer-button>
+        <seer-button (click)="cancel()" intent="danger" label="{{ getCommonResources('doneButton') }}"></seer-button>
       </div>
       <div [innerHTML]="getCommonResources('requiredIndicator')" class="col-sm-12"></div>
     </div>
   </form>
 
-  <app-bk-custom-modal>
+  <seer-custom-modal>
     <div class="app-modal-header">
       <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{cmsContent.editIntent.deleteHeading}}
     </div>
@@ -215,11 +215,11 @@
       {{cmsContent.editIntent.deleteMessage}}
     </div>
     <div class="app-modal-footer">
-      <bk-button (click)='deleteIntentModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
-      </bk-button>
-      <bk-button (click)="delete()" intent="danger" label="{{ getCommonResources('deleteButton') }}"></bk-button>
+      <seer-button (click)='deleteIntentModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
+      </seer-button>
+      <seer-button (click)="delete()" intent="danger" label="{{ getCommonResources('deleteButton') }}"></seer-button>
     </div>
-  </app-bk-custom-modal>
+  </seer-custom-modal>
 
   <!--
     {{intentsForm.get('category').value   | json}}

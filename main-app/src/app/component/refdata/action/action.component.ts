@@ -7,7 +7,7 @@ import {ActionService} from '../../../service/action.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-action',
+  selector: 'seeradmin-action',
   templateUrl: './action.component.html',
   styleUrls: ['./action.component.css']
 })

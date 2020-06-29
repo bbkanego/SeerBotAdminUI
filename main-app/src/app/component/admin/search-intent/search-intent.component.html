@@ -19,41 +19,41 @@
   </div>
   <div class='row'>
     <div class='col-sm-12'>
-      <bk-datatable #intentsResultsTable [noResultsFoundHeader]="noResultsFoundMessage" [records]='intentsResults'
+      <seer-datatable #intentsResultsTable [noResultsFoundHeader]="noResultsFoundMessage" [records]='intentsResults'
                     pageSize='6'>
 
-        <bk-column field='intent' header='{{getResourceLocal("resultsTable.colHeaders.col1")}}' sort='true'>
+        <seer-column field='intent' header='{{getResourceLocal("resultsTable.colHeaders.col1")}}' sort='true'>
           <ng-template bkTemplate='body' let-col='column'
                        let-index='rowIndex' let-intent='rowData'>
             <a (click)="editIntent(intent.id)">{{intent.intent}}</a>
           </ng-template>
-        </bk-column>
+        </seer-column>
 
-        <bk-column field='category' header='{{getResourceLocal("resultsTable.colHeaders.col3")}}' sort='true'>
+        <seer-column field='category' header='{{getResourceLocal("resultsTable.colHeaders.col3")}}' sort='true'>
           <ng-template bkTemplate='body' let-col='column'
                        let-index='rowIndex' let-intent='rowData'>
             {{intent.category.name}}
           </ng-template>
-        </bk-column>
-      </bk-datatable>
+        </seer-column>
+      </seer-datatable>
     </div>
   </div>
   <div class='row'>
     <div class='col-sm-12' style='margin-bottom: 1em'>
       <hr class='dottedHr'/>
-      <bk-button (click)="showDeleteAllPopup()" *ngIf='intentsResults.length > 0' intent='danger'
-                 label='{{getCommonResources("deleteAllButton")}}'></bk-button>
-      <bk-button (click)="addIntent()" intent='success'
-                 label='{{getResourceLocal("addIntent")}}'></bk-button>
-      <bk-button (click)="showCopyIntentsPopup()" *ngIf='intentsResults.length == 0' intent='danger'
-                 label='{{getResourceLocal("copyIntents")}}'></bk-button>
-      <bk-button (click)="backToCriteria()" intent='warning'
-                 label='{{getCommonResources("goBackButton")}}'></bk-button>
+      <seer-button (click)="showDeleteAllPopup()" *ngIf='intentsResults.length > 0' intent='danger'
+                 label='{{getCommonResources("deleteAllButton")}}'></seer-button>
+      <seer-button (click)="addIntent()" intent='success'
+                 label='{{getResourceLocal("addIntent")}}'></seer-button>
+      <seer-button (click)="showCopyIntentsPopup()" *ngIf='intentsResults.length == 0' intent='danger'
+                 label='{{getResourceLocal("copyIntents")}}'></seer-button>
+      <seer-button (click)="backToCriteria()" intent='warning'
+                 label='{{getCommonResources("goBackButton")}}'></seer-button>
     </div>
   </div>
 </div>
 
-<app-bk-custom-modal #deleteIntentsModalComp>
+<seer-custom-modal #deleteIntentsModalComp>
   <div class="app-modal-header">
     <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal('deleteAll')}}
   </div>
@@ -61,14 +61,14 @@
     {{getResourceLocal('deleteAllMessage')}}
   </div>
   <div class="app-modal-footer">
-    <bk-button (click)='deleteIntentsModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
-    </bk-button>
-    <bk-button (click)="deleteAllIntents()" intent="danger"
-               label="{{ getCommonResources('deleteButton') }}"></bk-button>
+    <seer-button (click)='deleteIntentsModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
+    </seer-button>
+    <seer-button (click)="deleteAllIntents()" intent="danger"
+               label="{{ getCommonResources('deleteButton') }}"></seer-button>
   </div>
-</app-bk-custom-modal>
+</seer-custom-modal>
 
-<app-bk-custom-modal #copyIntentsModalComp>
+<seer-custom-modal #copyIntentsModalComp>
   <div class="app-modal-header">
     <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal('copyIntents')}}
   </div>
@@ -87,10 +87,10 @@
               </div>
               <div class="row">
                 <div class="col-sm-12">
-                  <app-bk-select [currentFormGroup]="intentCopyForm"
+                  <seer-select [currentFormGroup]="intentCopyForm"
                                  [options]='category'
                                  currentFormControlName='sourceCategoryCode'
-                                 label='{{getResource("searchIntents", "categoryLabel")}}'></app-bk-select>
+                                 label='{{getResource("searchIntents", "categoryLabel")}}'></seer-select>
                 </div>
                 <div class="col-lg-6 col-sm-12">
                 </div>
@@ -101,13 +101,13 @@
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <bk-button (click)='hideCopyIntentsPopup()' intent="warning" label="{{ getCommonResources('noButton') }}">
-          </bk-button>
-          <bk-button intent="success" label="{{ getResourceLocal('copyIntents') }}" type='submit'></bk-button>
+          <seer-button (click)='hideCopyIntentsPopup()' intent="warning" label="{{ getCommonResources('noButton') }}">
+          </seer-button>
+          <seer-button intent="success" label="{{ getResourceLocal('copyIntents') }}" type='submit'></seer-button>
         </div>
       </div>
     </form>
   </div>
-</app-bk-custom-modal>
+</seer-custom-modal>
 
 <router-outlet></router-outlet>

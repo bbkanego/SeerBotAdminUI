@@ -13,18 +13,18 @@
           <div class="content padded">
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input
+                <seer-input
                   [currentFormGroup]="policyForm"
                   currentFormControlName="name"
                   label="{{ getCommonResources('entity.name') }}"
-                ></app-bk-input>
+                ></seer-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-textarea
+                <seer-textarea
                   [currentFormGroup]="policyForm"
                   currentFormControlName="description"
                   label="{{ getCommonResources('entity.description') }}"
-                ></app-bk-textarea>
+                ></seer-textarea>
               </div>
             </div>
             <div class="row">
@@ -45,25 +45,25 @@
               </div>
               <div class="col-lg-4 col-sm-12">
 
-                <app-bk-select
+                <seer-select
                   (onSelect)="processResourceSelection($event, statement)"
                   [currentFormGroup]="statement"
                   [options]="resourcesOptions"
                   currentFormControlName="resourceCode"
                   label="{{ getResourceLocal('maintainPolicy.resource') }}"
-                ></app-bk-select>
+                ></seer-select>
               </div>
               <div class="col-lg-4 col-sm-12">
-                <app-bk-select
+                <seer-select
                   [currentFormGroup]="statement"
                   [options]="effectsOptions"
                   currentFormControlName="effect"
 
                   label="{{ getResourceLocal('maintainPolicy.effect') }}"
-                ></app-bk-select>
+                ></seer-select>
               </div>
               <div class="col-lg-3 col-sm-12">
-                <app-bk-multi-select
+                <seer-multi-select
                   (onSelect)="processSelectedValues($event, statement)"
                   [currentFormGroup]="statement"
                   [options]="actionsOptions"
@@ -72,7 +72,7 @@
                   currentFormControlName="selectActions"
                   label="{{ getResourceLocal('maintainPolicy.action') }}"
                 >
-                </app-bk-multi-select>
+                </seer-multi-select>
               </div>
             </div>
           </div>
@@ -80,23 +80,23 @@
       </div>
     </div>
     <div class="col-sm-12" style="margin-bottom: 1em">
-      <bk-button
+      <seer-button
         [disabled]="!policyForm.valid"
         intent="success"
         label="{{ getCommonResources('saveButton') }}"
         type="submit"
-      ></bk-button
+      ></seer-button
       >
-      <bk-button
+      <seer-button
         (onClick)="revert()"
         intent="warning"
         label="{{ getCommonResources('revertButton') }}"
-      ></bk-button
-      >&nbsp;<bk-button
+      ></seer-button
+      >&nbsp;<seer-button
       (onClick)="cancel()"
       intent="danger"
       label="{{ getCommonResources('cancelButton') }}"
-    ></bk-button>
+    ></seer-button>
     </div>
   </form>
 </div>

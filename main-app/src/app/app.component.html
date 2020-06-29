@@ -1,16 +1,16 @@
-<app-angular-loader></app-angular-loader>
-<app-header></app-header>
-<app-bk-dynamic-modal #seerBotAdminDynamicModal></app-bk-dynamic-modal>
-<app-bk-popout #popoutComponent></app-bk-popout>
+<seer-angular-loader></seer-angular-loader>
+<seeradmin-header></seeradmin-header>
+<seer-dynamic-modal #seerBotAdminDynamicModal></seer-dynamic-modal>
+<seer-popout #popoutComponent></seer-popout>
 <div class="wrapper">
-  <app-left-menu *ngIf="isLoggedIn()"></app-left-menu>
+  <seeradmin-left-menu *ngIf="isLoggedIn()"></seeradmin-left-menu>
   <div id="content">
-    <app-bk-error-messages></app-bk-error-messages>
+    <seer-error-messages></seer-error-messages>
     <router-outlet (activate)="onActivate($event)" (deactivate)="onDeactivate($event)"></router-outlet>
   </div>
 </div>
 
-<app-bk-custom-modal #commonAppModal>
+<seer-custom-modal #commonAppModal>
   <div class="app-modal-header">
     <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{customModalData.header}}
   </div>
@@ -18,7 +18,7 @@
     {{customModalData.bodyMessage}}
   </div>
   <div class="app-modal-footer">
-    <bk-button (click)='commonAppModal.hide()' intent="success" label="{{ customModalData.buttonOk }}">
-    </bk-button>
+    <seer-button (click)='commonAppModal.hide()' intent="success" label="{{ customModalData.buttonOk }}">
+    </seer-button>
   </div>
-</app-bk-custom-modal>
+</seer-custom-modal>

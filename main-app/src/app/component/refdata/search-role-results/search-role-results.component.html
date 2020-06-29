@@ -9,16 +9,16 @@
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <bk-datatable #bkTop5Heroes [records]="roleResults" pageSize="6"
+      <seer-datatable #bkTop5Heroes [records]="roleResults" pageSize="6"
                     smallDeviceHeader="{{ getCommonResources('resultsHeading') }}">
-        <bk-column field="code" header="{{ getCommonResources('entity.name') }}" sort="true">
+        <seer-column field="code" header="{{ getCommonResources('entity.name') }}" sort="true">
           <ng-template bkTemplate="body" let-col="column" let-index="rowIndex" let-role="rowData">
             <a (click)="editRole(role.id)">{{ role.role }}</a>
           </ng-template>
-        </bk-column>
-        <bk-column field="code" header="{{ getCommonResources('entity.code') }}" sort="true"></bk-column>
-        <bk-column field="description" header="{{ getCommonResources('entity.description') }}" sort="true"></bk-column>
-      </bk-datatable>
+        </seer-column>
+        <seer-column field="code" header="{{ getCommonResources('entity.code') }}" sort="true"></seer-column>
+        <seer-column field="description" header="{{ getCommonResources('entity.description') }}" sort="true"></seer-column>
+      </seer-datatable>
     </div>
   </div>
 </div>

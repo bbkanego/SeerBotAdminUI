@@ -13,18 +13,18 @@
           <div class="content padded">
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input
+                <seer-input
                   [currentFormGroup]="resourceForm"
                   currentFormControlName="name"
                   label="{{ getCommonResources('entity.name') }}"
-                ></app-bk-input>
+                ></seer-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-textarea
+                <seer-textarea
                   [currentFormGroup]="resourceForm"
                   currentFormControlName="description"
                   label="{{ getCommonResources('entity.description') }}"
-                ></app-bk-textarea>
+                ></seer-textarea>
               </div>
             </div>
           </div>
@@ -32,23 +32,23 @@
       </div>
     </div>
     <div class="col-sm-12" style="margin-bottom: 1em">
-      <bk-button
+      <seer-button
         [disabled]="!resourceForm.valid"
         intent="success"
         label="{{ getCommonResources('saveButton') }}"
         type="submit"
-      ></bk-button
+      ></seer-button
       >
-      <bk-button
+      <seer-button
         (onClick)="revert()"
         intent="warning"
         label="{{ getCommonResources('revertButton') }}"
-      ></bk-button
-      >&nbsp;<bk-button
+      ></seer-button
+      >&nbsp;<seer-button
       (onClick)="cancel()"
       intent="danger"
       label="{{ getCommonResources('cancelButton') }}"
-    ></bk-button>
+    ></seer-button>
     </div>
   </form>
 </div>

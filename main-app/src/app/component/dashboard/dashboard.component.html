@@ -35,45 +35,45 @@
         </div>
       </div>
       <div class="panel-body">
-        <bk-datatable #allBotsTransaction [records]='allBotsTransactionData'
+        <seer-datatable #allBotsTransaction [records]='allBotsTransactionData'
                       pageSize='12000'>
-          <bk-column field='name' header='Bot Name'
-                     sort='true'></bk-column>
-          <bk-column field='name' header='Total #of Chats'
+          <seer-column field='name' header='Bot Name'
+                     sort='true'></seer-column>
+          <seer-column field='name' header='Total #of Chats'
                      sort='true'>
             <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
               {{trans.successTransactions.length + trans.failureTransactions.length + trans.maybeTransactions.length}}
             </ng-template>
-          </bk-column>
-          <bk-column field='name' header='Success Chats'
+          </seer-column>
+          <seer-column field='name' header='Success Chats'
                      sort='true'>
             <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
               {{trans.percentageSuccess}}%
             </ng-template>
-          </bk-column>
-          <bk-column field='name' header='Partial Success Chats'
+          </seer-column>
+          <seer-column field='name' header='Partial Success Chats'
                      sort='true'>
             <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
               <a (click)="viewTransactionDetails(trans.id, 'maybe')"
                  *ngIf="trans.percentageMaybe > 0">{{trans.percentageMaybe}}%</a>
               <div *ngIf="trans.percentageMaybe === 0">{{trans.percentageMaybe}}%</div>
             </ng-template>
-          </bk-column>
-          <bk-column field='name' header='Failed Chats'
+          </seer-column>
+          <seer-column field='name' header='Failed Chats'
                      sort='true'>
             <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
               <a (click)="viewTransactionDetails(trans.id, 'failed')"
                  *ngIf="trans.percentageFailure > 0">{{trans.percentageFailure}}%</a>
               <div *ngIf="trans.percentageFailure === 0">{{trans.percentageFailure}}%</div>
             </ng-template>
-          </bk-column>
+          </seer-column>
 
-        </bk-datatable>
+        </seer-datatable>
 
         <div class="row">
           <div class="col-sm-2"></div>
           <div class="col-sm-8">
-            <app-bk-chart #chartComponent *ngIf="chartData" (onClick)="displayDetails($event)" [chartData]="chartData"></app-bk-chart>
+            <seer-chart #chartComponent *ngIf="chartData" (onClick)="displayDetails($event)" [chartData]="chartData"></seer-chart>
           </div>
           <div class="col-sm-2"></div>
         </div>

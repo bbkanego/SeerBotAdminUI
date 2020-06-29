@@ -6,7 +6,7 @@ import {SubscriptionService} from '../../../service/subscription.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-search-tier',
+  selector: 'seeradmin-search-tier',
   templateUrl: './searchTierResults.component.html',
   styleUrls: ['./searchTierResults.component.css']
 })

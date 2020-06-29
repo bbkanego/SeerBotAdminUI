@@ -32,7 +32,7 @@ const customModdle = {
  * https://raw.githubusercontent.com/narve/angular-bpmn/master/src/app/app.component.ts
  */
 @Component({
-  selector: 'app-state-machine-model',
+  selector: 'seeradmin-state-machine-model',
   templateUrl: './state-machine-model.component.html',
   styleUrls: ['./state-machine-model.component.css']
 })

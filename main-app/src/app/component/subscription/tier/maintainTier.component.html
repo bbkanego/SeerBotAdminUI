@@ -13,39 +13,39 @@
           <div class="content padded">
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]="tierForm" currentFormControlName="name"
-                              label="{{ getResourceLocal('name') }}"></app-bk-input>
+                <seer-input [currentFormGroup]="tierForm" currentFormControlName="name"
+                              label="{{ getResourceLocal('name') }}"></seer-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]="tierForm" currentFormControlName="description" label="{{
+                <seer-input [currentFormGroup]="tierForm" currentFormControlName="description" label="{{
                                     getResourceLocal('description')
-                                }}"></app-bk-input>
+                                }}"></seer-input>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-select [currentFormGroup]="tierForm"
+                <seer-select [currentFormGroup]="tierForm"
                                [options]="tierDurationOptions"
                                currentFormControlName="tierDurationString"
-                               label="{{ getResourceLocal('tierDuration') }}"></app-bk-select>
+                               label="{{ getResourceLocal('tierDuration') }}"></seer-select>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-select [currentFormGroup]="tierForm"
+                <seer-select [currentFormGroup]="tierForm"
                                [options]="tierTypeOptions"
                                currentFormControlName="tierTypeString"
-                               label="{{ getResourceLocal('tierType') }}"></app-bk-select>
+                               label="{{ getResourceLocal('tierType') }}"></seer-select>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]="tierForm"
+                <seer-input [currentFormGroup]="tierForm"
                               currentFormControlName="minTransactions"
-                              label="{{ getResourceLocal('minTransactions') }}"></app-bk-input>
+                              label="{{ getResourceLocal('minTransactions') }}"></seer-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]="tierForm" currentFormControlName="maxTransactions" label="{{
+                <seer-input [currentFormGroup]="tierForm" currentFormControlName="maxTransactions" label="{{
                                     getResourceLocal('maxTransactions')
-                                }}"></app-bk-input>
+                                }}"></seer-input>
               </div>
             </div>
           </div>
@@ -53,11 +53,11 @@
       </div>
     </div>
     <div class="col-sm-12" style="margin-bottom: 1em">
-      <bk-button [disabled]="!tierForm.valid" intent="success" label="{{getCommonResources('saveButton')}}"
-                 type="submit"></bk-button>
-      <bk-button (onClick)="revert()" intent="warning" label="{{getCommonResources('revertButton')}}"></bk-button>
-      &nbsp;<bk-button (onClick)="cancel()" intent="danger" label="{{getCommonResources('cancelButton')}}">
-    </bk-button>
+      <seer-button [disabled]="!tierForm.valid" intent="success" label="{{getCommonResources('saveButton')}}"
+                 type="submit"></seer-button>
+      <seer-button (onClick)="revert()" intent="warning" label="{{getCommonResources('revertButton')}}"></seer-button>
+      &nbsp;<seer-button (onClick)="cancel()" intent="danger" label="{{getCommonResources('cancelButton')}}">
+    </seer-button>
     </div>
   </form>
 </div>

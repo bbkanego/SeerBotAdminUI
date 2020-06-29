@@ -5,7 +5,7 @@ import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-search-model',
+  selector: 'seeradmin-search-model',
   templateUrl: './search-model.component.html',
   styleUrls: ['./search-model.component.css']
 })

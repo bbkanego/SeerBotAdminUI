@@ -8,7 +8,7 @@ import {RoleService} from '../../../service/role.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-maintain-role',
+  selector: 'seeradmin-maintain-role',
   templateUrl: './maintain-role.component.html',
   styleUrls: ['./maintain-role.component.css']
 })

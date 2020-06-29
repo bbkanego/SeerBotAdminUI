@@ -9,7 +9,7 @@ import {FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
-  selector: 'app-search-intent',
+  selector: 'seeradmin-search-intent',
   templateUrl: './search-intent.component.html',
   styleUrls: ['./search-intent.component.css']
 })

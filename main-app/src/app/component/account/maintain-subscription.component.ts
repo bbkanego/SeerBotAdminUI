@@ -16,7 +16,7 @@ export interface ChangePassword {
 
 
 @Component({
-  selector: 'app-maintain-subscription',
+  selector: 'seeradmin-maintain-subscription',
   templateUrl: './maintain-subscription.component.html',
   styleUrls: ['./maintain-subscription.component.css']
 })

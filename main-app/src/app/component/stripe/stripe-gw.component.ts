@@ -2,7 +2,7 @@ import {Component, ElementRef, Injector, Input, OnInit, ViewChild} from '@angula
 import {BaseBotComponent} from '../common/baseBot.component';
 
 @Component({
-  selector: 'app-stripe',
+  selector: 'seeradmin-stripe',
   templateUrl: './stripe-gw.component.html',
   styleUrls: ['./stripe-gw.component.css']
 })

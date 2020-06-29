@@ -9,13 +9,13 @@
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <bk-datatable
+      <seer-datatable
         #bkTop5Heroes
         [records]="actionResults"
         pageSize="6"
         smallDeviceHeader="Top 5 Heroes"
       >
-        <bk-column
+        <seer-column
           field="code"
           header="{{ getCommonResources('entity.name') }}"
           sort="true"
@@ -28,13 +28,13 @@
           >
             <a (click)="editAction(action.id)">{{ action.name }}</a>
           </ng-template>
-        </bk-column>
-        <bk-column
+        </seer-column>
+        <seer-column
           field="description"
           header="{{ getCommonResources('entity.description') }}"
           sort="true"
-        ></bk-column>
-      </bk-datatable>
+        ></seer-column>
+      </seer-datatable>
     </div>
   </div>
 </div>

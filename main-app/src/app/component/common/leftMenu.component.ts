@@ -5,7 +5,7 @@ import {BaseBotComponent} from './baseBot.component';
 import * as $ from 'jquery';
 
 @Component({
-  selector: 'app-left-menu',
+  selector: 'seeradmin-left-menu',
   templateUrl: './leftMenu.component.html',
   styleUrls: ['./leftMenu.component.css']
 })

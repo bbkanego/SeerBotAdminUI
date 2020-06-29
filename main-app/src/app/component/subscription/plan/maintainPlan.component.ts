@@ -8,7 +8,7 @@ import {SubscriptionService} from '../../../service/subscription.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-maintain-plan',
+  selector: 'seeradmin-maintain-plan',
   templateUrl: './maintainPlan.component.html',
   styleUrls: ['./maintainPlan.component.css']
 })

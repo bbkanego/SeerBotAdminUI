@@ -6,7 +6,7 @@ import {CategoryService} from '../../../service/category.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-search-category-results',
+  selector: 'seeradmin-search-category-results',
   templateUrl: './search-category-results.component.html',
   styleUrls: ['./search-category-results.component.css']
 })

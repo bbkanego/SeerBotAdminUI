@@ -25,14 +25,14 @@
           <div class="content padded">
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]="categoryForm" currentFormControlName="name"
-                              label="{{ getCommonResources('entity.name') }}"></app-bk-input>
+                <seer-input [currentFormGroup]="categoryForm" currentFormControlName="name"
+                              label="{{ getCommonResources('entity.name') }}"></seer-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-textarea [currentFormGroup]="categoryForm"
+                <seer-textarea [currentFormGroup]="categoryForm"
                                  currentFormControlName="description"
                                  label="{{ getCommonResources('entity.description') }}">
-                </app-bk-textarea>
+                </seer-textarea>
               </div>
             </div>
           </div>
@@ -40,17 +40,17 @@
       </div>
     </div>
     <div class="col-sm-12" style="margin-bottom: 1em">
-      <bk-button [disabled]="!categoryForm.valid" intent="success" label="{{ getCommonResources('saveButton') }}"
-                 type="submit"></bk-button>
-      <bk-button (click)="showDeleteModel()" *ngIf='showDeleteButton()' intent="danger"
-                 label="{{ getCommonResources('deleteButton') }}"></bk-button>
-      <bk-button (onClick)="revert()" intent="warning" label="{{ getCommonResources('revertButton') }}"></bk-button>
-      &nbsp;<bk-button (onClick)="cancel()" intent="danger" label="{{ getCommonResources('cancelButton') }}">
-    </bk-button>
+      <seer-button [disabled]="!categoryForm.valid" intent="success" label="{{ getCommonResources('saveButton') }}"
+                 type="submit"></seer-button>
+      <seer-button (click)="showDeleteModel()" *ngIf='showDeleteButton()' intent="danger"
+                 label="{{ getCommonResources('deleteButton') }}"></seer-button>
+      <seer-button (onClick)="revert()" intent="warning" label="{{ getCommonResources('revertButton') }}"></seer-button>
+      &nbsp;<seer-button (onClick)="cancel()" intent="danger" label="{{ getCommonResources('cancelButton') }}">
+    </seer-button>
     </div>
   </form>
 
-  <app-bk-custom-modal #mainCategoryModal>
+  <seer-custom-modal #mainCategoryModal>
     <div class="app-modal-header">
       <span class="red-glyphicon glyphicon glyphicon-exclamation-sign"
             style="margin-right:5px"> </span>{{ getCommonResources('deleteHeading') }}
@@ -59,9 +59,9 @@
       {{ getCommonResources('deleteMessage') }}
     </div>
     <div class="app-modal-footer">
-      <bk-button (click)='deleteCategoryModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
-      </bk-button>
-      <bk-button (click)="delete()" intent="danger" label="{{ getCommonResources('deleteButton') }}"></bk-button>
+      <seer-button (click)='deleteCategoryModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
+      </seer-button>
+      <seer-button (click)="delete()" intent="danger" label="{{ getCommonResources('deleteButton') }}"></seer-button>
     </div>
-  </app-bk-custom-modal>
+  </seer-custom-modal>
 </div>

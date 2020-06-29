@@ -6,7 +6,7 @@ import {PolicyService} from '../../../service/policy.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-search-policy-results',
+  selector: 'seeradmin-search-policy-results',
   templateUrl: './search-policy-results.component.html',
   styleUrls: ['./search-policy-results.component.css']
 })

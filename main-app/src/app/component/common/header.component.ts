@@ -5,7 +5,7 @@ import {BaseBotComponent} from './baseBot.component';
 import * as $ from 'jquery';
 
 @Component({
-  selector: 'app-header',
+  selector: 'seeradmin-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })

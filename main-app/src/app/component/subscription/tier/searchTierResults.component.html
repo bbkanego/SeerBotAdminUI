@@ -9,26 +9,26 @@
   </div>
   <div class='row'>
     <div class='col-sm-12'>
-      <bk-datatable #availableTiers [records]='tierResults' pageSize='6' smallDeviceHeader='All Tiers'>
-        <bk-column field='name' header='{{getResourceLocal("resultsTable.colHeaders.col1")}}' sort='true'>
+      <seer-datatable #availableTiers [records]='tierResults' pageSize='6' smallDeviceHeader='All Tiers'>
+        <seer-column field='name' header='{{getResourceLocal("resultsTable.colHeaders.col1")}}' sort='true'>
           <ng-template bkTemplate="body" let-col="column" let-index="rowIndex" let-tier="rowData">
             <a (click)="editTier(tier.id)">{{ tier.name }}</a>
           </ng-template>
-        </bk-column>
-        <bk-column field='description' header='{{getResourceLocal("resultsTable.colHeaders.col2")}}'
+        </seer-column>
+        <seer-column field='description' header='{{getResourceLocal("resultsTable.colHeaders.col2")}}'
                    sort='true'>
-        </bk-column>
-        <bk-column field='tierDuration' header='{{getResourceLocal("resultsTable.colHeaders.col3")}}'
-                   sort='true'></bk-column>
-        <bk-column field='tierType' header='{{getResourceLocal("resultsTable.colHeaders.col4")}}' sort='true'>
-        </bk-column>
-        <bk-column field='minTransactions' header='{{getResourceLocal("resultsTable.colHeaders.col5")}}'
+        </seer-column>
+        <seer-column field='tierDuration' header='{{getResourceLocal("resultsTable.colHeaders.col3")}}'
+                   sort='true'></seer-column>
+        <seer-column field='tierType' header='{{getResourceLocal("resultsTable.colHeaders.col4")}}' sort='true'>
+        </seer-column>
+        <seer-column field='minTransactions' header='{{getResourceLocal("resultsTable.colHeaders.col5")}}'
                    sort='true'>
-        </bk-column>
-        <bk-column field='maxTransactions' header='{{getResourceLocal("resultsTable.colHeaders.col6")}}'
+        </seer-column>
+        <seer-column field='maxTransactions' header='{{getResourceLocal("resultsTable.colHeaders.col6")}}'
                    sort='true'>
-        </bk-column>
-      </bk-datatable>
+        </seer-column>
+      </seer-datatable>
     </div>
   </div>
 </div>

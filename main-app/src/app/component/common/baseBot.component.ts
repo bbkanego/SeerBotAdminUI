@@ -6,7 +6,7 @@ import {FormGroup} from '@angular/forms';
 import {HelpComponent} from '../help/help.component';
 import * as $ from 'jquery';
 
-@Directive({selector: 'app-base-comp'})
+@Directive({selector: 'seeradmin-base-comp'})
 export class BaseBotComponent extends BaseReactiveComponent {
   currentAction = 'add';
   showIntentFileUpload = false;

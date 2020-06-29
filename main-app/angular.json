@@ -191,11 +191,11 @@
   "defaultProject": "chat-admin",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "app",
+      "prefix": "seeradmin",
       "style": "css"
     },
     "@schematics/angular:directive": {
-      "prefix": "app"
+      "prefix": "seeradmin"
     }
   }
 }

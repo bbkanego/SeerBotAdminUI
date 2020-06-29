@@ -11,7 +11,7 @@ import {BotDetail, ReTrainBot, UtteranceToIntent} from '../../../model/models';
 declare var $;
 
 @Component({
-  selector: 'app-retrain-bot',
+  selector: 'seeradmin-retrain-bot',
   templateUrl: './re-train-bot.component.html',
   styleUrls: ['./re-train-bot.component.css']
 })

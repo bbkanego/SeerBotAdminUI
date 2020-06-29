@@ -37,7 +37,7 @@ import {map} from 'rxjs/operators';
  * https://bootsnipp.com/snippets/ZlkBn
  */
 @Component({
-  selector: 'app-launch-bot',
+  selector: 'seeradmin-launch-bot',
   templateUrl: './test-bot.component.html',
   styleUrls: ['./test-bot.component.css']
 })

@@ -7,7 +7,7 @@ import {FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-search-intent-criteria',
+  selector: 'seeradmin-search-intent-criteria',
   templateUrl: './search-intent-criteria.component.html',
   styleUrls: ['./search-intent-criteria.component.css']
 })

@@ -6,7 +6,7 @@ import {ResourceService} from '../../../service/resource.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-search-resource-results',
+  selector: 'seeradmin-search-resource-results',
   templateUrl: './search-resource-results.component.html',
   styleUrls: ['./search-resource-results.component.css']
 })

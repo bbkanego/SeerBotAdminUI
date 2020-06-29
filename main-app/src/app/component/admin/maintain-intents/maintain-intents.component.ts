@@ -9,7 +9,7 @@ import {CopyIntents, IntentService} from '../../../service/intent.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-maintain-intents',
+  selector: 'seeradmin-maintain-intents',
   templateUrl: './maintain-intents.component.html',
   styleUrls: ['./maintain-intents.component.css']
 })

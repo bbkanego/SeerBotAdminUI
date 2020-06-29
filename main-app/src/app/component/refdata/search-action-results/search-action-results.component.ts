@@ -6,7 +6,7 @@ import {ActionService} from '../../../service/action.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-search-action-results',
+  selector: 'seeradmin-search-action-results',
   templateUrl: './search-action-results.component.html',
   styleUrls: ['./search-action-results.component.css']
 })

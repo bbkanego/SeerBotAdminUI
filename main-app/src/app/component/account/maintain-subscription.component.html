@@ -59,8 +59,8 @@
             </div>
             <div class="row">
               <div *ngIf="showChangePassword === true" class="col-sm-12">
-                <bk-button (click)='showChangePasswordWidgets()' intent="success" label="Change Password"
-                           type="button"></bk-button>
+                <seer-button (click)='showChangePasswordWidgets()' intent="success" label="Change Password"
+                           type="button"></seer-button>
               </div>
               <div *ngIf="showChangePassword === false" class="col-sm-12">
                 <form (ngSubmit)='onSubmit()' [formGroup]='changePasswordForm' novalidate>
@@ -80,16 +80,16 @@
                               </div>
                               <div class='row'>
                                 <div class="col-lg-6 col-sm-12">
-                                  <app-bk-input #passwordCapture
+                                  <seer-input #passwordCapture
                                                 [currentFormGroup]='changePasswordForm'
                                                 currentFormControlName='passwordCapture' inputType="password"
-                                                label='{{getResourceLocal("password")}}'></app-bk-input>
+                                                label='{{getResourceLocal("password")}}'></seer-input>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
-                                  <app-bk-input #passwordCaptureReenter
+                                  <seer-input #passwordCaptureReenter
                                                 [currentFormGroup]='changePasswordForm'
                                                 currentFormControlName='passwordCaptureReenter' inputType="password"
-                                                label='{{getResourceLocal("passwordRenter")}}'></app-bk-input>
+                                                label='{{getResourceLocal("passwordRenter")}}'></seer-input>
                                   <div *ngIf="changePasswordForm.hasError('notSame')" class="errorMessage">
                                     Does not match
                                   </div>
@@ -101,13 +101,13 @@
                       </div>
                       <div class='row'>
                         <div class='col-sm-12' style='margin-bottom: 1em'>
-                          <bk-button [currentFormGroup]='changePasswordForm' [disabled]='!changePasswordForm.valid'
+                          <seer-button [currentFormGroup]='changePasswordForm' [disabled]='!changePasswordForm.valid'
                                      intent='success'
                                      label='{{getResourceLocal("changePasswordButton")}}'
-                                     type='submit'></bk-button>
-                          <bk-button (click)="cancelChangePassword()" intent='danger'
+                                     type='submit'></seer-button>
+                          <seer-button (click)="cancelChangePassword()" intent='danger'
                                      label='{{getCommonResources("doneButton")}}'>>
-                          </bk-button>
+                          </seer-button>
                         </div>
                         <div [innerHTML]="getCommonResources('requiredIndicator')" class="col-sm-12"></div>
                       </div>

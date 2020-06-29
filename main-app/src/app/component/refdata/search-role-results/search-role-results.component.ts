@@ -6,7 +6,7 @@ import {RoleService} from '../../../service/role.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-search-role-results',
+  selector: 'seeradmin-search-role-results',
   templateUrl: './search-role-results.component.html',
   styleUrls: ['./search-role-results.component.css']
 })

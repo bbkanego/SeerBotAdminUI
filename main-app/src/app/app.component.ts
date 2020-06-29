@@ -14,7 +14,7 @@ export interface CommonModalModel {
 }
 
 @Component({
-  selector: 'app-root',
+  selector: 'seeradmin-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

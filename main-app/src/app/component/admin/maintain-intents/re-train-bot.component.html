@@ -15,38 +15,38 @@
   </div>
   <div class='row'>
     <div class='col-sm-12'>
-      <bk-datatable #botTransactionsWidget [records]='botTransactions' pageSize='6'>
-        <bk-column field='name' header='{{getResourceLocal("botName")}}'
-                   sort='true'></bk-column>
-        <bk-column field='name' header='{{getResourceLocal("totalChats")}}'
+      <seer-datatable #botTransactionsWidget [records]='botTransactions' pageSize='6'>
+        <seer-column field='name' header='{{getResourceLocal("botName")}}'
+                   sort='true'></seer-column>
+        <seer-column field='name' header='{{getResourceLocal("totalChats")}}'
                    sort='true'>
           <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
             {{trans.successTransactions.length + trans.failureTransactions.length + trans.maybeTransactions.length}}
           </ng-template>
-        </bk-column>
-        <bk-column field='name' header='{{getResourceLocal("successChats")}}'
+        </seer-column>
+        <seer-column field='name' header='{{getResourceLocal("successChats")}}'
                    sort='true'>
           <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
             {{trans.percentageSuccess}}%
           </ng-template>
-        </bk-column>
-        <bk-column field='name' header='{{getResourceLocal("partialChats")}}'
+        </seer-column>
+        <seer-column field='name' header='{{getResourceLocal("partialChats")}}'
                    sort='true'>
           <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
             <a (click)="manageUtteranceAndIntents(trans.id, 'maybe')"
                *ngIf="trans.percentageMaybe > 0">{{trans.percentageMaybe}}%</a>
             <div *ngIf="trans.percentageMaybe === 0">{{trans.percentageMaybe}}%</div>
           </ng-template>
-        </bk-column>
-        <bk-column field='name' header='{{getResourceLocal("failedChats")}}'
+        </seer-column>
+        <seer-column field='name' header='{{getResourceLocal("failedChats")}}'
                    sort='true'>
           <ng-template bkTemplate='body' let-col='column' let-index='rowIndex' let-trans='rowData'>
             <a (click)="manageUtteranceAndIntents(trans.id, 'failed')"
                *ngIf="trans.percentageFailure > 0">{{trans.percentageFailure}}%</a>
             <div *ngIf="trans.percentageFailure === 0">{{trans.percentageFailure}}%</div>
           </ng-template>
-        </bk-column>
-      </bk-datatable>
+        </seer-column>
+      </seer-datatable>
     </div>
   </div>
 
@@ -89,18 +89,18 @@
               <div *ngFor="let utteranceGrp of utteranceToIntents.controls; let i=index" class="col-sm-12">
                 <div class="row">
                   <!--<div class="col-sm-2">
-                    <app-bk-checkbox controlId="ignoreBox{{i}}" [value]="'true'" (onClick)="onCheckBoxSelected($event)"
+                    <seer-checkbox controlId="ignoreBox{{i}}" [value]="'true'" (onClick)="onCheckBoxSelected($event)"
                                      [currentFormGroup]="utteranceGrp" label="Ignore"
-                                     currentFormControlName="ignore"></app-bk-checkbox>
+                                     currentFormControlName="ignore"></seer-checkbox>
                   </div>-->
                   <div class="col-sm-7">
-                    <app-bk-input [currentFormGroup]="utteranceGrp" controlId="utterance{{i}}"
+                    <seer-input [currentFormGroup]="utteranceGrp" controlId="utterance{{i}}"
                                   currentFormControlName="utterance"
-                                  label="Utterance"></app-bk-input>
+                                  label="Utterance"></seer-input>
                   </div>
                   <div class="col-sm-3">
-                    <app-bk-select [currentFormGroup]="utteranceGrp" [options]="currentIntents" controlId="intent{{i}}"
-                                   currentFormControlName="intentId" label="Intent"></app-bk-select>
+                    <seer-select [currentFormGroup]="utteranceGrp" [options]="currentIntents" controlId="intent{{i}}"
+                                   currentFormControlName="intentId" label="Intent"></seer-select>
                   </div>
                   <div class="col-sm-2">
                     <label>Matched Against</label>
@@ -116,10 +116,10 @@
     <div class='row'>
       <!-- {{getFormValidationErrors(botForm.controls) | json}} -->
       <div class='col-sm-12' style='margin-bottom: 1em'>
-        <bk-button [currentFormGroup]='intentsForm' intent='success' label='{{getCommonResources("saveButton")}}'
-                   type='submit'></bk-button>
-        <bk-button (click)="cancel()" intent='danger' label='{{getCommonResources("cancelButton")}}'
-                   type='button'></bk-button>
+        <seer-button [currentFormGroup]='intentsForm' intent='success' label='{{getCommonResources("saveButton")}}'
+                   type='submit'></seer-button>
+        <seer-button (click)="cancel()" intent='danger' label='{{getCommonResources("cancelButton")}}'
+                   type='button'></seer-button>
       </div>
       <div [innerHTML]="getCommonResources('requiredIndicator')" class="col-sm-12"></div>
     </div>

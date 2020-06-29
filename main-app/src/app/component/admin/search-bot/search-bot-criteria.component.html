@@ -24,26 +24,26 @@
           <div class="content padded">
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]="botSearchForm"
+                <seer-input [currentFormGroup]="botSearchForm"
                               currentFormControlName="name"
-                              label='{{getResource("maintainBot", "addBot.nameLabel")}}'></app-bk-input>
+                              label='{{getResource("maintainBot", "addBot.nameLabel")}}'></seer-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]="botSearchForm"
+                <seer-input [currentFormGroup]="botSearchForm"
                               currentFormControlName="displayName"
-                              label='{{getResource("maintainBot", "addBot.displayNameLabel")}}'></app-bk-input>
+                              label='{{getResource("maintainBot", "addBot.displayNameLabel")}}'></seer-input>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-select [currentFormGroup]='botSearchForm'
+                <seer-select [currentFormGroup]='botSearchForm'
                                [options]='category'
                                currentFormControlName='category'
-                               label='{{getResource("maintainBot", "addBot.categoryLabel")}}'></app-bk-select>
+                               label='{{getResource("maintainBot", "addBot.categoryLabel")}}'></seer-select>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <!-- <app-bk-input [currentFormGroup]="botSearchForm" label='{{getResource("maintainBot", "addBot.descriptionLabel")}}'
-                currentFormControlName="description"></app-bk-input> -->
+                <!-- <seer-input [currentFormGroup]="botSearchForm" label='{{getResource("maintainBot", "addBot.descriptionLabel")}}'
+                currentFormControlName="description"></seer-input> -->
               </div>
             </div>
           </div>
@@ -52,13 +52,13 @@
     </div>
     <div class='row'>
       <div class='col-sm-12' style='margin-bottom: 1em'>
-        <bk-button [currentFormGroup]='formDir' intent='success' label='{{getCommonResources("searchButton")}}'
-                   type='submit'></bk-button>
-        <bk-button (click)="revert()" intent='warning'
-                   label='{{getCommonResources("resetButton")}}'></bk-button>
-        <bk-button (click)="cancel()" intent='danger'
+        <seer-button [currentFormGroup]='formDir' intent='success' label='{{getCommonResources("searchButton")}}'
+                   type='submit'></seer-button>
+        <seer-button (click)="revert()" intent='warning'
+                   label='{{getCommonResources("resetButton")}}'></seer-button>
+        <seer-button (click)="cancel()" intent='danger'
                    label='{{getCommonResources("cancelButton")}}'>>
-        </bk-button>
+        </seer-button>
       </div>
       <div [innerHTML]="getCommonResources('requiredIndicator')" class="col-sm-12"></div>
     </div>

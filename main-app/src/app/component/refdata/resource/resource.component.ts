@@ -7,7 +7,7 @@ import {ResourceService} from '../../../service/resource.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-resource',
+  selector: 'seeradmin-resource',
   templateUrl: './resource.component.html',
   styleUrls: ['./resource.component.css']
 })

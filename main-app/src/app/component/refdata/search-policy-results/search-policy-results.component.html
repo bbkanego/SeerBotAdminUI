@@ -9,13 +9,13 @@
   </div>
   <div class="row">
     <div class="col-sm-12">
-      <bk-datatable
+      <seer-datatable
         #searchPolicyResultsTable
         [records]="policyResults"
         pageSize="6"
         smallDeviceHeader="{{ getCommonResources('resultsHeading') }}"
       >
-        <bk-column
+        <seer-column
           field="name"
           header="{{ getCommonResources('entity.name') }}"
           sort="true"
@@ -28,13 +28,13 @@
           >
             <a (click)='editPolicy(policyRow.id)'>{{policyRow.name}}</a>
           </ng-template>
-        </bk-column>
-        <bk-column
+        </seer-column>
+        <seer-column
           field="description"
           header="{{ getCommonResources('entity.description') }}"
           sort="true"
-        ></bk-column>
-        <bk-column
+        ></seer-column>
+        <seer-column
           field="statements"
           header="{{ getResourceLocal('maintainPolicy.statementHeading') }}"
           sort="true"
@@ -50,8 +50,8 @@
               [<span *ngFor="let action of statement.actions; let j = index">{{action.name}},</span>]
             </div>
           </ng-template>
-        </bk-column>
-      </bk-datatable>
+        </seer-column>
+      </seer-datatable>
     </div>
   </div>
 </div>

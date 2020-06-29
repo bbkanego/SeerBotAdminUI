@@ -9,7 +9,7 @@ import {BaseBotComponent} from '../../common/baseBot.component';
 
 
 @Component({
-  selector: 'app-launch-bot',
+  selector: 'seeradmin-launch-bot',
   templateUrl: './launch-bot.component.html',
   styleUrls: ['./launch-bot.component.css']
 })

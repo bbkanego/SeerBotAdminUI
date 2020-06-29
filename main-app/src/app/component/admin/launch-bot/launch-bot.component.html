@@ -45,20 +45,20 @@
                 </div>
                 <div class="row">
                   <div class="form-group col-lg-6 displayHeader">
-                    <app-bk-select
+                    <seer-select
                       (onSelect)="onSelectHandler($event)"
                       [currentFormGroup]="launchForm"
                       [options]="trainedModels"
                       currentFormControlName="trainedModelId"
                       label="{{ getResourceLocal('startLaunch.trainedModel') }}"
-                    ></app-bk-select>
+                    ></seer-select>
                   </div>
                   <div class="form-group col-lg-6 displayHeader">
-                    <app-bk-input
+                    <seer-input
                       [currentFormGroup]="launchForm"
                       currentFormControlName="allowedOrigins"
                       label="{{getResourceLocal('startLaunch.allowedOrigin')}}"
-                    ></app-bk-input>
+                    ></seer-input>
                   </div>
                 </div>
               </div>
@@ -70,18 +70,18 @@
   </div>
   <div class="row">
     <div class="col-sm-12" style="margin-bottom: 1em">
-      <bk-button
+      <seer-button
         (click)="testNow()"
         *ngIf="launchDTO.bot.status.code === 'DRAFT'"
         [disabled]="isDisabled()"
         intent="success"
         label="{{getResourceLocal('startLaunch.testNow')}}"
-        type="button"></bk-button>
+        type="button"></seer-button>
 
-      <bk-button
+      <seer-button
         (click)="cancel()"
         intent="danger"
-        label="{{ getCancelButtonLabel() }}"></bk-button>
+        label="{{ getCancelButtonLabel() }}"></seer-button>
     </div>
   </div>
 </div>

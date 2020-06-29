@@ -4,7 +4,7 @@ import {BotAuthenticationService} from '../../service/authentication.service';
 
 
 @Component({
-  selector: 'app-page-not-found',
+  selector: 'seeradmin-page-not-found',
   templateUrl: './pageNotFound.component.html',
   styleUrls: ['./pageNotFound.component.css']
 })

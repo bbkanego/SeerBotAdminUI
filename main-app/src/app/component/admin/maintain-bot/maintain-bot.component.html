@@ -21,23 +21,23 @@
           <div class="content padded">
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]='botForm' currentFormControlName='name'
-                              label='{{getResourceLocal("nameLabel")}}'></app-bk-input>
+                <seer-input [currentFormGroup]='botForm' currentFormControlName='name'
+                              label='{{getResourceLocal("nameLabel")}}'></seer-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]='botForm' currentFormControlName='displayName'
-                              label='{{getResourceLocal("displayNameLabel")}}'></app-bk-input>
+                <seer-input [currentFormGroup]='botForm' currentFormControlName='displayName'
+                              label='{{getResourceLocal("displayNameLabel")}}'></seer-input>
               </div>
             </div>
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-select [currentFormGroup]='botForm' [options]='category'
+                <seer-select [currentFormGroup]='botForm' [options]='category'
                                currentFormControlName='category'
-                               label='{{getResourceLocal("categoryLabel")}}'></app-bk-select>
+                               label='{{getResourceLocal("categoryLabel")}}'></seer-select>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-textarea [currentFormGroup]='botForm' currentFormControlName='description'
-                                 label='{{getResourceLocal("descriptionLabel")}}'></app-bk-textarea>
+                <seer-textarea [currentFormGroup]='botForm' currentFormControlName='description'
+                                 label='{{getResourceLocal("descriptionLabel")}}'></seer-textarea>
               </div>
             </div>
           </div>
@@ -47,12 +47,12 @@
     <div class='row'>
       <!-- {{getFormValidationErrors(botForm.controls) | json}} -->
       <div class='col-sm-12' style='margin-bottom: 1em'>
-        <bk-button [currentFormGroup]='botForm' intent='success' label='{{getCommonResources("saveButton")}}'
-                   type='submit'></bk-button>
-        <bk-button (click)="showDeleteModel()" *ngIf='isDeleteAllowed()' intent='danger'
-                   label='{{getCommonResources("deleteButton")}}'></bk-button>
-        <bk-button (click)="revert()" intent='warning' label='{{getCommonResources("revertButton")}}'></bk-button>
-        <bk-button (click)="cancel()" intent='danger' label='{{getCommonResources("cancelButton")}}'>></bk-button>
+        <seer-button [currentFormGroup]='botForm' intent='success' label='{{getCommonResources("saveButton")}}'
+                   type='submit'></seer-button>
+        <seer-button (click)="showDeleteModel()" *ngIf='isDeleteAllowed()' intent='danger'
+                   label='{{getCommonResources("deleteButton")}}'></seer-button>
+        <seer-button (click)="revert()" intent='warning' label='{{getCommonResources("revertButton")}}'></seer-button>
+        <seer-button (click)="cancel()" intent='danger' label='{{getCommonResources("cancelButton")}}'>></seer-button>
       </div>
       <div [innerHTML]="getCommonResources('requiredIndicator')" class="col-sm-12"></div>
     </div>
@@ -60,7 +60,7 @@
     {{botForm.value | json}} -->
   </form>
 
-  <app-bk-custom-modal>
+  <seer-custom-modal>
     <div class="app-modal-header">
       <span class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal("deleteHeading")}}
     </div>
@@ -68,9 +68,9 @@
       {{getResourceLocal("deleteMessage")}}
     </div>
     <div class="app-modal-footer">
-      <bk-button (click)='deleteBotModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
-      </bk-button>
-      <bk-button (click)="deleteBot()" intent="danger" label="{{ getCommonResources('deleteButton') }}"></bk-button>
+      <seer-button (click)='deleteBotModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
+      </seer-button>
+      <seer-button (click)="deleteBot()" intent="danger" label="{{ getCommonResources('deleteButton') }}"></seer-button>
     </div>
-  </app-bk-custom-modal>
+  </seer-custom-modal>
 </div>

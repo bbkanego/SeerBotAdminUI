@@ -8,7 +8,7 @@ import {CategoryService} from '../../../service/category.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-maintain-category',
+  selector: 'seeradmin-maintain-category',
   templateUrl: './maintain-category.component.html',
   styleUrls: ['./maintain-category.component.css']
 })

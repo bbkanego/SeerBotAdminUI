@@ -8,7 +8,7 @@ import {PolicyService} from '../../../service/policy.service';
 import {BaseBotComponent} from '../../common/baseBot.component';
 
 @Component({
-  selector: 'app-policy',
+  selector: 'seeradmin-policy',
   templateUrl: './policy.component.html',
   styleUrls: ['./policy.component.css']
 })

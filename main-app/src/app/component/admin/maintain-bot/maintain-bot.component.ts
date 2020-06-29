@@ -9,7 +9,7 @@ import {BaseBotComponent} from '../../common/baseBot.component';
 
 
 @Component({
-  selector: 'app-maintain-bot',
+  selector: 'seeradmin-maintain-bot',
   templateUrl: './maintain-bot.component.html',
   styleUrls: ['./maintain-bot.component.css']
 })

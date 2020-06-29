@@ -21,21 +21,20 @@
           <div class="content padded">
             <div class='row'>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]='trainForm' currentFormControlName='name'
-                              label='{{getResourceLocal("trainModel.nameLabel")}}'></app-bk-input>
+                <seer-input [currentFormGroup]='trainForm' currentFormControlName='name'
+                              label='{{getResourceLocal("trainModel.nameLabel")}}'></seer-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-textarea [currentFormGroup]='trainForm'
+                <seer-textarea [currentFormGroup]='trainForm'
                                  currentFormControlName='description'
-                                 label='{{getResourceLocal("trainModel.descriptionNameLabel")}}'>
-                </app-bk-textarea>
+                                 label='{{getResourceLocal("trainModel.descriptionNameLabel")}}'></seer-textarea>
               </div>
             </div>
             <div class='row'>
               <div class="col-sm-12 col-lg-6">
-                <app-bk-select [currentFormGroup]='trainForm' [options]='category'
+                <seer-select [currentFormGroup]='trainForm' [options]='category'
                                currentFormControlName='category'
-                               label='{{getResourceLocal("trainModel.categoryLabel")}}'></app-bk-select>
+                               label='{{getResourceLocal("trainModel.categoryLabel")}}'></seer-select>
               </div>
               <div class="col-sm-12 col-lg-6"></div>
             </div>
@@ -45,11 +44,11 @@
     </div>
     <div class='row'>
       <div class='col-sm-12' style='margin-bottom: 1em'>
-        <bk-button [currentFormGroup]='trainForm' intent='success' label='{{getCommonResources("saveButton")}}'
-                   type='submit'></bk-button>
-        <bk-button (click)="revert()" intent='warning' label='{{getCommonResources("revertButton")}}'></bk-button>
-        <bk-button (click)="cancel()" intent='danger' label='{{getCommonResources("cancelButton")}}'>
-        </bk-button>
+        <seer-button [currentFormGroup]='trainForm' intent='success' label='{{getCommonResources("saveButton")}}'
+                   type='submit'></seer-button>
+        <seer-button (click)="revert()" intent='warning' label='{{getCommonResources("revertButton")}}'></seer-button>
+        <seer-button (click)="cancel()" intent='danger' label='{{getCommonResources("cancelButton")}}'>
+        </seer-button>
       </div>
       <div [innerHTML]="getCommonResources('requiredIndicator')" class="col-sm-12"></div>
     </div>
@@ -98,17 +97,17 @@
 
   <div class='row'>
     <div class='col-sm-12' style='margin-bottom: 1em'>
-      <bk-button (click)="reTrainModel(trainModel.id)" intent='success' label='{{getCommonResources("reTrainButton")}}'>
-      </bk-button>
-      <bk-button (click)="showDeleteModel()" *ngIf='isDeleteAllowed()' intent='danger'
-                 label='{{getCommonResources("deleteButton")}}'></bk-button>
-      <bk-button (click)="cancel()" intent='warning' label='{{getCommonResources("cancelButton")}}'>>
-      </bk-button>
+      <seer-button (click)="reTrainModel(trainModel.id)" intent='success' label='{{getCommonResources("reTrainButton")}}'>
+      </seer-button>
+      <seer-button (click)="showDeleteModel()" *ngIf='isDeleteAllowed()' intent='danger'
+                 label='{{getCommonResources("deleteButton")}}'></seer-button>
+      <seer-button (click)="cancel()" intent='warning' label='{{getCommonResources("cancelButton")}}'>>
+      </seer-button>
     </div>
   </div>
 </div>
 
-<app-bk-custom-modal #trainModelModal>
+<seer-custom-modal #trainModelModal>
   <div class="app-modal-header">
       <span
         class="custom-glyphicon glyphicon glyphicon-exclamation-sign"></span>{{getResourceLocal("trainModel.deleteHeading")}}
@@ -117,8 +116,8 @@
     {{getResourceLocal("trainModel.deleteMessage")}}
   </div>
   <div class="app-modal-footer">
-    <bk-button (click)='deleteModelModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
-    </bk-button>
-    <bk-button (click)="delete()" intent="danger" label="{{ getCommonResources('deleteButton') }}"></bk-button>
+    <seer-button (click)='deleteModelModal.hide()' intent="success" label="{{ getCommonResources('noButton') }}">
+    </seer-button>
+    <seer-button (click)="delete()" intent="danger" label="{{ getCommonResources('deleteButton') }}"></seer-button>
   </div>
-</app-bk-custom-modal>
+</seer-custom-modal>

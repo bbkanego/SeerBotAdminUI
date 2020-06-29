@@ -8,7 +8,7 @@ import {BaseBotComponent} from '../../common/baseBot.component';
 
 
 @Component({
-  selector: 'app-search-bot-criteria',
+  selector: 'seeradmin-search-bot-criteria',
   templateUrl: './search-bot-criteria.component.html',
   styleUrls: ['./search-bot-criteria.component.css']
 })

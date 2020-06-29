@@ -8,7 +8,7 @@ import {BaseBotComponent} from '../../common/baseBot.component';
 import {BIZ_BOTS_CONSTANTS} from '../../../model/Constants';
 
 @Component({
-  selector: 'app-train-model',
+  selector: 'seeradmin-train-model',
   templateUrl: './train-model.component.html',
   styleUrls: ['./train-model.component.css']
 })

@@ -24,22 +24,22 @@
           <div class="content padded">
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]="intentSearchForm"
+                <seer-input [currentFormGroup]="intentSearchForm"
                               currentFormControlName="intentName"
-                              label='{{getResource("searchIntents", "intentLabel")}}'></app-bk-input>
+                              label='{{getResource("searchIntents", "intentLabel")}}'></seer-input>
               </div>
               <div class="col-lg-6 col-sm-12">
-                <app-bk-input [currentFormGroup]="intentSearchForm"
+                <seer-input [currentFormGroup]="intentSearchForm"
                               currentFormControlName="utteranceLike"
-                              label='{{getResource("searchIntents", "utteranceLikeLabel")}}'></app-bk-input>
+                              label='{{getResource("searchIntents", "utteranceLikeLabel")}}'></seer-input>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-6 col-sm-12">
-                <app-bk-select [currentFormGroup]="intentSearchForm"
+                <seer-select [currentFormGroup]="intentSearchForm"
                                [options]='category'
                                currentFormControlName='category'
-                               label='{{getResource("searchIntents", "categoryLabel")}}'></app-bk-select>
+                               label='{{getResource("searchIntents", "categoryLabel")}}'></seer-select>
               </div>
               <div class="col-lg-6 col-sm-12">
               </div>
@@ -50,13 +50,13 @@
     </div>
     <div class='row'>
       <div class='col-sm-12' style='margin-bottom: 1em'>
-        <bk-button [currentFormGroup]="intentSearchForm" intent='success' label='{{getCommonResources("searchButton")}}'
-                   type='submit'></bk-button>
-        <bk-button (click)="revert()" intent='warning'
-                   label='{{getCommonResources("resetButton")}}'></bk-button>
-        <bk-button (click)="cancel()" intent='danger'
+        <seer-button [currentFormGroup]="intentSearchForm" intent='success' label='{{getCommonResources("searchButton")}}'
+                   type='submit'></seer-button>
+        <seer-button (click)="revert()" intent='warning'
+                   label='{{getCommonResources("resetButton")}}'></seer-button>
+        <seer-button (click)="cancel()" intent='danger'
                    label='{{getCommonResources("cancelButton")}}'>>
-        </bk-button>
+        </seer-button>
       </div>
       <div [innerHTML]="getCommonResources('requiredIndicator')" class="col-sm-12"></div>
     </div>
