@@ -439,7 +439,7 @@ export class TestBotComponent extends BaseBotComponent
 
     this.httpClient
       .post(botAccessUrl, JSON.stringify(message), inputHeaders).pipe(
-      map((res: HttpResponse<any>) => res.body()))
+      map((res: HttpResponse<any>) => res.body))
       .subscribe(data => {
         this.chatBox.nativeElement.value = '';
         this.handleResponse(data);
