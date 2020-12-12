@@ -30,19 +30,20 @@ The above mapping of environment files to various environments is configured in 
 
 In order to run the chatbot bot locally with a specific environment use the below command:
 ```
-ng serve --env=<envName> (eg: ng serve --env=mock)
+$> ng serve --env=<envName> (eg: ng serve --env=mock)
 ```
 
 NPM Shortcuts have been provided in the "package.json" and the app can run using those short cuts. See below for examples:
 ```
-npm run local // same as running ng serve --env=local
-npm run dev // same ng serve --env=dev
-npm run mock // same ng serve --env=mock
+$> cd ~/Bhushan/code/angular/SeerlogicsBotAdminUI/main-app
+$> npm run local // same as running ng serve --env=local
+$> npm run dev // same ng serve --env=dev
+$> npm run mock // same ng serve --env=mock
 ```
 
 To build an application for different environments use the below command:
 ```
-ng build --prod --env=<envName> (eg: ng build --prod --env=dev)
+$> ng build --prod --env=<envName> (eg: ng build --prod --env=dev)
 ```
 
 Refer the [Environments in Angular 5](https://medium.com/@onlyyprasanth/how-to-manage-multiple-environments-with-angular-cli-angular-2-to-5-aa68d557fa77) article for more info.
